@@ -1,4 +1,4 @@
-Letourneau Benjamin 
-Lamoureux Adrien
-Sollaud Timothée
-Verger Romain
+* Letourneau Benjamin 
+* Lamoureux Adrien
+* Sollaud Timothée
+* Verger Romain
