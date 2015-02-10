@@ -1,4 +1,3 @@
 #!/bin/bash
-mkdir mongodb/
-xterm -hold -e mongod --dbpath mongodb/ &
-xterm -hold -e ./../node_modules/nodemon/bin/nodemon.js server.js &
+xterm -hold -e mongod --dbpath ./../mongodb/ &
+xterm -hold -e nodemon server.js &
