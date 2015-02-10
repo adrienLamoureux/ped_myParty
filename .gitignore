@@ -22,3 +22,5 @@ npm-debug.log
 /scripts/bower/bower-*
 mongodb/
 vendor/
+/server/*.bat
+/server/*.sh
