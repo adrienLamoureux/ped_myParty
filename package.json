@@ -1,0 +1,18 @@
+{
+"name": "myParty",
+"version": "1.0.0",
+"name": "myParty",
+"description": "myParty for AngularJS",
+"devDependencies": {
+    "requirejs": "^2.1.14",
+    "bower":"^1.3.12"
+	},
+"dependencies": {
+    "express": "*",
+    "body-parser": "*",
+    "mongoose": "*"
+	},
+ "scripts": {
+    "postinstall": "bower install"
+  	}   
+}
