@@ -23,6 +23,13 @@ app.listen(port, function () {
     console.log('Express server listening on port %d in %s mode', port, app.settings.env)
 });
 
-mongoose.connect('mongodb://localhost:27017/ped_myParty');
+mongoose.connect('mongodb://localhost:27017/mongodb', function(err){
+	if(err){
+		console.error("Failed to connect to MongoDB");
+		console.log(err);
+	}
+	else
+		"Successfully connection to MongoDB";
+});
 
 
