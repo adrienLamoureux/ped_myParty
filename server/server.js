@@ -33,3 +33,71 @@ mongoose.connect('mongodb://localhost:27017/mongodb', function(err){
 });
 
 
+// Schema
+
+var myAdress = mongoose.Schema({
+	country: String,
+	county: String,
+	city: String,
+	zipCode: String,
+	street: String 
+})
+
+var userSchema = mongoose.Schema({
+	email: String,
+	password: String,
+	name: String,
+	firstName: String,
+	phoneNumber: String,
+	inscriptionDate: Date,
+	events: [mongoose.Schema.Types.ObjectId]
+});
+
+var eventSchema = mongoose.Schema({
+	owner: mongoose.Schema.Types.ObjectId,
+	description: String,
+	adress: myAdress,
+	image: String,
+	tickets: [ticketSchema],
+	ticketSelled: Number,
+	uniqueTicketID: Number,
+	dateStarting: Date,
+	dateEnding: Date,
+	avaible: {type: boolean, default: true}
+});
+
+var commandsSchema = mongoose.Schema({
+	commands: [cmdSchema],
+	dateBuy: Date
+});
+
+var pannerSchema = mongoose.Schema({
+	commands: [cmdSchema]
+});
+
+var cmdSchema = mongoose.Schema({
+	eventID: mongoose.Schema.Types.ObjectId,
+	tickets: [mongoose.Schema.Types.ObjectId]
+});
+
+var ticketSchema = mongoose.Schema({
+	id: Number,
+	userID: mongoose.Schema.Types.ObjectId,
+	ticketTypeID: mongoose.Schema.Types.ObjectId
+});
+
+var ticketTypeSchema = mongoose.Schema({
+	selled: Number,
+	price: Number,
+	avaible: {type:boolean, default:true},
+	image: String
+});
+
+
+
+// Model
+
+var userModel = mongoose.Model('userModel', userSchema);
+var eventModel = mongoose.Model('eventModel', eventSchema);
+var commandsModel = mongoose.Model('commandsModel' commandsSchema);
+var ticketTypeModel = mongoose.Model('ticketTypeModel', ticketTypeSchema);
