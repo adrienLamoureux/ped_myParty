@@ -13,7 +13,7 @@ var app = express();
 // Configure server
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(path.join(application_root ,'../client/app/')));
+app.use(express.static(path.join(application_root ,'../client/')));
 //Show all errors in development
 
 //Start server
@@ -34,70 +34,77 @@ mongoose.connect('mongodb://localhost:27017/mongodb', function(err){
 
 
 // Schema
-
-var myAdress = mongoose.Schema({
+var Schema = mongoose.Schema;
+/*
+var myAdress = new Schema({
 	country: String,
 	county: String,
 	city: String,
 	zipCode: String,
 	street: String 
-})
+});
+*/
+var cmdSchema = new Schema({
+	eventID: {type: mongoose.Schema.Types.ObjectId, ref:'eventModel'},
+	tickets: [{type: mongoose.Schema.Types.ObjectId, ref:'userModel'}]
+});
+/*
+var pannerSchema = new Schema({
+	commands: [cmdSchema]
+});
+*/
+var commandsSchema = new Schema({
+	commands: [cmdSchema],
+	dateBuy: Date
+});
 
-var userSchema = mongoose.Schema({
+var ticketSchema = new Schema({
+	id: Number,
+	userID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
+	ticketTypeID: {type: mongoose.Schema.Types.ObjectId, ref:'ticketTypeModel'}
+});
+
+var ticketTypeSchema = new Schema({
+	selled: Number,
+	price: Number,
+	avaible: {type: Boolean, default:true},
+	image: String
+});
+
+var userSchema = new Schema({
 	email: String,
 	password: String,
 	name: String,
 	firstName: String,
 	phoneNumber: String,
 	inscriptionDate: Date,
-	events: [mongoose.Schema.Types.ObjectId]
+	events: [{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
+	commandsID: {type: mongoose.Schema.Types.ObjectId, ref:'commandsModel'},
+//	panner: pannerSchema
+	panner : [cmdSchema]
 });
 
-var eventSchema = mongoose.Schema({
-	owner: mongoose.Schema.Types.ObjectId,
+var eventSchema = new Schema({
+	owner: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
 	description: String,
-	adress: myAdress,
+	//adress: myAdress,
+	country: String,
+	county: String,
+	city: String,
+	zipCode: String,
+	street: String, 
 	image: String,
 	tickets: [ticketSchema],
 	ticketSelled: Number,
 	uniqueTicketID: Number,
 	dateStarting: Date,
 	dateEnding: Date,
-	avaible: {type: boolean, default: true}
+	avaible: {type: Boolean, default: true}
 });
-
-var commandsSchema = mongoose.Schema({
-	commands: [cmdSchema],
-	dateBuy: Date
-});
-
-var pannerSchema = mongoose.Schema({
-	commands: [cmdSchema]
-});
-
-var cmdSchema = mongoose.Schema({
-	eventID: mongoose.Schema.Types.ObjectId,
-	tickets: [mongoose.Schema.Types.ObjectId]
-});
-
-var ticketSchema = mongoose.Schema({
-	id: Number,
-	userID: mongoose.Schema.Types.ObjectId,
-	ticketTypeID: mongoose.Schema.Types.ObjectId
-});
-
-var ticketTypeSchema = mongoose.Schema({
-	selled: Number,
-	price: Number,
-	avaible: {type:boolean, default:true},
-	image: String
-});
-
-
 
 // Model
 
-var userModel = mongoose.Model('userModel', userSchema);
-var eventModel = mongoose.Model('eventModel', eventSchema);
-var commandsModel = mongoose.Model('commandsModel' commandsSchema);
-var ticketTypeModel = mongoose.Model('ticketTypeModel', ticketTypeSchema);
+var userModel = mongoose.model('userModel', userSchema);
+var eventModel = mongoose.model('eventModel', eventSchema);
+var commandsModel = mongoose.model('commandsModel', commandsSchema);
+var ticketTypeModel = mongoose.model('ticketTypeModel', ticketTypeSchema);
