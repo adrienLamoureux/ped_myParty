@@ -46,7 +46,7 @@ var myAdress = new Schema({
 */
 var cmdSchema = new Schema({
 	eventID: {type: mongoose.Schema.Types.ObjectId, ref:'eventModel'},
-	tickets: [{type: mongoose.Schema.Types.ObjectId, ref:'userModel'}]
+	tickets: [ticketSchema]
 });
 /*
 var pannerSchema = new Schema({
