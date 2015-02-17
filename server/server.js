@@ -108,3 +108,4 @@ var userModel = mongoose.model('userModel', userSchema);
 var eventModel = mongoose.model('eventModel', eventSchema);
 var commandsModel = mongoose.model('commandsModel', commandsSchema);
 var ticketTypeModel = mongoose.model('ticketTypeModel', ticketTypeSchema);
+
