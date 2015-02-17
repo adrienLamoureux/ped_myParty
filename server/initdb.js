@@ -2,21 +2,19 @@ var mongo = require('mongodb').MongoClient;
 
 console.log("Connecting to the database ...");
 
-var clearDb = function(collectionName){
-	db.collection(collectionName, function(err, collection) {
-		if (collection) { // 'quizz' collection exists, so clear it before filling
+var initUser = function(db){
+		db.collection('userModel', function(err, collection) {
+		if (collection) {
 			collection.remove({}, function(err,removed) {
 				if (!removed) {
 					console.log("\t--> collection could not be cleared!\n");
 					throw err; return false; }
 			});
-		}
-	})
-}
+		};
 
-var insertUser = function(){
 		console.log("Inserting new documents in 'user' ...");
-		userModel.insert([
+
+		collection.insert([
 			{
 				email: 'toto@gmail',
 				password: 'toto',
@@ -35,11 +33,21 @@ var insertUser = function(){
 			console.log(JSON.stringify(result, null, 4));
 			console.log("\nDatabase successfully initialized!");
 		});
+	});
 };
 
-var insertEvent = function(){
+var initEvent = function(db){
+		db.collection('eventModel', function(err, collection) {
+		if (collection) {
+			collection.remove({}, function(err,removed) {
+				if (!removed) {
+					console.log("\t--> collection could not be cleared!\n");
+					throw err; return false; }
+			});
+		};
+
 		console.log("Inserting new documents in 'event' ...");
-		eventModel.insert([
+		collection.insert([
 			{
 				owner: null,
 				description: 'Super party',
@@ -63,11 +71,21 @@ var insertEvent = function(){
 			console.log(JSON.stringify(result, null, 4));
 			console.log("\nDatabase successfully initialized!");
 		});
+	});
 };
 
-var insertTicket = function(){
+var initTicket = function(db){
+	db.collection('ticketTypeModel', function(err, collection) {
+		if (collection) {
+			collection.remove({}, function(err,removed) {
+				if (!removed) {
+					console.log("\t--> collection could not be cleared!\n");
+					throw err; return false; }
+			});
+		};
+
 	console.log("Inserting new documents in 'ticketType' ...");
-		ticketTypeModel.insert([
+		collection.insert([
 			{
 				selled: 0,
 				price: 50,
@@ -81,11 +99,20 @@ var insertTicket = function(){
 			console.log(JSON.stringify(result, null, 4));
 			console.log("\nDatabase successfully initialized!");
 		});
+	});
 };
 
-var insertCommands = function(){
+var initCommands = function(db){
+	db.collection('commandsModel', function(err, collection) {
+		if (collection) {
+			collection.remove({}, function(err,removed) {
+				if (!removed) {
+					console.log("\t--> collection could not be cleared!\n");
+					throw err; return false; }
+			});
+		};
 	console.log("Inserting new documents in 'commands' ...");
-		commandsModel.insert([
+		collection.insert([
 			{
 				commands: [],
 				dateBuy: new Date('Jun 22, 2014')
@@ -97,21 +124,16 @@ var insertCommands = function(){
 			console.log(JSON.stringify(result, null, 4));
 			console.log("\nDatabase successfully initialized!");
 		});
+	});
 };
 
 mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {
 	if (err) { console.log("\t--> Connection failure !\n"); return false; }
 	console.log("\t--> Successfully connected to the database!\n");
 
-	clearDb('userModel');
-	clearDb('eventModel');
-	clearDb('ticketTypeModel');
-	clearDb('commandsModel');
+	initUser(db);
+	initEvent(db);
+	initTicket(db);
+	initCommands(db);
 
-	insertUser();
-	insertEvent();
-	insertTicket();
-	insertCommands();
-
-		
 });

@@ -9,7 +9,8 @@
   "dependencies": {
     "body-parser": "*",
     "express": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "mongodb":"*"
   },
   "scripts": {
 	"postinstall": "npm install -g nodemon",
