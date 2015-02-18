@@ -1,0 +1,52 @@
+
+/*********************************/
+/*** eventFrm ********************/
+/***          ********************/
+	#eventForm { 
+		width:500px;
+		margin:auto;
+		border:1px solid lightgray; 
+		border-radius:10px; 
+		padding:10px; 
+	}
+
+	#eventForm hr { 
+		border:1px solid lightgray; 
+		margin:0; 
+	}
+	/*
+	#eventForm div > input { 
+		margin-top:5px; 
+	}
+	#eventForm input[type=text] { 
+		display:inline-block; width:80%; 
+	}
+
+	#eventForm input[type=date] { 
+		display:inline-block; width:20%; 
+	}
+
+	#eventForm label + input[type="text"] { 
+		width:95%; 
+		margin-bottom:10px; 
+	}
+
+	#eventForm input[type=number] { 
+		display:inline-block; 
+		width:80px; 
+		text-align:center; 
+	}
+
+	#eventForm button ~ p { 
+		clear:both; 
+	}
+
+	#eventForm label { 
+		margin-right:10px; 
+		font-weight:normal;
+		cursor:pointer;
+	}*/
+
+/*********************************/
+/***          ********************/
+/***          ********************/
