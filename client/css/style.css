@@ -23,28 +23,27 @@
 		margin-left:15px; 
 	}
 
-	/*
-	#eventForm input[type=text] { 
-		display:inline-block; width:80%; 
-	}
-
-	#eventForm input[type=date] { 
-		display:inline-block; width:20%; 
-	}
-	*/
-	#eventForm label + input[type="text"], #eventForm label + input[type="date"]  { 
-		width:95%;
-		margin-bottom:10px; 
-	}
-/*
-	#eventForm input[type=number] { 
+	#eventForm input { 
 		display:inline-block; 
 		width:80px; 
 		text-align:center; 
 	}
+	
+	#eventForm label + input, #eventForm label + textarea  { 
+		width:95%;
+		margin-bottom:10px; 
+	}
 
-	#eventForm button ~ p { 
-		clear:both; 
+	#eventForm button[type=submit]{
+		margin-top:10px;
+	}
+
+	#eventForm img{
+		height:25px; 
+		margin:0px; 
+		padding:0px;
+		padding-bottom:5px;
+		cursor:pointer;
 	}
 
 /*********************************/
