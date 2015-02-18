@@ -1,5 +1,5 @@
 // Event Frm Directive Controller
-app.controller('EventFrmCtrl', ['$scope', function ($scope,){
+app.controller('EventFrmCtrl', ['$scope', function ($scope){
 
 	$scope.defaultEvent = {
 		'owner': null,
