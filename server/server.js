@@ -137,7 +137,7 @@ app.post('/api/event', function (req, res, next){
     });
 });
 
-app.put('/api/event/:id', function (req, res, next)
+app.put('/api/event', function (req, res, next)
 {
   delete req.body._id; //duplicate id bug
   console.log('put event : '+req.body);
