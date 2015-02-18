@@ -1,4 +1,4 @@
 // Event Miniature Directive Controller
-app.controller('EventMiniatureCtrl', ['$scope', function ($scope,){
+app.controller('EventMiniatureCtrl', ['$scope', function ($scope){
 
 }]);
