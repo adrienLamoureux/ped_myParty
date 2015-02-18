@@ -1,43 +1,45 @@
 <!-- eventForm Partial -->
 <fieldset  id="eventForm" ng-controller="EventCtrl" class="eventForm">
 	<form name="eventForm" validate>
-		<h2>{{formTitleLabel}} de l'événement</h2>
-		<label>Titre</label>
-		<input id="txtEventTitle" type="text" class="form-control" placeholder="Mon super événement" ng-model="eventFormData.title" required/><br/>
-		
-		<label>Date de début</label>
-		<input id="txtEventDateStarting" type="date" class="form-control" placeholder="aaaa-mm-jj" ng-model="eventFormData.dateStarting" required/>
-		<label>Date de fin</label>
-		<input id="txtEventDateEnding" type="date" class="form-control" placeholder="aaaa-mm-jj" ng-model="eventFormData.dateEnding" required/><br/>
-		
-		<label>Description</label>
-		<textarea id="txtEventDescription" class="form-control" placeholder="Description de l'événement" ng-model="eventFormData.description" required/></textarea><br/>
+		<!-- Info générales -->
+		<h2>Informations générales</h2>
+		<div>
+			<label>Titre</label>
+			<input id="txtEventTitle" type="text" class="form-control" placeholder="Mon super événement" ng-model="eventFormData.title" required/><br/>
+			
+			<label>Date de début</label>
+			<input id="txtEventDateStarting" type="date" class="form-control" placeholder="aaaa-mm-jj" ng-model="eventFormData.dateStarting" required/>
+			<label>Date de fin</label>
+			<input id="txtEventDateEnding" type="date" class="form-control" placeholder="aaaa-mm-jj" ng-model="eventFormData.dateEnding" required/><br/>
+			
+			<label>Description</label>
+			<textarea id="txtEventDescription" class="form-control" placeholder="Description de l'événement" ng-model="eventFormData.description" required/></textarea><br/>
 
-		<label>Adresse</label>
-		<input id="txtEventStreet" type="text" class="form-control" placeholder="rue / avenue / residence..." ng-model="eventFormData.street" required/><br/>
-		
-		<label>Code postal</label>
-		<input id="txtEventZipCode" type="text" class="form-control" placeholder="33000" ng-model="eventFormData.zipCode" required/>
-		<label>Ville</label>
-		<input id="txtEventCity" type="text" class="form-control" placeholder="Bordeaux" ng-model="eventFormData.city" required/><br/>
+			<label>Adresse</label>
+			<input id="txtEventStreet" type="text" class="form-control" placeholder="rue / avenue / residence..." ng-model="eventFormData.street" required/><br/>
+			
+			<label>Code postal</label>
+			<input id="txtEventZipCode" type="text" class="form-control" placeholder="33000" ng-model="eventFormData.zipCode" required/>
+			<label>Ville</label>
+			<input id="txtEventCity" type="text" class="form-control" placeholder="Bordeaux" ng-model="eventFormData.city" required/><br/>
 
-		<label>Département</label>
-		<input id="txtEventCounty" type="text" class="form-control" placeholder="Gironde" ng-model="eventFormData.county"><br/>
+			<label>Département</label>
+			<input id="txtEventCounty" type="text" class="form-control" placeholder="Gironde" ng-model="eventFormData.county"><br/>
 
-		<label>Pays</label>
-		<input id="txtEventCountry" type="text" class="form-control" placeholder="France" ng-model="eventFormData.country" required/><br/>
+			<label>Pays</label>
+			<input id="txtEventCountry" type="text" class="form-control" placeholder="France" ng-model="eventFormData.country" required/><br/>
 
-		<label>Image de la page de présentation</label>
-		<input id="fileEventImage" type="file" ng-model="eventFormData.image"/>
-		<hr />
-		
+			<label>Image de la page de présentation</label>
+			<input id="fileEventImage" type="file" ng-model="eventFormData.image"/>
+			<hr />
+		</div>
+
+		<!-- Billeterie -->
 		<h2>Billetterie</h2>
 		<div ng-repeat="t in formData.ticketsType">
 			<hr />
 			<h3>Billet {{$index+1}}
-				<button class="btn btn-danger pull-right" id="bt_rem_ticketType{{$index+1}}" ng-show="formData.ticketsType.length-1" ng-click="formData.ticketsType.splice($index, 1)" title="Delete this ticket ?">
-					Supprimer le billet {{$index+1}}
-				</button>
+				<img src="./image/delete.png" id="bt_rem_ticketType{{$index+1}}" ng-show="formData.ticketsType.length-1" ng-click="formData.ticketsType.splice($index, 1)" title="Supprimer ce billet ?" alt="Supprimer Billet {{$index+1}}" />
 			</h3>
 			
 			<label>Type</label>
@@ -51,7 +53,7 @@
 			<input id="txtEventTicketLeft{{$index+1}}" type="number" class="form-control" title="Enter a quantity" min="1" ng-model="t.ticketLeft" required/><br/>
 
 			<label>Prix</label>
-			<input id="txtEventPrice{{$index+1}}" type="number" class="form-control" title="Enter a price" min="1" ng-model="t.price" required/><br/>
+			<input id="txtEventPrice{{$index+1}}" type="number" class="form-control" title="Enter a price" min="0" ng-model="t.price" required/><br/>
 
 			<label>Date d'expiration</label>
 			<input id="txtExpirationDate{{$index+1}}" type="date" class="form-control" placeholder="aaaa-mm-jj" ng-model="t.expirationDate" required/><br/>
@@ -72,6 +74,7 @@
 		<hr />
 		<hr />
 
+		<!-- Validation -->
 		<button id="bt_submit" type="submit" class="btn btn-success pull-right" ng-disabled="form.$invalid" ng-click="formBtnLabel=='Create'?createEvent():updateEvent(formData._id); $parent.editMode = false">
 			{{formBtnSubmitLabel}} cet événement !
 		</button>	
