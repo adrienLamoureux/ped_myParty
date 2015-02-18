@@ -106,3 +106,65 @@ var eventModel = mongoose.model('eventModel', eventSchema);
 var commandsModel = mongoose.model('commandsModel', commandsSchema);
 var ticketTypeModel = mongoose.model('ticketTypeModel', ticketTypeSchema);
 
+// Event
+
+app.get('/api/event', function (req, res, next) {
+  console.log('get events');
+  eventModel.find(function (err, coll) {
+    if (!err) {
+        return resp.send(coll);
+    } else {
+        console.log(err);
+        next(err);
+	}
+  });
+});
+
+app.get('/api/event/:id', function (req, res, next) {
+  console.log('get event '+req.params.id);
+  eventModel.findOne({_id: req.params.id}, function (e, result) {
+   	if (e) return next(e);
+    	res.send(result);
+  });
+});
+
+app.post('/api/event', function (req, res, next){
+	console.log('new event : '+req.body);
+	var newEvent = new eventModel(req.body);
+	newEvent.save(function (e, results){
+        if (e) return next(e);
+        res.send(results);
+    });
+});
+
+app.put('/api/event', function (req, res, next)
+{
+  delete req.body._id; //duplicate id bug
+  console.log('put event : '+req.body);
+  eventModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
+    if (err) return next(err);
+    res.send(result);
+  });
+});
+
+app.delete('/api/event/:id', function (req, res, next)
+{
+	eventModel.remove({_id: req.params.id}, function (err, result){
+		if (err) return next(err);
+	});
+});
+
+/*
+app.get('/api/usr/:id/event', function(req,res){
+	console.log('get events for user : '+req.params.id);
+	userModel.findOne({_id: req.params.id}, function (e, result){
+		if(e) return next(e);
+		for(i:0; i<result.body.eventID.length; i++){
+			eventModel.findOne({_id: req.params.id}, function(err, coll){
+
+			});
+		}
+	})
+})
+*/
+
