@@ -14,3 +14,11 @@ app.directive('eventFrm', function (){
 		templateUrl: '../../partials/frmEvent.html'
 	};
 });
+
+app.directive('eventMiniature', function (){
+	return {
+		restrict: 'E',
+		controller: 'EventCtrl',
+		templateUrl: '../../partials/eventMiniature.html'
+	};
+});
