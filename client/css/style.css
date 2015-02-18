@@ -14,10 +14,16 @@
 		border:1px solid lightgray; 
 		margin:0; 
 	}
-	/*
-	#eventForm div > input { 
-		margin-top:5px; 
+	
+	#eventForm label, #eventForm input, #eventForm textarea{
+		width:100%;
 	}
+
+	#eventForm div input, #eventForm div textarea,  #eventForm div label{ 
+		margin-left:15px; 
+	}
+
+	/*
 	#eventForm input[type=text] { 
 		display:inline-block; width:80%; 
 	}
@@ -25,12 +31,12 @@
 	#eventForm input[type=date] { 
 		display:inline-block; width:20%; 
 	}
-
-	#eventForm label + input[type="text"] { 
-		width:95%; 
+	*/
+	#eventForm label + input[type="text"], #eventForm label + input[type="date"]  { 
+		width:95%;
 		margin-bottom:10px; 
 	}
-
+/*
 	#eventForm input[type=number] { 
 		display:inline-block; 
 		width:80px; 
@@ -40,12 +46,6 @@
 	#eventForm button ~ p { 
 		clear:both; 
 	}
-
-	#eventForm label { 
-		margin-right:10px; 
-		font-weight:normal;
-		cursor:pointer;
-	}*/
 
 /*********************************/
 /***          ********************/
