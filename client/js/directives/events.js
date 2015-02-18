@@ -6,3 +6,11 @@ app.directive('eventList', function (){
 		templateUrl: '../../partials/events.html'
 	};
 });
+
+app.directive('eventFrm', function (){
+	return {
+		restrict: 'E',
+		controller: 'EventCtrl',
+		templateUrl: '../../partials/frmEvent.html'
+	};
+});
