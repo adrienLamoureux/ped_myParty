@@ -3,7 +3,7 @@ var mongo = require('mongodb').MongoClient;
 console.log("Connecting to the database ...");
 
 var initUser = function(db){
-		db.collection('userModel', function(err, collection) {
+		db.collection('user', function(err, collection) {
 		if (collection) {
 			collection.remove({}, function(err,removed) {
 				if (!removed) {
@@ -37,7 +37,7 @@ var initUser = function(db){
 };
 
 var initEvent = function(db){
-		db.collection('eventModel', function(err, collection) {
+		db.collection('event', function(err, collection) {
 		if (collection) {
 			collection.remove({}, function(err,removed) {
 				if (!removed) {
@@ -76,7 +76,7 @@ var initEvent = function(db){
 };
 
 var initTicket = function(db){
-	db.collection('ticketTypeModel', function(err, collection) {
+	db.collection('ticketType', function(err, collection) {
 		if (collection) {
 			collection.remove({}, function(err,removed) {
 				if (!removed) {
@@ -106,7 +106,7 @@ var initTicket = function(db){
 };
 
 var initCommands = function(db){
-	db.collection('commandsModel', function(err, collection) {
+	db.collection('commands', function(err, collection) {
 		if (collection) {
 			collection.remove({}, function(err,removed) {
 				if (!removed) {
