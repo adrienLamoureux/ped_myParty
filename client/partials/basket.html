@@ -1,2 +1,32 @@
 <!-- Basket Template --> 
-<h1> Mon Panier</h1>
+<h2> Cher {{name_user}}, votre Panier</h2>
+
+<br>
+
+<div class="alert alert-warning" role="alert" ng-show="basket.getTotalItems() === 0">
+    Your cart is empty
+</div>
+
+<div class="table-responsive col-lg-12" ng-repeat="event in basket">
+<div basketEvent></div>
+</div>
+
+<basket-event></basket-event>
+
+<div class="text-center">
+<button ng-click="" class="btn btn-default">
+	<span caria-hidden="true"> Valider mon panier</span>
+</button>
+</div>
+
+
+<br><br><br><br>
+
+<div>
+	span : 
+	<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+	<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+</div>
