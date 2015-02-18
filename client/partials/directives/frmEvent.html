@@ -75,9 +75,14 @@
 		<hr />
 
 		<!-- Validation -->
-		<button id="bt_submit" type="submit" class="btn btn-success pull-right" ng-disabled="form.$invalid" ng-click="formBtnLabel=='Create'?createEvent():updateEvent(formData._id); $parent.editMode = false">
+		<button id="bt_restore" type="button" class="btn btn-warning" ng-click="cancel();">
+			Restaurer cet événement
+		</button>
+		<button id="bt_submit" type="submit" class="btn btn-success pull-right" ng-disabled="eventForm.$invalid" ng-click="formBtnSubmitLabel=='Créer'?createEvent():updateEvent(formData._id);">
 			{{formBtnSubmitLabel}} cet événement !
 		</button>	
+		
+
 	</form>
 </fieldset>
 

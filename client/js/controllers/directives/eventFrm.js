@@ -1,6 +1,5 @@
 // Event Frm Directive Controller
-app.controller('EventFrmCtrl', ['$scope', function ($scope){
-
+app.controller('EventFrmCtrl', ['$scope', 'NewEvent',  function ($scope, NewEvent){
 	$scope.defaultEvent = {
 		'owner': null,
 		'title': '',
@@ -27,5 +26,17 @@ app.controller('EventFrmCtrl', ['$scope', function ($scope){
 	};
 
 	$scope.formData = angular.copy($scope.defaultEvent);
+
+
+	// restore form
+    $scope.cancel = function() {
+		$scope.formData = angular.copy($scope.defaultEvent);
+   	};
+
+
+   	// when submitting the add form, send the text to the node API
+    $scope.createEvent = function() {
+    	NewEvent.create($scope.formData);
+  	}
 
 }]);

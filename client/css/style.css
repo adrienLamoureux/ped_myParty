@@ -34,7 +34,7 @@
 		margin-bottom:10px; 
 	}
 
-	#eventForm button[type=submit]{
+	#eventForm button[type=submit], #eventForm button[type=button]{
 		margin-top:10px;
 	}
 
