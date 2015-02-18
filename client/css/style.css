@@ -32,7 +32,7 @@
 		display:inline-block; width:20%; 
 	}
 	*/
-	#eventForm label + input[type="text"], #eventForm label + input[type="date"]  { 
+	#eventForm label + input[type="text"], #eventForm label + input[type="date"], #eventForm label + textarea  { 
 		width:95%;
 		margin-bottom:10px; 
 	}

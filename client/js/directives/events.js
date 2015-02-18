@@ -10,8 +10,8 @@ app.directive('eventList', function (){
 app.directive('eventFrm', function (){
 	return {
 		restrict: 'E',
-		controller: 'EventCtrl',
-		templateUrl: '../../partials/frmEvent.html'
+		controller: 'EventFrmCtrl',
+		templateUrl: '../../partials/directives/frmEvent.html'
 	};
 });
 
