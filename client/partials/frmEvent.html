@@ -30,13 +30,16 @@
 		<input id="fileEventImage" type="file" ng-model="eventFormData.image"/><br/>
 		
 
-		<div ng-repeat="t in formData.tickets">
+		<div ng-repeat="t in formData.ticketsType">
 			<hr />
-			<label>Catégorie</label>
-			<input id="txtEventCategory{{$index+1}}" type="text" class="form-control" placeholder="Plein tarif 2 jours" ng-model="t.category" required/><br/>
+			<label>Type</label>
+			<input id="txtEventType{{$index+1}}" type="text" class="form-control" placeholder="Plein tarif 2 jours" ng-model="t.type" required/><br/>
+			
+			<label>Description</label>
+			<input id="txtEventDescription{{$index+1}}" type="text" class="form-control" placeholder="" ng-model="t.description" required/><br/>
 			
 			<label>Qantité</label>
-			<input id="txtEventQuantity{{$index+1}}" type="number" class="form-control" title="Enter a quantity" min="1" ng-model="t.quantity" required/><br/>
+			<input id="txtEventTicketLeft{{$index+1}}" type="number" class="form-control" title="Enter a quantity" min="1" ng-model="t.ticketLeft" required/><br/>
 
 			<label>Prix</label>
 			<input id="txtEventPrice{{$index+1}}" type="number" class="form-control" title="Enter a price" min="1" ng-model="t.price" required/><br/>
@@ -45,19 +48,19 @@
 			<input id="txtExpirationDate{{$index+1}}" type="date" class="form-control" placeholder="jj/mm/aaaa" ng-model="t.expirationDate" required/><br/>
 
 			<label>Image de fond du billet</label>
-			<input id="fileTicketImage{{$index+1}}" type="file" ng-model="t.image"/><br/>
-			<button id="bt_rem_ticket{{$index+1}}" ng-show="formData.tickets.length-1"
-				ng-click="formData.tickets.splice($index, 1)" title="Delete this ticket ?">
-				Remove this ticket
+			<input id="fileTicketTypeImage{{$index+1}}" type="file" ng-model="t.image"/><br/>
+			<button id="bt_rem_ticketType{{$index+1}}" ng-show="formData.ticketsType.length-1"
+				ng-click="formData.ticketsType.splice($index, 1)" title="Delete this ticket ?">
+				Remove this ticket type
 			</button>
 		</div>
-		<button id="bt_add_ticket" class="btn btn-primary" ng-click="formData.tickets.push({'category': '', 'quantity':'', 'price':'', 'expirationDate':'', 'image':''})">
-			Add Ticket
+		<button id="bt_add_ticket" class="btn btn-primary" ng-click="formData.ticketsType.push({'category': '', 'quantity':'', 'price':'', 'expirationDate':'', 'image':''})">
+			Add Ticket Type
 		</button>
 		<hr />
 
 		<button id="bt_submit" type="submit" class="btn btn-success pull-right" ng-disabled="form.$invalid" ng-click="formBtnLabel=='Create'?createEvent():updateEvent(formData._id); $parent.editMode = false">
-			{{formBtnLabel}} this Event !
+			{{formBtnSubmitLabel}} this Event !
 		</button>	
 	</form>
 </fieldset>
