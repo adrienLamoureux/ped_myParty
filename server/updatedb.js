@@ -3,13 +3,13 @@ var mongo = require('mongodb').MongoClient;
 console.log("Connecting to the database ...");
 
 var updateRefID = function(db){
-	db.collection('userModel', function(err, userCollection){
+	db.collection('user', function(err, userCollection){
 		userCollection.find().toArray(function(err, userDocs){
-			db.collection('eventModel', function(err, eventCollection){
+			db.collection('event', function(err, eventCollection){
 				eventCollection.find().toArray(function(err, eventDocs){
-					db.collection('commandsModel', function(err, commandsCollection){
+					db.collection('commands', function(err, commandsCollection){
 						commandsCollection.find().toArray(function(err, commandsDocs){
-							db.collection('ticketTypeModel', function(err, ticketTypeCollection){
+							db.collection('ticketType', function(err, ticketTypeCollection){
 								ticketTypeCollection.find().toArray(function(err, ticketTypeDocs){
 									
 									commandsCollection.update({_id:commandsDocs[0]._id}, {$set: {

@@ -3,25 +3,25 @@ var mongo = require('mongodb').MongoClient;
 console.log("Connecting to the database ...");
 
 var checkDb = function(db){
-	db.collection('userModel', function(err, userCollection){
+	db.collection('user', function(err, userCollection){
 		userCollection.find().toArray(function(err, userDocs){
 			console.log('userDocs');
 			console.log(userDocs);
 		});
 	});
-	db.collection('eventModel', function(err, eventCollection){
+	db.collection('event', function(err, eventCollection){
 		eventCollection.find().toArray(function(err, eventDocs){
 			console.log('eventDocs');
-			console.log(eventDocs[0]);
+			console.log(eventDocs);
 		});
 	});
-	db.collection('commandsModel', function(err, commandsCollection){
+	db.collection('commands', function(err, commandsCollection){
 		commandsCollection.find().toArray(function(err, commandsDocs){
 			console.log('commandsDocs');
 			console.log(commandsDocs);	
 		});
 	});
-	db.collection('ticketTypeModel', function(err, ticketTypeCollection){
+	db.collection('ticketType', function(err, ticketTypeCollection){
 		ticketTypeCollection.find().toArray(function(err, ticketTypeDocs){
 			console.log('ticketTypeDocs');
 			console.log(ticketTypeDocs);
