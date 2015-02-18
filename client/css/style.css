@@ -14,38 +14,37 @@
 		border:1px solid lightgray; 
 		margin:0; 
 	}
-	/*
-	#eventForm div > input { 
-		margin-top:5px; 
-	}
-	#eventForm input[type=text] { 
-		display:inline-block; width:80%; 
+	
+	#eventForm label, #eventForm input, #eventForm textarea{
+		width:100%;
 	}
 
-	#eventForm input[type=date] { 
-		display:inline-block; width:20%; 
+	#eventForm div input, #eventForm div textarea,  #eventForm div label{ 
+		margin-left:15px; 
 	}
 
-	#eventForm label + input[type="text"] { 
-		width:95%; 
-		margin-bottom:10px; 
-	}
-
-	#eventForm input[type=number] { 
+	#eventForm input { 
 		display:inline-block; 
 		width:80px; 
 		text-align:center; 
 	}
-
-	#eventForm button ~ p { 
-		clear:both; 
+	
+	#eventForm label + input, #eventForm label + textarea  { 
+		width:95%;
+		margin-bottom:10px; 
 	}
 
-	#eventForm label { 
-		margin-right:10px; 
-		font-weight:normal;
+	#eventForm button[type=submit]{
+		margin-top:10px;
+	}
+
+	#eventForm img{
+		height:25px; 
+		margin:0px; 
+		padding:0px;
+		padding-bottom:5px;
 		cursor:pointer;
-	}*/
+	}
 
 /*********************************/
 /***          ********************/
