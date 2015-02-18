@@ -5,11 +5,11 @@ app.controller('EventCtrl', ['$scope', 'Event', 'EventByOrganizerId', function (
 	$scope.eventsByOrganizerId = {};
 
 	$scope.getEvents = function (){
-	/*	$scope.events = Event.querry().then(function (){
+		$scope.events = Event.querry().then(function (){
 			alert ('Event : Requete SUCCESS !!!');
 		}, function (){
 			alert ('Event : erreur pendant la requete !!!');
-		});*/
+		});
 	};
 
 	$scope.getEventsByOrganizerId = function (id){

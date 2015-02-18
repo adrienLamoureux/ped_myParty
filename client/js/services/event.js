@@ -1,6 +1,6 @@
 app.factory('Event', ['$resource', function($resource){
 	var factory = function ($resource){
-		return $resource('./../api/event/:id', {id: @_id}, {
+		return $resource('./../api/event/:id', {id: '@_id'}, {
 			query: {method: 'GET', isArray:true},
 			get: {method:'GET', isArray:false},
 			post: {method:'POST', isArray:false},
@@ -14,7 +14,7 @@ app.factory('Event', ['$resource', function($resource){
 
 app.factory('EventByOrganizerId', ['$resource', function($resource){
 	var factory = function ($resource){
-		return $resource('./../api/usr/:id/event', {id: @_id}, {
+		return $resource('./../api/usr/:id/event', {id: '@_id'}, {
 			query: {method: 'GET', isArray:true},
 		});		
 	};
