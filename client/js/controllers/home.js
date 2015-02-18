@@ -1,4 +1,4 @@
 // HomePage Controller
-app.controller('HomeCtrl', ['$scope', 'Event', function ($scope, Event){
+app.controller('HomeCtrl', ['$scope', function ($scope){
 
 }]);

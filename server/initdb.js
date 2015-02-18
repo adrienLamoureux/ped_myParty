@@ -22,9 +22,9 @@ var initUser = function(db){
 				firstName: 'bobby',
 				phoneNumber: '00000000',
 				inscriptionDate: new Date('Jun 20, 2014'),
-				events: [],
+				eventsID: [],
 				commandsID: null,
-				panner : []
+				basket : []
 			}
 			], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'user'\n"); return false; }
@@ -49,7 +49,8 @@ var initEvent = function(db){
 		console.log("Inserting new documents in 'event' ...");
 		collection.insert([
 			{
-				owner: null,
+				ownerID: null,
+				title: 'Great',
 				description: 'Super party',
 				country: 'France',
 				county: 'Aquitaine',
@@ -58,11 +59,11 @@ var initEvent = function(db){
 				street: 'cours de la liberation', 
 				image: 'http://www.designtour.fr/media/bordeaux-86613421.jpg',
 				tickets: [],
-				ticketSelled: 0,
+				ticketsType: [],
 				uniqueTicketID: 0,
 				dateStarting: new Date('Jun 23, 2014'),
 				dateEnding: new Date('Jun 24, 2014'),
-				avaible: false
+				online: false
 			}
 			], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'event'\n"); return false; }
@@ -87,9 +88,11 @@ var initTicket = function(db){
 	console.log("Inserting new documents in 'ticketType' ...");
 		collection.insert([
 			{
-				selled: 0,
+				description: 'ticket',
+				ticketLeft: 5,
+				sold: 0,
 				price: 50,
-				avaible: true,
+				type: 'Prenium',
 				image: 'http://www.designtour.fr/media/bordeaux-86613421.jpg'
 			}
 			], function (err, result) {
@@ -127,13 +130,13 @@ var initCommands = function(db){
 	});
 };
 
+
 mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {
 	if (err) { console.log("\t--> Connection failure !\n"); return false; }
 	console.log("\t--> Successfully connected to the database!\n");
 
-	initUser(db);
-	initEvent(db);
 	initTicket(db);
 	initCommands(db);
-
+	initUser(db);
+	initEvent(db);
 });

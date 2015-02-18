@@ -35,39 +35,37 @@ mongoose.connect('mongodb://localhost:27017/mongodb', function(err){
 
 // Schema
 var Schema = mongoose.Schema;
-/*
-var myAdress = new Schema({
-	country: String,
-	county: String,
-	city: String,
-	zipCode: String,
-	street: String 
-});
-*/
-var cmdSchema = new Schema({
+
+// Association ticket for event
+var eventTicket = new Schema({
 	eventID: {type: mongoose.Schema.Types.ObjectId, ref:'eventModel'},
 	tickets: [ticketSchema]
-});
-/*
-var pannerSchema = new Schema({
-	commands: [cmdSchema]
-});
-*/
-var commandsSchema = new Schema({
-	commands: [cmdSchema],
+})
+
+var cmdSchema = new Schema({
+	eventTickets: [eventTicket],
 	dateBuy: Date
 });
 
-var ticketSchema = new Schema({
-	id: Number,
-	userID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
-	ticketTypeID: {type: mongoose.Schema.Types.ObjectId, ref:'ticketTypeModel'}
+var commandsSchema = new Schema({
+	commands: [cmdSchema]
 });
 
+// ticket sold to user for an event
+var ticketSchema = new Schema({
+	uniqueID: Number,
+	userID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
+	ticketTypeID: {type: mongoose.Schema.Types.ObjectId, ref:'ticketTypeModel'},
+	used: {type: Boolean, default: false}
+});
+
+// Virtual ticket
 var ticketTypeSchema = new Schema({
-	selled: Number,
+	description: String,
+	ticketLeft: Number,
+	sold: Number,
 	price: Number,
-	avaible: {type: Boolean, default:true},
+	type: String,
 	image: String
 });
 
@@ -78,16 +76,15 @@ var userSchema = new Schema({
 	firstName: String,
 	phoneNumber: String,
 	inscriptionDate: Date,
-	events: [{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
+	eventsID: [{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
 	commandsID: {type: mongoose.Schema.Types.ObjectId, ref:'commandsModel'},
-//	panner: pannerSchema
-	panner : [cmdSchema]
+	basket : [cmdSchema]
 });
 
 var eventSchema = new Schema({
-	owner: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
+	ownerID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
+	title: String,
 	description: String,
-	//adress: myAdress,
 	country: String,
 	county: String,
 	city: String,
@@ -95,11 +92,11 @@ var eventSchema = new Schema({
 	street: String, 
 	image: String,
 	tickets: [ticketSchema],
-	ticketSelled: Number,
+	ticketsType: [ticketTypeSchema],
 	uniqueTicketID: Number,
 	dateStarting: Date,
 	dateEnding: Date,
-	avaible: {type: Boolean, default: true}
+	online: {type: Boolean, default: false},
 });
 
 // Model
@@ -108,4 +105,66 @@ var userModel = mongoose.model('userModel', userSchema);
 var eventModel = mongoose.model('eventModel', eventSchema);
 var commandsModel = mongoose.model('commandsModel', commandsSchema);
 var ticketTypeModel = mongoose.model('ticketTypeModel', ticketTypeSchema);
+
+// Event
+
+app.get('/api/event', function (req, res, next) {
+  console.log('get events');
+  eventModel.find(function (err, coll) {
+    if (!err) {
+        return resp.send(coll);
+    } else {
+        console.log(err);
+        next(err);
+	}
+  });
+});
+
+app.get('/api/event/:id', function (req, res, next) {
+  console.log('get event '+req.params.id);
+  eventModel.findOne({_id: req.params.id}, function (e, result) {
+   	if (e) return next(e);
+    	res.send(result);
+  });
+});
+
+app.post('/api/event', function (req, res, next){
+	console.log('new event : '+req.body);
+	var newEvent = new eventModel(req.body);
+	newEvent.save(function (e, results){
+        if (e) return next(e);
+        res.send(results);
+    });
+});
+
+app.put('/api/event', function (req, res, next)
+{
+  delete req.body._id; //duplicate id bug
+  console.log('put event : '+req.body);
+  eventModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
+    if (err) return next(err);
+    res.send(result);
+  });
+});
+
+app.delete('/api/event/:id', function (req, res, next)
+{
+	eventModel.remove({_id: req.params.id}, function (err, result){
+		if (err) return next(err);
+	});
+});
+
+/*
+app.get('/api/usr/:id/event', function(req,res){
+	console.log('get events for user : '+req.params.id);
+	userModel.findOne({_id: req.params.id}, function (e, result){
+		if(e) return next(e);
+		for(i:0; i<result.body.eventID.length; i++){
+			eventModel.findOne({_id: req.params.id}, function(err, coll){
+
+			});
+		}
+	})
+})
+*/
 
