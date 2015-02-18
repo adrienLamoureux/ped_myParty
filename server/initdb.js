@@ -35,7 +35,7 @@ var initUser = function(db){
 				inscriptionDate: new Date('Jun 20, 2014'),
 				events: [],
 				commandsID: null,
-				panner : []	
+				basket : []	
 			}
 			], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'user'\n"); return false; }
@@ -138,38 +138,13 @@ var initCommands = function(db){
 	});
 };
 
-var updateRefID = function(db){
-	db.collection('userModel', function(err, userCollection){
-		userCollection.find().toArray(function(err, userDocs) {
-			db.collection('eventModel', function(err, eventCollection){
-				eventCollection.find().toArray(err, eventDocs){
-					db.collection('commandsModel', function(err, commandsCollection)){
-						commandsCollection.find().toArray(function(err, commandsDocs)){
-							commandCollection.update({
-								commandsDocs[0].commands[0] = {eventDocs[0]._id,[userDocs[0]._id]}
-							})
-							userCollection.update({
-								userDocs[0].events = [eventDocs[0]._id]	
-							})
-							eventCollection.update({
-								eventDocs[0].owner = userDocs[0]._id
-							})
-						}
-					}
-				}
-			})
-		})
-	})
-}
 
 mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {
 	if (err) { console.log("\t--> Connection failure !\n"); return false; }
 	console.log("\t--> Successfully connected to the database!\n");
 
-	initTicket(db);
+	/*initTicket(db);
 	initCommands(db);
 	initUser(db);
-	initEvent(db);
-	updateUser(db);
-
+	initEvent(db);*/
 });
