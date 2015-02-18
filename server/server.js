@@ -35,39 +35,37 @@ mongoose.connect('mongodb://localhost:27017/mongodb', function(err){
 
 // Schema
 var Schema = mongoose.Schema;
-/*
-var myAdress = new Schema({
-	country: String,
-	county: String,
-	city: String,
-	zipCode: String,
-	street: String 
-});
-*/
-var cmdSchema = new Schema({
+
+// Association ticket for event
+var eventTicket = new Schema({
 	eventID: {type: mongoose.Schema.Types.ObjectId, ref:'eventModel'},
 	tickets: [ticketSchema]
-});
-/*
-var pannerSchema = new Schema({
-	commands: [cmdSchema]
-});
-*/
-var commandsSchema = new Schema({
-	commands: [cmdSchema],
+})
+
+var cmdSchema = new Schema({
+	eventTickets: [eventTicket],
 	dateBuy: Date
 });
 
-var ticketSchema = new Schema({
-	id: Number,
-	userID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
-	ticketTypeID: {type: mongoose.Schema.Types.ObjectId, ref:'ticketTypeModel'}
+var commandsSchema = new Schema({
+	commands: [cmdSchema]
 });
 
+// ticket sold to user for an event
+var ticketSchema = new Schema({
+	uniqueID: Number,
+	userID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
+	ticketTypeID: {type: mongoose.Schema.Types.ObjectId, ref:'ticketTypeModel'},
+	used: {type: Boolean, default: false}
+});
+
+// Virtual ticket
 var ticketTypeSchema = new Schema({
-	selled: Number,
+	description: String,
+	ticketLeft: Number,
+	sold: Number,
 	price: Number,
-	avaible: {type: Boolean, default:true},
+	type: String,
 	image: String
 });
 
@@ -78,16 +76,15 @@ var userSchema = new Schema({
 	firstName: String,
 	phoneNumber: String,
 	inscriptionDate: Date,
-	events: [{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
+	eventsID: [{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
 	commandsID: {type: mongoose.Schema.Types.ObjectId, ref:'commandsModel'},
-//	panner: pannerSchema
-	panner : [cmdSchema]
+	basket : [cmdSchema]
 });
 
 var eventSchema = new Schema({
-	owner: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
+	ownerID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
+	title: String,
 	description: String,
-	//adress: myAdress,
 	country: String,
 	county: String,
 	city: String,
@@ -95,11 +92,11 @@ var eventSchema = new Schema({
 	street: String, 
 	image: String,
 	tickets: [ticketSchema],
-	ticketSelled: Number,
+	ticketsType: [ticketTypeSchema],
 	uniqueTicketID: Number,
 	dateStarting: Date,
 	dateEnding: Date,
-	avaible: {type: Boolean, default: true}
+	online: {type: Boolean, default: false},
 });
 
 // Model
