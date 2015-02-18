@@ -2,8 +2,8 @@
 app.directive('eventList', function (){
 	return {
 		restrict: 'E',
-		controller: 'EventCtrl',
-		templateUrl: '../../partials/events.html'
+		controller: 'EventListCtrl',
+		templateUrl: '../../partials/directives/events.html'
 	};
 });
 
@@ -18,7 +18,7 @@ app.directive('eventFrm', function (){
 app.directive('eventMiniature', function (){
 	return {
 		restrict: 'E',
-		controller: 'EventCtrl',
-		templateUrl: '../../partials/eventMiniature.html'
+		controller: 'EventMiniatureCtrl',
+		templateUrl: '../../partials/directives/eventMiniature.html'
 	};
 });

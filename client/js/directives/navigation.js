@@ -3,6 +3,6 @@ app.directive('navBar', function (){
 	return {
 		restrict: 'E',
 		controller: 'NavigationCtrl',
-		templateUrl: '../../partials/navigation.html'
+		templateUrl: '../../partials/directives/navigation.html'
 	};
 });
