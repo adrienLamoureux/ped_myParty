@@ -25,17 +25,6 @@ var initUser = function(db){
 				eventsID: [],
 				commandsID: null,
 				basket : []
-			},
-			{
-				email: 'tata@gmail',
-				password: 'tata',
-				name: 'stalker',
-				firstName: 'johny',
-				phoneNumber: '00000000',
-				inscriptionDate: new Date('Jun 20, 2014'),
-				eventsID: [],
-				commandsID: null,
-				basket : []	
 			}
 			], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'user'\n"); return false; }
