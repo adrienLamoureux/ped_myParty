@@ -25,6 +25,17 @@ var initUser = function(db){
 				events: [],
 				commandsID: null,
 				panner : []
+			},
+			{
+				email: 'tata@gmail',
+				password: 'tata',
+				name: 'stalker',
+				firstName: 'johny',
+				phoneNumber: '00000000',
+				inscriptionDate: new Date('Jun 20, 2014'),
+				events: [],
+				commandsID: null,
+				basket : []	
 			}
 			], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'user'\n"); return false; }
@@ -127,13 +138,13 @@ var initCommands = function(db){
 	});
 };
 
+
 mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {
 	if (err) { console.log("\t--> Connection failure !\n"); return false; }
 	console.log("\t--> Successfully connected to the database!\n");
 
-	initUser(db);
-	initEvent(db);
-	initTicket(db);
+	/*initTicket(db);
 	initCommands(db);
-
+	initUser(db);
+	initEvent(db);*/
 });
