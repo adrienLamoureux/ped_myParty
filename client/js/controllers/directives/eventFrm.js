@@ -22,21 +22,21 @@ app.controller('EventFrmCtrl', ['$scope', 'NewEvent',  function ($scope, NewEven
 		'uniqueTicketID': 0,
 		'dateStarting': null,
 		'dateEnding': null,
-		'avaible': false
+		'online': false
 	};
 
-	$scope.formData = angular.copy($scope.defaultEvent);
+	$scope.eventFormData = angular.copy($scope.defaultEvent);
 
 
 	// restore form
     $scope.cancel = function() {
-		$scope.formData = angular.copy($scope.defaultEvent);
+		$scope.eventFormData = angular.copy($scope.defaultEvent);
    	};
 
 
    	// when submitting the add form, send the text to the node API
     $scope.createEvent = function() {
-    	NewEvent.create($scope.formData);
+    	NewEvent.create($scope.eventFormData);
   	}
 
 }]);

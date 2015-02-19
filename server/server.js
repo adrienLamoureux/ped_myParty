@@ -138,7 +138,7 @@ app.post('/api/event', function (req, res, next){
     });
 });
 
-app.put('/api/event', function (req, res, next)
+app.put('/api/event:id', function (req, res, next)
 {
   delete req.body._id; //duplicate id bug
   console.log('put event : '+req.body);
@@ -210,7 +210,7 @@ app.get('/api/usr/:id/event', function(req,res){
 	console.log('get events for user : '+req.params.id);
 	userModel.findOne({_id: req.params.id}, function (e, result){
 		if(e) return next(e);
-		for(i:0; i<result.body.eventID.length; i++){
+		for(var i=0; i<result.body.eventID.length; i++){
 			eventModel.findOne({_id: req.params.id}, function(err, coll){
 
 			});
