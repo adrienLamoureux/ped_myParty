@@ -21,12 +21,6 @@ var checkDb = function(db){
 			console.log(commandsDocs);	
 		});
 	});
-	db.collection('ticketType', function(err, ticketTypeCollection){
-		ticketTypeCollection.find().toArray(function(err, ticketTypeDocs){
-			console.log('ticketTypeDocs');
-			console.log(ticketTypeDocs);
-		});
-	});
 };
 
 mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {

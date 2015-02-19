@@ -55,12 +55,13 @@ var commandsSchema = new Schema({
 var ticketSchema = new Schema({
 	uniqueID: Number,
 	userID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
-	ticketTypeID: {type: mongoose.Schema.Types.ObjectId, ref:'ticketTypeModel'},
+	ticketTypeNb: Number,
 	used: {type: Boolean, default: false}
 }, {collection: 'ticket'});
 
 // Virtual ticket
 var ticketTypeSchema = new Schema({
+	uniqueID: Number,
 	description: String,
 	ticketLeft: Number,
 	sold: Number,
@@ -104,7 +105,6 @@ var eventSchema = new Schema({
 var userModel = mongoose.model('user', userSchema);
 var eventModel = mongoose.model('event', eventSchema);
 var commandsModel = mongoose.model('commands', commandsSchema);
-var ticketTypeModel = mongoose.model('ticketType', ticketTypeSchema);
 
 // Event
 
