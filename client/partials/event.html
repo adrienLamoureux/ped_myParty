@@ -1,2 +1,18 @@
 <!-- Event Template -->
-<h1> Page de visualisation d'un Event </h1>
+<h1>{{thisEvent.title}}</h1>
+
+<ul>
+	<li>Description :</li><p>{{thisEvent.description}}</p>
+	<li>Dates :</li>
+	<p>
+		Du {{thisEvent.dateStarting | date:'dd/MM/yyyy'}} au {{thisEvent.dateEnding  | date:'dd/MM/yyyy'}}.
+	</p>
+	<li>Lieu :</li>
+	<p> 
+		{{thisEvent.street}}<br/>
+		{{thisEvent.zipCode}} {{thisevent.city}}<br/>
+		{{thisEvent.county}}<br/>
+		{{thisEvent.country}}
+	</p>
+</ul>
+
