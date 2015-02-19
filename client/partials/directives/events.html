@@ -2,10 +2,7 @@
 
 <div class="col-md-12 text-center">
 	<h1> Evennements organisés par le site  </h1>
-	<event-miniature></event-miniature>
-	<event-miniature></event-miniature>
-	<event-miniature></event-miniature>
-	<event-miniature></event-miniature>
-	<event-miniature></event-miniature>
-	<event-miniature></event-miniature>
+	<div ng-repeat="event in events">
+		<event-miniature></event-miniature>
+	</div>
 </div>
