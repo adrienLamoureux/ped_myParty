@@ -62,12 +62,12 @@
 			<input id="fileTicketTypeImage{{$index+1}}" type="file" ng-model="t.image"/><br/>
 		</div>
 		<button id="bt_add_ticket" class="btn btn-primary btn-block" ng-click="eventFormData.ticketsType.push({
-			'description': '',
-			'ticketLeft': 1,
-			'sold': 0,
-			'price': 0,
-			'type': '',
-			'image': ''
+				'description': '',
+				'ticketLeft': 1,
+				'sold': 0,
+				'price': 0,
+				'type': '',
+				'image': ''
 			})">
 			Nouveau Billet
 		</button>
@@ -78,8 +78,8 @@
 		<button id="bt_restore" type="button" class="btn btn-warning" ng-click="cancel();">
 			Restaurer cet événement
 		</button>
-		<button id="bt_submit" type="submit" class="btn btn-success pull-right" ng-disabled="eventForm.$invalid" ng-click="formBtnSubmitLabel=='Créer'?createEvent():updateEvent(eventFormData._id);">
-			{{formBtnSubmitLabel}} cet événement !
+		<button id="bt_submit" type="submit" class="btn btn-success pull-right" ng-disabled="eventForm.$invalid" ng-click="editMode?updateEvent(eventFormData._id):createEvent();">
+			{{editMode?"Modifier":"Créer"}} cet événement !
 		</button>	
 		
 
