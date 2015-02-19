@@ -1,7 +1,7 @@
 // Event Frm Directive Controller
 app.controller('EventFrmCtrl', ['$scope', 'Event', function ($scope, Event){
 	$scope.defaultEvent = {
-		'owner': null,
+		'owner': null, //TODO : Récupérer le User ID en session
 		'title': '',
 		'description': '',
 		'country': '',
@@ -17,7 +17,8 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', function ($scope, Event){
 			'sold': 0,
 			'price': 0,
 			'type': '',
-			'image': ''
+			'image': '',
+			'expirationDate': ''
 		}],
 		'uniqueTicketID': 0,
 		'dateStarting': null,
@@ -33,7 +34,6 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', function ($scope, Event){
 	}else{
 		$scope.eventFormData = angular.copy($scope.defaultEvent);
 	}
-	
 
 	// restore form
     $scope.cancel = function() {
@@ -49,5 +49,10 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', function ($scope, Event){
    	// when submitting the add form, send the text to the node API
     $scope.createEvent = function() {
     	Event.post($scope.eventFormData);
+  	}
+
+  	// when submitting the edit form, send the text to the node API
+    $scope.updateEvent = function() {
+    	Event.put($scope.eventFormData._id, $scope.eventFormData);
   	}
 }]);
