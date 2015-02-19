@@ -40,34 +40,35 @@ var Schema = mongoose.Schema;
 var eventTicket = new Schema({
 	eventID: {type: mongoose.Schema.Types.ObjectId, ref:'eventModel'},
 	tickets: [ticketSchema]
-})
+}, {collection: 'eventTicket'});
 
 var cmdSchema = new Schema({
 	eventTickets: [eventTicket],
 	dateBuy: Date
-});
+}, {collection: 'cmd'});
 
 var commandsSchema = new Schema({
 	commands: [cmdSchema]
-});
+}, {collection: 'commands'});
 
 // ticket sold to user for an event
 var ticketSchema = new Schema({
 	uniqueID: Number,
 	userID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
-	ticketTypeID: {type: mongoose.Schema.Types.ObjectId, ref:'ticketTypeModel'},
+	ticketTypeNb: Number,
 	used: {type: Boolean, default: false}
-});
+}, {collection: 'ticket'});
 
 // Virtual ticket
 var ticketTypeSchema = new Schema({
+	uniqueID: Number,
 	description: String,
 	ticketLeft: Number,
 	sold: Number,
 	price: Number,
 	type: String,
 	image: String
-});
+}, {collection: 'ticketType'});
 
 var userSchema = new Schema({
 	email: String,
@@ -79,7 +80,7 @@ var userSchema = new Schema({
 	eventsID: [{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
 	commandsID: {type: mongoose.Schema.Types.ObjectId, ref:'commandsModel'},
 	basket : [cmdSchema]
-});
+}, {collection: 'user'});
 
 var eventSchema = new Schema({
 	ownerID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
@@ -91,20 +92,20 @@ var eventSchema = new Schema({
 	zipCode: String,
 	street: String, 
 	image: String,
+	imageSmall: String,
 	tickets: [ticketSchema],
 	ticketsType: [ticketTypeSchema],
 	uniqueTicketID: Number,
 	dateStarting: Date,
 	dateEnding: Date,
-	online: {type: Boolean, default: false},
-});
+	online: {type: Boolean, default: false}
+}, {collection: 'event'});
 
 // Model
 
-var userModel = mongoose.model('userModel', userSchema);
-var eventModel = mongoose.model('eventModel', eventSchema);
-var commandsModel = mongoose.model('commandsModel', commandsSchema);
-var ticketTypeModel = mongoose.model('ticketTypeModel', ticketTypeSchema);
+var userModel = mongoose.model('user', userSchema);
+var eventModel = mongoose.model('event', eventSchema);
+var commandsModel = mongoose.model('commands', commandsSchema);
 
 // Event
 
@@ -112,7 +113,7 @@ app.get('/api/event', function (req, res, next) {
   console.log('get events');
   eventModel.find(function (err, coll) {
     if (!err) {
-        return resp.send(coll);
+        return res.send(coll);
     } else {
         console.log(err);
         next(err);
@@ -124,6 +125,7 @@ app.get('/api/event/:id', function (req, res, next) {
   console.log('get event '+req.params.id);
   eventModel.findOne({_id: req.params.id}, function (e, result) {
    	if (e) return next(e);
+   		console.log(result);
     	res.send(result);
   });
 });
@@ -137,7 +139,7 @@ app.post('/api/event', function (req, res, next){
     });
 });
 
-app.put('/api/event', function (req, res, next)
+app.put('/api/event:id', function (req, res, next)
 {
   delete req.body._id; //duplicate id bug
   console.log('put event : '+req.body);
@@ -161,7 +163,7 @@ app.get('/api/user', function (req, res, next) {
   console.log('get users');
   userModel.find(function (err, coll) {
     if (!err) {
-        return resp.send(coll);
+        return res.send(coll);
     } else {
         console.log(err);
         next(err);
@@ -209,7 +211,7 @@ app.get('/api/usr/:id/event', function(req,res){
 	console.log('get events for user : '+req.params.id);
 	userModel.findOne({_id: req.params.id}, function (e, result){
 		if(e) return next(e);
-		for(i:0; i<result.body.eventID.length; i++){
+		for(var i=0; i<result.body.eventID.length; i++){
 			eventModel.findOne({_id: req.params.id}, function(err, coll){
 
 			});

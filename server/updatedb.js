@@ -3,36 +3,42 @@ var mongo = require('mongodb').MongoClient;
 console.log("Connecting to the database ...");
 
 var updateRefID = function(db){
-	db.collection('userModel', function(err, userCollection){
+	db.collection('user', function(err, userCollection){
 		userCollection.find().toArray(function(err, userDocs){
-			db.collection('eventModel', function(err, eventCollection){
+			db.collection('event', function(err, eventCollection){
 				eventCollection.find().toArray(function(err, eventDocs){
-					db.collection('commandsModel', function(err, commandsCollection){
+					db.collection('commands', function(err, commandsCollection){
 						commandsCollection.find().toArray(function(err, commandsDocs){
-							db.collection('ticketTypeModel', function(err, ticketTypeCollection){
-								ticketTypeCollection.find().toArray(function(err, ticketTypeDocs){
-									
-									commandsCollection.update({_id:commandsDocs[0]._id}, {$set: {
-										commands: [eventDocs[0]._id]}
-									}, function(err, result){});
-									
-									userCollection.update({_id:userDocs[0]._id},{$set: {
-										eventsID:[eventDocs[0]._id], commandsID:[commandsDocs[0]._id]}
-									}, function(err, result){});
-									
-									eventCollection.update({_id:eventDocs[0]._id},{$set:{
-										ownerID:userDocs[0]._id,
-										tickets:[{
-											uniqueID: eventDocs[0].uniqueTicketID,
-											userID: userDocs[0]._id,
-											ticketTypeID: ticketTypeDocs[0]._id,
-											used: false
-										}],
-										ticketsType: ticketTypeDocs		
-										}
-									}, function(err, result){});
-								});
-							});
+							commandsCollection.update({_id:commandsDocs[0]._id}, {$set: {
+								commands: [eventDocs[0]._id]}
+							}, function(err, result){});
+							
+							userCollection.update({_id:userDocs[0]._id},{$set: {
+								eventsID:[eventDocs[0]._id], commandsID:[commandsDocs[0]._id]}
+							}, function(err, result){});
+							
+							eventCollection.update({_id:eventDocs[0]._id},{$set:{
+								ownerID:userDocs[0]._id,
+								imageSmall: '../ressources/'+eventDocs[0].title+'-'+eventDocs[0].dateStarting+'/small.jpg',
+								image: '../ressources/'+eventDocs[0].title+'-'+eventDocs[0].dateStarting+'/background.jpg',
+								tickets:[{
+									uniqueID: eventDocs[0].uniqueTicketID,
+									userID: userDocs[0]._id,
+									ticketTypeNb: eventDocs[0].ticketsType[0].uniqueID,
+									used: false
+								}],
+								ticketType:[{
+									uniqueID: 0,
+									description: 'Short description',
+									ticketLeft: 5,
+									sold: 0,
+									price: 50,
+									type: 'Preminum',
+									image: '../ressources/'+eventDocs[0].title+'-'+eventDocs[0].dateStarting+'/ticket'+eventDocs[0].ticketsType[0].uniqueID+'.jpg'
+
+								}]
+								}
+							}, function(err, result){});
 						});
 					});
 				});
