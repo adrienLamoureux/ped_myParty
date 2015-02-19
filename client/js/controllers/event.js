@@ -6,7 +6,4 @@ app.controller('EventCtrl', ['$scope', '$routeParams', 'Event', function ($scope
 		$scope.thisEvent = Event.get({id:$routeParams.id});
 	}
 	// if not event => $scope.thisEvent = undefined
-
-	
-	
 }]);

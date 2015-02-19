@@ -1,5 +1,5 @@
 // Event Frm Directive Controller
-app.controller('EventFrmCtrl', ['$scope', 'Event',  function ($scope, Event){
+app.controller('EventFrmCtrl', ['$scope', 'Event', function ($scope, Event){
 	$scope.defaultEvent = {
 		'owner': null,
 		'title': '',
@@ -24,13 +24,12 @@ app.controller('EventFrmCtrl', ['$scope', 'Event',  function ($scope, Event){
 		'dateEnding': null,
 		'online': false
 	};
+	$scope.now = Date.now();
 
-	
 	$scope.editMode = (angular.isDefined($scope.thisEvent));
 
 	if($scope.editMode){
 		$scope.eventFormData = angular.copy($scope.thisEvent);
-		$scope.$apply();
 	}else{
 		$scope.eventFormData = angular.copy($scope.defaultEvent);
 	}
@@ -43,6 +42,7 @@ app.controller('EventFrmCtrl', ['$scope', 'Event',  function ($scope, Event){
     	}else{
 			$scope.eventFormData = angular.copy($scope.defaultEvent);
     	}
+    	$scope.now = Date.now();
    	};
 
 
@@ -50,5 +50,4 @@ app.controller('EventFrmCtrl', ['$scope', 'Event',  function ($scope, Event){
     $scope.createEvent = function() {
     	Event.post($scope.eventFormData);
   	}
-
 }]);

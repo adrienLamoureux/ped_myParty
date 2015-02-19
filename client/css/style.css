@@ -46,6 +46,22 @@
 		cursor:pointer;
 	}
 
+	/* Form Validation */
+	#eventForm div.red{
+		color:red;
+		text-align:center;
+		margin-bottom:15px;
+	}
+	#eventForm input.ng-invalid, #eventForm textarea.ng-invalid{
+  		border: 1px solid red;
+	}
+	#eventForm input.ng-valid, #eventForm textarea.ng-valid{
+	  	border: 1px solid green;
+	}
+	#eventForm input[type=file].ng-invalid, #eventForm input[type=file].ng-valid{
+		border:none;
+	}
+
 /*********************************/
 /***          ********************/
 /***          ********************/
