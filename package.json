@@ -9,11 +9,11 @@
   "dependencies": {
     "body-parser": "*",
     "express": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "mongodb":"*"
   },
   "scripts": {
-	"preinstall": "mkdir mongodb",
 	"postinstall": "npm install -g nodemon",
-    "postinstall": "bower install"
+  "postinstall": "bower install"
   }
 }
