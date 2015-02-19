@@ -9,30 +9,24 @@ var updateRefID = function(db){
 				eventCollection.find().toArray(function(err, eventDocs){
 					db.collection('commands', function(err, commandsCollection){
 						commandsCollection.find().toArray(function(err, commandsDocs){
-							db.collection('ticketType', function(err, ticketTypeCollection){
-								ticketTypeCollection.find().toArray(function(err, ticketTypeDocs){
-									
-									commandsCollection.update({_id:commandsDocs[0]._id}, {$set: {
-										commands: [eventDocs[0]._id]}
-									}, function(err, result){});
-									
-									userCollection.update({_id:userDocs[0]._id},{$set: {
-										eventsID:[eventDocs[0]._id], commandsID:[commandsDocs[0]._id]}
-									}, function(err, result){});
-									
-									eventCollection.update({_id:eventDocs[0]._id},{$set:{
-										ownerID:userDocs[0]._id,
-										tickets:[{
-											uniqueID: eventDocs[0].uniqueTicketID,
-											userID: userDocs[0]._id,
-											ticketTypeID: ticketTypeDocs[0]._id,
-											used: false
-										}],
-										ticketsType: ticketTypeDocs		
-										}
-									}, function(err, result){});
-								});
-							});
+							commandsCollection.update({_id:commandsDocs[0]._id}, {$set: {
+								commands: [eventDocs[0]._id]}
+							}, function(err, result){});
+							
+							userCollection.update({_id:userDocs[0]._id},{$set: {
+								eventsID:[eventDocs[0]._id], commandsID:[commandsDocs[0]._id]}
+							}, function(err, result){});
+							
+							eventCollection.update({_id:eventDocs[0]._id},{$set:{
+								ownerID:userDocs[0]._id,
+								tickets:[{
+									uniqueID: eventDocs[0].uniqueTicketID,
+									userID: userDocs[0]._id,
+									ticketTypeNb: eventDocs[0].ticketsType[0].uniqueID,
+									used: false
+								}]
+								}
+							}, function(err, result){});
 						});
 					});
 				});
