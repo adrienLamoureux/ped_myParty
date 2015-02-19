@@ -136,10 +136,20 @@ app.post('/api/event', function (req, res, next){
 	newEvent.save(function (e, results){
         if (e) return next(e);
         res.send(results);
+        console.log(results);
+        userModel.findOne({_id:results.body.ownerID}, function (e, user){
+        	if(e) return;
+        	console.log(user);
+        	user.eventsID.push(results.body._id);
+        	userModel.findOneAndUpdate({_id:user._id}, user, function (e, newUser){
+        		if(e) return;
+        		console.log(newUser);
+        	});
+        });
     });
 });
 
-app.put('/api/event:id', function (req, res, next)
+app.put('/api/event/:id', function (req, res, next)
 {
   delete req.body._id; //duplicate id bug
   console.log('put event : '+req.body);
@@ -177,6 +187,28 @@ app.get('/api/user/:id', function (req, res, next) {
   	if (e) return next(e);
     res.send(result);
   });
+});
+
+app.get('/api/user/:id/event', function (req, res, next){
+	console.log('get event of user'+req.params.id);
+	userModel.findOne({_id:req.params.id}, function (e, result){
+		if(e) return next(e);	
+		eventModel.find({_id:{$in:result.body.eventsID}}, function (e, events){
+			console.log(events);
+			res.send(events);
+		});
+	});
+});
+
+app.get('/api/user/:id/command', function (req, res, next){
+	console.log('get command of user'+req.params.id);
+	userModel.findOne({_id:req.params.id}, function (e, result){
+		if(e) return next(e);
+		commandModel.findOne({_id:result.body.commandsID}, function (e, command){
+			console.log(command);
+			res.send(command);
+		});
+	});
 });
 
 app.post('/api/user', function (req, res, next){
