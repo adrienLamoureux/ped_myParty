@@ -92,6 +92,7 @@ var eventSchema = new Schema({
 	zipCode: String,
 	street: String, 
 	image: String,
+	imageSmall: String,
 	tickets: [ticketSchema],
 	ticketsType: [ticketTypeSchema],
 	uniqueTicketID: Number,

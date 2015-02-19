@@ -19,11 +19,23 @@ var updateRefID = function(db){
 							
 							eventCollection.update({_id:eventDocs[0]._id},{$set:{
 								ownerID:userDocs[0]._id,
+								imageSmall: '../ressources/'+eventDocs[0].title+'-'+eventDocs[0].dateStarting+'/small.jpg',
+								image: '../ressources/'+eventDocs[0].title+'-'+eventDocs[0].dateStarting+'/background.jpg',
 								tickets:[{
 									uniqueID: eventDocs[0].uniqueTicketID,
 									userID: userDocs[0]._id,
 									ticketTypeNb: eventDocs[0].ticketsType[0].uniqueID,
 									used: false
+								}],
+								ticketType:[{
+									uniqueID: 0,
+									description: 'Short description',
+									ticketLeft: 5,
+									sold: 0,
+									price: 50,
+									type: 'Preminum',
+									image: '../ressources/'+eventDocs[0].title+'-'+eventDocs[0].dateStarting+'/ticket'+eventDocs[0].ticketsType[0].uniqueID+'.jpg'
+
 								}]
 								}
 							}, function(err, result){});

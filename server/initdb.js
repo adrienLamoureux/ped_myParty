@@ -12,7 +12,7 @@ var initUser = function(db){
 				name: 'bob',
 				firstName: 'bobby',
 				phoneNumber: '00000000',
-				inscriptionDate: new Date('Jun 20, 2014'),
+				inscriptionDate: '1424339270481',
 				eventsID: [],
 				commandsID: null,
 				basket : []
@@ -40,7 +40,6 @@ var initEvent = function(db){
 				city: 'Bordeaux',
 				zipCode: '33000',
 				street: 'cours de la liberation', 
-				image: 'http://www.designtour.fr/media/bordeaux-86613421.jpg',
 				tickets: [],
 				ticketsType: [{
 					uniqueID: 0,
@@ -49,11 +48,11 @@ var initEvent = function(db){
 					sold: 0,
 					price: 50,
 					type: 'Preminum',
-					image: 'http://www.designtour.fr/media/bordeaux-86613421.jpg'
+					image: null
 				}],
 				uniqueTicketID: 0,
-				dateStarting: new Date('Jun 23, 2014'),
-				dateEnding: new Date('Jun 24, 2014'),
+				dateStarting: '1424339270481',
+				dateEnding: '1524339270481',
 				online: false
 			}
 			], function (err, result) {
@@ -72,7 +71,7 @@ var initCommands = function(db){
 		collection.insert([
 			{
 				commands: [],
-				dateBuy: new Date('Jun 22, 2014')
+				dateBuy: '1424339270481'
 			}
 			], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'commands'\n"); return false; }
