@@ -238,17 +238,53 @@ app.delete('/api/user/:id', function (req, res, next)
 	});
 });
 
-/*
-app.get('/api/usr/:id/event', function(req,res){
-	console.log('get events for user : '+req.params.id);
-	userModel.findOne({_id: req.params.id}, function (e, result){
-		if(e) return next(e);
-		for(var i=0; i<result.body.eventID.length; i++){
-			eventModel.findOne({_id: req.params.id}, function(err, coll){
 
-			});
-		}
-	})
-})
-*/
+// Command
+
+app.get('/api/command', function (req, res, next){
+	console.log('get commands');
+	commandsModel.find(function (e, result){
+		if (!err) {
+        return res.send(coll);
+    } else {
+        console.log(err);
+        next(err);
+	}
+	});
+});
+
+app.get('/api/command/:id', function (req, res, next) {
+  console.log('get command '+req.params.id);
+  commandsModel.findOne({_id: req.params.id}, function (e, result) {
+  	if (e) return next(e);
+    res.send(result);
+  });
+});
+
+app.post('/api/command', function (req, res, next){
+	console.log('new command : '+req.body);
+	var newCommand = new commandsModel(req.body);
+	newCommand.save(function (e, results){
+        if (e) return next(e);
+        res.send(results);
+    });
+});
+
+app.put('/api/command/:id', function (req, res, next)
+{
+  delete req.body._id; //duplicate id bug
+  console.log('put command : '+req.body);
+  commandsModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
+    if (err) return next(err);
+    res.send(result);
+  });
+});
+
+app.delete('/api/command/:id', function (req, res, next)
+{
+	commandsModel.remove({_id: req.params.id}, function (err, result){
+		if (err) return next(err);
+		res.send(result);
+	});
+});
 
