@@ -1,8 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 var Server = require('mongodb').Server;
 var userModel = require('./../../../models.js').userModel;
-var eventModel = require('./../../../models.js').eventModel;
-var commandsModel = require('./../../../models.js').commandsModel;
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/test_mongodb', function(err){
@@ -65,11 +63,29 @@ describe('Create a instance of userModel', function() {
 		});
 	});	
 
-	
 
 	it('launched ?', function() {
 		console.log("first test !");
 	});
+
+
+	it('find a user', function(){
+		userModel.find(function (err, coll) {
+			userModel.findOne({_id: coll[0]._id}, function (err, result){
+				expect(err).toBeNull();
+				expect(result._id).toEqual(coll[0]._id);
+			});
+		});
+	});
+
+
+	it('find all users', function(){
+		userModel.find(function (err, coll) {
+			expect(err).toBeNull();
+			expect(coll.length).not.toEqual(0);
+		});
+	});
+
 
 	it('inserting a new user', function(){
 		var userBody = {
@@ -89,20 +105,45 @@ describe('Create a instance of userModel', function() {
 		expect(newUser).not.toBeNull(); 
 		
 		newUser.save(function(err, results) {
-			expect(err).toBeNull(); 
+			expect(err).toBeNull();
+			userModel.findOne({_id: newUser._id}, function (err, result) {
+				expect(result._id).toEqual(newUser._id);
+			});
 		});
 	});
+
 	
 	it('updating a user', function(){
+		var userBody = {
+			email:'tata@gmail',
+			password: 'toto',
+			name:'plop',
+			firstName: 'bobby0000000',
+			phoneNumber: '00000000',
+			inscriptionDate: '1424339270481',
+			eventsID: [],
+			commandsID: null,
+			basket: []
+		};
 
+		userModel.find(function (err, coll) {
+			userModel.findOneAndUpdate({_id: coll[0]._id}, function (err, result) {
+				expect(err).toBeNull();
+				expect(result[0].email).toBe('tata@gmail');
+			});
+		});
 	});
 
-	it('find a user', function(){
 
+	it('remove a user', function(){
+		userModel.find(function (err, coll) {
+			userModel.remove({_id: coll[0]._id}, function (err, result){
+				expect(err).toBeNull();
+				userModel.findOne({_id: coll[0]._id}, function (err, result){
+					expect(err).toBeNull();
+					expect(result).toBeNull();
+				});
+			});
+		});
 	});
-
-	it('find all users', function(){
-		
-	});
-
 });
