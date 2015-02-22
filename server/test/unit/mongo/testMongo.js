@@ -1,6 +1,3 @@
-var MongoClient = require('mongodb').MongoClient;
-var Server = require('mongodb').Server;
-var userEvent = require('./../../../models.js').userEvent;
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/test_mongodb', function(err){
@@ -15,3 +12,9 @@ mongoose.connect('mongodb://localhost:27017/test_mongodb', function(err){
 mongoose.connection.db.executeDbCommand({
 			dropDatabase: 1
 });
+
+require('./tests/testUser.js');
+require('./tests/testEvent.js');
+require('./tests/testCommands.js');
+require('./tests/testUserEvent.js');
+require('./tests/testUserCommands.js');
