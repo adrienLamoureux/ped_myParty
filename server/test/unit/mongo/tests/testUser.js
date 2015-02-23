@@ -116,8 +116,6 @@ describe('Test suite for userModel', function() {
 		userModel.find(function (err, coll) {
 			userModel.findOneAndUpdate({_id: coll[0]._id}, userBody,function (err, result) {
 				expect(err).toBeNull();
-				console.log('result');
-				console.log(result);
 				expect(result.email).toBe('tata@gmail');				
 			});
 		});

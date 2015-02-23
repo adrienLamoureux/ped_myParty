@@ -161,8 +161,6 @@ describe('Test suite for eventModel', function() {
 		eventModel.find(function (err, coll) {
 			eventModel.findOneAndUpdate({_id: coll[0]._id}, eventBody, function (err, result) {
 				expect(err).toBeNull();
-				console.log('result');
-				console.log(result);
 				expect(result.city).toBe('Tokyo');
 			});
 		});
