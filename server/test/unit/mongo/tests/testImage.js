@@ -65,9 +65,10 @@ describe('Test suite for image management', function() {
 
 
 	it('add image to event', function(){
-		
+
 	});
 
 	it('remove image to event', function(){
-		
+
 	});
+});
