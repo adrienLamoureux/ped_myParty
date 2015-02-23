@@ -18,3 +18,4 @@ require('./tests/testEvent.js');
 require('./tests/testCommands.js');
 require('./tests/testUserEvent.js');
 require('./tests/testUserCommands.js');
+require('./tests/testImage.js');
