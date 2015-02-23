@@ -1,5 +1,5 @@
 exports.config = {
-  allScriptsTimeout: 11000,
+  allScriptsTimeout: 110000,
 
   specs: [
     'server/test/unit/mongo/testMongo.js'
@@ -14,6 +14,6 @@ exports.config = {
   framework: 'jasmine',
 
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000
+    defaultTimeoutInterval: 300000
   }
 };
