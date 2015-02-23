@@ -2,24 +2,21 @@ var MongoClient = require('mongodb').MongoClient;
 var Server = require('mongodb').Server;
 var eventModel = require('./../../../../models.js').eventModel;
 
-var clearDb = function(){
+var clearDb = function(done){
 	var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 	mongoclient.open(function(err, mongoclient) {
 		var db = mongoclient.db("test_mongodb");
 		db.collection('event', function(err, collection) {
 			if (collection) {
 				collection.remove({}, function(err,removed) {
-					if (!removed) {
-						console.log("\t--> collection could not be cleared!\n");
-						throw err; return false; 
-					};
+					done();
 				});
 			};
 		});
 	});
 };
 
-var insertDb = function(){
+var insertDb = function(done){
 	var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 	mongoclient.open(function(err, mongoclient) {
 		var db = mongoclient.db("test_mongodb");
@@ -51,19 +48,19 @@ var insertDb = function(){
 				dateEnding: null,
 				online: false
 			}
-			], function (err, result) {});
+			], function (err, result) {done();});
 		});
 	});
 };
 
 describe('Test suite for image management', function() {
 
-	beforeEach(function(){
-		cleanDb();
-		insertDb();
+	beforeEach(function(done){
+		cleanDb(done);
+		insertDb(done);
 	});
 
-	afterEach(function() {
+/*	afterEach(function() {
 		var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 		mongoclient.open(function(err, mongoclient) {
 			var db = mongoclient.db("test_mongodb");
@@ -76,13 +73,13 @@ describe('Test suite for image management', function() {
 			});
 		});
 	});	
+*/
 
-
-	it('add image to event', function(){
+	it('add image to event', function(done){
 
 	});
 
-	it('remove image to event', function(){
+	it('remove image to event', function(done){
 
 	});
 });
