@@ -1,25 +1,24 @@
 var MongoClient = require('mongodb').MongoClient;
 var Server = require('mongodb').Server;
 var userModel = require('./../../../../models.js').userModel;
+var assert = require("assert");
+var ObjectID = require('mongodb').ObjectID;
 
-var clearDb = function(){
+var clearDb = function(done){
 	var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 	mongoclient.open(function(err, mongoclient) {
 		var db = mongoclient.db("test_mongodb");
 		db.collection('user', function(err, collection) {
 			if (collection) {
 				collection.remove({}, function(err,removed) {
-					if (!removed) {
-						console.log("\t--> collection could not be cleared!\n");
-						throw err; return false; 
-					};
+					done();
 				});
 			};
 		});
 	});
 };
 
-var insertDb = function(){
+var insertDb = function(done){
 	var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 	mongoclient.open(function(err, mongoclient) {
 		var db = mongoclient.db("test_mongodb");
@@ -36,19 +35,19 @@ var insertDb = function(){
 				commandsID: null,
 				basket : []
 			}
-			], function (err, result) {});
+			], function (err, result) {done();});
 		});
 	});
 };
 
 describe('Test suite for userModel', function() {
 
-	it('starting test', function(){
-		clearDb();
-		insertDb();
+	it('starting test', function(done){
+		clearDb(done);
+		insertDb(done);
 	});
 
-	afterEach(function() {
+	/*afterEach(function() {
 		var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 		mongoclient.open(function(err, mongoclient) {
 			var db = mongoclient.db("test_mongodb");
@@ -60,29 +59,31 @@ describe('Test suite for userModel', function() {
 				});
 			});
 		});
-	});	
+	});	*/
 
 	describe('finding tests', function(){
-		it('find a user', function(){
+		it('find a user', function(done){
 			userModel.find(function (err, coll) {
-				expect(err).toBeNull();
+				assert.equal(err, null);
 				userModel.findOne({_id: coll[0]._id}, function (err, result){
-					expect(err).toBeNull();
-					expect(result._id).toEqual(coll[0]._id);
+					assert.equal(err, null);
+					assert.ok(result._id.equals(coll[0]._id));
+					done();
 				});
 			});
 		});
-		it('find all users', function(){
+		it('find all users', function(done){
 			userModel.find(function (err, coll) {
-				expect(err).toBeNull();
-				expect(coll.length).not.toEqual(0);
+				assert.equal(err, null);
+				assert.notEqual(coll.length, 0);
+				done();
 			});
 		});
 	});
 
 
 	describe('updating tests', function(){
-		it('inserting a new user', function(){
+		it('inserting a new user', function(done){
 			var userBody = {
 				email:'toto@gmail',
 				password: 'toto',
@@ -97,17 +98,18 @@ describe('Test suite for userModel', function() {
 
 			newUser = new userModel(userBody);
 					
-			expect(newUser).not.toBeNull(); 
+			assert.notEqual(newUser, null); 
 			
 			newUser.save(function(err, results) {
-				expect(err).toBeNull();
+				assert.equal(err, null);
 				userModel.findOne({_id: newUser._id}, function (err, result) {
-					expect(err).toBeNull();
-					expect(result._id).toEqual(newUser._id);
+					assert.equal(err, null);
+					assert.ok(result._id.equals(newUser._id));
+					done();
 				});
 			});
 		});
-		it('updating a user', function(){
+		it('updating a user', function(done){
 			var userBody = {
 				email:'tata@gmail',
 				password: 'toto',
@@ -122,25 +124,27 @@ describe('Test suite for userModel', function() {
 
 			userModel.find(function (err, coll) {
 				userModel.findOneAndUpdate({_id: coll[0]._id}, userBody,function (err, result) {
-					expect(err).toBeNull();
-					expect(result.email).toBe('tata@gmail');				
+					assert.equal(err, null);
+					assert.equal(result.email, 'tata@gmail');
+					done();
 				});
 			});
 		});
-		afterEach(function(){
-			clearDb();
-			insertDb();
+		afterEach(function(done){
+			clearDb(done);
+			insertDb(done);
 		});
 	});
-
+/*
 	describe('deleting tests', function(){
-		it('remove a user', function(){
+		it('remove a user', function(done){
 			userModel.find(function (err, coll) {
 				userModel.remove({_id: coll[0]._id}, function (err, result){
-					expect(err).toBeNull();
+					assert.equal(err, null);
 					userModel.findOne({_id: coll[0]._id}, function (err, result){
-						expect(err).toBeNull();
-						expect(result).toBeNull();
+						assert.equal(err, null);
+						assert.equal(result, null);
+						done();
 					});
 				});
 			});
@@ -149,7 +153,7 @@ describe('Test suite for userModel', function() {
 			insertDb();
 		});
 	});
-
+*/
 	it('next', function(){
 		//require('./testEvent.js');
 	});

@@ -3,7 +3,8 @@ var Server = require('mongodb').Server;
 var userModel = require('./../../../../models.js').userModel;
 var eventModel = require('./../../../../models.js').eventModel;
 var commandsModel = require('./../../../../models.js').commandsModel;
-
+var assert = require("assert");
+var ObjectID = require('mongodb').ObjectID;
 
 var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 mongoclient.open(function(err, mongoclient) {
@@ -11,9 +12,6 @@ mongoclient.open(function(err, mongoclient) {
 	db.collection('event', function(err, collection) {
 		if (collection) {
 			collection.remove({}, function(err,removed) {
-			if (!removed) {
-				console.log("\t--> collection could not be cleared!\n");
-				throw err; return false; }
 			});
 			collection.insert([
 			{
@@ -48,9 +46,6 @@ mongoclient.open(function(err, mongoclient) {
 	db.collection('user', function(err, collection) {
 		if (collection) {
 			collection.remove({}, function(err,removed) {
-			if (!removed) {
-				console.log("\t--> collection could not be cleared!\n");
-				throw err; return false; }
 			});
 			collection.insert([
 			{
@@ -103,7 +98,7 @@ mongoclient.open(function(err, mongoclient) {
 	});
 });
 
-var linkData = function(){
+var linkData = function(done){
 	var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 	mongoclient.open(function(err, mongoclient) {
 		var db = mongoclient.db("test_mongodb");
@@ -142,6 +137,7 @@ var linkData = function(){
 										dateBuy: '1424339270481'
 									}]
 								}}, function(err, result){});
+								done();
 							});
 						});
 					});
@@ -153,11 +149,11 @@ var linkData = function(){
 
 describe('Test suite for user linked to event and commands', function() {
 
-	it('starting test', function(){
-		linkData();
+	it('starting test', function(done){
+		linkData(done);
 	});
 
-	afterEach(function() {
+	/*afterEach(function() {
 		var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 		mongoclient.open(function(err, mongoclient) {
 			var db = mongoclient.db("test_mongodb");
@@ -182,39 +178,37 @@ describe('Test suite for user linked to event and commands', function() {
 				});
 			});
 		});
-	});
+	});*/
 
 
 	describe('finding test', function(){
-		it('find the owner event', function() {
+		it('find the owner event', function(done) {
 			eventModel.find(function (err, coll) {
-				expect(err).toBeNull();
+				assert.equal(err, null);
 				eventModel.findOne({_id: coll[0]._id}, function (err, event){
-					expect(err).toBeNull();
-					expect(event._id).toEqual(coll[0]._id);
+					assert.equal(err, null);
+					assert.ok(event._id.equals(coll[0]._id));
 					userModel.findOne({_id:event.ownerID}, function (err, user){
-						expect(err).toBeNull();
-						console.log('user')
-						console.log(user)
-						console.log('event')
-						console.log(event)
-						expect(user._id).toEqual(event.ownerID);
-						expect(user.eventsID[0]).toEqual(event._id);
+						assert.equal(err, null);
+						assert.ok(user._id.equals(event.ownerID));
+						assert.ok(user.eventsID[0].equals(event._id));
+						done();
 					});
 				});
 			});
 		});
 
-		it('find the event whose a user participated', function() {
+		it('find the event whose a user participated', function(done) {
 			userModel.find(function (err, users) {
-				expect(err).toBeNull();
+				assert.equal(err, null);
 				commandsModel.findOne({_id:users[0].commandsID}, function (err, commands){
-					expect(err).toBeNull();
-					expect(users[0].commandsID).toEqual(commands._id)
+					assert.equal(err, null);
+					assert.ok(users[0].commandsID.equals(commands._id));
 					eventModel.findOne({_id:commands.commands[0].eventTickets[0].eventID}, function (err, event){
-						expect(err).toBeNull();
-						expect(commands.commands[0].eventTickets[0].eventID).toEqual(event._id);
-						expect(event.tickets[0].userID).toEqual(users[0]._id);
+						assert.equal(err, null);
+						assert.ok(commands.commands[0].eventTickets[0].eventID.equals(event._id));
+						assert.ok(event.tickets[0].userID.equals(users[0]._id));
+						done();
 					});
 				});
 			});

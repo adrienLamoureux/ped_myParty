@@ -33,8 +33,7 @@ var testImage = function(){
 	require('./tests/testImage.js');
 };
 
-testUser();
+//testUser();
 //testEvent();
 //testCommands();
 //testLinkUserEventCommands();
-//testImage();

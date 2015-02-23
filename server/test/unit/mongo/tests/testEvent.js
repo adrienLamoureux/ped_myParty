@@ -1,25 +1,24 @@
 var MongoClient = require('mongodb').MongoClient;
 var Server = require('mongodb').Server;
 var eventModel = require('./../../../../models.js').eventModel;
+var assert = require("assert");
+var ObjectID = require('mongodb').ObjectID;
 
-var clearDb = function(){
+var clearDb = function(done){
 	var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 	mongoclient.open(function(err, mongoclient) {
 		var db = mongoclient.db("test_mongodb");
 		db.collection('event', function(err, collection) {
 			if (collection) {
 				collection.remove({}, function(err,removed) {
-					if (!removed) {
-						console.log("\t--> collection could not be cleared!\n");
-						throw err; return false; 
-					};
+					done();
 				});
 			};
 		});
 	});
 };
 
-var insertDb = function(){
+var insertDb = function(done){
 	var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 	mongoclient.open(function(err, mongoclient) {
 		var db = mongoclient.db("test_mongodb");
@@ -51,19 +50,19 @@ var insertDb = function(){
 				dateEnding: null,
 				online: false
 			}
-			], function (err, result) {});
+			], function (err, result) {done();});
 		});
 	});
 };
 
 describe('Test suite for eventModel', function() {
 
-	it('starting test', function(){
-		clearDb();
-		insertDb();
+	it('starting test', function(done){
+		clearDb(done);
+		insertDb(done);
 	});
 
-	afterEach(function() {
+	/*afterEach(function() {
 		var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 		mongoclient.open(function(err, mongoclient) {
 			var db = mongoclient.db("test_mongodb");
@@ -75,29 +74,31 @@ describe('Test suite for eventModel', function() {
 				});
 			});
 		});
-	});	
+	});*/
 
 	describe('finding test', function(){
-		it('find an event', function(){
+		it('find an event', function(done){
 			eventModel.find(function (err, coll) {
-				expect(err).toBeNull();
+				assert.equal(err, null);
 				eventModel.findOne({_id: coll[0]._id}, function (err, result){
-					expect(err).toBeNull();
-					expect(result._id).toEqual(coll[0]._id);
+					assert.equal(err, null);
+					assert.ok(result._id.equals(coll[0]._id));
+					done();
 				});
 			});
 		});
-		it('find all events', function(){
+		it('find all events', function(done){
 			eventModel.find(function (err, coll) {
-				expect(err).toBeNull();
-				expect(coll.length).not.toEqual(0);
+				assert.equal(err, null);
+				assert.notEqual(coll.length,0);
+				done();
 			});
 		});
 	});
 	
 
 	describe('updating test', function(){
-		it('inserting a new event', function(){
+		it('inserting a new event', function(done){
 			var eventBody = {
 				ownerID: null,
 				title: "Miku party",
@@ -127,17 +128,18 @@ describe('Test suite for eventModel', function() {
 
 			newEvent = new eventModel(eventBody);
 					
-			expect(newEvent).not.toBeNull(); 
+			assert.notEqual(newEvent, null); 
 			
 			newEvent.save(function(err, results) {
-				expect(err).toBeNull();
+				assert.equal(err, null);
 				eventModel.findOne({_id: newEvent._id}, function (err, result) {
-					expect(err).toBeNull();
-					expect(result._id).toEqual(newEvent._id);
+					assert.equal(err, null);
+					assert.ok(result._id.equals(newEvent._id));
+					done();
 				});
 			});
 		});
-		it('updating an event', function(){
+		it('updating an event', function(done){
 			var eventBody = {
 				ownerID: null,
 				title: "Miku party",
@@ -167,26 +169,27 @@ describe('Test suite for eventModel', function() {
 
 			eventModel.find(function (err, coll) {
 				eventModel.findOneAndUpdate({_id: coll[0]._id}, eventBody, function (err, result) {
-					expect(err).toBeNull();
-					expect(result.city).toBe('Tokyo');
+					assert.equal(err, null);
+					assert.equal(result.city, 'Tokyo');
+					done();
 				});
 			});
 		});
-		afterEach(function(){
-			clearDb();
-			insertDb();
+		afterEach(function(done){
+			clearDb(done);
+			insertDb(done);
 		});
 	});
 	
-
+/*
 	describe('deleting tests', function(){
 		it('remove an event', function(){
 			eventModel.find(function (err, coll) {
 				eventModel.remove({_id: coll[0]._id}, function (err, result){
-					expect(err).toBeNull();
+					assert.equal(err, null);
 					eventModel.findOne({_id: coll[0]._id}, function (err, result){
-						expect(err).toBeNull();
-						expect(result).toBeNull();
+						assert.equal(err, null);
+						assert.equal(result, null);
 					});
 				});
 			});
@@ -195,7 +198,8 @@ describe('Test suite for eventModel', function() {
 			insertDb();
 		});
 	});
-
+*/
 	it('next', function(){
+		//require('./testCommands.js');
 	})
 });
