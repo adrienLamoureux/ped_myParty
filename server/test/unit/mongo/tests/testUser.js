@@ -3,10 +3,9 @@ var Server = require('mongodb').Server;
 var userModel = require('./../../../../models.js').userModel;
 
 
-describe('Create a instance of userModel', function() {
+describe('Test suite for userModel', function() {
 	
 	beforeEach(function() {
-
 		var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 		mongoclient.open(function(err, mongoclient) {
 			var db = mongoclient.db("test_mongodb");
@@ -113,13 +112,13 @@ describe('Create a instance of userModel', function() {
 		};
 
 		userModel.find(function (err, coll) {
-			userModel.findOneAndUpdate({_id: coll[0]._id}, function (err, result) {
+			userModel.findOneAndUpdate({_id: coll[0]._id}, userBody,function (err, result) {
 				expect(err).toBeNull();
-				expect(result[0].email).toBe('tata@gmail');
+				expect(result.email).toBe('tata@gmail');
 			});
 		});
 	});
-
+	
 
 	it('remove a user', function(){
 		userModel.find(function (err, coll) {
