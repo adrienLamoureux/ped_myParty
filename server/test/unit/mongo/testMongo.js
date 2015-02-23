@@ -13,9 +13,28 @@ mongoose.connection.db.executeDbCommand({
 			dropDatabase: 1
 });
 
-require('./tests/testUser.js');
-require('./tests/testEvent.js');
-require('./tests/testCommands.js');
-require('./tests/testUserEvent.js');
-require('./tests/testUserCommands.js');
-require('./tests/testImage.js');
+var testUser = function(){
+	require('./tests/testUser.js');
+};
+
+var testEvent = function(){
+	require('./tests/testEvent.js');
+};
+
+var testCommands = function(){
+	require('./tests/testCommands.js');
+};
+
+var testLinkUserEventCommands = function(){
+	require('./tests/testLinkUserEventCommands.js');
+};
+
+var testImage = function(){
+	require('./tests/testImage.js');
+};
+
+testUser();
+//testEvent();
+//testCommands();
+//testLinkUserEventCommands();
+//testImage();

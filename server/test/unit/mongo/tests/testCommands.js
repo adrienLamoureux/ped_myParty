@@ -4,46 +4,46 @@ var commandsModel = require('./../../../../models.js').commandsModel;
 
 
 describe('Test suite for commandsModel', function() {
-	
+
 	beforeEach(function() {
 		var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 		mongoclient.open(function(err, mongoclient) {
-			var db = mongoclient.db("test_mongodb");
-			db.collection('commands', function(err, collection) {
-				if (collection) {
-					collection.remove({}, function(err,removed) {
-					if (!removed) {
-						console.log("\t--> collection could not be cleared!\n");
-						throw err; return false; }
-					});
-					collection.insert([
+		var db = mongoclient.db("test_mongodb");	
+		db.collection('commands', function(err, collection) {
+		if (collection) {
+			collection.remove({}, function(err,removed) {
+			if (!removed) {
+				console.log("\t--> collection could not be cleared!\n");
+				throw err; return false; }
+			});
+			collection.insert([
+			{
+				commands: 
+				[
 					{
-						commands: 
+						eventTickets: 
 						[
 							{
-								eventTickets: 
-								[
-									{
-									eventID: null,
-									tickets: 
-									[
-										{
-											uniqueID: 0,
-											userID: null,
-											ticketTypeNb: 1,
-											used: false
-										}
-									]
-									}
-								],
-								dateBuy: null
+							eventID: null,
+							tickets: 
+							[
+								{
+									uniqueID: 0,
+									userID: null,
+									ticketTypeNb: 1,
+									used: false
+								}
+							]
 							}
-						]
+						],
+						dateBuy: null
 					}
-					], function (err, result) {})
-				};
-			});
-		});
+				]
+			}
+			], function (err, result) {})
+		};
+	});
+	});
 	});
 
 	afterEach(function() {

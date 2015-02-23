@@ -4,7 +4,7 @@ var eventModel = require('./../../../../models.js').eventModel;
 
 
 describe('Test suite for eventModel', function() {
-	
+
 	beforeEach(function() {
 		var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 		mongoclient.open(function(err, mongoclient) {
