@@ -71,6 +71,7 @@ describe('Test suite for eventModel', function() {
 
 	it('find an event', function(){
 		eventModel.find(function (err, coll) {
+			expect(err).toBeNull();
 			eventModel.findOne({_id: coll[0]._id}, function (err, result){
 				expect(err).toBeNull();
 				expect(result._id).toEqual(coll[0]._id);
@@ -122,6 +123,7 @@ describe('Test suite for eventModel', function() {
 		newEvent.save(function(err, results) {
 			expect(err).toBeNull();
 			eventModel.findOne({_id: newEvent._id}, function (err, result) {
+				expect(err).toBeNull();
 				expect(result._id).toEqual(newEvent._id);
 			});
 		});
@@ -157,8 +159,10 @@ describe('Test suite for eventModel', function() {
 		};
 
 		eventModel.find(function (err, coll) {
-			eventModel.findOneAndUpdate({_id: coll[0]._id}, eventBody,function (err, result) {
+			eventModel.findOneAndUpdate({_id: coll[0]._id}, eventBody, function (err, result) {
 				expect(err).toBeNull();
+				console.log('result');
+				console.log(result);
 				expect(result.city).toBe('Tokyo');
 			});
 		});

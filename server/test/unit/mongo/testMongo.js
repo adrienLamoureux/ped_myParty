@@ -13,8 +13,8 @@ mongoose.connection.db.executeDbCommand({
 			dropDatabase: 1
 });
 
-require('./tests/testUser.js');
-require('./tests/testEvent.js');
+/*require('./tests/testUser.js');
+require('./tests/testEvent.js');*/
 require('./tests/testCommands.js');
 require('./tests/testUserEvent.js');
 require('./tests/testUserCommands.js');

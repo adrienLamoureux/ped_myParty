@@ -56,6 +56,7 @@ describe('Test suite for userModel', function() {
 
 	it('find a user', function(){
 		userModel.find(function (err, coll) {
+			expect(err).toBeNull();
 			userModel.findOne({_id: coll[0]._id}, function (err, result){
 				expect(err).toBeNull();
 				expect(result._id).toEqual(coll[0]._id);
@@ -92,6 +93,7 @@ describe('Test suite for userModel', function() {
 		newUser.save(function(err, results) {
 			expect(err).toBeNull();
 			userModel.findOne({_id: newUser._id}, function (err, result) {
+				expect(err).toBeNull();
 				expect(result._id).toEqual(newUser._id);
 			});
 		});
@@ -114,7 +116,9 @@ describe('Test suite for userModel', function() {
 		userModel.find(function (err, coll) {
 			userModel.findOneAndUpdate({_id: coll[0]._id}, userBody,function (err, result) {
 				expect(err).toBeNull();
-				expect(result.email).toBe('tata@gmail');
+				console.log('result');
+				console.log(result);
+				expect(result.email).toBe('tata@gmail');				
 			});
 		});
 	});
