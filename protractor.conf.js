@@ -11,5 +11,5 @@ exports.config = {
 
   baseUrl: 'http://localhost:4711/',
 
-  framework: 'mocha'
+  frameworks: ['mocha', 'jasmine']
 };
