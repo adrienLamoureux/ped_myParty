@@ -1,4 +1,26 @@
 <!-- Navigaion Bar Partial -->
-<div class="col-12">
-nav bar
-</div>
+<nav class="navbar navbar-inverse navbar-fixed-top">        					
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#/" ng-click="changeActiveMenu(0)">My Party</a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul id="menu" class="nav navbar-nav">
+				<li ng-class="activeMenu==0? 'active' : 'notActive'"><a href="#/" ng-click="changeActiveMenu(0)">Accueil</a></li>
+				<li ng-show="userConnected" ng-class="activeMenu==1? 'active' : 'notActive'"><a href="#/usr/:id" ng-click="changeActiveMenu(1)">Mon Compte</a></li>
+				<li ng-show="userConnected" ng-class="activeMenu==2? 'active' : 'notActive'"><a href="#/usr/:id/cmds" ng-click="changeActiveMenu(2)">Mes Commandes</a></li>
+			</ul>
+			<ul id="menu" class="nav navbar-nav pull-right">
+				<li ng-show="userConnected" ng-class="activeMenu==3? 'active' : 'notActive'"><a href="#/usr/:id/basket" ng-click="changeActiveMenu(3)">Mon Panier</a></li>
+				<li ng-hide="userConnected" ng-class="activeMenu==4? 'active' : 'notActive'"><a href="#/" ng-click="changeActiveMenu(4)">Se Connecter</a></li>
+				<li ng-show="userConnected" ng-class="activeMenu==5? 'active' : 'notActive'"><a href="#/" ng-click="changeActiveMenu(5)">Se Déconnecter</a></li>
+			</ul>
+		</div>		
+	</div>
+</nav>
