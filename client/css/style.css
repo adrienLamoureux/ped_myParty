@@ -1,3 +1,16 @@
+/*********************************/
+/*** global **********************/
+/***        **********************/
+	.center{
+		display:block;
+		text-align:center;
+		float:none;
+		margin:auto;
+	}
+	body{
+		background:lightgrey;
+	}
+
 
 /*********************************/
 /*** nav *************************/
@@ -11,6 +24,64 @@
 		margin-top:50px; /* required to let some place for the top-fixed main menu bar. */
 	}
 
+
+/*********************************/
+/*** eventPage *******************/
+/***      ************************/
+	#eventPage{
+		width:100%;
+		color: #FFF;
+		font-size: 16px;
+		font-family: "Century Gothic",arial,serif;
+		text-align: left;
+		padding-top:20px;
+		background:black;
+		background-position:top center;
+		background-repeat: repeat-y;
+	}
+	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event, #eventPage #event #ticket{
+		background-color: rgba(0, 0, 0, 0.90);
+		padding:10px 10px 10px 10px;
+		border: 1px solid #cecece;
+		-webkit-border-radius: 10px;
+		 -khtml-border-radius: 10px;
+		   -moz-border-radius: 10px;
+			-ms-border-radius: 10px;
+			 -o-border-radius: 10px;
+				border-radius: 10px;
+	}
+	#eventPage #event{
+		background-color: rgba(0, 0, 0, 0.50);
+		padding:0px 0px 15px 0px;
+	}
+	#eventPage #event * h1{		
+		text-align: center;
+	}
+	#eventPage #event #info ul{		
+		padding-left:25px;
+	}
+	#eventPage #event #info ul li{
+		font-style:oblique;
+	}
+	#eventPage #event #tickets{
+		margin:0px;
+		padding:0px;
+	}
+	#eventPage #event #ticket h2{
+		margin-top:0px;
+		padding-top:0px;
+		font-style: oblique;
+	}
+	#eventPage #event #ticket input[type=number]{
+		width:50px;
+		background:black;
+		height:34px;
+	}
+	#eventPage #event #ticket button{
+		color:black;
+		font-weight: bolder;
+		margin-left:10px;
+	}
 /*********************************/
 /*** eventFrm ********************/
 /***          ********************/
@@ -21,35 +92,28 @@
 		border-radius:10px; 
 		padding:10px; 
 	}
-
 	#eventForm hr { 
 		border:1px solid lightgray; 
 		margin:0; 
-	}
-	
+	}	
 	#eventForm label, #eventForm input, #eventForm textarea{
 		width:100%;
 	}
-
 	#eventForm div input, #eventForm div textarea,  #eventForm div label{ 
 		margin-left:15px; 
 	}
-
 	#eventForm input { 
 		display:inline-block; 
 		width:80px; 
 		text-align:center; 
 	}
-	
 	#eventForm label + input, #eventForm label + textarea  { 
 		width:95%;
 		margin-bottom:10px; 
 	}
-
 	#eventForm button[type=submit], #eventForm button[type=button]{
 		margin-top:10px;
 	}
-
 	#eventForm img{
 		height:25px; 
 		margin:0px; 
