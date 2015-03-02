@@ -2,7 +2,8 @@ exports.config = {
   allScriptsTimeout: 110000,
 
   specs: [
-    'server/test/unit/mongo/testMongo.js'
+    'server/test/unit/mongo/testMongo.js',
+    'client/test/e2e/**/*.js'
   ],
 
   capabilities: {
