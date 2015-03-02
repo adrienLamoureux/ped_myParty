@@ -67,10 +67,10 @@ app.post('/api/event', function (req, res, next){
         if (e) return next(e);
         res.send(results);
         console.log(results);
-        userModel.findOne({_id:results.body.ownerID}, function (e, user){
+        userModel.findOne({_id:results.ownerID}, function (e, user){
         	if(e) return;
         	console.log(user);
-        	user.eventsID.push(results.body._id);
+        	user.eventsID.push(results._id);
         	userModel.findOneAndUpdate({_id:user._id}, user, function (e, newUser){
         		if(e) return;
         		console.log(newUser);
@@ -123,7 +123,7 @@ app.get('/api/user/:id/event', function (req, res, next){
 	console.log('get event of user'+req.params.id);
 	userModel.findOne({_id:req.params.id}, function (e, result){
 		if(e) return next(e);	
-		eventModel.find({_id:{$in:result.body.eventsID}}, function (e, events){
+		eventModel.find({_id:{$in:result.eventsID}}, function (e, events){
 			console.log(events);
 			res.send(events);
 		});
@@ -134,7 +134,7 @@ app.get('/api/user/:id/command', function (req, res, next){
 	console.log('get command of user'+req.params.id);
 	userModel.findOne({_id:req.params.id}, function (e, result){
 		if(e) return next(e);
-		commandModel.findOne({_id:result.body.commandsID}, function (e, command){
+		commandModel.findOne({_id:result.commandsID}, function (e, command){
 			console.log(command);
 			res.send(command);
 		});
