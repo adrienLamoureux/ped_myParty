@@ -9,7 +9,7 @@ app.factory('Event', ['$resource', function($resource){
 }]);
 
 app.factory('EventByOrganizerId', ['$resource', function($resource){
-	return $resource('./../api/usr/:id/event', {id: '@_id'}, {
+	return $resource('./../api/user/:id/event', {id: '@_id'}, {
 		query: {method: 'GET', isArray:true},
 	});		
 }]);

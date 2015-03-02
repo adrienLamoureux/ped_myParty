@@ -33,7 +33,7 @@ app.config(function($routeProvider){
 		})
 		.when('/usr/:id/events', {
 			templateUrl: './partials/userEvents.html',
-			controller: 'EventCtrl'	
+			controller: 'UserEventsCtrl'	
 		})
 		.when('/event/create', {
 			templateUrl: './partials/createEvent.html',
