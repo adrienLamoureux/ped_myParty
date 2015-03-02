@@ -25,7 +25,8 @@ var updateRefID = function(db){
 									uniqueID: eventDocs[0].uniqueTicketID,
 									userID: userDocs[0]._id,
 									ticketTypeNb: eventDocs[0].ticketsType[0].uniqueID,
-									used: false
+									used: false,
+									dateExpiration: '1524339270481'
 								}],
 								ticketType:[{
 									uniqueID: 0,

@@ -23,7 +23,8 @@ var ticketSchema = new Schema({
 	uniqueID: Number,
 	userID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
 	ticketTypeNb: Number,
-	used: {type: Boolean, default: false}
+	used: {type: Boolean, default: false},
+	dateExpiration: Date
 }, {collection: 'ticket'});
 
 // Virtual ticket
