@@ -1,2 +1,36 @@
 <!-- Event Template -->
-<h1> Page de visualisation d'un Event </h1>
+<div id="eventPage" class="container" ng-style="{'background-image':'url(http://previews.123rf.com/images/gubh83/gubh830912/gubh83091200010/6032929-grunge-background-with-party-couple-silhouette-with-stars.jpg)'}"><!-- remplacer par {'background-image':'url(thisEvent.image)'} -->
+	<section id="event" class="col-sm-8 col-sm-offset-2">
+		<section id="info" class="col-sm-12">
+			<h1>{{thisEvent.title}}</h1>
+			<ul>
+				<li>Description :</li><p class="center">{{thisEvent.description}}</p>
+				<li>Dates :</li><p class="center">Du {{thisEvent.dateStarting | date:'dd/MM/yyyy'}} au {{thisEvent.dateEnding  | date:'dd/MM/yyyy'}}.</p>
+				<li>Lieu :</li> <p class="center">{{thisEvent.street}}<br/>
+					{{thisEvent.zipCode}} {{thisevent.city}}<br/>
+					{{thisEvent.county}}<br/>
+					{{thisEvent.country}}</p>
+			</ul>
+		</section>
+		<section class="col-sm-12">
+			<h1>Billeterie</h1>
+			<div id="tickets" class="container-fluid" ng-repeat="ticketType in thisEvent.ticketsType">
+			  	<div id="ticket" class="container col-sm-6" ng-show="ticketType.ticketLeft>0" ng-style="{'background-image':'url(ticketType.image)'}">			  		
+					<div>
+						<h2>{{ticketType.type}}</h2>	
+				  		<ul>
+				  			<li>Description : {{ticketType.description}}</li>
+				  			<li>Prix : {{ticketType.price}} €</li>
+				  		</ul>
+			  		</div>
+			  		<div class="pull-right">
+					 	<input type="number" value="0" min="0" max="{{ticketType.ticketLeft}}">
+					  	<button class="btn btn-primary">
+							Ajouter au panier
+						</button>
+					</div>
+			   	</div>
+			</div>
+		</section>
+	</section>
+</div>

@@ -31,31 +31,82 @@ var initEvent = function(db){
 	console.log("Inserting new documents in 'event' ...");
 	db.collection('event', function(err, collection) {
 		collection.insert([
-		{
-			ownerID: null,
-			title: 'Great',
-			description: 'Super party',
-			country: 'France',
-			county: 'Aquitaine',
-			city: 'Bordeaux',
-			zipCode: '33000',
-			street: 'cours de la liberation', 
-			tickets: [],
-			ticketsType: [{
-				uniqueID: 0,
-				description: 'Short description',
-				ticketLeft: 5,
-				sold: 0,
-				price: 50,
-				type: 'Preminum',
-				image: null
-			}],
-			uniqueTicketID: 0,
-			dateStarting: '1424339270481',
-			dateEnding: '1524339270481',
-			online: false
-		}
-		], function (err, result) {
+			{
+				ownerID: null,
+				title: 'Great event 1',
+				description: 'Super party',
+				country: 'France',
+				county: 'Aquitaine',
+				city: 'Bordeaux',
+				zipCode: '33000',
+				street: 'cours de la liberation', 
+				image: 'http://previews.123rf.com/images/gubh83/gubh830912/gubh83091200010/6032929-grunge-background-with-party-couple-silhouette-with-stars.jpg',
+				tickets: [],
+				ticketsType: [{
+					uniqueID: 0,
+					description: 'Short description',
+					ticketLeft: 5,
+					sold: 0,
+					price: 50,
+					type: 'Preminum',
+					image: null
+				}],
+				uniqueTicketID: 0,
+				dateStarting: '1424339270481',
+				dateEnding: '1524339270481',
+				online: true
+			},
+			{
+				ownerID: null,
+				title: 'Great event 2 (out of date)',
+				description: 'Super party',
+				country: 'France',
+				county: 'Aquitaine',
+				city: 'Bordeaux',
+				zipCode: '33000',
+				street: 'cours de la liberation', 
+				image: 'http://previews.123rf.com/images/gubh83/gubh830912/gubh83091200010/6032929-grunge-background-with-party-couple-silhouette-with-stars.jpg',
+				tickets: [],
+				ticketsType: [{
+					uniqueID: 0,
+					description: 'Short description',
+					ticketLeft: 5,
+					sold: 0,
+					price: 50,
+					type: 'Preminum',
+					image: null
+				}],
+				uniqueTicketID: 0,
+				dateStarting: '1424339270481',
+				dateEnding: '1424339270481',
+				online: true
+			},
+			{
+				ownerID: null,
+				title: 'Great event 3 (not online)',
+				description: 'Super party',
+				country: 'France',
+				county: 'Aquitaine',
+				city: 'Bordeaux',
+				zipCode: '33000',
+				street: 'cours de la liberation', 
+				image: 'http://previews.123rf.com/images/gubh83/gubh830912/gubh83091200010/6032929-grunge-background-with-party-couple-silhouette-with-stars.jpg',
+				tickets: [],
+				ticketsType: [{
+					uniqueID: 0,
+					description: 'Short description',
+					ticketLeft: 5,
+					sold: 0,
+					price: 50,
+					type: 'Preminum',
+					image: null
+				}],
+				uniqueTicketID: 0,
+				dateStarting: '1424339270481',
+				dateEnding: '1524339270481',
+				online: false
+			}
+			], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'event'\n"); return false; }
 			console.log("\t--> New documents have been added to 'event'!\n"+
 				"\t    Collection length : "+result.length+'\n');

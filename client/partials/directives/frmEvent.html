@@ -1,17 +1,23 @@
 <!-- eventForm Partial -->
-<fieldset  id="eventForm" ng-controller="EventCtrl" class="eventForm">
+<fieldset  id="eventForm" ng-controller="EventFrmCtrl" class="eventForm">
 	<form name="eventForm" validate>
 		<!-- Info générales -->
 		<h2>Informations générales</h2>
 		<div>
 			<label>Titre</label>
-			<input id="txtEventTitle" type="text" class="form-control" placeholder="Mon super événement" ng-model="eventFormData.title" required/><br/>
+			<input id="txtEventTitle" name="txtEventTitle" type="text" class="form-control" placeholder="Mon super événement" ng-model="eventFormData.title" required/><br/>
 			
 			<label>Date de début</label>
-			<input id="txtEventDateStarting" type="date" class="form-control" placeholder="aaaa-mm-jj" ng-model="eventFormData.dateStarting" required/>
+			<input id="txtEventDateStarting" name="txtEventDateStarting" type="date" class="form-control" placeholder="aaaa-mm-jj" ng-model="eventFormData.dateStarting" min="{{now | date: 'yyyy-MM-dd'}}" required/><br/>
+			<div class="red" ng-show="eventForm.$submitted || eventForm.txtEventDateStarting.$touched">
+      			<div class="red" ng-show="eventForm.txtEventDateStarting.$error.min">La date de début doit être postérieure à la date du jour.</div>
+    		</div>
 			<label>Date de fin</label>
-			<input id="txtEventDateEnding" type="date" class="form-control" placeholder="aaaa-mm-jj" ng-model="eventFormData.dateEnding" required/><br/>
-			
+			<input id="txtEventDateEnding" name="txtEventDateEnding" type="date" class="form-control" placeholder="aaaa-mm-jj" min="{{eventFormData.dateStarting | date: 'yyyy-MM-dd'}}" ng-model="eventFormData.dateEnding" required/><br/>
+			<div class="red" ng-show="eventForm.$submitted || eventForm.txtEventDateEnding.$touched">
+      			<div class="red" ng-show="eventForm.txtEventDateEnding.$error.min">La date de fin doit être postérieure à la date de début.</div>
+    		</div>
+
 			<label>Description</label>
 			<textarea id="txtEventDescription" class="form-control" placeholder="Description de l'événement" ng-model="eventFormData.description" required/></textarea><br/>
 
@@ -56,18 +62,23 @@
 			<input id="txtEventPrice{{$index+1}}" type="number" class="form-control" title="Enter a price" min="0" ng-model="t.price" required/><br/>
 
 			<label>Date d'expiration</label>
-			<input id="txtExpirationDate{{$index+1}}" type="date" class="form-control" placeholder="aaaa-mm-jj" ng-model="t.expirationDate" required/><br/>
+			<input id="txtExpirationDate{{$index+1}}" name="txtExpirationDate{{$index+1}}" type="date" class="form-control" placeholder="aaaa-mm-jj" ng-model="t.expirationDate" min="{{eventFormData.dateStarting | date: 'yyyy-MM-dd'}}" max="{{eventFormData.dateEnding | date: 'yyyy-MM-dd'}}" required/><br/>
+			<div class="red" ng-show="eventForm.$submitted || eventForm.txtExpirationDate{{$index+1}}.$touched">
+      			<div class="red" ng-show="eventForm.txtExpirationDate{{$index+1}}.$error.min">La date d'expiration doit être postérieure à la date de début de l'événement.</div>
+    			<div class="red" ng-show="eventForm.txtExpirationDate{{$index+1}}.$error.max">La date de début doit être antérieure à la date de fin de l'événement.</div>
+    		</div>
 
 			<label>Image de fond du billet</label>
 			<input id="fileTicketTypeImage{{$index+1}}" type="file" ng-model="t.image"/><br/>
 		</div>
 		<button id="bt_add_ticket" class="btn btn-primary btn-block" ng-click="eventFormData.ticketsType.push({
-			'description': '',
-			'ticketLeft': 1,
-			'sold': 0,
-			'price': 0,
-			'type': '',
-			'image': ''
+				'description': '',
+				'ticketLeft': 1,
+				'sold': 0,
+				'price': 0,
+				'type': '',
+				'image': '',
+				'expirationDate': ''
 			})">
 			Nouveau Billet
 		</button>
@@ -78,8 +89,8 @@
 		<button id="bt_restore" type="button" class="btn btn-warning" ng-click="cancel();">
 			Restaurer cet événement
 		</button>
-		<button id="bt_submit" type="submit" class="btn btn-success pull-right" ng-disabled="eventForm.$invalid" ng-click="formBtnSubmitLabel=='Créer'?createEvent():updateEvent(eventFormData._id);">
-			{{formBtnSubmitLabel}} cet événement !
+		<button id="bt_submit" type="submit" class="btn btn-success pull-right" ng-disabled="eventForm.$invalid" ng-click="editMode?updateEvent(eventFormData._id):createEvent();">
+			{{editMode?"Modifier":"Créer"}} cet événement !
 		</button>	
 		
 

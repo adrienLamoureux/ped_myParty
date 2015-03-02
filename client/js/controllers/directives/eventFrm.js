@@ -1,7 +1,7 @@
 // Event Frm Directive Controller
-app.controller('EventFrmCtrl', ['$scope', 'NewEvent',  function ($scope, NewEvent){
+app.controller('EventFrmCtrl', ['$scope', 'Event', function ($scope, Event){
 	$scope.defaultEvent = {
-		'owner': null,
+		'owner': null, //TODO : Récupérer le User ID en session
 		'title': '',
 		'description': '',
 		'country': '',
@@ -17,26 +17,42 @@ app.controller('EventFrmCtrl', ['$scope', 'NewEvent',  function ($scope, NewEven
 			'sold': 0,
 			'price': 0,
 			'type': '',
-			'image': ''
+			'image': '',
+			'expirationDate': ''
 		}],
 		'uniqueTicketID': 0,
 		'dateStarting': null,
 		'dateEnding': null,
 		'online': false
 	};
+	$scope.now = Date.now();
 
-	$scope.eventFormData = angular.copy($scope.defaultEvent);
+	$scope.editMode = (angular.isDefined($scope.thisEvent));
 
+	if($scope.editMode){
+		$scope.eventFormData = angular.copy($scope.thisEvent);
+	}else{
+		$scope.eventFormData = angular.copy($scope.defaultEvent);
+	}
 
 	// restore form
     $scope.cancel = function() {
-		$scope.eventFormData = angular.copy($scope.defaultEvent);
+    	if($scope.editMode){
+    		$scope.eventFormData = angular.copy($scope.thisEvent);
+    	}else{
+			$scope.eventFormData = angular.copy($scope.defaultEvent);
+    	}
+    	$scope.now = Date.now();
    	};
 
 
    	// when submitting the add form, send the text to the node API
     $scope.createEvent = function() {
-    	NewEvent.create($scope.eventFormData);
+    	Event.post($scope.eventFormData);
   	}
 
+  	// when submitting the edit form, send the text to the node API
+    $scope.updateEvent = function() {
+    	Event.put($scope.eventFormData._id, $scope.eventFormData);
+  	}
 }]);
