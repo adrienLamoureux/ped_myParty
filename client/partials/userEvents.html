@@ -1,2 +1,8 @@
 <!-- UserEvents Template -->
 <h1> Les Evennements que j'organise </h1>
+<div class="container">
+	<div ng-repeat="event in events">
+		<a href="#/event/{{event._id}}"><img ng-src="{{event.imageSmall}}" class="img-thumbnail" alt="{{event.title}}"></a>
+		<button ng-hide="event.onLine" class="btn btn-primary" >Mettre en ligne</button><button ng-hide="event.online" class="btn btn-danger">Supprimer</button>
+	</div>
+</div>
