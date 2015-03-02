@@ -1,5 +1,5 @@
 <!-- Basket Template --> 
-<h2> Cher {{name_user}}, votre Panier</h2>
+<h3> Cher {{user.firstName}} {{user.name}}, votre Panier : </h3>
 
 <br>
 
@@ -13,20 +13,12 @@
 
 <basket-event></basket-event>
 
+<br><br>
+
 <div class="text-center">
-<button ng-click="" class="btn btn-default">
+<button ng-click="" class="btn label-success">
 	<span caria-hidden="true"> Valider mon panier</span>
 </button>
 </div>
 
-
-<br><br><br><br>
-
-<div>
-	span : 
-	<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-	<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-</div>
+<label>Total : {{total_basket}}</label>

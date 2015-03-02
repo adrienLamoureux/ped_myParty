@@ -1,29 +1,54 @@
 <fieldset>
 
-    {{event_name}}
+  {{user.basket[0].eventTickets}}
 
-    <div class="table-responsive col-lg-12">
-        <table class="table table-striped basketEvent">
-            <thead>
-                <tr>
-                    <th>Article</th>
-                    <th>Quantité</th>
-                    <th>Montant</th>
-                    <th><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in event.items">
-                    <td>{{ item.getName() }}</td>
-                    <td><span class="glyphicon glyphicon-minus" ng-class="{'disabled':item.getQuantity()==1}"
-                      ng-click="item.setQuantity(-1, true)"></span>&nbsp;&nbsp;
-                      {{ item.getQuantity() | number }}&nbsp;&nbsp;
-                      <span class="glyphicon glyphicon-plus" ng-click="item.setQuantity(1, true)"></span></td>
-                      <td>{{ item.getPrice() | currency}}</td>
-                      <td>{{ item.getTotal() | currency }}</td>
-                      <td><span ng-click="event.removeItemById(item.getId())" class="glyphicon glyphicon-remove"></span></td>
-                  </tr>
-              </tbody>
-          </table>
-      </div>
-  </fieldset>
+  <div class="table-responsive col-lg-12">
+    <table class="table table-striped text-center">
+      <thead >
+        <tr>
+          <th class="text-center">Article</th>
+          <th class="text-center">Prix à l'unité</th>
+          <th class="text-center">Quantité</th>
+          <th class="text-center">Montant</th>
+          <th class="text-center"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>
+        </tr>
+      </thead>
+      --------------------- <br>
+      {{user}}
+      <br>
+      --------------------- 
+      <br>
+      <input type="text" ng-model="event_id" value="eventid"/>
+      <input type="text" ng-model="type_ticket" value="{{typeticket}}"/>
+      <button class="btn">
+      <span ng-click="ajoutpanier()"> Ajouter item au panier</span>
+      </button>
+      <br>
+
+      <tbody>
+        <tr ng-repeat="item in user.basket[0].eventTickets">
+          <td>{{ item.eventID }}</td>
+          <td></td>
+          <td>
+            <button class="btn">
+              <span class="glyphicon glyphicon-minus" ng-click="decrement()"></span>
+            </button>
+            &nbsp;&nbsp
+            <input ng-model="number" type="number" min="0" />
+            &nbsp;&nbsp;
+            <button class="btn">
+              <span class="glyphicon glyphicon-plus" ng-click="increment()"></span>
+            </button>
+          </td>
+          <td>{{item.eventID}}</td>
+          <td>
+            <button class="btn label-danger">
+              <span ng-click="event.removeItemById(item.getId())" class="glyphicon glyphicon-remove"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</fieldset>
+
