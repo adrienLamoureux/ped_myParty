@@ -53,5 +53,7 @@ describe('Home view' , function () {
 
 	it('look for events elements sample', function(){
 		// TODO when image will be imported
+		var eventN = browser.findElement(by.xpath("id('page')/div/event-list/div/div[3]/event-miniature/div/a/img"));
+		expect(eventN.isDisplayed()).toBe(true); //When img uploading will work
 	});
 });

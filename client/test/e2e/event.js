@@ -104,7 +104,25 @@ describe('Event view' , function () {
 	});
 
 	it('Access to an event information', function(){
-		// Take a sample event
+		// TODO : Use img when it will work
+		var eventN = browser.findElement(by.xpath("id('page')/div/event-list/div/div[3]/event-miniature/div/a/img"));
+		expect(eventN.isDisplayed()).toBe(true); //When img uploading will work
+		eventN.click();
+
+		var eventPage = browser.findElement(by.id("eventPage"));
+		expect(eventPage.isDisplayed()).toBe(true);
+
+		var info = browser.findElement(by.id("info"));
+		expect(info.isDisplayed()).toBe(true);
+
+		var tickets = browser.findElement(by.id("tickets"));
+		expect(tickets.isDisplayed()).toBe(true);
+
+		var ticket = browser.findElement(by.id("ticket"));
+		expect(ticket.isDisplayed()).toBe(true);
+
+		var addPaner = browser.findElement(by.buttonText("Ajouter au panier"));
+		expect(addPaner.isDisplayed()).toBe(true);		
 	});
 
 	it('Create an event', function(){
