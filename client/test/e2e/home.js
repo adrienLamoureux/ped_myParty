@@ -46,6 +46,9 @@ describe('Home view' , function () {
 		expect(myBasket.isDisplayed()).toBe(true);
 		var disconnect = browser.findElement(by.linkText("Se Déconnecter"));
 		expect(disconnect.isDisplayed()).toBe(true);
+
+		disconnect.click();
+		expect(disconnect.isDisplayed()).toBe(false);
 	});
 
 	it('look for events elements sample', function(){
