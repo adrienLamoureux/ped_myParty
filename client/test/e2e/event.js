@@ -125,7 +125,7 @@ describe('Event view' , function () {
 		expect(addPaner.isDisplayed()).toBe(true);		
 	});
 
-	it('Create an event', function(){
+	it('Create an event without publication', function(){
 		var organiseEvent = browser.findElement(by.linkText("Organiser un Evenement"));
 		expect(organiseEvent.isDisplayed()).toBe(true);
 		organiseEvent.click();
@@ -134,6 +134,22 @@ describe('Event view' , function () {
 		expect(bt_restore.isDisplayed()).toBe(true);
 		var bt_submit =  browser.findElement(by.id("bt_submit"));
 		expect(bt_submit.isDisplayed()).toBe(true);
+		var bt_save =  browser.findElement(by.id("bt_submit"));
+		expect(bt_save.isDisplayed()).toBe(true);
+		browser.actions().mouseMove(bt_save).click();
+	});
+
+	it('Create an event with publication', function(){
+		var organiseEvent = browser.findElement(by.linkText("Organiser un Evenement"));
+		expect(organiseEvent.isDisplayed()).toBe(true);
+		organiseEvent.click();
+		completeCreateEvent();
+		var bt_restore = browser.findElement(by.id("bt_restore"));
+		expect(bt_restore.isDisplayed()).toBe(true);
+		var bt_submit =  browser.findElement(by.id("bt_submit"));
+		expect(bt_submit.isDisplayed()).toBe(true);
+		var bt_save =  browser.findElement(by.id("bt_submit"));
+		expect(bt_save.isDisplayed()).toBe(true);
 		browser.actions().mouseMove(bt_submit).click();
 	});
 
