@@ -22,3 +22,4 @@ app.directive('eventMiniature', function (){
 		templateUrl: '../../partials/directives/eventMiniature.html'
 	};
 });
+
