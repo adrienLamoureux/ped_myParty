@@ -36,6 +36,7 @@ mongoose.connect('mongodb://localhost:27017/mongodb', function(err){
 var userModel = require('./models.js').userModel;
 var eventModel = require('./models.js').eventModel;
 var commandsModel = require('./models.js').commandsModel;
+var imageModel = require('./models.js').imageModel;
 
 // Event
 

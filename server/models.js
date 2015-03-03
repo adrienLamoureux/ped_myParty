@@ -27,6 +27,27 @@ var ticketSchema = new Schema({
 	dateExpiration: Date
 }, {collection: 'ticket'});
 
+var ticketImgSchema = new Schema({
+	idTicket: Number,
+	image:{
+		filetype: String,
+		filename: String,
+		filesize: Number,
+		base64: String
+	}
+}, {collection: 'ticketImg'});
+
+var imgSchema = new Schema({
+	eventsID: [{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
+	backgroundImg: {
+		filetype: String,
+		filename: String,
+		filesize: Number,
+		base64: String
+	},
+	ticketImgs:[ticketImgSchema]
+}, {collection:'img'});
+
 // Virtual ticket
 var ticketTypeSchema = new Schema({
 	uniqueID: Number,
@@ -34,8 +55,7 @@ var ticketTypeSchema = new Schema({
 	ticketLeft: Number,
 	sold: Number,
 	price: Number,
-	type: String,
-	image: String
+	type: String
 }, {collection: 'ticketType'});
 
 var userSchema = new Schema({
@@ -59,8 +79,12 @@ var eventSchema = new Schema({
 	city: String,
 	zipCode: String,
 	street: String, 
-	image: String,
-	imageSmall: String,
+	imageSmall: {
+		filetype: String,
+		filename: String,
+		filesize: Number,
+		base64: String
+	},
 	tickets: [ticketSchema],
 	ticketsType: [ticketTypeSchema],
 	uniqueTicketID: Number,
@@ -74,9 +98,11 @@ var eventSchema = new Schema({
 var userModel = mongoose.model('user', userSchema);
 var eventModel = mongoose.model('event', eventSchema);
 var commandsModel = mongoose.model('commands', commandsSchema);
+var imageModel = mongoose.model('img', imgSchema);
 
 module.exports = {
   userModel: userModel,
   eventModel: eventModel,
-  commandsModel: commandsModel
+  commandsModel: commandsModel,
+  imageModel: imageModel
 };

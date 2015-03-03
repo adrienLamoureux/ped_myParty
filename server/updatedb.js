@@ -19,8 +19,6 @@ var updateRefID = function(db){
 							
 							eventCollection.update({_id:eventDocs[0]._id},{$set:{
 								ownerID:userDocs[0]._id,
-								imageSmall: '../ressources/'+eventDocs[0].title+'-'+eventDocs[0].dateStarting+'/small.jpg',
-								image: '../ressources/'+eventDocs[0].title+'-'+eventDocs[0].dateStarting+'/background.jpg',
 								tickets:[{
 									uniqueID: eventDocs[0].uniqueTicketID,
 									userID: userDocs[0]._id,
@@ -28,15 +26,13 @@ var updateRefID = function(db){
 									used: false,
 									dateExpiration: '1524339270481'
 								}],
-								ticketType:[{
+								ticketType:[{			
 									uniqueID: 0,
-									description: 'Short description',
-									ticketLeft: 5,
-									sold: 0,
-									price: 50,
-									type: 'Preminum',
-									image: '../ressources/'+eventDocs[0].title+'-'+eventDocs[0].dateStarting+'/ticket'+eventDocs[0].ticketsType[0].uniqueID+'.jpg'
-
+									description: 'Ticket valide pour les 3 jours du festival',
+									ticketLeft: 99999,
+									sold: 1,
+									price: 150,
+									type: 'Pass 3 Jours'
 								}]
 								}
 							}, function(err, result){});
