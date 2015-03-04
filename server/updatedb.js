@@ -29,7 +29,7 @@ var updateRefID = function(db){
 									dateExpiration: '1524339270481'
 								}],
 								ticketType:[{
-									uniqueID: 0,
+									uniqueID: 1,
 									description: 'Short description',
 									ticketLeft: 5,
 									sold: 0,

@@ -15,10 +15,12 @@ app.controller('UserEventsCtrl', ['$scope', '$routeParams', 'Event', 'EventByOrg
 
 	$scope.delete = function(event){
 		Event.delete({id:event._id});
+		$scope.events = EventByOrganizerId.query({id:$routeParams.id});
 	}
 
 	$scope.cancel = function(event){
 		//TODO: Event cancelation + sending mail and payback all customers!
 		Event.delete({id:event._id});
+		$scope.events = EventByOrganizerId.query({id:$routeParams.id});
 	}
 }]);

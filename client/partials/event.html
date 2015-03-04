@@ -14,8 +14,8 @@
 		</section>
 		<section class="col-sm-12">
 			<h1>Billeterie</h1>
-			<div id="tickets" class="container-fluid" ng-repeat="ticketType in thisEvent.ticketsType">
-			  	<div id="ticket" class="container col-sm-6" ng-show="ticketType.ticketLeft>0" ng-style="{'background-image':'url(ticketType.image)'}">			  		
+			<div id="tickets" ng-repeat="ticketType in thisEvent.ticketsType">
+			  	<div id="ticket" class="col-sm-6" ng-show="ticketType.ticketLeft>0" ng-style="{'background-image':'url(ticketType.image)'}">			  		
 					<div>
 						<h2>{{ticketType.type}}</h2>	
 				  		<ul>
@@ -23,7 +23,7 @@
 				  			<li>Prix : {{ticketType.price}} €</li>
 				  		</ul>
 			  		</div>
-			  		<div ng-show="thisEvent.online" class="pull-right">
+			  		<div ng-show="thisEvent.online && dateNotExpired(thisEvent.dateEnding)" class="pull-right">
 					 	<input type="number" value="0" min="0" max="{{ticketType.ticketLeft}}">
 					  	<button class="btn btn-primary">
 							Ajouter au panier

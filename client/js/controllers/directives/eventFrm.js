@@ -45,7 +45,6 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', function ($scope, Event){
     	$scope.now = Date.now();
    	};
 
-
    	// when submitting the add form, send the text to the node API
     $scope.createEvent = function(published) {
     	$scope.eventFormData.online = published;
@@ -58,6 +57,10 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', function ($scope, Event){
   	// when submitting the edit form, send the text to the node API
     $scope.updateEvent = function(published) {
     	$scope.eventFormData.online = published;
+    	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
+    		ticket.uniqueID = i;
+    		console.log(i);
+    	});
     	Event.put($scope.eventFormData._id, $scope.eventFormData);
   	}
 }]);

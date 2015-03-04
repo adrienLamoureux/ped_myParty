@@ -77,8 +77,8 @@ var initEvent = function(db){
 					image: null
 				}],
 				uniqueTicketID: 0,
-				dateStarting: '1424339270481',
-				dateEnding: '1424339270481',
+				dateStarting: '1424539270481',
+				dateEnding: '1424559270481',
 				online: true
 			},
 			{
