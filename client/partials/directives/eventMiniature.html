@@ -1,5 +1,5 @@
 <!-- Event Miniature Template -->
 <div ng-show="dateNotExpired(event.dateEnding) && event.online" class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
-	<a href="#/event/{{event._id}}" ><img ng-src="{{event.imageSmall}}" class="img-thumbnail" alt="{{event.title}}"></a>
+	<a href="#/event/{{event._id}}" ><img ng-src="data:{{event.imageSmall.filetype}};base64,{{event.imageSmall.base64}}" class="img-thumbnail" alt="{{event.title}}"></a>
 	<h2>{{event.title}}</h2>
 </div>

@@ -21,6 +21,12 @@ var checkDb = function(db){
 			console.log(commandsDocs);	
 		});
 	});
+	db.collection('img', function(err, imgCollection){
+		imgCollection.find().toArray(function(err, imgDocs){
+			console.log('imgDocs');
+			console.log(imgDocs);	
+		});
+	});
 };
 
 mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {

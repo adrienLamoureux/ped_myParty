@@ -1,5 +1,5 @@
 // Application MyParty
-var app = angular.module('MyPartyApp', ['ngRoute', 'ngResource']);
+var app = angular.module('MyPartyApp', ['naif.base64', 'ngRoute', 'ngResource']);
 
 app.config(function($routeProvider){
 	$routeProvider
