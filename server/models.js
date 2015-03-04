@@ -23,8 +23,7 @@ var ticketSchema = new Schema({
 	uniqueID: Number,
 	userID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
 	ticketTypeNb: Number,
-	used: {type: Boolean, default: false},
-	dateExpiration: Date
+	used: {type: Boolean, default: false}
 }, {collection: 'ticket'});
 
 var ticketImgSchema = new Schema({
@@ -38,7 +37,7 @@ var ticketImgSchema = new Schema({
 }, {collection: 'ticketImg'});
 
 var imgSchema = new Schema({
-	eventsID: [{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
+	eventsID: {type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'},
 	backgroundImg: {
 		filetype: String,
 		filename: String,
@@ -55,7 +54,8 @@ var ticketTypeSchema = new Schema({
 	ticketLeft: Number,
 	sold: Number,
 	price: Number,
-	type: String
+	type: String,
+	expirationDate: Date
 }, {collection: 'ticketType'});
 
 var userSchema = new Schema({

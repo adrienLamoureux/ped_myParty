@@ -36,7 +36,14 @@
 			<input id="txtEventCountry" type="text" class="form-control" placeholder="France" ng-model="eventFormData.country" required/><br/>
 
 			<label>Image de la page de présentation</label>
-			<input id="fileEventImage" type="file" ng-model="eventFormData.image"/>
+			<input type="file" ng-model="eventFormImage.backgroundImg" name="file" base-sixty-four-input>
+			Prévisualisation : <br>
+			<img ng-src="data:{{eventFormImage.backgroundImg.filetype}};base64,{{eventFormImage.backgroundImg.base64}}" alt="">
+
+			<label>Image miniature de l'évènement</label>
+			<input type="file" ng-model="eventFormData.imageSmall" name="file" base-sixty-four-input>
+			Prévisualisation : <br>
+			<img ng-src="data:{{eventFormData.imageSmall.filetype}};base64,{{eventFormData.imageSmall.base64}}" alt="">
 			<hr />
 		</div>
 
@@ -69,19 +76,11 @@
     		</div>
 
 			<label>Image de fond du billet</label>
-			<input id="fileTicketTypeImage{{$index+1}}" type="file" ng-model="t.image"/><br/>
+			<input type="file" ng-model="eventFormImage.ticketImgs[t.uniqueID].image" name="file" base-sixty-four-input>
+			Prévisualisation : <br>
+			<img ng-src="data:{{eventFormImage.ticketImgs[t.uniqueID].image.filetype}};base64,{{eventFormImage.ticketImgs[t.uniqueID].image.base64}}" alt="">
 		</div>
-		<button id="bt_add_ticket" class="btn btn-primary btn-block" ng-click="eventFormData.ticketsType.push({
-				'description': '',
-				'ticketLeft': 1,
-				'sold': 0,
-				'price': 0,
-				'type': '',
-				'image': '',
-				'expirationDate': ''
-			})">
-			Nouveau Billet
-		</button>
+		<button id="bt_add_ticket" class="btn btn-primary btn-block" ng-click="addNewTicketType()">	Nouveau Billet </button>
 		<hr />
 		<hr />
 
@@ -93,6 +92,7 @@
 			{{editMode?"Modifier":"Créer"}} cet événement !
 		</button>	
 		
+		{{eventFormImage}}
 
 	</form>
 </fieldset>

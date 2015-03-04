@@ -53,7 +53,8 @@ var initEvent = function(db){
 					ticketLeft: 100000,
 					sold: 0,
 					price: 150,
-					type: 'Pass 3 Jours'
+					type: 'Pass 3 Jours',
+					expirationDate: '1524339270481'
 				}],
 				uniqueTicketID: 0,
 				dateStarting: '1424339270481',
@@ -82,7 +83,8 @@ var initEvent = function(db){
 					ticketLeft: 5,
 					sold: 0,
 					price: 50,
-					type: 'Preminum'
+					type: 'Preminum',
+					expirationDate: '1424339270481'
 				}],
 				uniqueTicketID: 0,
 				dateStarting: '1424339270481',
@@ -111,7 +113,8 @@ var initEvent = function(db){
 					ticketLeft: 5,
 					sold: 0,
 					price: 50,
-					type: 'Preminum'
+					type: 'Preminum',
+					expirationDate: '1524339270481'
 				}],
 				uniqueTicketID: 0,
 				dateStarting: '1424339270481',
@@ -181,6 +184,7 @@ mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {
 	if (err) { console.log("\t--> Connection failure !\n"); return false; }
 	console.log("\t--> Successfully connected to the database!\n");
 
+	initImages(db);
 	initCommands(db);
 	initUser(db);
 	initEvent(db);
