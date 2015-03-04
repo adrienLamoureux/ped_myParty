@@ -23,7 +23,7 @@
 				  			<li>Prix : {{ticketType.price}} €</li>
 				  		</ul>
 			  		</div>
-			  		<div class="pull-right">
+			  		<div ng-show="thisEvent.online" class="pull-right">
 					 	<input type="number" value="0" min="0" max="{{ticketType.ticketLeft}}">
 					  	<button class="btn btn-primary">
 							Ajouter au panier

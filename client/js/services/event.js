@@ -4,7 +4,7 @@ app.factory('Event', ['$resource', function($resource){
 		get: {method:'GET', isArray:false},
 		post: {method:'POST', isArray:false},
 		put: {method:'PUT', isArray:false},
-		remove:{method: 'DELETE', isArray:false}
+		delete:{method: 'DELETE', isArray:false}
 	});
 }]);
 

@@ -1,6 +1,9 @@
 <!-- eventForm Partial -->
 <fieldset  id="eventForm" ng-controller="EventFrmCtrl" class="eventForm">
-	<form name="eventForm" validate>
+	<p ng-show="eventFormData.online">
+		L'événement choisi ne peut être édité car il est déjà en ligne ou expiré!
+	</p>
+	<form ng-hide="eventFormData.online" name="eventForm" validate>
 		<!-- Info générales -->
 		<h2>Informations générales</h2>
 		<div>
