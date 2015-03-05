@@ -1,5 +1,5 @@
 // Application MyParty
-var app = angular.module('MyPartyApp', ['naif.base64', 'ngRoute', 'ngResource', 'UserApp']);
+var app = angular.module('MyPartyApp', ['naif.base64', 'ngRoute', 'ngResource'/*, 'UserApp'*/]);
 
 app.config(function($routeProvider){
 	$routeProvider
@@ -17,23 +17,23 @@ app.config(function($routeProvider){
 		})
 		.when('/usr/:id/edit', {
 			templateUrl: './partials/editUser.html',
-			controller: 'UserCtrl'
+			controller: 'UserCtrl',
 		})
 		.when('/usr/:id/basket', {
 			templateUrl: './partials/basket.html',
-			controller: 'UserCtrl'	
+			controller: 'UserCtrl'
 		})
 		.when('/usr/:id/cmds', {
 			templateUrl: './partials/commands.html',
-			controller: 'CommandCtrl'	
+			controller: 'CommandCtrl'
 		})
 		.when('/usr/:id/cmd/:idcmd', {
 			templateUrl: './partials/command.html',
-			controller: 'CommandCtrl'	
+			controller: 'CommandCtrl'
 		})
 		.when('/usr/:id/events', {
 			templateUrl: './partials/userEvents.html',
-			controller: 'UserEventsCtrl'	
+			controller: 'UserEventsCtrl'
 		})
 		.when('/event/create', {
 			templateUrl: './partials/createEvent.html',
@@ -41,7 +41,8 @@ app.config(function($routeProvider){
 		})
 		.when('/event/:id', {
 			templateUrl: './partials/event.html',
-			controller: 'EventCtrl'	
+			controller: 'EventCtrl'
+			//public: true
 		})
 		.when('/event/:id/edit', {
 			templateUrl: './partials/editEvent.html',
@@ -49,27 +50,36 @@ app.config(function($routeProvider){
 		})
 		.when('/event/:id/ticket/:idt', {
 			templateUrl: './partials/ticket.html',
-			controller: 'EventCtrl'	
+			controller: 'EventCtrl'
 		})
 		.when('/event/:id/ticket/:idt/validate', {
 			templateUrl: './partials/validate.html',
-			controller: 'EventCtrl'	
+			controller: 'EventCtrl'
 		})
 		.when('/login',{
 			templateUrl : './layouts/login.html',
-			login: true
-		})
+			controller : 'LoginCtrl'
+			//login: true
+		})/*
 		.when('/signup', {
 			templateUrl : './layouts/signup.html',
-			public : true
+			public: true
 		})
 		.when('/verify/email', {
 			templateUrl: './partials/verify_email.html', 
 			verify_email: true
 		})
+		.when('/reset-password', {
+			templateUrl: './partials/reset_password.html',
+			 public: true
+		})
+		.when('/set-password', {
+			templateUrl: 'partials/set_password.html', 
+			set_password: true
+		})*/
 		.otherwise({redirectTo: '/'});
 });
 
- app.run(function(user) {
+ /*app.run(function(user) {
 	user.init({ appId: '54f5bfbac1eb6' });
-});
+});*/
