@@ -39,12 +39,12 @@
 			<input id="txtEventCountry" type="text" class="form-control" placeholder="France" ng-model="eventFormData.country" required/><br/>
 
 			<label>Image de la page de présentation</label>
-			<input type="file" ng-model="eventFormImage.backgroundImg" name="file" base-sixty-four-input>
+			<input type="file" ng-model="eventFormImage.backgroundImg" name="file" base-sixty-four-input required>
 			Prévisualisation : <br>
 			<img ng-src="data:{{eventFormImage.backgroundImg.filetype}};base64,{{eventFormImage.backgroundImg.base64}}" alt="">
 
 			<label>Image miniature de l'évènement</label>
-			<input type="file" ng-model="eventFormData.imageSmall" name="file" base-sixty-four-input>
+			<input type="file" ng-model="eventFormData.imageSmall" name="file" base-sixty-four-input required>
 			Prévisualisation : <br>
 			<img ng-src="data:{{eventFormData.imageSmall.filetype}};base64,{{eventFormData.imageSmall.base64}}" alt="">
 			<hr />
@@ -52,6 +52,11 @@
 
 		<!-- Billeterie -->
 		<h2>Billetterie</h2>
+		<label>Image de fond du billet</label>
+		<input type="file" ng-model="eventFormImage.ticketImg" name="file" base-sixty-four-input required>
+		Prévisualisation : <br>
+		<img ng-src="data:{{eventFormImage.ticketImg.filetype}};base64,{{eventFormImage.ticketImg.base64}}" alt="">
+
 		<div ng-repeat="t in eventFormData.ticketsType">
 			<hr />
 			<h3>Billet {{$index+1}}
@@ -77,11 +82,6 @@
 
 			<label>Prix</label>
 			<input id="txtEventPrice{{$index+1}}" type="number" class="form-control" title="Enter a price" min="0" ng-model="t.price" required/><br/>
-
-			<label>Image de fond du billet</label>
-			<input type="file" ng-model="eventFormImage.ticketImgs[t.uniqueID].image" name="file" base-sixty-four-input>
-			Prévisualisation : <br>
-			<img ng-src="data:{{eventFormImage.ticketImgs[t.uniqueID].image.filetype}};base64,{{eventFormImage.ticketImgs[t.uniqueID].image.base64}}" alt="">
 		</div>
 
 		<button id="bt_add_ticket" class="btn btn-primary btn-block" ng-click="addNewTicketType()">	Nouveau Billet </button>
