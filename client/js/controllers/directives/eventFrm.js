@@ -20,7 +20,7 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', 'EventImages', function ($sco
 			'sold': 0,
 			'price': 0,
 			'type': '',
-			'expirationDate': ''
+			'expirationDate': null
 		}],
 		'uniqueTicketID': 0,
 		'dateStarting': null,
@@ -46,7 +46,7 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', 'EventImages', function ($sco
 			'sold': 0,
 			'price': 0,
 			'type': '',
-			'expirationDate': ''
+			'expirationDate': null
 		});
 
 		$scope.eventFormImage.ticketImgs.push({
