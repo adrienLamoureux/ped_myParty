@@ -1,5 +1,8 @@
 // Application MyParty
-var app = angular.module('MyPartyApp', ['ngRoute', 'ngResource']);
+var app = angular.module('MyPartyApp', ['ngRoute', 'ngResource', 'UserApp']);
+/*app.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('TokenInterceptor');
+});*/
 
 app.config(function($routeProvider){
 	$routeProvider
@@ -55,5 +58,28 @@ app.config(function($routeProvider){
 			templateUrl: './partials/validate.html',
 			controller: 'EventCtrl'	
 		})
+		.when('/login',{
+			templateUrl : './layouts/login.html',
+			login: true
+		})
+		.when('/signup', {
+			templateUrl : './layouts/signup.html',
+			public : true
+		})
+		.when('/verify/email', {
+			templateUrl: './partials/verify_email.html', 
+			verify_email: true
+		})
 		.otherwise({redirectTo: '/'});
+});
+
+/*app.run(function($rootScope, $location, AuthenticationService) {
+    $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
+        if (nextRoute.access.requiredLogin && !AuthenticationService.isLogged) {
+            $location.path("/admin/login");
+        }
+    });*/
+
+ app.run(function(user) {
+	user.init({ appId: '54f5bfbac1eb6' });
 });

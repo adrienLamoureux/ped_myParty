@@ -5,7 +5,11 @@ var application_root = __dirname,
     express = require('express'), //Web framework
     path = require('path'), //Utilities for dealing with file paths
     bodyParser  = require('body-parser'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    passport = require('passport'),
+	UserAppStrategy = require('passport-userapp').Strategy;
+
+var APP_ID = "54f5bfbac1eb6";
 
 //Create server
 var app = express();
@@ -107,6 +111,18 @@ var userModel = mongoose.model('user', userSchema);
 var eventModel = mongoose.model('event', eventSchema);
 var commandsModel = mongoose.model('commands', commandsSchema);
 
+/********* PASSPORT **********/
+passport.use(new UserAppStrategy({
+        appId: APP_ID
+    },
+    function (userprofile, done) {
+        Users.findOrCreate(userprofile, function(err,user) {
+            if(err) return done(err);
+            return done(null, user);
+        });
+    }
+));
+
 // Event
 
 app.get('/api/event', function (req, res, next) {
@@ -120,6 +136,8 @@ app.get('/api/event', function (req, res, next) {
 	}
   });
 });
+
+
 
 app.get('/api/event/:id', function (req, res, next) {
   console.log('get event '+req.params.id);
@@ -168,18 +186,11 @@ app.delete('/api/event/:id', function (req, res, next)
 
 
 // User
-
-app.get('/api/user', function (req, res, next) {
-  console.log('get users');
-  userModel.find(function (err, coll) {
-    if (!err) {
-        return res.send(coll);
-    } else {
-        console.log(err);
-        next(err);
-	}
+app.get('/api/user', passport.authenticate('userapp'),
+  function(req, res) {
+    res.send({ user: req.user });
   });
-});
+
 
 app.get('/api/user/:id', function (req, res, next) {
   console.log('get user '+req.params.id);
@@ -287,4 +298,5 @@ app.delete('/api/command/:id', function (req, res, next)
 		res.send(result);
 	});
 });
+
 
