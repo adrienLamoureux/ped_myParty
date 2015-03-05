@@ -11,7 +11,9 @@
     "express": "*",
     "express-userapp": "^0.1.0",
     "mongodb": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "passport": "^0.2.1",
+    "passport-userapp": "^1.1.2"
   },
   "scripts": {
     "postinstall": "bower install"
