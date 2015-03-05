@@ -55,11 +55,6 @@ var ticketTypeSchema = new Schema({
 
 var userSchema = new Schema({
 	apiID: String,
-	email: String,
-	password: String,
-	name: String,
-	firstName: String,
-	phoneNumber: String,
 	inscriptionDate: Date,
 	eventsID: [{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
 	commandsID: {type: mongoose.Schema.Types.ObjectId, ref:'commandsModel'},

@@ -8,11 +8,6 @@ var initUser = function(db){
 		collection.insert([
 			{
 				apiID: 'swiPjk21RqmEPu21KVi84w',
-				email: 'toto@gmail',
-				password: 'toto',
-				name: 'bob',
-				firstName: 'bobby',
-				phoneNumber: '00000000',
 				inscriptionDate: '1424339270481',
 				eventsID: [],
 				commandsID: null,
