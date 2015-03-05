@@ -12,7 +12,11 @@ var updateRefID = function(db){
 							db.collection('img', function(err, imgCollection){
 								imgCollection.find().toArray(function(err, imgDocs){
 									imgCollection.update({_id:imgDocs[0]._id}, {$set: {
-										eventsID: eventDocs[0]._id}
+										eventID: eventDocs[0]._id}
+									}, function(err, result){});
+
+									imgCollection.update({_id:imgDocs[1]._id}, {$set: {
+										eventID: eventDocs[2]._id}
 									}, function(err, result){});
 									
 									commandsCollection.update({_id:commandsDocs[0]._id}, {$set: {
@@ -23,23 +27,36 @@ var updateRefID = function(db){
 										eventsID:[eventDocs[0]._id], commandsID:[commandsDocs[0]._id]}
 									}, function(err, result){});
 									
-									eventCollection.update({_id:eventDocs[0]._id},{$set:{
-										ownerID:userDocs[0]._id,
-										tickets:[{
-											qRCodeUniqueID: eventDocs[0].uniqueTicketID,
-											userID: userDocs[0]._id,
-											ticketTypeID: eventDocs[0].ticketsType[0].uniqueID,
-											used: false
-										}],
-										ticketType:[{			
-											uniqueID: 0,
-											description: 'Ticket valide pour les 3 jours du festival',
-											ticketLeft: 99999,
-											sold: 1,
-											price: 150,
-											type: 'Pass 3 Jours',
-											expirationDate: '1524339270481'
-										}]
+									eventCollection.update({_id:eventDocs[0]._id},{
+										$set:{
+											ownerID:userDocs[0]._id,
+											tickets:[{
+												qRCodeUniqueID: eventDocs[0].uniqueTicketID,
+												userID: userDocs[0]._id,
+												ticketTypeID: eventDocs[0].ticketsType[0].uniqueID,
+												used: false
+											}],
+											ticketType:[{			
+												uniqueID: 0,
+												description: 'Ticket valide pour les 3 jours du festival',
+												ticketLeft: 99999,
+												sold: 1,
+												price: 150,
+												type: 'Pass 3 Jours',
+												expirationDate: '1524339270481'
+											}]
+										}
+									}, function(err, result){});
+
+									eventCollection.update({_id:eventDocs[1]._id},{
+										$set:{
+											ownerID:userDocs[0]._id
+										}
+									}, function(err, result){});
+
+									eventCollection.update({_id:eventDocs[2]._id},{
+										$set:{
+											ownerID:userDocs[0]._id
 										}
 									}, function(err, result){});
 								});

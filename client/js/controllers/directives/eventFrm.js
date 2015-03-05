@@ -29,12 +29,9 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', 'EventImages', function ($sco
 	};
 
 	$scope.defaultImages = {
-		'eventsID': null, 
+		'eventID': null, 
 		'backgroundImg': {},
-		'ticketImgs':[{
-			'idTicket': cptType,
-			'image':{}
-		}]
+		'ticketImg':{}
 	};
 
 	$scope.addNewTicketType = function (){
@@ -48,14 +45,11 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', 'EventImages', function ($sco
 			'type': '',
 			'expirationDate': ''
 		});
-
-		$scope.eventFormImage.ticketImgs.push({
-			'idTicket': cptType,
-			'image':{}
-		});
 	};
 
 	$scope.now = Date.now();
+
+	$scope.eventPost = null;
 
 	$scope.editMode = (angular.isDefined($scope.thisEvent));
 
@@ -85,9 +79,11 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', 'EventImages', function ($sco
     	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
     		ticket.uniqueID = i;
     	});
-    	Event.post($scope.eventFormData);
-    	EventImages.post($scope.eventFormImage);
-    	// Upload d'images avec mise a jour de l'EventID
+    	$scope.eventPost = Event.post($scope.eventFormData, function(data){
+    		$scope.eventPost = data;
+    		$scope.eventFormImage.eventID = $scope.eventPost._id;
+    		EventImages.post($scope.eventFormImage);
+    	});
   	}
 
   	// when submitting the edit form, send the text to the node API

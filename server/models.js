@@ -26,25 +26,20 @@ var ticketSchema = new Schema({
 	used: {type: Boolean, default: false}
 }, {collection: 'ticket'});
 
-var ticketImgSchema = new Schema({
-	idTicket: Number,
-	image:{
-		filetype: String,
-		filename: String,
-		filesize: Number,
-		base64: String
-	}
-}, {collection: 'ticketImg'});
-
 var imgSchema = new Schema({
-	eventsID: {type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'},
+	eventID: {type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'},
 	backgroundImg: {
 		filetype: String,
 		filename: String,
 		filesize: Number,
 		base64: String
 	},
-	ticketImgs:[ticketImgSchema]
+	ticketImg:{
+		filetype: String,
+		filename: String,
+		filesize: Number,
+		base64: String
+	}
 }, {collection:'img'});
 
 // Virtual ticket

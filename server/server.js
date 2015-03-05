@@ -100,7 +100,7 @@ app.delete('/api/event/:id', function (req, res, next)
 //images for an event
 app.get('/api/event/:id/images', function (req, res, next) {
   console.log('get images '+req.params.id);
-  imageModel.findOne({eventsID: req.params.id}, function (e, result) {
+  imageModel.findOne({eventID: req.params.id}, function (e, result) {
     if (e) return next(e);
       console.log(result);
       res.send(result);
