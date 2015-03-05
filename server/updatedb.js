@@ -26,11 +26,10 @@ var updateRefID = function(db){
 									eventCollection.update({_id:eventDocs[0]._id},{$set:{
 										ownerID:userDocs[0]._id,
 										tickets:[{
-											uniqueID: eventDocs[0].uniqueTicketID,
+											qRCodeUniqueID: eventDocs[0].uniqueTicketID,
 											userID: userDocs[0]._id,
-											ticketTypeNb: eventDocs[0].ticketsType[0].uniqueID,
-											used: false,
-											dateExpiration: '1524339270481'
+											ticketTypeID: eventDocs[0].ticketsType[0].uniqueID,
+											used: false
 										}],
 										ticketType:[{			
 											uniqueID: 0,
