@@ -53,7 +53,7 @@
 				border-radius: 10px;
 	}
 	#eventPage #event{
-		background-color: rgba(0, 0, 0, 0.50);
+		background-color: grey;
 		padding:0px 0px 15px 0px;
 	}
 	#eventPage #event * h1{		
