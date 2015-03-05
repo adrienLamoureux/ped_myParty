@@ -254,3 +254,26 @@ app.delete('/api/command/:id', function (req, res, next)
 	});
 });
 
+app.get('/api/user/:id/event/:ide/ticket/:idt', function (req, res, next){
+  eventModel.findOne({id: req.params.ide}, function (err, result){
+    if (e) return next(e);
+    for(i=0;i<result.tickets.length;++i){
+      if((tickets[i].userID == req.params.id) && (tickets[i].uniqueID == req.params.idt) && (tickets[i].used == false)){
+        res.send(true);
+        return;
+      }
+    }
+    res.send(false);
+  });
+});
+
+app.put('/api/user/:id/event/:ide/ticket/:idt', function (req, res, next){
+  eventModel.findOne({id: req.params.ide}, function (err, result){
+    if (e) return next(e);
+    for(i=0;i<result.tickets.length;++i){
+      if((tickets[i].userID == req.params.id) && (tickets[i].uniqueID == req.params.idt) && (tickets[i].used == false)){
+        ticket[i].used = true;
+      }
+    }
+  });
+});
