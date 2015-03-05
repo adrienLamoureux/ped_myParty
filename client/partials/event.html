@@ -24,8 +24,8 @@
 				  		</ul>
 			  		</div>
 			  		<div class="pull-right">
-					 	<input type="number" value="0" min="0" max="{{ticketType.ticketLeft}}">
-					  	<button class="btn btn-primary">
+					 	<input type="number" ng-model="places_number" min="0">
+					  	<button ng-click="addToBasket(places_number,ticketType.uniqueID,ticketType.ticketLeft)" class="btn btn-primary">
 							Ajouter au panier
 						</button>
 					</div>

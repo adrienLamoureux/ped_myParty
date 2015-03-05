@@ -1,5 +1,5 @@
 // Recuperer le panier avec l'id de l'utilisateur
-app.factory('BasketWithUserId', ['$resource', function($resource){
+app.factory('User', ['$resource', function($resource){
 	return $resource('./../api/user/:id', {id: '@_id'},
 		{'query': {method: 'GET', isArray:true}}
 	);		

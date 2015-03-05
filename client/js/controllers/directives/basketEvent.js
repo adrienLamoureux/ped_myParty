@@ -1,129 +1,28 @@
 // BasketEvent Directive Controller
-app.controller('BasketEventCtrl', ['$scope','BasketWithUserId','AddTicketToBasket', '$routeParams', function ($scope, BasketWithUserId, AddTicketToBasket, $routeParams){
-
-/*
-	$scope.user = {
-		email: 'mail',
-		password: 'motdepassedemerde',
-		name: 'Pagnol',
-		firstName: 'Marcel',
-		phoneNumber: '048596754215',
-		inscriptionDate: '2014-02-19T09:47:50.481Z',
-		eventsID: null,//[{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
-		commandsID: null,//{type: mongoose.Schema.Types.ObjectId, ref:'commandsModel'},
-		basket : [
-		{	
-			eventTickets: [
-			{
-				eventID: 0,
-				tickets: [
-				{
-					uniqueID: 1,
-					userID: 999,
-					ticketTypeNb: 3,
-					used: false
-				},
-				{
-					uniqueID: 2,
-					userID: 9999,
-					ticketTypeNb: 1,
-					used: false
-				}
-				],
-				dateBuy: null
-			},
-			{
-				eventID: 777,
-				tickets: [
-				{
-					uniqueID: 1,
-					userID: 777,
-					ticketTypeNb: 3,
-					used: false
-				}
-				],
-				dateBuy: null
-			}
-			]
-		}
-		]
-	};
-	*/
-
-	$scope.usernew = {
-		email: 'xxxx@xxxx',
-		password: 'xxxxx',
-		name: 'xxxxxxx',
-		firstName: 'xxxxxx',
-		phoneNumber: 'xxxx',
-		inscriptionDate: '1424339270481',
-		eventsID: [],
-		commandsID: null,
-		basket : [		{	
-			eventTickets: [
-			{
-				eventID:0,
-				tickets: [
-				{
-					uniqueID: 1,
-					userID: null,
-					ticketTypeNb: 3,
-					used: false
-				},
-				{
-					uniqueID: 2,
-					userID: null,
-					ticketTypeNb: 1,
-					used: false
-				}
-				]
-			},
-			{	
-				eventID:1,
-				tickets: [
-				{
-					uniqueID: 3,
-					userID: null,
-					ticketTypeNb: 3,
-					used: false
-				}
-				]
-			}
-			],
-			dateBuy: null
-		}]
-	};
-
+app.controller('BasketEventCtrl', ['$scope','User','AddTicketToBasket', '$routeParams', function ($scope, User, AddTicketToBasket, $routeParams){
 
 	getBasketWithUserId = function(){
-		$scope.user = BasketWithUserId.get({id:$routeParams.id}, function (e, res){
+		User.get({id:$routeParams.id}, function (res, e){
 		alert ('getBasket() : SUCCESS');
-		console.log($scope.user);
-		return $scope.user;
+		console.log(res.basket[0].eventTickets);
+		console.log(res.basket[0].eventTickets[0].eventID);
+		var tab_tickets = res.basket[0].eventTickets;
+		for(i=0;i<tab_tickets.length;i++){
+			console.log(tab_tickets[i]);
+		}
 		}, function (){
 			alert ('getBasket() : ERROR');
 		})
 	}
-	$scope.number= 0;
-	getBasketWithUserId();
+     
+    getBasketWithUserId();
+	// Il faut recuperer dans ticketTypeSchema : description, price a l aide du ticketTypeNb
+	// Il faut recuperer le titre de l'event
 
-	// Ajout de tickets au panier. Necessite en parametre : l'id de l'event , le numero du type de billet.
-	$scope.ajoutpanier = function() {
-	alert("Tentative d'ajout d'un ticket, event : "+$scope.event_id+" type_ticket : "+$scope.type_ticket);
-	// Checker si il existe deja des billets associés a cet event  dans ce panier.
-	getBasketWithUserId(function(){
-		alert("YOYO");
-	});
-	// Si oui : Checker si il existe deja des billets du type associé
-	// Si oui : +1 Si non: créer l'element
-	// Ne pas oublier de decrementer le nombre de ticketstype de l'event
-	// Puis mettre a jour les donnees :
-	AddTicketToBasket.update({id:$routeParams.id}, $scope.usernew, function (e, res){
-		alert ('putTicketInBasket() : SUCCESS');
-	}, function (){
-		alert ('putTicketInBasket() : ERROR');
-	});
-	}
+	// Parcourir les eventTickets et stocker dans un tableau
+
+
+
 
 
 	// Methode qui en fonction d'un id event renvoit le nom de l'event ainsi que le prix de ces type de tickets ainsi que leur intitulé (ex: premium). 
