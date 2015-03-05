@@ -7,6 +7,7 @@ var initUser = function(db){
 		db.collection('user', function(err, collection) {
 		collection.insert([
 			{
+				apiID: 'swiPjk21RqmEPu21KVi84w',
 				email: 'toto@gmail',
 				password: 'toto',
 				name: 'bob',

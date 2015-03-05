@@ -160,22 +160,24 @@ app.get('/api/user', passport.authenticate('userapp'),
  });
 
 
-app.get('/api/user/:id/event', passport.authenticate('userapp'), function (req, res){
-  console.log('get event of user');
-  var user = req.user;
-	eventModel.find({_id:{$in:user.eventsID}}, function (e, events){
-		console.log(events);
-		res.send(events);
-	});
+app.get('/api/user/:id/event', function (req, res, next){
+  console.log('get event of user '+req.params.id);
+  userModel.findOne({apiID:req.params.id}, function (err, user){
+    eventModel.find({_id:{$in:user.eventsID}}, function (e, events){
+          console.log(events);
+          res.send(events);
+    });
+  });
 });
 
-app.get('/api/user/:id/command', passport.authenticate('userapp'), function (req, res){
-	console.log('get command of user');
-  var user = req.user;
-	commandModel.findOne({_id:user.commandsID}, function (e, command){
-		console.log(command);
-		res.send(command);
-	});
+app.get('/api/user/:id/command', function (req, res, next){
+	console.log('get command of user '+req.params.id);
+  userModel.findOne({apiID:req.params.id}, function (err, user){
+  	commandModel.findOne({_id:user.commandsID}, function (e, command){
+  		console.log(command);
+  		res.send(command);
+  	});
+  });
 });
 
 app.put('/api/user/:id', function (req, res, next)

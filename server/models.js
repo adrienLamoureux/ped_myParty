@@ -21,7 +21,7 @@ var commandsSchema = new Schema({
 // ticket sold to user for an event
 var ticketSchema = new Schema({
 	qRCodeUniqueID: Number,
-	userID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
+	userID: String,
 	ticketTypeID: Number,
 	used: {type: Boolean, default: false}
 }, {collection: 'ticket'});
@@ -54,6 +54,7 @@ var ticketTypeSchema = new Schema({
 }, {collection: 'ticketType'});
 
 var userSchema = new Schema({
+	apiID: String,
 	email: String,
 	password: String,
 	name: String,
@@ -66,7 +67,7 @@ var userSchema = new Schema({
 }, {collection: 'user'});
 
 var eventSchema = new Schema({
-	ownerID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
+	ownerID: String,
 	title: String,
 	description: String,
 	country: String,

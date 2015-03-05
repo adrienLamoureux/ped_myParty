@@ -29,10 +29,10 @@ var updateRefID = function(db){
 									
 									eventCollection.update({_id:eventDocs[0]._id},{
 										$set:{
-											ownerID:userDocs[0]._id,
+											ownerID:userDocs[0].apiID,
 											tickets:[{
 												qRCodeUniqueID: eventDocs[0].uniqueTicketID,
-												userID: userDocs[0]._id,
+												userID: userDocs[0].apiID,
 												ticketTypeID: eventDocs[0].ticketsType[0].uniqueID,
 												used: false
 											}],
@@ -50,13 +50,13 @@ var updateRefID = function(db){
 
 									eventCollection.update({_id:eventDocs[1]._id},{
 										$set:{
-											ownerID:userDocs[0]._id
+											ownerID:userDocs[0].apiID
 										}
 									}, function(err, result){});
 
 									eventCollection.update({_id:eventDocs[2]._id},{
 										$set:{
-											ownerID:userDocs[0]._id
+											ownerID:userDocs[0].apiID
 										}
 									}, function(err, result){});
 								});
