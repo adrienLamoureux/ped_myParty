@@ -20,31 +20,26 @@ var commandsSchema = new Schema({
 
 // ticket sold to user for an event
 var ticketSchema = new Schema({
-	uniqueID: Number,
+	qRCodeUniqueID: Number,
 	userID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
-	ticketTypeNb: Number,
+	ticketTypeID: Number,
 	used: {type: Boolean, default: false}
 }, {collection: 'ticket'});
 
-var ticketImgSchema = new Schema({
-	idTicket: Number,
-	image:{
-		filetype: String,
-		filename: String,
-		filesize: Number,
-		base64: String
-	}
-}, {collection: 'ticketImg'});
-
 var imgSchema = new Schema({
-	eventsID: {type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'},
+	eventID: {type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'},
 	backgroundImg: {
 		filetype: String,
 		filename: String,
 		filesize: Number,
 		base64: String
 	},
-	ticketImgs:[ticketImgSchema]
+	ticketImg:{
+		filetype: String,
+		filename: String,
+		filesize: Number,
+		base64: String
+	}
 }, {collection:'img'});
 
 // Virtual ticket
@@ -87,7 +82,7 @@ var eventSchema = new Schema({
 	},
 	tickets: [ticketSchema],
 	ticketsType: [ticketTypeSchema],
-	uniqueTicketID: Number,
+	uniqueTicketID: Number, // pour la génération du QRCode
 	dateStarting: Date,
 	dateEnding: Date,
 	online: {type: Boolean, default: false}
