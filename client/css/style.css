@@ -36,8 +36,10 @@
 		text-align: left;
 		padding-top:20px;
 		background:black;
-		background-position:top center;
-		background-repeat: repeat-y;
+	}
+	#eventPage #eventImage{
+		margin-top:10px;
+		margin-bottom:20px;
 	}
 	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event, #eventPage #event #ticket{
 		background-color: rgba(0, 0, 0, 0.90);

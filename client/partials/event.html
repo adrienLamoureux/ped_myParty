@@ -1,5 +1,6 @@
 <!-- Event Template -->
-<div id="eventPage" class="container" ng-style="{'background-image': 'url(data:'+imgs.backgroundImg.filetype+';base64,'+imgs.backgroundImg.base64+')' }"><!-- remplacer par {'background-image':'url(thisEvent.image)'} -->
+<div id="eventPage" class="container">
+	<img id="eventImage" class="img-responsive center-block" data-ng-src="data:{{imgs.backgroundImg.filetype}};base64,{{imgs.backgroundImg.base64}}" alt="event_image">
 	<section id="event" class="col-sm-8 col-sm-offset-2">
 		<section id="info" class="col-sm-12">
 			<h1>{{thisEvent.title}}</h1>
@@ -17,7 +18,7 @@
 			<div id="tickets" ng-repeat="ticketType in thisEvent.ticketsType">
 				<div ng-repeat="ticketImg in imgs.ticketImgs">
 					<div ng-if="ticketImg.idTicket == ticketType.uniqueID">
-					  	<div id="ticket" class="col-sm-6" ng-show="ticketType.ticketLeft>0" ng-style="{'background-image':'url(data:'+ticketImg.image.filetype+';base64,'+ticketImg.image.base64+')'}">			  		
+					  	<div id="ticket" class="col-sm-12" ng-show="ticketType.ticketLeft>0" ng-style="{'background-image':'url(data:'+ticketImg.image.filetype+';base64,'+ticketImg.image.base64+')'}">			  		
 							<div>
 								<h2>{{ticketType.type}}</h2>	
 						  		<ul>
