@@ -1,14 +1,35 @@
-<p>Sign up</p>
+<div class="container" id="login">
 
-<form ua-signup ng-show="!verificationEmailSent">
-	<input name="first_name" placeholder="Your name"><br>
-	<input name="login" ua-is-email placeholder="Email"><br>
-	<input name="password" placeholder="Password" type="password"><br>
-	<p><button type="submit">Create account</button> or <a href="" ua-oauth-link="google">Sign up with Google</a></p>
-	
-	<p ng-show="loading"><img src="https://app.userapp.io/img/ajax-loader-transparent.gif"></p>
-	<p ng-show="error">{{ error.message }}</p>
-</form>
+<div class="col-sm-6 col-sm-offset-3">
 
-<p ng-show="verificationEmailSent">An email has been sent to your inbox. Click on the link to verify your account.</p>
-<p><a href="#/login">Log in</a></p>
+    <h1><span class="fa fa-sign-in"></span> Inscription</h1>
+
+    <!-- LOGIN FORM -->
+    <form ua-login>
+        <form ua-signup ng-show="!verificationEmailSent">
+         <div class="form-group">
+            <label>Pseudo</label>
+            <input name="first_name" class="form-control" placeholder="Pseudo"><br>
+        </div>
+         <div class="form-group">
+            <label>Email</label>
+		<input name="login" class="form-control" ua-is-email placeholder="Email"><br>
+        </div>
+         <div class="form-group">
+            <label>Password</label>
+            <input name="password" class="form-control" placeholder="Password" type="password"><br>
+        </div>
+        <button type="submit" class="btn btn-warning btn-info">Créer</button>
+		
+		<p ng-show="loading"><img src="https://app.userapp.io/img/ajax-loader-transparent.gif"></p>
+		<p ng-show="error">{{ error.message }}</p>
+	</form>
+
+    <hr>
+<p ng-show="verificationEmailSent">Un email vous a été envoyé. Veuillez valider ce dernier en cliquant sur le lien contenu dans le mail</p>
+<p>Déjà inscrit ?<a href="#/login">Connexion</a></p>
+
+</div>
+
+</div>
+

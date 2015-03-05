@@ -20,8 +20,11 @@
 			<ul id="menu" class="nav navbar-nav pull-right">
 				<li ng-show="user.authenticated" ng-class="activeMenu==18? 'active' : 'notActive'"><a href="#/event/create" ng-click="changeActiveMenu(18)">Organiser un Evenement</a></li>
 				<li ng-show="user.authenticated" ng-class="activeMenu==20? 'active' : 'notActive'"><a href="#/usr/{{user.user_id}}/basket" ng-click="changeActiveMenu(20)">Mon Panier</a></li>
-				<li ng-hide="user.authenticated" ng-class="activeMenu==25? 'active' : 'notActive'"><a href="#/login" ng-click="changeActiveMenu(0);">Se Connecter</a></li>
-				<li ng-show="user.authenticated" ng-class="activeMenu==30? 'active' : 'notActive'"><a href="#" ng-click="changeActiveMenu(0);" ua-logout>Se Déconnecter</a></li>
+				<!--<li ng-hide="user.authenticated" ng-class="activeMenu==25? 'active' : 'notActive'"><a href="#/login" ng-click="changeActiveMenu(0);">Se Connecter</a></li>
+				<li ng-show="user.authenticated" ng-class="activeMenu==30? 'active' : 'notActive'"><a href="#" ng-click="changeActiveMenu(0);" ua-logout>Se Déconnecter</a></li>-->
+
+				<li ng-hide="user.authenticated" ng-class="activeMenu==25? 'active' : 'notActive'"><a href="#/login" ng-click="changeActiveMenu(0); user.authenticated = true">Se Connecter</a></li>
+				<li ng-show="user.authenticated" ng-class="activeMenu==30? 'active' : 'notActive'"><a href="#" ng-click="changeActiveMenu(0); user.authenticated = false">Se Déconnecter</a></li>
 			</ul>
 		</div>		
 	</div>
