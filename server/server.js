@@ -5,7 +5,11 @@ var application_root = __dirname,
     express = require('express'), //Web framework
     path = require('path'), //Utilities for dealing with file paths
     bodyParser  = require('body-parser'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    passport = require('passport'),
+	UserAppStrategy = require('passport-userapp').Strategy;
+
+var APP_ID = "54f5bfbac1eb6";
 
 //Create server
 var app = express();
@@ -38,6 +42,18 @@ var eventModel = require('./models.js').eventModel;
 var commandsModel = require('./models.js').commandsModel;
 var imageModel = require('./models.js').imageModel;
 
+/********* PASSPORT **********/
+passport.use(new UserAppStrategy({
+        appId: APP_ID
+    },
+    function (userprofile, done) {
+        Users.findOrCreate(userprofile, function(err,user) {
+            if(err) return done(err);
+            return done(null, user);
+        });
+    }
+));
+
 // Event
 
 app.get('/api/event', function (req, res, next) {
@@ -51,6 +67,8 @@ app.get('/api/event', function (req, res, next) {
 	}
   });
 });
+
+
 
 app.get('/api/event/:id', function (req, res, next) {
   console.log('get event '+req.params.id);
@@ -134,29 +152,17 @@ app.delete('/api/event/:id/images', function (req, res, next)
   });
 });
 
-// User
-app.get('/api/user', function (req, res, next) {
-  console.log('get users');
-  userModel.find(function (err, coll) {
-    if (!err) {
-        return res.send(coll);
-    } else {
-        console.log(err);
-        next(err);
-	}
-  });
-});
 
-app.get('/api/user/:id', function (req, res, next) {
-  console.log('get user '+req.params.id);
-  userModel.findOne({_id: req.params.id}, function (e, result) {
-  	if (e) return next(e);
-    res.send(result);
-  });
-});
+// User
+app.get('/api/user', passport.authenticate('userapp'),
+  function(req, res) {
+    res.send({ user: req.user });
+ });
+
 
 app.get('/api/user/:id/event', function (req, res, next){
 	console.log('get event of user'+req.params.id);
+	//TODO
 	userModel.findOne({_id:req.params.id}, function (e, result){
 		if(e) return next(e);	
 		eventModel.find({_id:{$in:result.eventsID}}, function (e, events){
@@ -177,31 +183,14 @@ app.get('/api/user/:id/command', function (req, res, next){
 	});
 });
 
-app.post('/api/user', function (req, res, next){
-	console.log('new user : '+req.body);
-	var newUser = new userModel(req.body);
-	newUser.save(function (e, results){
-        if (e) return next(e);
-        res.send(results);
-    });
-});
-
 app.put('/api/user/:id', function (req, res, next)
 {
-  delete req.body._id; //duplicate id bug
-  console.log('put user : '+req.body);
-  userModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
-    if (err) return next(err);
-    res.send(result);
-  });
+	//update user
 });
 
 app.delete('/api/user/:id', function (req, res, next)
 {
-	userModel.remove({_id: req.params.id}, function (err, result){
-		if (err) return next(err);
-		res.send(result);
-	});
+	//delete user
 });
 
 
@@ -253,4 +242,5 @@ app.delete('/api/command/:id', function (req, res, next)
 		res.send(result);
 	});
 });
+
 
