@@ -160,26 +160,21 @@ app.get('/api/user', passport.authenticate('userapp'),
  });
 
 
-app.get('/api/user/:id/event', function (req, res, next){
-	console.log('get event of user'+req.params.id);
-	//TODO
-	userModel.findOne({_id:req.params.id}, function (e, result){
-		if(e) return next(e);	
-		eventModel.find({_id:{$in:result.eventsID}}, function (e, events){
-			console.log(events);
-			res.send(events);
-		});
+app.get('/api/user/:id/event', passport.authenticate('userapp'), function (req, res){
+  console.log('get event of user');
+  var user = req.user;
+	eventModel.find({_id:{$in:user.eventsID}}, function (e, events){
+		console.log(events);
+		res.send(events);
 	});
 });
 
-app.get('/api/user/:id/command', function (req, res, next){
-	console.log('get command of user'+req.params.id);
-	userModel.findOne({_id:req.params.id}, function (e, result){
-		if(e) return next(e);
-		commandModel.findOne({_id:result.commandsID}, function (e, command){
-			console.log(command);
-			res.send(command);
-		});
+app.get('/api/user/:id/command', passport.authenticate('userapp'), function (req, res){
+	console.log('get command of user');
+  var user = req.user;
+	commandModel.findOne({_id:user.commandsID}, function (e, command){
+		console.log(command);
+		res.send(command);
 	});
 });
 
@@ -243,4 +238,26 @@ app.delete('/api/command/:id', function (req, res, next)
 	});
 });
 
+app.get('/api/user/:id/event/:ide/ticket/:idt', function (req, res, next){
+  eventModel.findOne({id: req.params.ide}, function (err, result){
+    if (e) return next(e);
+    for(i=0;i<result.tickets.length;++i){
+      if((tickets[i].userID == req.params.id) && (tickets[i].uniqueID == req.params.idt) && (tickets[i].used == false)){
+        res.send(true);
+        return;
+      }
+    }
+    res.send(false);
+  });
+});
 
+app.put('/api/user/:id/event/:ide/ticket/:idt', function (req, res, next){
+  eventModel.findOne({id: req.params.ide}, function (err, result){
+    if (e) return next(e);
+    for(i=0;i<result.tickets.length;++i){
+      if((tickets[i].userID == req.params.id) && (tickets[i].uniqueID == req.params.idt) && (tickets[i].used == false)){
+        ticket[i].used = true;
+      }
+    }
+  });
+});
