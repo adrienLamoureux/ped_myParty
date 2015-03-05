@@ -2,18 +2,21 @@
 <h1> Les Evennements que j'organise </h1>
 <div class="container">
 	<div ng-repeat="event in events" class="col-sm-12">
-		<a href="#/event/{{event._id}}"><img ng-src="{{event.imageSmall}}" class="img-thumbnail" alt="{{event.title}}"></a>
-		<button ng-hide="event.online" class="btn btn-primary" confirmed-click="publish(event)" ng-confirm-click="Etes-vous sûr de vouloir publier l'événement {{event.title}} ?" >
+		<a id="show" href="#/event/{{event._id}}"><img ng-src="{{event.imageSmall}}" class="img-thumbnail" alt="{{event.title}}"></a>
+		<a id="edit" ng-hide="event.online" class="btn btn-primary" href="#/event/{{event._id}}/edit">
+			Editer
+		</a>
+		<button id="publish" ng-hide="event.online || dateExpired(event.dateStarting)" class="btn btn-primary" confirmed-click="publish(event)" ng-confirm-click="Etes-vous sûr de vouloir publier l'événement {{event.title}} ?" >
 			Publier
 		</button>
-		<button ng-hide="event.online" class="btn btn-danger" confirmed-click="delete(event)" ng-confirm-click="Etes-vous sûr de vouloir supprimer l'événement {{event.title}} ?">
+		<button id="delete" ng-hide="event.online" class="btn btn-danger" confirmed-click="delete(event)" ng-confirm-click="Etes-vous sûr de vouloir supprimer l'événement {{event.title}} ?">
 			Supprimer
 		</button>
-		<button ng-show="event.online && dateNotExpired(event.dateStarting)" class="btn btn-danger" confirmed-click="cancel(event)" ng-confirm-click="Etes-vous sûr de vouloir annuler l'événement {{event.title}} ?
+		<button id="cancel" ng-show="event.online && !dateExpired(event.dateStarting)" class="btn btn-danger" confirmed-click="cancel(event)" ng-confirm-click="Etes-vous sûr de vouloir annuler l'événement {{event.title}} ?
  (Tous les clients seront remboursés)">
 			Annuler
 		</button>
-		<span ng-hide="event.online && dateNotExpired(event.dateStarting)" class="span-text span-error">
+		<span id="noActions" ng-show="event.online && dateExpired(event.dateStarting)" class="span-text span-error">
 			Evénement en cours ou expiré (aucune action possible).
 		</span>
 	</div>
