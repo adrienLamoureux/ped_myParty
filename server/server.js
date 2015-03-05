@@ -11,8 +11,8 @@ var application_root = __dirname,
 var app = express();
 
 // Configure server
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json({limit:'16mb'}));
+app.use(bodyParser.urlencoded({limit:'16mb', extended: true}));
 app.use(express.static(path.join(application_root ,'../client/')));
 //Show all errors in development
 
@@ -36,6 +36,7 @@ mongoose.connect('mongodb://localhost:27017/mongodb', function(err){
 var userModel = require('./models.js').userModel;
 var eventModel = require('./models.js').eventModel;
 var commandsModel = require('./models.js').commandsModel;
+var imageModel = require('./models.js').imageModel;
 
 // Event
 
@@ -67,7 +68,7 @@ app.post('/api/event', function (req, res, next){
         if (e) return next(e);
         res.send(results);
         console.log(results);
-        userModel.findOne({_id:results.ownerID}, function (e, user){
+       /* userModel.findOne({_id:results.ownerID}, function (e, user){
         	if(e) return;
         	console.log(user);
         	user.eventsID.push(results._id);
@@ -75,7 +76,7 @@ app.post('/api/event', function (req, res, next){
         		if(e) return;
         		console.log(newUser);
         	});
-        });
+        });*/
     });
 });
 
@@ -96,9 +97,44 @@ app.delete('/api/event/:id', function (req, res, next)
 	});
 });
 
+//images for an event
+app.get('/api/event/:id/images', function (req, res, next) {
+  console.log('get images '+req.params.id);
+  imageModel.findOne({eventsID: req.params.id}, function (e, result) {
+    if (e) return next(e);
+      console.log(result);
+      res.send(result);
+  });
+});
+
+app.post('/api/event/images', function (req, res, next){
+  console.log('new images : '+req.body);
+  var newImage = new imageModel(req.body);
+  newImage.save(function (e, results){
+        if (e) return next(e);
+        res.send(results);
+        console.log(results);
+    });
+});
+
+app.put('/api/event/:id/images', function (req, res, next)
+{
+  delete req.body._id; //duplicate id bug
+  console.log('put images : '+req.body);
+  imageModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
+    if (err) return next(err);
+    res.send(result);
+  });
+});
+
+app.delete('/api/event/:id/images', function (req, res, next)
+{
+  imageModel.remove({_id: req.params.id}, function (err, result){
+    if (err) return next(err);
+  });
+});
 
 // User
-
 app.get('/api/user', function (req, res, next) {
   console.log('get users');
   userModel.find(function (err, coll) {
