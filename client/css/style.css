@@ -117,7 +117,7 @@
 		width:95%;
 		margin-bottom:10px; 
 	}
-	#eventForm button[type=submit], #eventForm button[type=button]{
+	#eventForm button[type=submit], #eventForm button[type=button], #eventForm a{
 		margin-top:10px;
 	}
 	#eventForm img{

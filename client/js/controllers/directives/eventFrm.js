@@ -1,9 +1,9 @@
 // Event Frm Directive Controller
-app.controller('EventFrmCtrl', ['$scope', 'Event', 'EventImages', function ($scope, Event, EventImages){
+app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', '$location', function ($scope, $rootScope, Event, EventImages, $location){
 	var cptType = 0;
 
 	$scope.defaultEvent = {
-		'ownerID': null, //TODO : Récupérer le User ID en session
+		'ownerID': $rootScope.user.user_id, //TODO : Récupérer le User ID en session
 		'title': '',
 		'description': '',
 		'country': '',
@@ -91,7 +91,6 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', 'EventImages', function ($sco
     	$scope.eventFormData.online = published;
     	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
     		ticket.uniqueID = i;
-    		console.log(i);
     	});
     	Event.put($scope.eventFormData._id, $scope.eventFormData);
   	}

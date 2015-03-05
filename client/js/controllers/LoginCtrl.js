@@ -1,12 +1,14 @@
 //EventController
-app.controller('LoginCtrl', ['$rootScope', '$scope', '$routeParams', function ($rootScope, $scope, $routeParams){
+app.controller('LoginCtrl', ['$location', '$rootScope', '$scope', '$routeParams', function ($location, $rootScope, $scope, $routeParams){
 	
-	$scope.user = {
-		user_id : "swiPjk21RqmEPu21KVi84w"
+	$rootScope.user = {
+		user_id : "swiPjk21RqmEPu21KVi84w",
+		authenticated : null
 	}
 
 	$scope.connected = function(){
-		$rootScope.user = $scope.user;
+		$rootScope.user.authenticated=true;
+		$location.path('#/');
 	}
 	
 	
