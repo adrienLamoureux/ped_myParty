@@ -26,10 +26,8 @@ app.controller('UserEventsCtrl', ['$scope', '$routeParams', 'Event', 'EventByOrg
 			EventImages.delete({id:eventImgs._id});
 		});
 
-
-		
-
 		$scope.events = EventByOrganizerId.query({id:$routeParams.id});
+		$window.location.reload();
 	}
 
 	$scope.cancel = function(event){
@@ -42,5 +40,6 @@ app.controller('UserEventsCtrl', ['$scope', '$routeParams', 'Event', 'EventByOrg
 		});
 
 		$scope.events = EventByOrganizerId.query({id:$routeParams.id});
+		$window.location.reload();
 	}
 }]);
