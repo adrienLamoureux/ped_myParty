@@ -1,5 +1,5 @@
 // Event Frm Directive Controller
-app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', '$location', function ($scope, $rootScope, Event, EventImages, $location){
+app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', '$window', function ($scope, $rootScope, Event, EventImages, $window){
 	var cptType = 0;
 
 	$scope.defaultEvent = {
@@ -73,7 +73,7 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
    	$scope.cancel = initForm;
 
    	// when submitting the add form, send the text to the node API
-    $scope.createEvent = function(published) {
+    $scope.createEvent = function(published, userId) {
     	$scope.eventFormData.online = published;
     	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
     		ticket.uniqueID = i;
@@ -82,11 +82,17 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
     		$scope.eventPost = data;
     		$scope.eventFormImage.eventID = $scope.eventPost._id;
     		EventImages.post($scope.eventFormImage);
+    		if(published){
+    			$window.location.href = "#/event/" + $scope.eventPost._id;
+    		}else{
+				$window.location.href = "#/usr/" + userId + "/events";
+    		}
+    		$window.location.reload();	
     	});
   	}
 
   	// when submitting the edit form, send the text to the node API
-    $scope.updateEvent = function(published) {
+    $scope.updateEvent = function(published, userId) {
     	$scope.eventFormData.online = published;
     	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
     		ticket.uniqueID = i;
@@ -96,9 +102,13 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
     		console.log("EVENT PUT OK");
     		EventImages.put({id:$scope.eventFormImage._id}, $scope.eventFormImage, function (){
     			console.log("IMAGES PUT OK");
+    			if(published){
+    				$window.location.href = "#/event/" + $scope.eventFormData._id;
+    			}else{
+					$window.location.href = "#/usr/" + userId + "/events";
+    			}
+    			$window.location.reload();	
     		});
     	});
-    	
-    	
   	}
 }]);
