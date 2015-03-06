@@ -246,28 +246,32 @@ app.delete('/api/command/:id', function (req, res, next)
 });
 
 app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
-  eventModel.findOne({id: req.params.id}, function (err, result){
-    if (e) return next(e);
+  console.log('get ticket ' + req.params.idt + ' of event '+req.params.id);
+  var response = {valide: false};
+  eventModel.findOne({_id: req.params.id}, function (err, result){
+    if (err) return next(e);
     var index = result.tickets.map(function(e){return e.qRCodeUniqueID;}).indexOf(req.params.idt);
     if(index > -1){
       if(result.tickets[index].used == false){
         var indexV = result.ticketsType.map(function(e){return e.uniqueID}).indexOf(result.tickets[index].ticketTypeID);
         if(indexV > -1){
           if(result.ticketsType[indexV].expirationDate > (new Date)){
-            res.send(true);
+            response.valide = true;
+            res.send(response);
             return;
           };
         };
       };
     };
-    res.send(false);
+    res.send(response);
     return;
   });
 });
 
 app.put('/api/event/:id/ticket/:idt/validate', function (req, res, next){
-  eventModel.findOne({id: req.params.id}, function (err, result){
-    if (e) return next(e);
+  console.log('update ticket ' + req.params.idt + ' of event '+req.params.id);
+  eventModel.findOne({_id: req.params.id}, function (err, result){
+    if (err) return next(e);
     var index = result.tickets.map(function(e){return e.qRCodeUniqueID;}).indexOf(req.params.idt);
     if(index > -1){
       if(result.tickets[i].used == false){
