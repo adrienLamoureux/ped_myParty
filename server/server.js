@@ -83,19 +83,19 @@ app.post('/api/event', function (req, res, next){
 	console.log('new event : '+req.body);
 	var newEvent = new eventModel(req.body);
 	newEvent.save(function (e, results){
-        if (e) return next(e);
-        res.send(results);
-        console.log(results);
-       /* userModel.findOne({_id:results.ownerID}, function (e, user){
-        	if(e) return;
-        	console.log(user);
-        	user.eventsID.push(results._id);
-        	userModel.findOneAndUpdate({_id:user._id}, user, function (e, newUser){
-        		if(e) return;
-        		console.log(newUser);
-        	});
-        });*/
+    if (e) return next(e);
+    console.log(results);
+    userModel.findOne({apiID:results.ownerID}, function (e, user){
+    	if(e) return next(e);
+    	console.log(user);
+    	user.eventsID.push(results._id);
+    	userModel.findOneAndUpdate({_id:user._id}, user, function (e, newUser){
+    		if(e) return next(e);
+    		console.log(newUser);
+        res.send(newEvent);
+    	});
     });
+  });
 });
 
 app.put('/api/event/:id', function (req, res, next)
