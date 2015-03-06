@@ -39,54 +39,51 @@
 			<input id="txtEventCountry" type="text" class="form-control" placeholder="France" ng-model="eventFormData.country" required/><br/>
 
 			<label>Image de la page de présentation</label>
-			<input type="file" ng-model="eventFormImage.backgroundImg" name="file" base-sixty-four-input required>
-			Prévisualisation : <br>
-			<img ng-src="data:{{eventFormImage.backgroundImg.filetype}};base64,{{eventFormImage.backgroundImg.base64}}" alt="">
+			<input type="file" ng-model="eventFormImage.backgroundImg" name="file" base-sixty-four-input required/>
+			<p>Prévisualisation : <img ng-src="data:{{eventFormImage.backgroundImg.filetype}};base64,{{eventFormImage.backgroundImg.base64}}" alt=""></p>
 
 			<label>Image miniature de l'évènement</label>
-			<input type="file" ng-model="eventFormData.imageSmall" name="file" base-sixty-four-input required>
-			Prévisualisation : <br>
-			<img ng-src="data:{{eventFormData.imageSmall.filetype}};base64,{{eventFormData.imageSmall.base64}}" alt="">
+			<input type="file" ng-model="eventFormData.imageSmall" name="file" base-sixty-four-input required/>
+			<p>Prévisualisation : <img ng-src="data:{{eventFormData.imageSmall.filetype}};base64,{{eventFormData.imageSmall.base64}}" alt=""></p>
 			<hr />
 		</div>
-
+		<hr />
 		<!-- Billeterie -->
 		<h2>Billetterie</h2>
-		<label>Image de fond du billet</label>
-		<input type="file" ng-model="eventFormImage.ticketImg" name="file" base-sixty-four-input required>
-		Prévisualisation : <br>
-		<img ng-src="data:{{eventFormImage.ticketImg.filetype}};base64,{{eventFormImage.ticketImg.base64}}" alt="">
+		<div>
+			<label>Image de fond du billet</label>
+			<input type="file" ng-model="eventFormImage.ticketImg" name="file" base-sixty-four-input required/>
+			<p>Prévisualisation : <img ng-src="data:{{eventFormImage.ticketImg.filetype}};base64,{{eventFormImage.ticketImg.base64}}" alt=""></p>
 
-		<div ng-repeat="t in eventFormData.ticketsType">
-			<hr />
-			<h3>Billet {{$index+1}}
-				<img src="./image/delete.png" id="bt_rem_ticketType{{$index+1}}" ng-show="eventFormData.ticketsType.length-1" ng-click="eventFormData.ticketsType.splice($index, 1)" title="Supprimer ce billet ?" alt="Supprimer Billet {{$index+1}}" />
-			</h3>
-			
-			<label>Type</label>
-			<input id="txtEventType{{$index+1}}" type="text" class="form-control" placeholder="ex. 3 jours plein tarif" ng-model="t.type" required/><br/>
-			
-			<label>Description</label>
-			<textarea id="txtEventDescription{{$index+1}}" type="text" class="form-control" placeholder="" ng-model="t.description" required>
-			</textarea><br/>
+			<div ng-repeat="t in eventFormData.ticketsType">
+				<hr />
+				<h3>Billet {{$index+1}}
+					<img src="./image/delete.png" id="bt_rem_ticketType{{$index+1}}" ng-show="eventFormData.ticketsType.length-1" ng-click="eventFormData.ticketsType.splice($index, 1)" title="Supprimer ce billet ?" alt="Supprimer Billet {{$index+1}}" />
+				</h3>
+				
+				<label>Type</label>
+				<input id="txtEventType{{$index+1}}" type="text" class="form-control" placeholder="ex. 3 jours plein tarif" ng-model="t.type" required/><br/>
+				
+				<label>Description</label>
+				<textarea id="txtEventDescription{{$index+1}}" type="text" class="form-control" placeholder="Détails du type de billet" ng-model="t.description" required>
+				</textarea><br/>
 
-			<label>Date d'expiration</label>
-			<input id="txtEventExpirationDate" name="txtEventExpirationDate" type="date" class="form-control" placeholder="aaaa-mm-jj" min="{{eventFormData.dateStarting | date: 'yyyy-MM-dd'}}" max="{{eventFormData.dateEnding | date: 'yyyy-MM-dd'}}"  ng-model="eventFormData.expirationDate" required/><br/>
-			<div class="red" ng-show="eventForm.$submitted || eventForm.txtEventExpirationDate.$touched">
-      			<div class="red" ng-show="eventForm.txtEventExpirationDate.$error.min">La date d'expiration doit être postérieure à la date de début de l'événement ({{eventFormData.dateStarting | date: 'yyyy-MM-dd'}}).</div>
-      			<div class="red" ng-show="eventForm.txtEventExpirationDate.$error.max">La date d'expiration doit être antérieure à la date de fin de l'événement ({{eventFormData.dateEnding | date: 'yyyy-MM-dd'}}).</div>
-    		</div>
+				<label>Date d'expiration</label>
+				<input id="txtTicketExpirationDate" name="txtTicketExpirationDate" type="date" class="form-control" placeholder="aaaa-mm-jj" min="{{eventFormData.dateStarting | date: 'yyyy-MM-dd'}}" max="{{eventFormData.dateEnding | date: 'yyyy-MM-dd'}}"  ng-model="t.expirationDate" required/><br/>
+				<div class="red" ng-show="eventForm.$submitted || eventForm.txtTicketExpirationDate.$touched">
+	      			<div class="red" ng-show="eventForm.txtTicketExpirationDate.$error.min">La date d'expiration doit être postérieure à la date de début de l'événement ({{eventFormData.dateStarting | date: 'yyyy-MM-dd'}}).</div>
+	      			<div class="red" ng-show="eventForm.txtTicketExpirationDate.$error.max">La date d'expiration doit être antérieure à la date de fin de l'événement ({{eventFormData.dateEnding | date: 'yyyy-MM-dd'}}).</div>
+	    		</div>
 
-			<label>Quantité</label>
-			<input id="txtEventTicketLeft{{$index+1}}" type="number" class="form-control" title="Enter a quantity" min="1" ng-model="t.ticketLeft" required/><br/>
+				<label>Quantité</label>
+				<input id="txtEventTicketLeft{{$index+1}}" type="number" class="form-control" title="Enter a quantity" min="1" ng-model="t.ticketLeft" required/><br/>
 
-			<label>Prix</label>
-			<input id="txtEventPrice{{$index+1}}" type="number" class="form-control" title="Enter a price" min="0" ng-model="t.price" required/><br/>
+				<label>Prix</label>
+				<input id="txtEventPrice{{$index+1}}" type="number" class="form-control" title="Enter a price" min="0" ng-model="t.price" required/><br/>
+			</div>
+
+			<button id="bt_add_ticket" class="btn btn-primary btn-block" ng-click="addNewTicketType()">	Nouveau Billet </button>
 		</div>
-
-		<button id="bt_add_ticket" class="btn btn-primary btn-block" ng-click="addNewTicketType()">	Nouveau Billet </button>
-
-		<hr />
 		<hr />
 
 		<!-- Validation -->

@@ -105,7 +105,7 @@
 	#eventForm label, #eventForm input, #eventForm textarea{
 		width:100%;
 	}
-	#eventForm div input, #eventForm div textarea,  #eventForm div label{ 
+	#eventForm div input, #eventForm div textarea,  #eventForm div label, #eventForm div p{ 
 		margin-left:15px; 
 	}
 	#eventForm input { 
@@ -139,9 +139,6 @@
 	}
 	#eventForm input.ng-valid, #eventForm textarea.ng-valid{
 	  	border: 1px solid green;
-	}
-	#eventForm input[type=file].ng-invalid, #eventForm input[type=file].ng-valid{
-		border:none;
 	}
 
 /*********************************/
