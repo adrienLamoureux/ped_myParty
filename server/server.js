@@ -245,26 +245,37 @@ app.delete('/api/command/:id', function (req, res, next)
 	});
 });
 
-app.get('/api/user/:id/event/:ide/ticket/:idt', function (req, res, next){
-  eventModel.findOne({id: req.params.ide}, function (err, result){
+app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
+  eventModel.findOne({id: req.params.id}, function (err, result){
     if (e) return next(e);
-    for(i=0;i<result.tickets.length;++i){
-      if((tickets[i].userID == req.params.id) && (tickets[i].uniqueID == req.params.idt) && (tickets[i].used == false)){
-        res.send(true);
-        return;
-      }
-    }
-    res.send(false);
+    var index = result.tickets.map(function(e){return e.qRCodeUniqueID;}).indexOf(req.params.idt);
+      if(index > -1){
+        if(result.tickets[index].used == false){
+          var indexV = result.ticketsType.map(function(e){return e.uniqueID}).indexOf(result.tickets[index].ticketTypeID);
+          if(indexV > -1){
+            if(result.ticketsType[indexV].expirationDate > (new Date)){
+              res.send(true);
+              return;
+            };
+          };
+        };
+      };
+      res.send(false);
+      return;
+      };
+    };
   });
 });
 
-app.put('/api/user/:id/event/:ide/ticket/:idt', function (req, res, next){
-  eventModel.findOne({id: req.params.ide}, function (err, result){
+app.put('/api/event/:id/ticket/:idt/validate', function (req, res, next){
+  eventModel.findOne({id: req.params.id}, function (err, result){
     if (e) return next(e);
-    for(i=0;i<result.tickets.length;++i){
-      if((tickets[i].userID == req.params.id) && (tickets[i].uniqueID == req.params.idt) && (tickets[i].used == false)){
-        ticket[i].used = true;
-      }
-    }
+    var index = result.tickets.map(function(e){return e.qRCodeUniqueID;}).indexOf(req.params.idt);
+      if(index > -1){
+        if(result.tickets[i].used == false){
+          result.tickets[i].used = true;
+        };
+      };
+    };
   });
 });
