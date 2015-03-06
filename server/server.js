@@ -89,9 +89,8 @@ app.post('/api/event', function (req, res, next){
     	if(e) return next(e);
     	console.log(user);
     	user.eventsID.push(results._id);
-    	userModel.findOneAndUpdate({_id:user._id}, user, function (e, newUser){
+    	userModel.update({_id:user._id}, {$set:{eventsID:user.eventsID}}, function (e, numberAffected, newUser){
     		if(e) return next(e);
-    		console.log(newUser);
         res.send(newEvent);
     	});
     });
@@ -250,15 +249,17 @@ app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
   var response = {valide: false};
   eventModel.findOne({_id: req.params.id}, function (err, result){
     if (err) return next(e);
-    var index = result.tickets.map(function(e){return e.qRCodeUniqueID;}).indexOf(req.params.idt);
-    if(index > -1){
-      if(result.tickets[index].used == false){
-        var indexV = result.ticketsType.map(function(e){return e.uniqueID}).indexOf(result.tickets[index].ticketTypeID);
-        if(indexV > -1){
-          if(result.ticketsType[indexV].expirationDate > (new Date)){
-            response.valide = true;
-            res.send(response);
-            return;
+    for(var i=0;i<result.tickets.length;++i){
+      if(result.tickets[i].qRCodeUniqueID == req.params.idt){
+        if(result.tickets[i].used == false){
+          for(var j=0;j<result.tickets.length;++j){
+            if(result.ticketsType[j].uniqueID == result.tickets[i].ticketTypeID){
+              if(result.ticketsType[j].expirationDate > (new Date)){
+                response.valide = true;
+                res.send(response);
+                return;
+              };
+            };
           };
         };
       };
@@ -269,16 +270,20 @@ app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
 });
 
 app.put('/api/event/:id/ticket/:idt/validate', function (req, res, next){
+  delete req.body._id; //duplicate id bug
   console.log('update ticket ' + req.params.idt + ' of event '+req.params.id);
   eventModel.findOne({_id: req.params.id}, function (err, result){
-    if (err) return next(e);
-    var index = result.tickets.map(function(e){return e.qRCodeUniqueID;}).indexOf(req.params.idt);
-    if(index > -1){
-      if(result.tickets[i].used == false){
-        result.tickets[i].used = true;
-        eventModel.findOneAndUpdate({id: req.params.id}, result, function (err, event){
-          res.send(event);
-        });
+    if (err) return next(err);
+    for(var i=0;i<result.tickets.length;++i){
+      if(result.tickets[i].qRCodeUniqueID == req.params.idt){
+        if(result.tickets[i].used == false){
+          result.tickets[i].used = true;
+          console.log(result.tickets[i].used);
+          console.log(req.params.id);
+          eventModel.update({_id:req.params.id}, {$set:{tickets:result.tickets}}, function (err, numberAffected, raw){
+            console.log(numberAffected);
+          });
+        };
       };
     };
   });

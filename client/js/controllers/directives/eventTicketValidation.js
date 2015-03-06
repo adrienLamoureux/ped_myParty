@@ -3,15 +3,10 @@ app.controller('EventTicketValidationCtrl', ['$scope', '$routeParams', 'EventTic
 	EventTicketValidate.get({id:$routeParams.id, idt:$routeParams.idt}, function (res){
 		console.log(res.valide);
 		$scope.valide = res.valide;
-		if(res == true){
-			$scope.valide = true;
+		if($scope.valide == true){
 			// Put without body because of security
-			EventTicketValidate.put({id:$routeParams.id, idt:$routeParams.idt}, function (res){
-				console.log(res);
+			EventTicketValidate.put({id:$routeParams.id, idt:$routeParams.idt}, {}, function (res){
 			});
 		}
-		else{
-			$scope.valide = false;
-		};
 	});
 }]);
