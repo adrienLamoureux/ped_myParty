@@ -3,7 +3,7 @@ app.controller('LoginCtrl', ['$location', '$rootScope', '$scope', '$routeParams'
 	
 	$rootScope.user = {
 		user_id : "swiPjk21RqmEPu21KVi84w",
-		authenticated : null
+		authenticated : true
 	}
 
 	$scope.connected = function(){

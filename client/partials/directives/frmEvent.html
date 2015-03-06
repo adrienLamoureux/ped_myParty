@@ -90,12 +90,12 @@
 		<button id="bt_restore" type="button" class="btn btn-warning" ng-click="cancel();">
 			Restaurer cet événement
 		</button>
-		<a id="bt_submit" type="submit" class="btn btn-success pull-right" ng-disabled="eventForm.$invalid" ng-click="editMode?updateEvent(true):createEvent(true);" href="#/">
+		<button id="bt_submit" type="submit" class="btn btn-success pull-right" ng-disabled="eventForm.$invalid" ng-click="editMode?updateEvent(true, user.user_id):createEvent(true, user.user_id);" >
 			Publier !
-		</a>	
-		<a id="bt_save" type="submit" class="btn btn-warning pull-right" ng-disabled="eventForm.$invalid" ng-click="editMode?updateEvent(false):createEvent(false);" href="#/usr/{{user.user_id}}/events">
+		</button>	
+		<button id="bt_save" type="submit" class="btn btn-warning pull-right" ng-disabled="eventForm.$invalid" ng-click="editMode?updateEvent(false, user.user_id):createEvent(false, user.user_id);">
 			Sauvegarder sans publier
-		</a>	
+		</button>	
 	</form>
 </fieldset>
 
