@@ -11,7 +11,7 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 		'city': '',
 		'zipCode': '',
 		'street': '', 
-		'imageSmall': '',
+		'imageSmall': null,
 		'tickets': [],
 		'ticketsType': [{
 			'uniqueID': cptType,
@@ -30,8 +30,8 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 
 	$scope.defaultImages = {
 		'eventID': null, 
-		'backgroundImg': {},
-		'ticketImg':{}
+		'backgroundImg': null,
+		'ticketImg':null
 	};
 
 	$scope.addNewTicketType = function (){
@@ -47,31 +47,30 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 		});
 	};
 
-	$scope.now = Date.now();
-
 	$scope.eventPost = null;
 
 	$scope.editMode = (angular.isDefined($scope.thisEvent));
+	initForm();	
 
-	if($scope.editMode){
-		$scope.eventFormData = angular.copy($scope.thisEvent);
-		$scope.eventFormImage = angular.copy($scope.imgs);
-	}else{
-		$scope.eventFormData = angular.copy($scope.defaultEvent);
-		$scope.eventFormImage = angular.copy($scope.defaultImages);
-	}
-
-	// restore form
-    $scope.cancel = function() {
+	
+	// initialize / restore form
+    function initForm() {
     	if($scope.editMode){
-    		$scope.eventFormData = angular.copy($scope.thisEvent);
-    		$scope.eventFormImage = angular.copy($scope.imgs);
-    	}else{
+			$scope.eventFormData = angular.copy($scope.thisEvent);
+			$scope.eventFormData.dateStarting = new Date($scope.eventFormData.dateStarting);
+			$scope.eventFormData.dateEnding = new Date($scope.eventFormData.dateEnding);
+			angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
+	    		ticket.expirationDate = new Date(ticket.expirationDate);
+	    	});
+			$scope.eventFormImage = angular.copy($scope.imgs);
+		}else{
 			$scope.eventFormData = angular.copy($scope.defaultEvent);
 			$scope.eventFormImage = angular.copy($scope.defaultImages);
-    	}
-    	$scope.now = Date.now();
+		}
+		$scope.now = Date.now();
    	};
+
+   	$scope.cancel = initForm;
 
    	// when submitting the add form, send the text to the node API
     $scope.createEvent = function(published) {
