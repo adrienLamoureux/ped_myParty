@@ -24,8 +24,7 @@ app.factory('EventByOrganizerId', ['$resource', function($resource){
 }]);
 
 app.factory('EventTicketValidate', ['$resource', function($resource){
-	return $resource('./../api/event/:id/ticket/:idt/validate', {id: '@_id', idt: '@_id'}, {
-		get: {method:'GET', isArray:false},
-		put: {method: 'PUT', isArray:false}
+	return $resource('./../api/event/:id/ticket/:idt/validate/:toValide', {id: '@_id', idt: '@_id'}, {
+		get: {method:'GET', isArray:false}
 	});
 }]);
