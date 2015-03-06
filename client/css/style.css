@@ -13,9 +13,12 @@
 
 
 /*********************************/
-/*** nav *************************/
+/*** login ***********************/
 /***     *************************/
 
+#login {
+	padding-top: 80px;	
+}
 
 /*********************************/
 /*** page ************************/
@@ -36,8 +39,10 @@
 		text-align: left;
 		padding-top:20px;
 		background:black;
-		background-position:top center;
-		background-repeat: repeat-y;
+	}
+	#eventPage #eventImage{
+		margin-top:10px;
+		margin-bottom:20px;
 	}
 	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event, #eventPage #event #ticket{
 		background-color: rgba(0, 0, 0, 0.90);
@@ -51,7 +56,7 @@
 				border-radius: 10px;
 	}
 	#eventPage #event{
-		background-color: rgba(0, 0, 0, 0.50);
+		background-color: grey;
 		padding:0px 0px 15px 0px;
 	}
 	#eventPage #event * h1{		
@@ -88,18 +93,19 @@
 	#eventForm { 
 		width:500px;
 		margin:auto;
-		border:1px solid lightgray; 
+		margin-bottom:20px; 
+		border:1px solid gray; 
 		border-radius:10px; 
 		padding:10px; 
 	}
 	#eventForm hr { 
-		border:1px solid lightgray; 
-		margin:0; 
+		border:1px solid gray; 
+		margin:0;
 	}	
 	#eventForm label, #eventForm input, #eventForm textarea{
 		width:100%;
 	}
-	#eventForm div input, #eventForm div textarea,  #eventForm div label{ 
+	#eventForm div input, #eventForm div textarea,  #eventForm div label, #eventForm div p{ 
 		margin-left:15px; 
 	}
 	#eventForm input { 
@@ -111,7 +117,7 @@
 		width:95%;
 		margin-bottom:10px; 
 	}
-	#eventForm button[type=submit], #eventForm button[type=button]{
+	#eventForm button[type=submit], #eventForm button[type=button], #eventForm a{
 		margin-top:10px;
 	}
 	#eventForm img{
@@ -133,9 +139,6 @@
 	}
 	#eventForm input.ng-valid, #eventForm textarea.ng-valid{
 	  	border: 1px solid green;
-	}
-	#eventForm input[type=file].ng-invalid, #eventForm input[type=file].ng-valid{
-		border:none;
 	}
 
 /*********************************/

@@ -1,5 +1,5 @@
 //EventController
-app.controller('EventCtrl', ['$scope', '$routeParams', 'Event', 'EventImages', function ($scope, $routeParams, Event, EventImages){
+app.controller('EventCtrl', ['$rootScope', '$scope', '$routeParams', 'Event', 'EventImages', function ($rootScope, $scope, $routeParams, Event, EventImages){
 	
 	//URL event argument
 	if(angular.isDefined($routeParams.id)){
