@@ -91,6 +91,14 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
     	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
     		ticket.uniqueID = i;
     	});
-    	Event.put($scope.eventFormData._id, $scope.eventFormData);
+
+    	Event.put({id:$scope.eventFormData._id}, $scope.eventFormData, function (){
+    		console.log("EVENT PUT OK");
+    		EventImages.put({id:$scope.eventFormImage._id}, $scope.eventFormImage, function (){
+    			console.log("IMAGES PUT OK");
+    		});
+    	});
+    	
+    	
   	}
 }]);

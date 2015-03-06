@@ -15,6 +15,10 @@ var updateRefID = function(db){
 										eventID: eventDocs[0]._id}
 									}, function(err, result){});
 
+									imgCollection.update({_id:imgDocs[2]._id}, {$set: {
+										eventID: eventDocs[1]._id}
+									}, function(err, result){});
+
 									imgCollection.update({_id:imgDocs[1]._id}, {$set: {
 										eventID: eventDocs[2]._id}
 									}, function(err, result){});
@@ -24,7 +28,7 @@ var updateRefID = function(db){
 									}, function(err, result){});
 									
 									userCollection.update({_id:userDocs[0]._id},{$set: {
-										eventsID:[eventDocs[0]._id], commandsID:[commandsDocs[0]._id]}
+										eventsID:[eventDocs[0]._id, eventDocs[1]._id,eventDocs[2]._id,], commandsID:[commandsDocs[0]._id]}
 									}, function(err, result){});
 									
 									eventCollection.update({_id:eventDocs[0]._id},{

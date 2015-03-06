@@ -1,8 +1,8 @@
 <!-- UserEvents Template -->
 <h1> Les Evennements que j'organise </h1>
 <div class="container">
-	<div ng-repeat="event in events" class="col-sm-12">
-		<a id="show" href="#/event/{{event._id}}"><img ng-src="{{event.imageSmall}}" class="img-thumbnail" alt="{{event.title}}"></a>
+	<div ng-repeat="event in events" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<a id="show" href="#/event/{{event._id}}"><img ng-src="data:{{event.imageSmall.filetype}};base64,{{event.imageSmall.base64}}" class="img-thumbnail" alt="{{event.title}}"></a>
 		<a id="edit" ng-hide="event.online" class="btn btn-primary" href="#/event/{{event._id}}/edit">
 			Editer
 		</a>
