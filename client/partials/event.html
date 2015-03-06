@@ -1,5 +1,6 @@
 <!-- Event Template -->
-<div id="eventPage" class="container" ng-style="{'background-image': 'url(data:'+imgs.backgroundImg.filetype+';base64,'+imgs.backgroundImg.base64+')' }"><!-- remplacer par {'background-image':'url(thisEvent.image)'} -->
+<div id="eventPage" class="container">
+	<img id="eventImage" class="img-responsive center-block" data-ng-src="data:{{imgs.backgroundImg.filetype}};base64,{{imgs.backgroundImg.base64}}" alt="event_image">
 	<section id="event" class="col-sm-8 col-sm-offset-2">
 		<section id="info" class="col-sm-12">
 			<h1>{{thisEvent.title}}</h1>
@@ -15,25 +16,24 @@
 		<section class="col-sm-12">
 			<h1>Billeterie</h1>
 			<div id="tickets" ng-repeat="ticketType in thisEvent.ticketsType">
-				<div ng-repeat="ticketImg in imgs.ticketImgs">
-					<div ng-if="ticketImg.idTicket == ticketType.uniqueID">
-					  	<div id="ticket" class="col-sm-6" ng-show="ticketType.ticketLeft>0" ng-style="{'background-image':'url(data:'+ticketImg.image.filetype+';base64,'+ticketImg.image.base64+')'}">			  		
-							<div>
-								<h2>{{ticketType.type}}</h2>	
-						  		<ul>
-						  			<li>Description : {{ticketType.description}}</li>
-						  			<li>Prix : {{ticketType.price}} €</li>
-						  		</ul>
-					  		</div>
-					  		<div class="pull-right" ng-show="thisEvent.online && dateNotExpired(thisEvent.dateEnding)">
-							 	<input type="number" value="0" min="0" max="{{ticketType.ticketLeft}}">
-							  	<button class="btn btn-primary">
-									Ajouter au panier
-								</button>
-							</div>
-					   	</div>
+			  	<div id="ticket" class="container-fluid" ng-show="ticketType.ticketLeft>0">			  		
+					<div class="col-sm-3">
+					 	<img id="ticket_$index_image" class="img-responsive center-block" data-ng-src="data:{{imgs.ticketImg.filetype}};base64,{{imgs.ticketImg.base64}}">
 					</div>
-				</div>
+					<div class="col-sm-9">
+						<h2>{{ticketType.type}}</h2>	
+				  		<ul>
+				  			<li>Description : {{ticketType.description}}</li>
+				  			<li>Prix : {{ticketType.price}} €</li>
+				  		</ul>
+				  		<div class="pull-right" ng-show="thisEvent.online && dateNotExpired(thisEvent.dateEnding)">
+						 	<input type="number" value="0" min="0" max="{{ticketType.ticketLeft}}">
+						  	<button class="btn btn-primary">
+								Ajouter au panier
+							</button>
+						</div>
+			  		</div>	  		
+			   	</div>
 			</div>
 		</section>
 	</section>

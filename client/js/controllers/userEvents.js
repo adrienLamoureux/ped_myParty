@@ -1,5 +1,5 @@
 // User Events
-app.controller('UserEventsCtrl', ['$scope', '$routeParams', 'Event', 'EventByOrganizerId', function ($scope, $routeParams, Event, EventByOrganizerId){
+app.controller('UserEventsCtrl', ['$scope', '$routeParams', 'Event', 'EventByOrganizerId', '$window', function ($scope, $routeParams, Event, EventByOrganizerId, $window){
 
 	//URL user argument
 	$scope.events = EventByOrganizerId.query({id:$routeParams.id});
@@ -8,6 +8,11 @@ app.controller('UserEventsCtrl', ['$scope', '$routeParams', 'Event', 'EventByOrg
 		return Date.parse(date) < Date.now();
 	}
 	
+	$scope.edit = function(event){
+		$window.location.href = "#/event/" + event._id + "/edit";
+		$window.location.reload();
+	}
+
 	$scope.publish = function(event){
 		event.online = true;
 		Event.put({id:event._id}, event);
@@ -15,12 +20,27 @@ app.controller('UserEventsCtrl', ['$scope', '$routeParams', 'Event', 'EventByOrg
 
 	$scope.delete = function(event){
 		Event.delete({id:event._id});
+		
+		var eventImgs = EventImages.get({id:event._id}, function(data){
+			eventImgs = data;
+			EventImages.delete({id:eventImgs._id});
+		});
+
+
+		
+
 		$scope.events = EventByOrganizerId.query({id:$routeParams.id});
 	}
 
 	$scope.cancel = function(event){
 		//TODO: Event cancelation + sending mail and payback all customers!
 		Event.delete({id:event._id});
+
+		var eventImgs = EventImages.get({id:event._id}, function(data){
+			eventImgs = data;
+			EventImages.delete({id:eventImgs._id});
+		});
+
 		$scope.events = EventByOrganizerId.query({id:$routeParams.id});
 	}
 }]);

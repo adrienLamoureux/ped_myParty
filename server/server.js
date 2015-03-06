@@ -5,7 +5,11 @@ var application_root = __dirname,
     express = require('express'), //Web framework
     path = require('path'), //Utilities for dealing with file paths
     bodyParser  = require('body-parser'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    passport = require('passport'),
+	UserAppStrategy = require('passport-userapp').Strategy;
+
+var APP_ID = "54f5bfbac1eb6";
 
 //Create server
 var app = express();
@@ -38,6 +42,18 @@ var eventModel = require('./models.js').eventModel;
 var commandsModel = require('./models.js').commandsModel;
 var imageModel = require('./models.js').imageModel;
 
+/********* PASSPORT **********/
+passport.use(new UserAppStrategy({
+        appId: APP_ID
+    },
+    function (userprofile, done) {
+        Users.findOrCreate(userprofile, function(err,user) {
+            if(err) return done(err);
+            return done(null, user);
+        });
+    }
+));
+
 // Event
 
 app.get('/api/event', function (req, res, next) {
@@ -52,6 +68,8 @@ app.get('/api/event', function (req, res, next) {
   });
 });
 
+
+
 app.get('/api/event/:id', function (req, res, next) {
   console.log('get event '+req.params.id);
   eventModel.findOne({_id: req.params.id}, function (e, result) {
@@ -65,19 +83,18 @@ app.post('/api/event', function (req, res, next){
 	console.log('new event : '+req.body);
 	var newEvent = new eventModel(req.body);
 	newEvent.save(function (e, results){
-        if (e) return next(e);
-        res.send(results);
-        console.log(results);
-       /* userModel.findOne({_id:results.ownerID}, function (e, user){
-        	if(e) return;
-        	console.log(user);
-        	user.eventsID.push(results._id);
-        	userModel.findOneAndUpdate({_id:user._id}, user, function (e, newUser){
-        		if(e) return;
-        		console.log(newUser);
-        	});
-        });*/
+    if (e) return next(e);
+    console.log(results);
+    userModel.findOne({apiID:results.ownerID}, function (e, user){
+    	if(e) return next(e);
+    	console.log(user);
+    	user.eventsID.push(results._id);
+    	userModel.update({_id:user._id}, {$set:{eventsID:user.eventsID}}, function (e, numberAffected, newUser){
+    		if(e) return next(e);
+        res.send(newEvent);
+    	});
     });
+  });
 });
 
 app.put('/api/event/:id', function (req, res, next)
@@ -100,7 +117,7 @@ app.delete('/api/event/:id', function (req, res, next)
 //images for an event
 app.get('/api/event/:id/images', function (req, res, next) {
   console.log('get images '+req.params.id);
-  imageModel.findOne({eventsID: req.params.id}, function (e, result) {
+  imageModel.findOne({eventID: req.params.id}, function (e, result) {
     if (e) return next(e);
       console.log(result);
       res.send(result);
@@ -134,63 +151,39 @@ app.delete('/api/event/:id/images', function (req, res, next)
   });
 });
 
-// User
-app.get('/api/user', function (req, res, next) {
-  console.log('get users');
-  userModel.find(function (err, coll) {
-    if (!err) {
-        return res.send(coll);
-    } else {
-        console.log(err);
-        next(err);
-	}
-  });
-});
 
-app.get('/api/user/:id', function (req, res, next) {
-  console.log('get user '+req.params.id);
-  userModel.findOne({_id: req.params.id}, function (e, result) {
-  	if (e) return next(e);
-    res.send(result);
-  });
-});
+// User
+app.get('/api/user', passport.authenticate('userapp'),
+  function(req, res) {
+    res.send({ user: req.user });
+ });
+
 
 app.get('/api/user/:id/event', function (req, res, next){
-	console.log('get event of user'+req.params.id);
-	userModel.findOne({_id:req.params.id}, function (e, result){
-		if(e) return next(e);	
-		eventModel.find({_id:{$in:result.eventsID}}, function (e, events){
-			console.log(events);
-			res.send(events);
-		});
-	});
+  console.log('get event of user '+req.params.id);
+  userModel.findOne({apiID:req.params.id}, function (err, user){
+    eventModel.find({_id:{$in:user.eventsID}}, function (e, events){
+          console.log(events);
+          res.send(events);
+    });
+  });
 });
 
 app.get('/api/user/:id/command', function (req, res, next){
-	console.log('get command of user'+req.params.id);
-	userModel.findOne({_id:req.params.id}, function (e, result){
-		if(e) return next(e);
-		commandModel.findOne({_id:result.commandsID}, function (e, command){
-			console.log(command);
-			res.send(command);
-		});
-	});
-});
-
-app.post('/api/user', function (req, res, next){
-	console.log('new user : '+req.body);
-	var newUser = new userModel(req.body);
-	newUser.save(function (e, results){
-        if (e) return next(e);
-        res.send(results);
-    });
+	console.log('get command of user '+req.params.id);
+  userModel.findOne({apiID:req.params.id}, function (err, user){
+  	commandModel.findOne({_id:user.commandsID}, function (e, command){
+  		console.log(command);
+  		res.send(command);
+  	});
+  });
 });
 
 app.put('/api/user/:id', function (req, res, next)
 {
-  delete req.body._id; //duplicate id bug
+	delete req.body._id; //duplicate id bug
   console.log('put user : '+req.body);
-  userModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
+  userModel.findOneAndUpdate({apiID: req.params.id}, req.body, function (err, result){
     if (err) return next(err);
     res.send(result);
   });
@@ -198,10 +191,7 @@ app.put('/api/user/:id', function (req, res, next)
 
 app.delete('/api/user/:id', function (req, res, next)
 {
-	userModel.remove({_id: req.params.id}, function (err, result){
-		if (err) return next(err);
-		res.send(result);
-	});
+	//delete user
 });
 
 
@@ -254,3 +244,47 @@ app.delete('/api/command/:id', function (req, res, next)
 	});
 });
 
+app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
+  console.log('get ticket ' + req.params.idt + ' of event '+req.params.id);
+  var response = {valide: false};
+  eventModel.findOne({_id: req.params.id}, function (err, result){
+    if (err) return next(e);
+    for(var i=0;i<result.tickets.length;++i){
+      if(result.tickets[i].qRCodeUniqueID == req.params.idt){
+        if(result.tickets[i].used == false){
+          for(var j=0;j<result.tickets.length;++j){
+            if(result.ticketsType[j].uniqueID == result.tickets[i].ticketTypeID){
+              if(result.ticketsType[j].expirationDate > (new Date)){
+                response.valide = true;
+                res.send(response);
+                return;
+              };
+            };
+          };
+        };
+      };
+    };
+    res.send(response);
+    return;
+  });
+});
+
+app.get('/api/event/:id/ticket/:idt/validate/:toValide', function (req, res, next){
+  delete req.body._id; //duplicate id bug
+  console.log('update ticket ' + req.params.idt + ' of event '+req.params.id);
+  eventModel.findOne({_id: req.params.id}, function (err, result){
+    if (err) return next(err);
+    for(var i=0;i<result.tickets.length;++i){
+      if(result.tickets[i].qRCodeUniqueID == req.params.idt){
+        if(result.tickets[i].used == false){
+          result.tickets[i].used = true;
+          console.log(result.tickets[i].used);
+          console.log(req.params.id);
+          eventModel.update({_id:req.params.id}, {$set:{tickets:result.tickets}}, function (err, numberAffected, raw){
+            console.log(numberAffected);
+          });
+        };
+      };
+    };
+  });
+});

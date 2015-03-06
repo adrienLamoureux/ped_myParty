@@ -1,9 +1,9 @@
 // Event Frm Directive Controller
-app.controller('EventFrmCtrl', ['$scope', 'Event', 'EventImages', function ($scope, Event, EventImages){
+app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', '$window', function ($scope, $rootScope, Event, EventImages, $window){
 	var cptType = 0;
 
 	$scope.defaultEvent = {
-		'ownerID': null, //TODO : Récupérer le User ID en session
+		'ownerID': $rootScope.user.user_id, //TODO : Récupérer le User ID en session
 		'title': '',
 		'description': '',
 		'country': '',
@@ -11,7 +11,7 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', 'EventImages', function ($sco
 		'city': '',
 		'zipCode': '',
 		'street': '', 
-		'imageSmall': '',
+		'imageSmall': null,
 		'tickets': [],
 		'ticketsType': [{
 			'uniqueID': cptType,
@@ -20,7 +20,7 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', 'EventImages', function ($sco
 			'sold': 0,
 			'price': 0,
 			'type': '',
-			'expirationDate': ''
+			'expirationDate': null
 		}],
 		'uniqueTicketID': 0,
 		'dateStarting': null,
@@ -29,12 +29,9 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', 'EventImages', function ($sco
 	};
 
 	$scope.defaultImages = {
-		'eventsID': null, 
-		'backgroundImg': {},
-		'ticketImgs':[{
-			'idTicket': cptType,
-			'image':{}
-		}]
+		'eventID': null, 
+		'backgroundImg': null,
+		'ticketImg':null
 	};
 
 	$scope.addNewTicketType = function (){
@@ -46,57 +43,72 @@ app.controller('EventFrmCtrl', ['$scope', 'Event', 'EventImages', function ($sco
 			'sold': 0,
 			'price': 0,
 			'type': '',
-			'expirationDate': ''
-		});
-
-		$scope.eventFormImage.ticketImgs.push({
-			'idTicket': cptType,
-			'image':{}
+			'expirationDate': null
 		});
 	};
 
-	$scope.now = Date.now();
+	$scope.eventPost = null;
 
 	$scope.editMode = (angular.isDefined($scope.thisEvent));
+	initForm();	
 
-	if($scope.editMode){
-		$scope.eventFormData = angular.copy($scope.thisEvent);
-		$scope.eventFormImage = angular.copy($scope.imgs);
-	}else{
-		$scope.eventFormData = angular.copy($scope.defaultEvent);
-		$scope.eventFormImage = angular.copy($scope.defaultImages);
-	}
-
-	// restore form
-    $scope.cancel = function() {
+	
+	// initialize / restore form
+    function initForm() {
     	if($scope.editMode){
-    		$scope.eventFormData = angular.copy($scope.thisEvent);
-    		$scope.eventFormImage = angular.copy($scope.imgs);
-    	}else{
+			$scope.eventFormData = angular.copy($scope.thisEvent);
+			$scope.eventFormData.dateStarting = new Date($scope.eventFormData.dateStarting);
+			$scope.eventFormData.dateEnding = new Date($scope.eventFormData.dateEnding);
+			angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
+	    		ticket.expirationDate = new Date(ticket.expirationDate);
+	    	});
+			$scope.eventFormImage = angular.copy($scope.imgs);
+		}else{
 			$scope.eventFormData = angular.copy($scope.defaultEvent);
 			$scope.eventFormImage = angular.copy($scope.defaultImages);
-    	}
-    	$scope.now = Date.now();
+		}
+		$scope.now = Date.now();
    	};
 
+   	$scope.cancel = initForm;
+
    	// when submitting the add form, send the text to the node API
-    $scope.createEvent = function(published) {
+    $scope.createEvent = function(published, userId) {
     	$scope.eventFormData.online = published;
     	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
     		ticket.uniqueID = i;
     	});
-    	Event.post($scope.eventFormData);
-    	EventImages.post($scope.eventFormImage);
-    	// Upload d'images avec mise a jour de l'EventID
+    	$scope.eventPost = Event.post($scope.eventFormData, function(data){
+    		$scope.eventPost = data;
+    		$scope.eventFormImage.eventID = $scope.eventPost._id;
+    		EventImages.post($scope.eventFormImage);
+    		if(published){
+    			$window.location.href = "#/event/" + $scope.eventPost._id;
+    		}else{
+				$window.location.href = "#/usr/" + userId + "/events";
+    		}
+    		$window.location.reload();	
+    	});
   	}
 
   	// when submitting the edit form, send the text to the node API
-    $scope.updateEvent = function(published) {
+    $scope.updateEvent = function(published, userId) {
     	$scope.eventFormData.online = published;
     	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
     		ticket.uniqueID = i;
-    		console.log(i);
     	});
-    	Event.put($scope.eventFormData._id, $scope.eventFormData);
+
+    	Event.put({id:$scope.eventFormData._id}, $scope.eventFormData, function (){
+    		console.log("EVENT PUT OK");
+    		EventImages.put({id:$scope.eventFormImage._id}, $scope.eventFormImage, function (){
+    			console.log("IMAGES PUT OK");
+    			if(published){
+    				$window.location.href = "#/event/" + $scope.eventFormData._id;
+    			}else{
+					$window.location.href = "#/usr/" + userId + "/events";
+    			}
+    			$window.location.reload();	
+    		});
+    	});
   	}
 }]);
