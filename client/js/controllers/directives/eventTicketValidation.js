@@ -5,7 +5,7 @@ app.controller('EventTicketValidationCtrl', ['$scope', '$routeParams', 'EventTic
 		$scope.valide = res.valide;
 		if($scope.valide == true){
 			// Put without body because of security
-			EventTicketValidate.put({id:$routeParams.id, idt:$routeParams.idt}, {}, function (res){
+			EventTicketValidate.get({id:$routeParams.id, idt:$routeParams.idt, toValide:true}, {}, function (res){
 			});
 		}
 	});

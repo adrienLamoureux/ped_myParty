@@ -269,7 +269,7 @@ app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
   });
 });
 
-app.put('/api/event/:id/ticket/:idt/validate', function (req, res, next){
+app.get('/api/event/:id/ticket/:idt/validate/:toValide', function (req, res, next){
   delete req.body._id; //duplicate id bug
   console.log('update ticket ' + req.params.idt + ' of event '+req.params.id);
   eventModel.findOne({_id: req.params.id}, function (err, result){
