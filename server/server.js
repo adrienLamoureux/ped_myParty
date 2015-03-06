@@ -272,6 +272,9 @@ app.put('/api/event/:id/ticket/:idt/validate', function (req, res, next){
     if(index > -1){
       if(result.tickets[i].used == false){
         result.tickets[i].used = true;
+        eventModel.findOneAndUpdate({id: req.params.id}, result, function (err, event){
+          res.send(event);
+        });
       };
     };
   });
