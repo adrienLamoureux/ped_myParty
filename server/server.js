@@ -249,21 +249,19 @@ app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
   eventModel.findOne({id: req.params.id}, function (err, result){
     if (e) return next(e);
     var index = result.tickets.map(function(e){return e.qRCodeUniqueID;}).indexOf(req.params.idt);
-      if(index > -1){
-        if(result.tickets[index].used == false){
-          var indexV = result.ticketsType.map(function(e){return e.uniqueID}).indexOf(result.tickets[index].ticketTypeID);
-          if(indexV > -1){
-            if(result.ticketsType[indexV].expirationDate > (new Date)){
-              res.send(true);
-              return;
-            };
+    if(index > -1){
+      if(result.tickets[index].used == false){
+        var indexV = result.ticketsType.map(function(e){return e.uniqueID}).indexOf(result.tickets[index].ticketTypeID);
+        if(indexV > -1){
+          if(result.ticketsType[indexV].expirationDate > (new Date)){
+            res.send(true);
+            return;
           };
         };
       };
-      res.send(false);
-      return;
-      };
     };
+    res.send(false);
+    return;
   });
 });
 
@@ -271,10 +269,9 @@ app.put('/api/event/:id/ticket/:idt/validate', function (req, res, next){
   eventModel.findOne({id: req.params.id}, function (err, result){
     if (e) return next(e);
     var index = result.tickets.map(function(e){return e.qRCodeUniqueID;}).indexOf(req.params.idt);
-      if(index > -1){
-        if(result.tickets[i].used == false){
-          result.tickets[i].used = true;
-        };
+    if(index > -1){
+      if(result.tickets[i].used == false){
+        result.tickets[i].used = true;
       };
     };
   });
