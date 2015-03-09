@@ -10,7 +10,7 @@ app.controller('EventCtrl', ['$scope', '$routeParams', 'Event','User','AddTicket
 	$scope.places_number = 1;
 
 	$scope.addToBasket = function(numberplace, ticketid, ticketleft){
-		alert("ajout au panier de : "+numberplace+" tickets de l'eventid : "+$routeParams.id+" de du ticket type id: "+ticketid);
+		alert("Ajout de "+numberplace+" places.");
 		// On commence par regarder si le ticket type de cet evenement est bien disponible
 		if(ticketleft < numberplace){
 			if(ticketleft == 0){
@@ -20,7 +20,7 @@ app.controller('EventCtrl', ['$scope', '$routeParams', 'Event','User','AddTicket
 			}
 		}else{
 		// Comme les fonctionnalités du user ne sont pas en place, on utilise un id en dur pour le moment
-		var $id_user = "54f723907bedeb041a3cf0b7";
+		var $id_user = "54fc9b1232fc37a837e75294";
 		// On recupere le panier de l'utilisateur
 		User.get({id:$id_user}, function (res, e){
 			var Newbasket = res.basket;
@@ -32,21 +32,18 @@ app.controller('EventCtrl', ['$scope', '$routeParams', 'Event','User','AddTicket
 				dateBuy: null
 			}
 		}
-		console.log(Newbasket);
 
 		// Est-ce qu'il a deja des reservations de ticket pour cet evenement:
 		var EventExist = false;
 		if(Newbasket[0].eventTickets.length != 0){
 			for(i=0;i < Newbasket[0].eventTickets.length;i++){
 				if(Newbasket[0].eventTickets[i].eventID == $routeParams.id){
-					console.log(Newbasket[0].eventTickets[i].eventID)
 					EventExist = true;
 				}
 			}	
 		}
 
 		if(EventExist == false){
-			alert("ajout evenement")
 			var newEvent =
 			{
 				eventID: $routeParams.id,
@@ -56,7 +53,6 @@ app.controller('EventCtrl', ['$scope', '$routeParams', 'Event','User','AddTicket
 			Newbasket[0].eventTickets.push(newEvent);
 		}
 
-		console.log(Newbasket);
 	// Maintenant il faut ajouter les tickets à l'evenement
 	for(i=0;i<Newbasket[0].eventTickets.length;i++){
 		if(Newbasket[0].eventTickets[i].eventID == $routeParams.id){
@@ -73,11 +69,9 @@ app.controller('EventCtrl', ['$scope', '$routeParams', 'Event','User','AddTicket
 	}
 	var clientWhithNewBasket = res;
 	clientWhithNewBasket.basket = Newbasket;
-	console.log(clientWhithNewBasket);
 
 	// Et maintenant on update le panier
 	AddTicketToBasket.update({id:$id_user}, clientWhithNewBasket, function (res, e){
-		alert ('putTicketInBasket() : SUCCESS');
 	}, function (){
 		alert ('putTicketInBasket() : ERROR');
 	});

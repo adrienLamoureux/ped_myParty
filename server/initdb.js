@@ -50,7 +50,17 @@ var initEvent = function(db){
 					price: 50,
 					type: 'Preminum',
 					image: null
-				}],
+				},
+				{
+					uniqueID: 1,
+					description: 'Long description',
+					ticketLeft: 12,
+					sold: 0,
+					price: 50,
+					type: 'Bouffon',
+					image: null
+				}
+				],
 				uniqueTicketID: 0,
 				dateStarting: '1424339270481',
 				dateEnding: '1524339270481',

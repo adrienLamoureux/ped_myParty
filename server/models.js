@@ -22,7 +22,7 @@ var commandsSchema = new Schema({
 var ticketSchema = new Schema({
 	uniqueID: Number,
 	userID: {type: mongoose.Schema.Types.ObjectId, ref:'userModel'},
-	ticketTypeNb: Number,
+	ticketTypeNb: Number, // uniqueID de ticketTypeSchema du type du ticket pour 1 evenement
 	used: {type: Boolean, default: false}
 }, {collection: 'ticket'});
 
@@ -30,8 +30,8 @@ var ticketSchema = new Schema({
 var ticketTypeSchema = new Schema({
 	uniqueID: Number,
 	description: String,
-	ticketLeft: Number,
-	sold: Number,
+	ticketLeft: Number, // tickets restants
+	sold: Number,  // tickets vendus
 	price: Number,
 	type: String,
 	image: String

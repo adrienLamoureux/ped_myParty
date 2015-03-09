@@ -141,3 +141,9 @@
 /*********************************/
 /***          ********************/
 /***          ********************/
+
+.fieldfield{
+	border: 1px solid;
+	border-radius: 10px;
+	background-color: white
+}
