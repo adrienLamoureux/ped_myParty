@@ -23,8 +23,9 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 				alert("Désolé, il ne reste plus que "+ticketleft+" billets de ce type pour cet evenement");
 			}
 		}else{
-		// Comme les fonctionnalités du user ne sont pas en place, on utilise un id en dur pour le moment
-		var $id_user = "54fc9b1232fc37a837e75294";
+
+		var $id_user = $rootScope.user.user_id;
+		console.log($id_user)
 		// On recupere le panier de l'utilisateur
 		User.get({id:$id_user}, function (res, e){
 			var Newbasket = res.basket;
@@ -79,7 +80,6 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 	}, function (){
 		alert ('putTicketInBasket() : ERROR');
 	});
-
 
 }, function (){
 	alert ('getBasket() : ERROR');

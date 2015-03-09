@@ -10,6 +10,8 @@ app.controller('BasketEventCtrl', ['$scope','User','Event','AddTicketToBasket', 
 		$scope.tabGrand = [];
 		$scope.user = User.get({id:$routeParams.id}, function (res, e){
 
+			console.log($scope.user)
+
 			var tab_tickets = res.basket[0].eventTickets;
 		// Pour chaque event, on va afficher les tickets associés dans le panier dans une section apropriée
 		for(i=0;i<tab_tickets.length;i++){
