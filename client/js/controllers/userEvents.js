@@ -1,5 +1,5 @@
 // User Events
-app.controller('UserEventsCtrl', ['$scope', '$routeParams', 'Event', 'EventByOrganizerId', '$window', function ($scope, $routeParams, Event, EventByOrganizerId, $window){
+app.controller('UserEventsCtrl', ['$scope', '$routeParams', 'Event', 'EventImages', 'EventByOrganizerId', '$window', function ($scope, $routeParams, Event, EventImages, EventByOrganizerId, $window){
 
 	//URL user argument
 	$scope.events = EventByOrganizerId.query({id:$routeParams.id});
