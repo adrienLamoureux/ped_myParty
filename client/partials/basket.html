@@ -12,19 +12,9 @@
 	</div>
 
 
-
-	<div class="col-lg-12" ng-repeat="event in basketUser.basket">
-		<basket-event></basket-event>
-	</div>
-
-	<div ng-show="1 === 2">
-		<basket-event></basket-event>
-	</div>
-
 	<div class="text-center">
 		<strong> Total :  {{calculateTotal()}} €</strong>
 	</div>
-
 
 	<div class="text-center">
 		<button ng-click="validateBasket()" class="btn label-success">
