@@ -1,5 +1,5 @@
 // Application MyParty
-var app = angular.module('MyPartyApp', ['naif.base64', 'ngRoute', 'ngResource'/*, 'UserApp'*/]);
+var app = angular.module('MyPartyApp', ['naif.base64', 'ngRoute', 'ngResource', 'UserApp']);
 
 app.config(function($routeProvider){
 	$routeProvider
@@ -11,8 +11,8 @@ app.config(function($routeProvider){
 			templateUrl: './partials/createUser.html',
 			controller: 'UserCtrl'
 		})
-		.when('/usr/:id', {
-			templateUrl: './partials/user.html',
+		.when('/usr', {
+			templateUrl: './partials/profile.html',
 			controller: 'UserCtrl'
 		})
 		.when('/usr/:id/edit', {
@@ -41,8 +41,8 @@ app.config(function($routeProvider){
 		})
 		.when('/event/:id', {
 			templateUrl: './partials/event.html',
-			controller: 'EventCtrl'
-			//public: true
+			controller: 'EventCtrl',
+			public: true
 		})
 		.when('/event/:id/edit', {
 			templateUrl: './partials/editEvent.html',
@@ -58,9 +58,8 @@ app.config(function($routeProvider){
 		})
 		.when('/login',{
 			templateUrl : './layouts/login.html',
-			controller : 'LoginCtrl'
-			//login: true
-		})/*
+			login: true
+		})
 		.when('/signup', {
 			templateUrl : './layouts/signup.html',
 			public: true
@@ -76,10 +75,10 @@ app.config(function($routeProvider){
 		.when('/set-password', {
 			templateUrl: 'partials/set_password.html', 
 			set_password: true
-		})*/
+		})
 		.otherwise({redirectTo: '/'});
 });
 
- /*app.run(function(user) {
+app.run(function(user) {
 	user.init({ appId: '54f5bfbac1eb6' });
-});*/
+});

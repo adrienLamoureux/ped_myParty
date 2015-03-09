@@ -13,18 +13,15 @@
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul id="menu" class="nav navbar-nav">
 				<li ng-class="activeMenu==0? 'active' : 'notActive'"><a href="#/" ng-click="changeActiveMenu(0)">Accueil</a></li>
-				<li ng-show="user.authenticated" ng-class="activeMenu==5? 'active' : 'notActive'"><a href="#/usr/{{user.user_id}}" ng-click="changeActiveMenu(5)">Mon Compte</a></li>
+				<li ng-show="user.authenticated" ng-class="activeMenu==5? 'active' : 'notActive'"><a href="#/usr" ng-click="changeActiveMenu(5)">Mon Compte</a></li>
 				<li ng-show="user.authenticated" ng-class="activeMenu==10? 'active' : 'notActive'"><a href="#/usr/{{user.user_id}}/events" ng-click="changeActiveMenu(10)">Mes Evenements</a></li>
 				<li ng-show="user.authenticated" ng-class="activeMenu==15? 'active' : 'notActive'"><a href="#/usr/{{user.user_id}}/cmds" ng-click="changeActiveMenu(15)">Mes Commandes</a></li>
 			</ul>
 			<ul id="menu" class="nav navbar-nav pull-right">
 				<li ng-show="user.authenticated" ng-class="activeMenu==18? 'active' : 'notActive'"><a href="#/event/create" ng-click="changeActiveMenu(18)">Organiser un Evenement</a></li>
 				<li ng-show="user.authenticated" ng-class="activeMenu==20? 'active' : 'notActive'"><a href="#/usr/{{user.user_id}}/basket" ng-click="changeActiveMenu(20)">Mon Panier</a></li>
-				<!--<li ng-hide="user.authenticated" ng-class="activeMenu==25? 'active' : 'notActive'"><a href="#/login" ng-click="changeActiveMenu(0);">Se Connecter</a></li>
-				<li ng-show="user.authenticated" ng-class="activeMenu==30? 'active' : 'notActive'"><a href="#" ng-click="changeActiveMenu(0);" ua-logout>Se Déconnecter</a></li>-->
-
 				<li ng-hide="user.authenticated" ng-class="activeMenu==25? 'active' : 'notActive'"><a href="#/login" ng-click="changeActiveMenu(0);">Se Connecter</a></li>
-				<li ng-show="user.authenticated" ng-class="activeMenu==30? 'active' : 'notActive'"><a href="#/" ng-click="changeActiveMenu(0); user.authenticated = false;">Se Déconnecter</a></li>
+				<li ng-show="user.authenticated" ng-class="activeMenu==30? 'active' : 'notActive'"><a href="#" ng-click="changeActiveMenu(0);" ua-logout>Se Déconnecter</a></li>
 			</ul>
 		</div>		
 	</div>
