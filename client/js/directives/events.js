@@ -31,3 +31,10 @@ app.directive('eventTicketValidation', function (){
 	};
 });
 
+app.directive('eventTicket', function (){
+	return {
+		restrict: 'E',
+		controller: 'EventTicketCtrl',
+		templateUrl: '../../partials/directives/eventTicket.html'
+	};
+});
