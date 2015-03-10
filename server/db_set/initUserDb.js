@@ -10,7 +10,7 @@ var initUser = function(db){
 				apiID: 'swiPjk21RqmEPu21KVi84w',
 				inscriptionDate: '1424339270481',
 				eventsID: [],
-				commandsID: null,
+				commandsID: [],
 				basket : []
 			}
 			], function (err, result) {

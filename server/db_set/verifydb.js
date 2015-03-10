@@ -27,6 +27,12 @@ var checkDb = function(db){
 			console.log(imgDocs);	
 		});
 	});
+	db.collection('ticket', function(err, ticketCollection){
+		ticketCollection.find().toArray(function(err, ticketDocs){
+			console.log('ticketDocs');
+			console.log(ticketDocs);	
+		});
+	});
 };
 
 mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {

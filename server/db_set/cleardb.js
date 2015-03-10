@@ -50,6 +50,17 @@ var clearImg = function(db){
 	});
 };
 
+var clearTicket = function(db){
+	db.collection('ticket', function(err, collection) {
+		if (collection) {
+			collection.remove({}, function(err,removed) {
+				if (!removed) {
+					console.log("\t--> collection could not be cleared!\n");
+					throw err; return false; }
+			});
+		};
+	});
+};
 
 mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {
 	if (err) { console.log("\t--> Connection failure !\n"); return false; }
@@ -59,4 +70,5 @@ mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {
 	clearCommands(db);
 	clearUser(db);
 	clearEvent(db);
+	clearTicket(db);
 });
