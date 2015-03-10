@@ -12,7 +12,14 @@ describe('Inscription' , function () {
 		expect(login.isDisplayed()).toBe(true);
 		var password = browser.findElement(by.name('password'));
 		expect(password.isDisplayed()).toBe(true);
-		//var create = 
-
+		var createBtn = browser.findElement(by.buttonText('Créer'));
+		expect(createBtn.isDisplayed()).toBe(true);
+		first_name.sendKeys("toto");
+		login.sendKeys("testLogin");
+		password.sendKeys("password");
+		expect(first_name.getAttribute('value')).toBe('toto');
+		expect(login.getAttribute('value')).toBe('testLogin');
+		expect(password.getAttribute('value')).toBe('password');
+		createBtn.click();
 	});
 });
