@@ -1,8 +1,9 @@
 // User Events
-app.controller('UserEventsCtrl', ['$scope', '$routeParams', 'Event', 'EventImages', 'EventByOrganizerId', '$window', function ($scope, $routeParams, Event, EventImages, EventByOrganizerId, $window){
+app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event', 'EventImages', 'EventByOrganizerId', '$window', function ($rootScope, $scope, $routeParams, Event, EventImages, EventByOrganizerId, $window){
+
 
 	//URL user argument
-	$scope.events = EventByOrganizerId.query({id:$routeParams.id});
+	$scope.events = EventByOrganizerId.query({id:$rootScope.user.user_id});
 
 	$scope.dateExpired=function(date){
 		return Date.parse(date) < Date.now();
@@ -26,7 +27,7 @@ app.controller('UserEventsCtrl', ['$scope', '$routeParams', 'Event', 'EventImage
 			EventImages.delete({id:eventImgs._id});
 		});
 
-		$scope.events = EventByOrganizerId.query({id:$routeParams.id});
+		$scope.events = EventByOrganizerId.query({id:$rootScope.user.user_id});
 	}
 
 	$scope.cancel = function(event){
@@ -38,6 +39,6 @@ app.controller('UserEventsCtrl', ['$scope', '$routeParams', 'Event', 'EventImage
 			EventImages.delete({id:eventImgs._id});
 		});
 
-		$scope.events = EventByOrganizerId.query({id:$routeParams.id});
+		$scope.events = EventByOrganizerId.query({id:$rootScope.user.user_id});
 	}
 }]);
