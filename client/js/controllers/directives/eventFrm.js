@@ -73,7 +73,7 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
    	$scope.cancel = initForm;
 
    	// when submitting the add form, send the text to the node API
-    $scope.createEvent = function(published, userId) {
+    $scope.createEvent = function(published) {
     	$scope.eventFormData.online = published;
     	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
     		ticket.uniqueID = i;
@@ -86,7 +86,7 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
     		if(published){
     			route = "#/event/" + $scope.eventPost._id;
     		}else{
-				route = "#/usr/" + userId + "/events";
+				route = "#/usr/events";
     		}
     		console.log("next page : " + route);
     		$window.location.href = route;
@@ -95,7 +95,7 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
   	}
 
   	// when submitting the edit form, send the text to the node API
-    $scope.updateEvent = function(published, userId) {
+    $scope.updateEvent = function(published) {
     	$scope.eventFormData.online = published;
     	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
     		ticket.uniqueID = i;
@@ -105,17 +105,18 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
     		console.log("EVENT PUT OK");
     		EventImages.put({id:$scope.eventFormImage._id}, $scope.eventFormImage, function (){
     			console.log("IMAGES PUT OK");
-    			console.log(userId);
-    			var route = "";
-    			if(published){
-    				route = "#/event/" + $scope.eventFormData._id;
-    			}else{
-					route = "#/usr/" + userId + "/events";
-    			}
-    			console.log("next page : " + route);
-    			$window.location.href = route;
-    			$window.location.reload();
+    			
     		});
+    		console.log($rootScope.user.user_id);
+    		var route = "";
+    		if(published){
+    			route = "#/event/" + $scope.eventFormData._id;
+    		}else{
+				route = "#/usr/events";
+    		}
+    		console.log("next page : " + route);
+    		$window.location.href = route;
+    		$window.location.reload();
     	});
   	}
 }]);

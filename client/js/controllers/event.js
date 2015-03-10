@@ -25,7 +25,6 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 		}else{
 
 		var $id_user = $rootScope.user.user_id;
-		console.log($id_user)
 		// On recupere le panier de l'utilisateur
 		User.get({id:$id_user}, function (res, e){
 			var Newbasket = res.basket;
