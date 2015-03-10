@@ -15,23 +15,23 @@ app.config(function($routeProvider){
 			templateUrl: './partials/profile.html',
 			controller: 'UserCtrl'
 		})
-		.when('/usr/:id/edit', {
+		.when('/usr/edit', {
 			templateUrl: './partials/editUser.html',
 			controller: 'UserCtrl',
 		})
-		.when('/usr/:id/basket', {
+		.when('/usr/basket', {
 			templateUrl: './partials/basket.html',
 			controller: 'UserCtrl'
 		})
-		.when('/usr/:id/cmds', {
+		.when('/usr/cmds', {
 			templateUrl: './partials/commands.html',
 			controller: 'CommandCtrl'
 		})
-		.when('/usr/:id/cmd/:idcmd', {
+		.when('/usr/cmd/:idcmd', {
 			templateUrl: './partials/command.html',
 			controller: 'CommandCtrl'
 		})
-		.when('/usr/:id/events', {
+		.when('/usr/events', {
 			templateUrl: './partials/userEvents.html',
 			controller: 'UserEventsCtrl'
 		})

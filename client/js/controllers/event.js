@@ -1,5 +1,5 @@
 //EventController
-app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'EventImages','User','AddTicketToBasket', function ($rootScope, $scope, $routeParams, Event, EventImages, User, AddTicketToBasket){
+app.controller('EventCtrl', ['$rootScope','$scope', 'Event', 'EventImages','User','AddTicketToBasket', function ($rootScope, $scope, Event, EventImages, User, AddTicketToBasket){
 	//URL event argument
 	if(angular.isDefined($routeParams.id)){
 		$scope.thisEvent = Event.get({id:$routeParams.id}, function(data){
