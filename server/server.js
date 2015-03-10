@@ -158,6 +158,12 @@ app.get('/api/user', passport.authenticate('userapp'),
     res.send({ user: req.user });
  });
 
+app.get('/api/user/:id', function (req, res, next){
+  console.log('get user '+req.params.id);
+  userModel.findOne({apiID:req.params.id}, function (err, user){
+    res.send(user);
+  });
+});
 
 app.get('/api/user/:id/event', function (req, res, next){
   console.log('get event of user '+req.params.id);

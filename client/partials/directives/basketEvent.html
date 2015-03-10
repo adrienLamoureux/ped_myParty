@@ -1,0 +1,48 @@
+<br>
+<div ng-show="event.tickets.length > 0">
+  <div class="col-lg-offset-1 col-lg-10">
+    <fieldset class="scheduler-border fieldfield">
+      <div class="table-responsive">
+        <table class="table table-bordered text-center">
+          <thead >
+            <tr>
+              <th class="text-center">Article</th>
+              <th class="text-center">Prix à l'unité</th>
+              <th class="text-center">Quantité</th>
+              <th class="text-center">Montant</th>
+              <th class="text-center"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="ticket in event.tickets">
+              <legend >
+                &nbsp; {{event.eventTitle}}
+              </legend>
+
+              <td>{{ticket.type}}</td>
+              <td>{{ticket.price}} €</td>
+              <td>
+                <button class="btn-xs">
+                  <span class="glyphicon glyphicon-minus" ng-click="decrement(event.eventID,ticket.ticketType,ticket.quantity)"></span>
+                </button>
+                &nbsp;&nbsp;
+                <strong>{{ticket.quantity}}</strong>
+                &nbsp;&nbsp;
+                <button class="btn-xs">
+                  <span class="glyphicon glyphicon-plus" ng-click="increment(event.eventID,ticket.ticketType)"></span>
+                </button>
+              </td>
+              <td>{{ticket.price*ticket.quantity}} €</td>
+              <td>
+                <button class="btn-xs label-danger">
+                  <span ng-click="deleteElement(event.eventID,ticket.ticketType,ticket.type)" class="glyphicon glyphicon-remove"></span>
+                </button>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </fieldset>
+  </div>
+</div>

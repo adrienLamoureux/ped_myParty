@@ -5,7 +5,7 @@
     <h1><span class="fa fa-sign-in"></span> Inscription</h1>
 
     <!-- LOGIN FORM -->
-    <form ua-login>
+    <form ua-signup>
         <form ua-signup ng-show="!verificationEmailSent">
          <div class="form-group">
             <label>Pseudo</label>
@@ -19,7 +19,7 @@
             <label>Password</label>
             <input name="password" class="form-control" placeholder="Password" type="password"><br>
         </div>
-        <button type="submit" class="btn btn-warning btn-info">Créer</button>
+        <button type="submit" class="btn btn-info">Créer</button>
 		
 		<p ng-show="loading"><img src="https://app.userapp.io/img/ajax-loader-transparent.gif"></p>
 		<p ng-show="error">{{ error.message }}</p>
