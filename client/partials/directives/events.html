@@ -1,7 +1,10 @@
 <!-- Events Template -->
 <div class="container text-center">
 	<h1> Evennements organisés par le site  </h1>
-	<div ng-repeat="event in events">
+	Rechercher un évènement : 
+	<input value="barre de recherche" class="form-control" type="text" ng-model="search.title">
+	<br/>
+	<div ng-repeat="event in events | filter:search">
 		<event-miniature></event-miniature>
 	</div>
 </div>
