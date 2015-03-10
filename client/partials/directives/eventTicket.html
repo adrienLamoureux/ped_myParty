@@ -1,3 +1,23 @@
 <div>
-<qr type-number="8" correction-level="'M'" size="200" text="qrcode" image="true"></qr>
+	<fieldset class="scheduler-border col-md-12 fieldset-grey">
+	<!--<img ng-src="data:{{event.imageSmall.filetype}};base64,{{event.imageSmall.base64}}" class="img-thumbnail" alt="{{event.title}}">-->
+		<div class="col-md-2"><qr type-number="8" correction-level="'M'" size="150" text="qrcode" image="true"></qr>
+		</div>
+		<div class="col-md-6">
+			<div> 
+			<div>{{event.title}}
+				<span class="pull-right">Début : {{event.dateStarting | date:'dd/MM/yyyy'}}</span><br/>
+				<span class="pull-right">Fin : {{event.dateEnding | date:'dd/MM/yyyy'}}</span>
+			</div>
+					
+			</div>
+			<br/>
+			<div>
+			<div>Description : {{ticket.description}}</div>
+			<div>Prix : {{ticket.price}}</div>
+			<div>Type : {{ticket.type}}</div>
+			<div>Date d'expiration : {{ticket.expirationDate | date:'dd/MM/yyyy'}}</div>
+			</div>
+		</div>
+	</fieldset>
 </div>
