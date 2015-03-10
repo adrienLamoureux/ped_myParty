@@ -49,8 +49,7 @@ app.config(function($routeProvider){
 			controller: 'EventCtrl'
 		})
 		.when('/event/:id/ticket/:idt', {
-			templateUrl: './partials/ticket.html',
-			controller: 'EventCtrl'
+			templateUrl: './partials/ticket.html'
 		})
 		.when('/event/:id/ticket/:idt/validate', {
 			templateUrl: './partials/validate.html',
