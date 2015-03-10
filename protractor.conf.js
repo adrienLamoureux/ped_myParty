@@ -3,7 +3,7 @@ exports.config = {
 
   specs: [
     'server/test/unit/mongo/testMongo.js',
-    'client/test/e2e/**/*.js'
+    'client/test/e2e/**/manager.js'
   ],
 
   capabilities: {

@@ -1,9 +1,12 @@
+var connect = require('./connect.js');
+
 var completeCreateEvent = function(){
 	var eventForm = browser.findElement(by.id("eventForm"));
 	expect(eventForm.isDisplayed()).toBe(true);
 	
 	var txtEventTitle = browser.findElement(by.id("txtEventTitle"));
 	expect(txtEventTitle.isDisplayed()).toBe(true);
+	txtEventTitle.clear();
 	txtEventTitle.sendKeys("eventTitle");
 	expect(txtEventTitle.getAttribute('value')).toBe('eventTitle');
 
@@ -19,35 +22,41 @@ var completeCreateEvent = function(){
 
 	var txtEventDescription = browser.findElement(by.id("txtEventDescription"));
 	expect(txtEventDescription.isDisplayed()).toBe(true);
+	txtEventDescription.clear();
 	txtEventDescription.sendKeys("eventDescription");
 	expect(txtEventDescription.getAttribute('value')).toBe('eventDescription');
 
 	var txtEventStreet = browser.findElement(by.id("txtEventStreet"));
 	expect(txtEventStreet.isDisplayed()).toBe(true);
+	txtEventStreet.clear();
 	txtEventStreet.sendKeys("eventStreet");
 	expect(txtEventStreet.getAttribute('value')).toBe('eventStreet');
 
 	var txtEventZipCode = browser.findElement(by.id("txtEventZipCode"));
 	expect(txtEventZipCode.isDisplayed()).toBe(true);
+	txtEventZipCode.clear();
 	txtEventZipCode.sendKeys("33000");
 	expect(txtEventZipCode.getAttribute('value')).toBe('33000');
 
 	var txtEventCity = browser.findElement(by.id("txtEventCity"));
 	expect(txtEventCity.isDisplayed()).toBe(true);
+	txtEventCity.clear();
 	txtEventCity.sendKeys("Bordeaux");
 	expect(txtEventCity.getAttribute('value')).toBe('Bordeaux');
 
 	var txtEventCounty = browser.findElement(by.id("txtEventCounty"));
 	expect(txtEventCounty.isDisplayed()).toBe(true);
+	txtEventCounty.clear();
 	txtEventCounty.sendKeys("Aquitaine");
 	expect(txtEventCounty.getAttribute('value')).toBe('Aquitaine');
 
 	var txtEventCountry = browser.findElement(by.id("txtEventCountry"));
 	expect(txtEventCountry.isDisplayed()).toBe(true);
+	txtEventCountry.clear();
 	txtEventCountry.sendKeys("France");
 	expect(txtEventCountry.getAttribute('value')).toBe('France');
 
-	var fileEventImage = browser.findElements(by.name("file"));
+	var fileEventImage = browser.findElement(by.id("eventImage"));
 	expect(fileEventImage.isDisplayed()).toBe(true);
 
 	// Billetterie
@@ -63,13 +72,20 @@ var completeCreateEvent = function(){
 */
 	var txtEventType1 = browser.findElement(by.id("txtEventType1"));
 	expect(txtEventType1.isDisplayed()).toBe(true);
+	txtEventType1.clear();
 	txtEventType1.sendKeys("Standard");
 	expect(txtEventType1.getAttribute('value')).toBe('Standard');
 
 	var txtEventDescription1 = browser.findElement(by.id("txtEventDescription1"));
 	expect(txtEventDescription1.isDisplayed()).toBe(true);
+	txtEventDescription1.clear();
 	txtEventDescription1.sendKeys("Basic ticket for event");
 	expect(txtEventDescription1.getAttribute('value')).toBe('Basic ticket for event');
+
+	var txtTicketExpirationDate = browser.findElement(by.id("txtTicketExpirationDate"));
+	expect(txtTicketExpirationDate.isDisplayed()).toBe(true);
+	txtTicketExpirationDate.sendKeys("21-05-2015");
+	expect(txtTicketExpirationDate.getAttribute('value')).toBe("2015-05-21");
 
 	var txtEventTicketLeft1 = browser.findElement(by.id("txtEventTicketLeft1"));
 	expect(txtEventTicketLeft1.isDisplayed()).toBe(true);
@@ -83,7 +99,7 @@ var completeCreateEvent = function(){
 	txtEventPrice1.sendKeys('10');
 	expect(txtEventPrice1.getAttribute('value')).toBe('10');
 
-	var fileTicketTypeImage1 = browser.findElements(by.name("file"));
+	var fileTicketTypeImage1 = browser.findElement(by.id("ticketImage"));
 	expect(fileTicketTypeImage1.isDisplayed()).toBe(true);
 	
 	var bt_add_ticket = browser.findElement(by.id("bt_add_ticket"));
@@ -92,23 +108,12 @@ var completeCreateEvent = function(){
 
 describe('Event view' , function () {
 
-	beforeEach(function(){
-		browser.get('http://localhost:4711/#/home');
-
-		
-
-		// Connect
-		var connect = browser.findElement(by.linkText("Se Connecter"));
-		connect.click();
-
-	});
-
 	it('Access to an event information', function(){
 		// TODO : Use img when it will work
 		var eventN = browser.findElement(by.xpath("id('page')/div/event-list/div/div[2]/event-miniature/div/a/img"));
 		expect(eventN.isDisplayed()).toBe(true); //When img uploading will work
 		eventN.click();
-/*
+
 		var eventPage = browser.findElement(by.id("eventPage"));
 		expect(eventPage.isDisplayed()).toBe(true);
 
@@ -122,7 +127,7 @@ describe('Event view' , function () {
 		expect(ticket.isDisplayed()).toBe(true);
 
 		var addPaner = browser.findElement(by.buttonText("Ajouter au panier"));
-		expect(addPaner.isDisplayed()).toBe(true);		*/
+		expect(addPaner.isDisplayed()).toBe(true);	
 	});
 
 	it('Create an event without publication', function(){
@@ -167,12 +172,5 @@ describe('Event view' , function () {
 
 	it('Edit an event', function(){
 		
-	});
-
-	afterEach(function(){
-		browser.get('http://localhost:4711/#/home');
-		/*// Disconnect
-		var disconnect = browser.findElement(by.linkText("Se Déconnecter"));
-		disconnect.click();*/
 	});
 });

@@ -22,4 +22,22 @@ describe('Inscription' , function () {
 		expect(password.getAttribute('value')).toBe('password');
 		createBtn.click();
 	});
+
+	it('should connect and disconnect as a user', function(){
+		var login = browser.findElement(by.name('login'));
+		expect(login.isDisplayed()).toBe(true);
+		var password = browser.findElement(by.name('password'));
+		expect(login.isDisplayed()).toBe(true);
+		login.sendKeys("vergil1534@gmail.com");
+		password.sendKeys("password");
+		var loginBtn = browser.findElement(by.buttonText('Login'));
+		expect(loginBtn.isDisplayed()).toBe(true);
+		loginBtn.click();
+		browser.sleep(3000);
+		browser.get('http://localhost:4711/#/home');
+		browser.sleep(1000);
+		var disconnect = browser.findElement(by.linkText("Se Déconnecter"));
+		expect(disconnect.isDisplayed()).toBe(true);
+		disconnect.click();
+	});
 });
