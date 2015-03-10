@@ -54,7 +54,7 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 
 	
 	// initialize / restore form
-    function initForm() {
+    function initForm() {	
     	if($scope.editMode){
 			$scope.eventFormData = angular.copy($scope.thisEvent);
 			$scope.eventFormData.dateStarting = new Date($scope.eventFormData.dateStarting);
@@ -82,11 +82,14 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
     		$scope.eventPost = data;
     		$scope.eventFormImage.eventID = $scope.eventPost._id;
     		EventImages.post($scope.eventFormImage);
+    		var route = "";
     		if(published){
-    			$window.location.href = "#/event/" + $scope.eventPost._id;
+    			route = "#/event/" + $scope.eventPost._id;
     		}else{
-				$window.location.href = "#/usr/" + userId + "/events";
+				route = "#/usr/" + userId + "/events";
     		}
+    		console.log("next page : " + route);
+    		$window.location.href = route;
     		$window.location.reload();	
     	});
   	}
@@ -102,12 +105,16 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
     		console.log("EVENT PUT OK");
     		EventImages.put({id:$scope.eventFormImage._id}, $scope.eventFormImage, function (){
     			console.log("IMAGES PUT OK");
+    			console.log(userId);
+    			var route = "";
     			if(published){
-    				$window.location.href = "#/event/" + $scope.eventFormData._id;
+    				route = "#/event/" + $scope.eventFormData._id;
     			}else{
-					$window.location.href = "#/usr/" + userId + "/events";
+					route = "#/usr/" + userId + "/events";
     			}
-    			$window.location.reload();	
+    			console.log("next page : " + route);
+    			$window.location.href = route;
+    			$window.location.reload();
     		});
     	});
   	}

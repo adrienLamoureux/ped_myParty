@@ -46,8 +46,8 @@ var imgSchema = new Schema({
 var ticketTypeSchema = new Schema({
 	uniqueID: Number,
 	description: String,
-	ticketLeft: Number,
-	sold: Number,
+	ticketLeft: Number, // tickets restants
+	sold: Number,  // tickets vendus
 	price: Number,
 	type: String,
 	expirationDate: Date
