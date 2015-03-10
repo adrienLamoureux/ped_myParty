@@ -142,11 +142,35 @@
 	}
 
 /*********************************/
-/***          ********************/
-/***          ********************/
+/*** mineEvents ******************/
+/***            ******************/
+	#mineEvents{
+		color:white;
+		background-color: rgba(0, 0, 0, 0.90);
+		padding:10px 10px 10px 10px;
+		border: 1px solid #cecece;
+		-webkit-border-radius: 10px;
+		 -khtml-border-radius: 10px;
+		   -moz-border-radius: 10px;
+			-ms-border-radius: 10px;
+			 -o-border-radius: 10px;
+				border-radius: 10px;
+	}
 
-.fieldfield{
-	border: 1px solid;
-	border-radius: 10px;
-	background-color: white
-}
+	#mineEvents #income td{
+		border:solid 1px lightgrey;
+	}
+
+	#mineEvents table#income{
+		margin-left:auto;
+		margin-right:auto;
+	}
+
+	#mineEvents table#income th{
+		padding-top:5px;
+		padding-bottom:5px;
+	}
+
+	#mineEvents #management{
+		margin-bottom: 20px;
+	}
