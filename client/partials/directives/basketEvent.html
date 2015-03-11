@@ -1,6 +1,5 @@
 <br>
-JE SUIS UNE DIRECTIVE
-<div ng-show="anevent.tickets.length > 0">
+<div ng-show="event.tickets.length > 0">
   <div class="col-lg-offset-1 col-lg-10">
     <fieldset class="scheduler-border fieldfield">
       <div class="table-responsive">
@@ -15,28 +14,28 @@ JE SUIS UNE DIRECTIVE
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="ticket in anevent.tickets">
+            <tr ng-repeat="ticket in event.tickets">
               <legend >
-                &nbsp; {{anevent.eventTitle}}
+                &nbsp; {{event.eventTitle}}
               </legend>
 
               <td>{{ticket.type}}</td>
               <td>{{ticket.price}} €</td>
               <td>
                 <button class="btn-xs">
-                  <span class="glyphicon glyphicon-minus" ng-click="decrement(anevent.eventID,ticket.ticketType,ticket.quantity)"></span>
+                  <span class="glyphicon glyphicon-minus" ng-click="decrement(event.eventID,ticket.ticketType,ticket.quantity)"></span>
                 </button>
                 &nbsp;&nbsp;
-                <strong>{{ticket.quantity}}</strong>
+                <input ng-model="ticket.quantity" ng-readonly="true"></input>
                 &nbsp;&nbsp;
                 <button class="btn-xs">
-                  <span class="glyphicon glyphicon-plus" ng-click="increment(anevent.eventID,ticket.ticketType)"></span>
+                  <span class="glyphicon glyphicon-plus" ng-click="increment(event.eventID,ticket.ticketType,ticket.quantity)"></span>
                 </button>
               </td>
               <td>{{ticket.price*ticket.quantity}} €</td>
               <td>
                 <button class="btn-xs label-danger">
-                  <span ng-click="deleteElement(anevent.eventID,ticket.ticketType,ticket.type)" class="glyphicon glyphicon-remove"></span>
+                  <span ng-click="deleteElement(event.eventID,ticket.ticketType,ticket.type)" class="glyphicon glyphicon-remove"></span>
                 </button>
               </td>
 
