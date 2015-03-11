@@ -271,21 +271,21 @@ app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
   eventModel.findOne({_id: req.params.id}, function (err, result){
     if (err) return next(e);
     ticketModel.findOne({_id:req.params.idt}, function (error, ticket){
+      console.log(ticket);
       if(ticket.used == false){
         for(var j=0;j<result.ticketsType.length;++j){
           if(result.ticketsType[j].uniqueID == ticket.ticketTypeID){
             if(result.ticketsType[j].expirationDate > (new Date)){
+              console.log("true");
               response.valide = true;
-              res.send(response);
-              return;
+              break;
             };
           };
         };
       };
+      res.send(response);
     });
   });
-  res.send(response);
-  return;
 });
 
 app.get('/api/event/:id/ticket/:idt/validate/:toValide', function (req, res, next){
