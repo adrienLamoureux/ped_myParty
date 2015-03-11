@@ -59,17 +59,6 @@ var completeCreateEvent = function(){
 	var fileEventImage = browser.findElement(by.id("eventImage"));
 	expect(fileEventImage.isDisplayed()).toBe(true);
 
-	// Billetterie
-	// ng-repeat
-	/*element.all(by.repeater('t in eventFormData.ticketsType')).get(0).then(function(args){
-		console.log('args')
-		console.log(args);
-		console.log()
-	});*/
-/*
-	var bt_rem_ticketType1 = browser.findElement(by.id("bt_rem_ticketType1"));
-	expect(bt_rem_ticketType1.isDisplayed()).toBe(true);
-*/
 	var txtEventType1 = browser.findElement(by.id("txtEventType1"));
 	expect(txtEventType1.isDisplayed()).toBe(true);
 	txtEventType1.clear();
@@ -81,11 +70,6 @@ var completeCreateEvent = function(){
 	txtEventDescription1.clear();
 	txtEventDescription1.sendKeys("Basic ticket for event");
 	expect(txtEventDescription1.getAttribute('value')).toBe('Basic ticket for event');
-
-	var txtTicketExpirationDate = browser.findElement(by.id("txtTicketExpirationDate"));
-	expect(txtTicketExpirationDate.isDisplayed()).toBe(true);
-	txtTicketExpirationDate.sendKeys("21-05-2015");
-	expect(txtTicketExpirationDate.getAttribute('value')).toBe("2015-05-21");
 
 	var txtEventTicketLeft1 = browser.findElement(by.id("txtEventTicketLeft1"));
 	expect(txtEventTicketLeft1.isDisplayed()).toBe(true);
@@ -101,15 +85,48 @@ var completeCreateEvent = function(){
 
 	var fileTicketTypeImage1 = browser.findElement(by.id("ticketImage"));
 	expect(fileTicketTypeImage1.isDisplayed()).toBe(true);
-	
+
 	var bt_add_ticket = browser.findElement(by.id("bt_add_ticket"));
 	expect(bt_add_ticket.isDisplayed()).toBe(true);
+	bt_add_ticket.click();
+
+	var bt_rem_ticketType1 = browser.findElement(by.id("bt_rem_ticketType1"));
+	expect(bt_rem_ticketType1.isDisplayed()).toBe(true);
+
+	var txtEventType1 = browser.findElement(by.id("txtEventType1"));
+	expect(txtEventType1.isDisplayed()).toBe(true);
+	txtEventType1.clear();
+	txtEventType1.sendKeys("Premium");
+	expect(txtEventType1.getAttribute('value')).toBe('Premium');
+
+	var txtEventDescription1 = browser.findElement(by.id("txtEventDescription1"));
+	expect(txtEventDescription1.isDisplayed()).toBe(true);
+	txtEventDescription1.clear();
+	txtEventDescription1.sendKeys("Basic ticket");
+	expect(txtEventDescription1.getAttribute('value')).toBe('Basic ticket');
+
+	var txtTicketExpirationDate1 = browser.findElement(by.id("txtTicketExpirationDate1"));
+	expect(txtTicketExpirationDate1.isDisplayed()).toBe(true);
+	txtTicketExpirationDate1.sendKeys("22-05-2015");
+	expect(txtTicketExpirationDate1.getAttribute('value')).toBe("2015-05-22");
+
+	var txtEventTicketLeft1 = browser.findElement(by.id("txtEventTicketLeft1"));
+	expect(txtEventTicketLeft1.isDisplayed()).toBe(true);
+	txtEventTicketLeft1.clear();
+	txtEventTicketLeft1.sendKeys("1000");
+	expect(txtEventTicketLeft1.getAttribute('value')).toBe("1000");
+
+	var txtEventPrice1 = browser.findElement(by.id("txtEventPrice1"));
+	expect(txtEventPrice1.isDisplayed()).toBe(true);
+	txtEventPrice1.clear();
+	txtEventPrice1.sendKeys("100");
+	expect(txtEventPrice1.getAttribute('value')).toBe("100");
 };
+
 
 describe('Event view' , function () {
 
 	it('Access to an event information', function(){
-		// TODO : Use img when it will work
 		var eventN = browser.findElement(by.xpath("id('page')/div/event-list/div/div[2]/event-miniature/div/a/img"));
 		expect(eventN.isDisplayed()).toBe(true); //When img uploading will work
 		eventN.click();
@@ -139,7 +156,7 @@ describe('Event view' , function () {
 		expect(bt_restore.isDisplayed()).toBe(true);
 		var bt_submit =  browser.findElement(by.id("bt_submit"));
 		expect(bt_submit.isDisplayed()).toBe(true);
-		var bt_save =  browser.findElement(by.id("bt_submit"));
+		var bt_save =  browser.findElement(by.id("bt_save"));
 		expect(bt_save.isDisplayed()).toBe(true);
 		browser.actions().mouseMove(bt_save).click();
 	});
@@ -153,7 +170,7 @@ describe('Event view' , function () {
 		expect(bt_restore.isDisplayed()).toBe(true);
 		var bt_submit =  browser.findElement(by.id("bt_submit"));
 		expect(bt_submit.isDisplayed()).toBe(true);
-		var bt_save =  browser.findElement(by.id("bt_submit"));
+		var bt_save =  browser.findElement(by.id("bt_save"));
 		expect(bt_save.isDisplayed()).toBe(true);
 		browser.actions().mouseMove(bt_submit).click();
 	});
@@ -167,10 +184,39 @@ describe('Event view' , function () {
 		expect(bt_restore.isDisplayed()).toBe(true);
 		var bt_submit =  browser.findElement(by.id("bt_submit"));
 		expect(bt_submit.isDisplayed()).toBe(true);
+		var bt_save =  browser.findElement(by.id("bt_save"));
+		expect(bt_save.isDisplayed()).toBe(true);
 		browser.actions().mouseMove(bt_restore).click();
 	});
 
 	it('Edit an event', function(){
-		
+		var myEvents = browser.findElement(by.id("bt_mineEvents"));
+		expect(myEvents.isDisplayed()).toBe(true);
+		myEvents.click();
+		var edit3 = browser.findElement(by.id("edit3"));
+		expect(edit3.isDisplayed()).toBe(true);
+		edit3.click();
+		browser.sleep(1000);
+		completeCreateEvent();
+	});
+
+	it('Remove an event', function(){
+		var myEvents = browser.findElement(by.id("bt_mineEvents"));
+		expect(myEvents.isDisplayed()).toBe(true);
+		myEvents.click();
+		var delete3 = browser.findElement(by.id("delete3"));
+		expect(delete3.isDisplayed()).toBe(true);
+		//delete3.click();
+		//expect(delete2.isDisplayed()).toBe(false);
+	});
+
+	it('Cancel an event', function(){
+		var myEvents = browser.findElement(by.id("bt_mineEvents"));
+		expect(myEvents.isDisplayed()).toBe(true);
+		myEvents.click();
+		var cancel2 = browser.findElement(by.id("cancel2"));
+		expect(cancel2.isDisplayed()).toBe(true);
+		//cancel2.click();
+		//expect(cancel3.isDisplayed()).toBe(false);
 	});
 });
