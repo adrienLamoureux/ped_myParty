@@ -17,7 +17,7 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 	    		$scope.events[e].ticketsType[t].income = $scope.events[e].ticketsType[t].sold * $scope.events[e].ticketsType[t].price;
 	    		$scope.events[e].income += $scope.events[e].ticketsType[t].income;
 	    	}
-	    $scope.income += $scope.events[e].income;
+	    	$scope.income += $scope.events[e].income;
 		}
 	});
 	
