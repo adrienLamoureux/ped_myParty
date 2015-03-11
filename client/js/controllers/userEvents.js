@@ -1,7 +1,6 @@
 // User Events
 app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event', 'EventImages', 'EventByOrganizerId', '$window', function ($rootScope, $scope, $routeParams, Event, EventImages, EventByOrganizerId, $window){
 
-
 	//URL user argument
 	$scope.events = EventByOrganizerId.query({id:$rootScope.user.user_id}, function(data){
 		$scope.events = data;
@@ -21,6 +20,8 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 		}
 	});
 	
+	$scope.organised=false;
+	$scope.participed=false;
 
 	$scope.dateExpired=function(date){
 		return Date.parse(date) < Date.now();
