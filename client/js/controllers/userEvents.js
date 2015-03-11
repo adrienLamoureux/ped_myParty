@@ -20,7 +20,7 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 		}
 	});
 	
-	$scope.organised=false;
+	$scope.organised=true;
 	$scope.participed=false;
 
 	$scope.dateExpired=function(date){
