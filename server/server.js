@@ -40,6 +40,7 @@ mongoose.connect('mongodb://localhost:27017/mongodb', function(err){
 var userModel = require('./models.js').userModel;
 var eventModel = require('./models.js').eventModel;
 var commandsModel = require('./models.js').commandsModel;
+var ticketModel = require('./models.js').ticketModel;
 var imageModel = require('./models.js').imageModel;
 
 /********* PASSPORT **********/
@@ -55,7 +56,6 @@ passport.use(new UserAppStrategy({
 ));
 
 // Event
-
 app.get('/api/event', function (req, res, next) {
   console.log('get events');
   eventModel.find(function (err, coll) {
@@ -67,8 +67,6 @@ app.get('/api/event', function (req, res, next) {
 	}
   });
 });
-
-
 
 app.get('/api/event/:id', function (req, res, next) {
   console.log('get event '+req.params.id);
@@ -97,8 +95,7 @@ app.post('/api/event', function (req, res, next){
   });
 });
 
-app.put('/api/event/:id', function (req, res, next)
-{
+app.put('/api/event/:id', function (req, res, next){
   delete req.body._id; //duplicate id bug
   console.log('put event : '+req.body);
   eventModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
@@ -107,8 +104,7 @@ app.put('/api/event/:id', function (req, res, next)
   });
 });
 
-app.delete('/api/event/:id', function (req, res, next)
-{
+app.delete('/api/event/:id', function (req, res, next){
 	eventModel.remove({_id: req.params.id}, function (err, result){
 		if (err) return next(err);
 	});
@@ -134,8 +130,7 @@ app.post('/api/event/images', function (req, res, next){
     });
 });
 
-app.put('/api/event/:id/images', function (req, res, next)
-{
+app.put('/api/event/:id/images', function (req, res, next){
   delete req.body._id; //duplicate id bug
   console.log('put images : '+req.body);
   imageModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
@@ -144,13 +139,11 @@ app.put('/api/event/:id/images', function (req, res, next)
   });
 });
 
-app.delete('/api/event/:id/images', function (req, res, next)
-{
+app.delete('/api/event/:id/images', function (req, res, next){
   imageModel.remove({_id: req.params.id}, function (err, result){
     if (err) return next(err);
   });
 });
-
 
 // User
 app.get('/api/user', passport.authenticate('userapp'),
@@ -185,8 +178,7 @@ app.get('/api/user/:id/command', function (req, res, next){
   });
 });
 
-app.put('/api/user/:id', function (req, res, next)
-{
+app.put('/api/user/:id', function (req, res, next){
 	delete req.body._id; //duplicate id bug
   console.log('put user : '+req.body);
   userModel.findOneAndUpdate({apiID: req.params.id}, req.body, function (err, result){
@@ -195,14 +187,38 @@ app.put('/api/user/:id', function (req, res, next)
   });
 });
 
-app.delete('/api/user/:id', function (req, res, next)
-{
+app.delete('/api/user/:id', function (req, res, next){
 	//delete user
+});
+
+// Ticket
+app.get('/api/ticket/:id', function (req, res, next) {
+  console.log('get ticket '+req.params.id);
+  ticketModel.findOne({_id: req.params.id}, function (e, result) {
+    if (e) return next(e);
+      console.log(result);
+      res.send(result);
+  });
+});
+
+app.post('/api/ticket', function (req, res, next){
+  console.log('new ticket : '+req.body);
+  var newTicket = new ticketModel(req.body);
+  newTicket.save(function (e, results){
+    if (e) return next(e);
+    console.log(results);
+  });
+});
+
+app.delete('/api/ticket/:id', function (req, res, next){
+  ticketModel.remove({_id: req.params.id}, function (err, result){
+    if (err) return next(err);
+  });
 });
 
 
 // Command
-
+/* jms utilisé ? */
 app.get('/api/command', function (req, res, next){
 	console.log('get commands');
 	commandsModel.find(function (e, result){
@@ -232,8 +248,7 @@ app.post('/api/command', function (req, res, next){
     });
 });
 
-app.put('/api/command/:id', function (req, res, next)
-{
+app.put('/api/command/:id', function (req, res, next){
   delete req.body._id; //duplicate id bug
   console.log('put command : '+req.body);
   commandsModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
@@ -242,14 +257,14 @@ app.put('/api/command/:id', function (req, res, next)
   });
 });
 
-app.delete('/api/command/:id', function (req, res, next)
-{
+app.delete('/api/command/:id', function (req, res, next){
 	commandsModel.remove({_id: req.params.id}, function (err, result){
 		if (err) return next(err);
 		res.send(result);
 	});
 });
 
+/* Validation Ticket */
 app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
   console.log('get ticket ' + req.params.idt + ' of event '+req.params.id);
   var response = {valide: false};
