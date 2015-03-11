@@ -26,6 +26,17 @@
 	#page{
 		margin-top:50px; /* required to let some place for the top-fixed main menu bar. */
 	}
+/*********************************/
+/*** Profile Image ************************/
+/***      ************************/
+.roundedImage{
+    overflow:hidden;
+    -webkit-border-radius:50px;
+    -moz-border-radius:50px;
+    border-radius:50px;
+    width:90px;
+    height:90px;
+}
 
 
 /*********************************/

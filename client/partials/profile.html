@@ -1,35 +1,92 @@
-<style type="text/css">
-.roundedImage{
-    overflow:hidden;
-    -webkit-border-radius:50px;
-    -moz-border-radius:50px;
-    border-radius:50px;
-    width:90px;
-    height:90px;
-}
-</style>
-
-<div class="roundedImage">
-    <img src="http://static.debray-jerome.fr/49/images/slideshow/1.jpg" alt="1"/>
-</div>
-
 <div class="container" >
-
 <div class="col-sm-6 col-sm-offset-3" id="x">
 
-   <label>Mon profil</label>
+  <div class="roundedImage span8 offset2">
+      <img src="" alt="Photo profil"/>
+  </div>
 
-   <div>
-   		Création du compte : {{user.created_at}}
-   		Dernière connexion: {{user.last_login_at}}
-   		Modifications du profil : {{user.updated_at}}
+   <label>Mon profil</label>   
+      <div class="panel panel-info">
+    <div class="panel-heading ">
+      <h3 class="panel-title"> Email: </h3>
+    </div>
+    <div class="panel-body">
+      {{user.email}}
+    </div>
+  </div>
 
-	   	Votre email : {{user.email}}
-	   	Votre prénom : {{user.first_name}}
-	   	Votre nom : {{user.last_name}}
+  <div class="panel panel-info">
+    <div class="panel-heading ">
+      <h3 class="panel-title"> Prenom:  </h3>
+    </div>
+    <div class="panel-body" >
+      {{user.first_name}}
+      <span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editName"></span>
+    </div>
+  </div>
 
-</div>
-        <button type="submit" class="btn btn-danger btn-lg" ng-click="lockUsr(user)" >Désactiver Compte</button>
+  <div class="panel panel-info" ng-show="user.last_name.length > 0">
+    <div class="panel-heading ">
+      <h3 class="panel-title"> Nom:  </h3>
+    </div>
+    <div class="panel-body">
+      {{user.last_name}}
+    </div>
+  </div>
+
+  <div class="panel panel-info">
+    <div class="panel-heading ">
+      <h3 class="panel-title"> Création du compte : </h3>
+    </div>
+    <div class="panel-body">
+      {{create_account}}
+    </div>
+  </div>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title"> Dernière connexion:  </h3>
+    </div>
+    <div class="panel-body">
+      {{last_login}}    
+    </div>
+  </div>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title"> Modifications du profil : </h3>
+    </div>
+    <div class="panel-body">
+      {{updated_at}}
+    </div>
+  </div>
+   		
+    <div class="modal fade" id="editName" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Nouveau Prénom</h4>
+          </div>
+          <div class="modal-body">
+            <input ng-model="newPrenom">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="validateChange(newPrenom)">Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="alert alert-success" role="alert" ng-if="user.locks.length === 0">
+      Votre compte est : Actif 
+      <button type="submit" class="btn btn-danger" ng-click="lockUsr(user)">Désactiver Compte</button>
+    </div>
+
+	   	
+
+
 
 
 </div>
