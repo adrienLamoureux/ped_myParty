@@ -7,7 +7,6 @@ var initTicket = function(db){
 	db.collection('ticket', function(err, collection) {
 		collection.insert(
 			[{
-				qRCodeUniqueID: null,
 				userID: null,
 				ticketTypeID: null,
 				used: false

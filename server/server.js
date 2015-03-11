@@ -270,24 +270,22 @@ app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
   var response = {valide: false};
   eventModel.findOne({_id: req.params.id}, function (err, result){
     if (err) return next(e);
-    for(var i=0;i<result.tickets.length;++i){
-      if(result.tickets[i].qRCodeUniqueID == req.params.idt){
-        if(result.tickets[i].used == false){
-          for(var j=0;j<result.tickets.length;++j){
-            if(result.ticketsType[j].uniqueID == result.tickets[i].ticketTypeID){
-              if(result.ticketsType[j].expirationDate > (new Date)){
-                response.valide = true;
-                res.send(response);
-                return;
-              };
+    ticketModel.findOne({_id:req.params.idt}, function (error, ticket){
+      if(ticket.used == false){
+        for(var j=0;j<result.ticketsType.length;++j){
+          if(result.ticketsType[j].uniqueID == ticket.ticketTypeID){
+            if(result.ticketsType[j].expirationDate > (new Date)){
+              response.valide = true;
+              res.send(response);
+              return;
             };
           };
         };
       };
-    };
-    res.send(response);
-    return;
+    });
   });
+  res.send(response);
+  return;
 });
 
 app.get('/api/event/:id/ticket/:idt/validate/:toValide', function (req, res, next){
@@ -295,17 +293,13 @@ app.get('/api/event/:id/ticket/:idt/validate/:toValide', function (req, res, nex
   console.log('update ticket ' + req.params.idt + ' of event '+req.params.id);
   eventModel.findOne({_id: req.params.id}, function (err, result){
     if (err) return next(err);
-    for(var i=0;i<result.tickets.length;++i){
-      if(result.tickets[i].qRCodeUniqueID == req.params.idt){
-        if(result.tickets[i].used == false){
-          result.tickets[i].used = true;
-          console.log(result.tickets[i].used);
-          console.log(req.params.id);
-          eventModel.update({_id:req.params.id}, {$set:{tickets:result.tickets}}, function (err, numberAffected, raw){
-            console.log(numberAffected);
-          });
-        };
+    ticketModel.findOne({_id:req.params.idt}, function (error, ticket){
+      if(ticket.used == false){
+        ticket.used = true;
+        ticketModel.update({_id:req.params.idt}, {$set:{used:ticket.used}}, function (err, numberAffected, raw){
+          console.log(numberAffected);
+        });
       };
-    };
+    });
   });
 });
