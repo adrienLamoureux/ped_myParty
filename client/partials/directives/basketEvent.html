@@ -26,10 +26,10 @@
                   <span class="glyphicon glyphicon-minus" ng-click="decrement(event.eventID,ticket.ticketType,ticket.quantity)"></span>
                 </button>
                 &nbsp;&nbsp;
-                <strong>{{ticket.quantity}}</strong>
+                <input ng-model="ticket.quantity" ng-readonly="true"></input>
                 &nbsp;&nbsp;
                 <button class="btn-xs">
-                  <span class="glyphicon glyphicon-plus" ng-click="increment(event.eventID,ticket.ticketType)"></span>
+                  <span class="glyphicon glyphicon-plus" ng-click="increment(event.eventID,ticket.ticketType,ticket.quantity)"></span>
                 </button>
               </td>
               <td>{{ticket.price*ticket.quantity}} €</td>
