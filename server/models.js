@@ -20,7 +20,6 @@ var commandsSchema = new Schema({
 
 // ticket sold to user for an event
 var ticketSchema = new Schema({
-	qRCodeUniqueID: Number,
 	userID: String,
 	ticketTypeID: Number,
 	used: {type: Boolean, default: false}
@@ -78,7 +77,6 @@ var eventSchema = new Schema({
 	},
 	tickets: [{type: mongoose.Schema.Types.ObjectId, ref: 'ticketModel'}],
 	ticketsType: [ticketTypeSchema],
-	uniqueTicketID: Number, // pour la génération du QRCode
 	dateStarting: Date,
 	dateEnding: Date,
 	online: {type: Boolean, default: false}

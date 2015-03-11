@@ -81,7 +81,6 @@ var updateRefID = function(db){
 
 											ticketCollection.update({_id:ticketDocs[0]._id}, {
 												$set: {
-													qRCodeUniqueID: eventDocs[0].uniqueTicketID,
 													userID: userDocs[0].apiID,
 													ticketTypeID: eventDocs[0].ticketsType[0].uniqueID,
 													used: false
