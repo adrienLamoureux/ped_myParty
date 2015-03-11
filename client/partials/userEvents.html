@@ -14,7 +14,7 @@
 			<a class="col-md-5 col-xs-4 block-left" id="show{{$index+1}}" href="#/event/{{event._id}}"><img ng-src="data:{{event.imageSmall.filetype}};base64,{{event.imageSmall.base64}}" class="img-thumbnail" alt="{{event.title}}"></a>
 			
 			<!-- management -->
-			<div id="management{{$index+1}}" class="col-md-7 col-xs-8 text-right">	
+			<div id="management{{$index+1}}" class="management col-md-7 col-xs-8 text-right">	
 				<a id="edit{{$index+1}}" ng-hide="event.online" class="btn btn-primary" ng-href="#/event/{{event._id}}/edit">
 					Editer
 				</a>
@@ -35,7 +35,7 @@
 			</div>
 
 			<!-- income -->
-			<table id="income{{$index+1}}" class="col-md-7 col-xs-12">
+			<table id="income{{$index+1}}" class="income col-md-7 col-xs-12">
 				<tr>
 					<th>Ventes</th>
 					<th class="col-md-8 text-center">Type billet (Qté)</th>

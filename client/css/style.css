@@ -188,20 +188,20 @@
 				border-radius: 10px;
 	}
 
-	#mineEvents #income td{
+	#mineEvents table.income td{
 		border:solid 1px lightgrey;
 	}
 
-	#mineEvents table#income{
+	#mineEvents table.income{
 		margin-left:auto;
 		margin-right:auto;
 	}
 
-	#mineEvents table#income th{
+	#mineEvents table.income th{
 		padding-top:5px;
 		padding-bottom:5px;
 	}
 
-	#mineEvents #management{
+	#mineEvents .management{
 		margin-bottom: 20px;
 	}
