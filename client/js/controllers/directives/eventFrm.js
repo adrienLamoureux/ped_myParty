@@ -1,7 +1,7 @@
 // Event Frm Directive Controller
-app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', '$window', function ($scope, $rootScope, Event, EventImages, $window){
+app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', '$window', '$timeout', function ($scope, $rootScope, Event, EventImages, $window, $timeout){
 	var cptType = 0;
-
+	$scope.loading=true;
 	$scope.defaultEvent = {
 		'ownerID': $rootScope.user.user_id, //TODO : Récupérer le User ID en session
 		'title': '',
@@ -22,7 +22,6 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 			'type': '',
 			'expirationDate': null
 		}],
-		'uniqueTicketID': 0,
 		'dateStarting': null,
 		'dateEnding': null,
 		'online': false
@@ -50,7 +49,7 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 	$scope.eventPost = null;
 
 	$scope.editMode = (angular.isDefined($scope.thisEvent));
-	initForm();	
+	$timeout( function(){ initForm();$scope.loading=false; }, 200);	
 
 	
 	// initialize / restore form

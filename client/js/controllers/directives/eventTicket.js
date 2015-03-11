@@ -1,23 +1,17 @@
-app.controller('EventTicketCtrl', ['$scope', '$routeParams','Event', function ($scope, $routeParams, Event){
+app.controller('EventTicketCtrl', ['$scope', '$routeParams','Event', 'Ticket', function ($scope, $routeParams, Event, Ticket){
 	var urlDeploy = "";
 	$scope.qrcode = urlDeploy+"#/event/"+$routeParams.id+"/ticket/"+$routeParams.idt+"/validate";
 	console.log($scope.qrcode);
-	if(angular.isDefined($routeParams.id)){
+	if(angular.isDefined($routeParams.id) && angular.isDefined($routeParams.idt)){
 		Event.get({id:$routeParams.id}, function(data){
-			console.log(data);
 			$scope.event = data;
-			console.log($routeParams.idt);
-			for(var i=0; i<$scope.event.tickets.length; ++i){
-				if($scope.event.tickets[i].qRCodeUniqueID == $routeParams.idt){
-					for(var j=0; j<$scope.event.ticketsType.length;++j){
-						if($scope.event.tickets[i].ticketTypeID == $scope.event.ticketsType[j].uniqueID){
-							$scope.ticket = $scope.event.ticketsType[j];
-							console.log("found");
-							console.log($scope.ticket);	
-						}
-					};
+			Ticket.get({id:$routeParams.idt},function(ticket){
+				for(var i=0; i<$scope.event.ticketsType.length;++i){
+					if(ticket.ticketTypeID == $scope.event.ticketsType[i].uniqueID){
+						$scope.ticket = $scope.event.ticketsType[i];
+					}
 				};
-			};
+			});
 		});
 	};
 }]);
