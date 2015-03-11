@@ -276,7 +276,6 @@ app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
         for(var j=0;j<result.ticketsType.length;++j){
           if(result.ticketsType[j].uniqueID == ticket.ticketTypeID){
             if(result.ticketsType[j].expirationDate > (new Date)){
-              console.log("true");
               response.valide = true;
               break;
             };
