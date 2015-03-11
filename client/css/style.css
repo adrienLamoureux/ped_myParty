@@ -38,6 +38,11 @@
     height:90px;
 }
 
+.roundedImage img{
+	width: 90px;
+	height: 90px;
+}
+
 
 /*********************************/
 /*** eventPage *******************/

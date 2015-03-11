@@ -1,10 +1,11 @@
 // User Events
-app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$q', '$timeout','ngProgress', function ($scope, $routeParams, $window, $rootScope, $q, $timeout, ngProgress){
+app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User){
 
 	ngProgress.color("#B40404");
 	ngProgress.start();
-	var currentUserId = $rootScope.user.user_id;	
+	var currentUserId = $rootScope.user.user_id;		
 
+	$scope.mongoUser = User.get({id:currentUserId});
 
 	UserApp.User.get({
 		"user_id" : currentUserId
