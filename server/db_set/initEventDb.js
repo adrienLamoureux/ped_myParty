@@ -31,7 +31,6 @@ var initEvent = function(db){
 					type: 'Pass 3 Jours',
 					expirationDate: '1524339270481'
 				}],
-				uniqueTicketID: 0,
 				dateStarting: '1424339270481',
 				dateEnding: '1524339270481',
 				online: true
@@ -85,7 +84,6 @@ var initEvent = function(db){
 					expirationDate : '1437782400000'
 				} ],
 				tickets : [],
-				uniqueTicketID : 0,
 				dateStarting : '1437523200000',
 				dateEnding : '1437782400000',
 				online : true
@@ -115,7 +113,6 @@ var initEvent = function(db){
 					type: 'Preminum',
 					expirationDate: '1524339270481'
 				}],
-				uniqueTicketID: 0,
 				dateStarting: '1424339270481',
 				dateEnding: '1524339270481',
 				online: false
