@@ -7,6 +7,10 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 
 	$scope.mongoUser = User.get({id:currentUserId});
 
+	$scope.updateProfile = function (){
+		User.put({id:currentUserId}, $scope.mongoUser);
+	};
+
 	UserApp.User.get({
 		"user_id" : currentUserId
 	}, function(err,res){
@@ -38,8 +42,6 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 		};
 	}
 
-
-
 	$scope.validateChange = function(newName){
 		UserApp.User.save({
 		    "user_id": currentUserId,
@@ -49,8 +51,5 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 			else console.log(res);
 		});
 	};
-
-
-	
 }]);
 

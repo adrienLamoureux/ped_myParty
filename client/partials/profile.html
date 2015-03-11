@@ -79,16 +79,15 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+    <label>Image miniature de l'évènement</label>
+    <input type="file" ng-model="mongoUser.photo" name="file" base-sixty-four-input required/>
+    <p>Prévisualisation : <img ng-src="data:{{mongoUser.photo.filetype}};base64,{{mongoUser.photo.base64}}" alt=""></p>
+    <button id="bt_submit" type="submit" ng-click="updateProfile()">Mettre le profil à jour</button>
+
     <div class="alert alert-success" role="alert" ng-if="user.locks.length === 0">
       Votre compte est : Actif 
       <button type="submit" class="btn btn-danger" ng-click="lockUsr(user)">Désactiver Compte</button>
     </div>
-
-	   	
-
-
-
-
 </div>
 
 
