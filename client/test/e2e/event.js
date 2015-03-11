@@ -131,7 +131,7 @@ describe('Event view' , function () {
 	});
 
 	it('Create an event without publication', function(){
-		var organiseEvent = browser.findElement(by.linkText("Organiser un Evenement"));
+		var organiseEvent = browser.findElement(by.id("bt_createEvent"));
 		expect(organiseEvent.isDisplayed()).toBe(true);
 		organiseEvent.click();
 		completeCreateEvent();
@@ -145,7 +145,7 @@ describe('Event view' , function () {
 	});
 
 	it('Create an event with publication', function(){
-		var organiseEvent = browser.findElement(by.linkText("Organiser un Evenement"));
+		var organiseEvent = browser.findElement(by.id("bt_createEvent"));
 		expect(organiseEvent.isDisplayed()).toBe(true);
 		organiseEvent.click();
 		completeCreateEvent();
@@ -159,7 +159,7 @@ describe('Event view' , function () {
 	});
 
 	it('Cancel a no validated event', function(){
-		var organiseEvent = browser.findElement(by.linkText("Organiser un Evenement"));
+		var organiseEvent = browser.findElement(by.id("bt_createEvent"));
 		expect(organiseEvent.isDisplayed()).toBe(true);
 		organiseEvent.click();
 		completeCreateEvent();

@@ -39,5 +39,6 @@ describe('Inscription' , function () {
 		var disconnect = browser.findElement(by.linkText("Se Déconnecter"));
 		expect(disconnect.isDisplayed()).toBe(true);
 		disconnect.click();
+		browser.get('http://localhost:4711/#/login');
 	});
 });

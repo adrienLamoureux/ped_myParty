@@ -7,12 +7,16 @@ describe('Manager test', function(){
 	});
 
 	it('inscription tests', function(){
+		browser.sleep(1000);
 		require('./inscription.js');
+		browser.sleep(1000);
 	});
 
 	it('others tests', function(){
 		connect.connect();
+		browser.sleep(1000);
 		require('./home.js');
+		browser.sleep(1000);
 		require('./event.js');
 	});
 });
