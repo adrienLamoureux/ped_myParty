@@ -3,15 +3,27 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 
 
 	//URL user argument
-	$scope.events = EventByOrganizerId.query({id:$rootScope.user.user_id});
+	$scope.events = EventByOrganizerId.query({id:$rootScope.user.user_id}, function(data){
+		$scope.events = data;
+
+		//compute Global Income
+		$scope.income = 0;
+		for (var e=0; e < $scope.events.length; ++e) {
+			console.log($scope.events[e]);
+			$scope.events[e].income = 0;
+		
+			for (var t=0; t < $scope.events[e].ticketsType.length; ++t) {
+				console.log($scope.events[e].ticketsType[t]);
+	    		$scope.events[e].ticketsType[t].income = $scope.events[e].ticketsType[t].sold * $scope.events[e].ticketsType[t].price;
+	    		$scope.events[e].income += $scope.events[e].ticketsType[t].income;
+	    	}
+	    $scope.income += $scope.events[e].income;
+		}
+	});
+	
 
 	$scope.dateExpired=function(date){
 		return Date.parse(date) < Date.now();
-	}
-	
-	$scope.edit = function(event){
-		$window.location.href = "#/event/" + event._id + "/edit";
-		$window.location.reload();
 	}
 
 	$scope.publish = function(event){

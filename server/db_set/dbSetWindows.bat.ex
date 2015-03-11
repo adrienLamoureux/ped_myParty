@@ -10,6 +10,6 @@ start "Init Image" node initImageDb.js &
 pause
 start "Init Command" node initCommandDb.js &
 pause
+start "Init Ticket" node initTicketDb.js &
+pause
 start "Update Db" node updatedb.js &
-
-
