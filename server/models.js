@@ -56,6 +56,12 @@ var ticketTypeSchema = new Schema({
 var userSchema = new Schema({
 	apiID: String,
 	inscriptionDate: Date,
+	photo: {
+		filetype: String,
+		filename: String,
+		filesize: Number,
+		base64: String
+	},
 	eventsID: [{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
 	commandsID: {type: mongoose.Schema.Types.ObjectId, ref:'commandsModel'},
 	basket : [cmdSchema]
