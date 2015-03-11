@@ -21,9 +21,11 @@
 						<img id="ticket_$index_image" class="img-responsive center-block" data-ng-src="data:{{imgs.ticketImg.filetype}};base64,{{imgs.ticketImg.base64}}">
 					</div>
 					<div class="col-sm-9">
-						<h2>{{ticketType.type}}</h2>	
+						<h2>{{ticketType.type}}<span class="pull-right">{{ticketType.ticketLeft}} restant</span></h2>
+						
 						<ul>
 							<li>Description : {{ticketType.description}}</li>
+							<li>Expiration : {{ticketType.expirationDate | date:'dd/MM/yyyy'}}</li>
 							<li>Prix : {{ticketType.price}} €</li>
 						</ul>
 
@@ -31,7 +33,7 @@
 							<input ng-model="places_number" type="number" value="0" min="0">
 							<button ng-click="addToBasket(places_number,ticketType.uniqueID,ticketType.ticketLeft, user.user_id)" class="btn btn-primary">
 								Ajouter au panier
-							</button>
+							</button>	
 						</div>
 					</div>	  		
 				</div>

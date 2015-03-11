@@ -1,7 +1,7 @@
 // Event Frm Directive Controller
-app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', '$window', function ($scope, $rootScope, Event, EventImages, $window){
+app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', '$window', '$timeout', function ($scope, $rootScope, Event, EventImages, $window, $timeout){
 	var cptType = 0;
-
+	$scope.loading=true;
 	$scope.defaultEvent = {
 		'ownerID': $rootScope.user.user_id, //TODO : Récupérer le User ID en session
 		'title': '',
@@ -22,7 +22,6 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 			'type': '',
 			'expirationDate': null
 		}],
-		'uniqueTicketID': 0,
 		'dateStarting': null,
 		'dateEnding': null,
 		'online': false
@@ -50,11 +49,11 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 	$scope.eventPost = null;
 
 	$scope.editMode = (angular.isDefined($scope.thisEvent));
-	initForm();	
+	$timeout( function(){ initForm();$scope.loading=false; }, 200);	
 
 	
 	// initialize / restore form
-    function initForm() {
+    function initForm() {	
     	if($scope.editMode){
 			$scope.eventFormData = angular.copy($scope.thisEvent);
 			$scope.eventFormData.dateStarting = new Date($scope.eventFormData.dateStarting);
@@ -73,7 +72,7 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
    	$scope.cancel = initForm;
 
    	// when submitting the add form, send the text to the node API
-    $scope.createEvent = function(published, userId) {
+    $scope.createEvent = function(published) {
     	$scope.eventFormData.online = published;
     	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
     		ticket.uniqueID = i;
@@ -82,17 +81,20 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
     		$scope.eventPost = data;
     		$scope.eventFormImage.eventID = $scope.eventPost._id;
     		EventImages.post($scope.eventFormImage);
+    		var route = "";
     		if(published){
-    			$window.location.href = "#/event/" + $scope.eventPost._id;
+    			route = "#/event/" + $scope.eventPost._id;
     		}else{
-				$window.location.href = "#/usr/" + userId + "/events";
+				route = "#/usr/events";
     		}
+    		console.log("next page : " + route);
+    		$window.location.href = route;
     		$window.location.reload();	
     	});
   	}
 
   	// when submitting the edit form, send the text to the node API
-    $scope.updateEvent = function(published, userId) {
+    $scope.updateEvent = function(published) {
     	$scope.eventFormData.online = published;
     	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
     		ticket.uniqueID = i;
@@ -102,13 +104,18 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
     		console.log("EVENT PUT OK");
     		EventImages.put({id:$scope.eventFormImage._id}, $scope.eventFormImage, function (){
     			console.log("IMAGES PUT OK");
-    			if(published){
-    				$window.location.href = "#/event/" + $scope.eventFormData._id;
-    			}else{
-					$window.location.href = "#/usr/" + userId + "/events";
-    			}
-    			$window.location.reload();	
+    			
     		});
+    		console.log($rootScope.user.user_id);
+    		var route = "";
+    		if(published){
+    			route = "#/event/" + $scope.eventFormData._id;
+    		}else{
+				route = "#/usr/events";
+    		}
+    		console.log("next page : " + route);
+    		$window.location.href = route;
+    		$window.location.reload();
     	});
   	}
 }]);

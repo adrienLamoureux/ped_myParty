@@ -1,5 +1,5 @@
 // Application MyParty
-var app = angular.module('MyPartyApp', ['naif.base64', 'ngRoute', 'ngResource', 'UserApp', 'ngProgress']);
+var app = angular.module('MyPartyApp', ['naif.base64', 'ngRoute', 'ngResource', 'ja.qr', 'UserApp','ngProgress']);
 
 app.config(function($routeProvider){
 	$routeProvider
@@ -15,23 +15,23 @@ app.config(function($routeProvider){
 			templateUrl: './partials/profile.html',
 			controller: 'UserCtrl'
 		})
-		.when('/usr/:id/edit', {
+		.when('/usr/edit', {
 			templateUrl: './partials/editUser.html',
 			controller: 'UserCtrl',
 		})
-		.when('/usr/:id/basket', {
+		.when('/usr/basket', {
 			templateUrl: './partials/basket.html',
 			controller: 'UserCtrl'
 		})
-		.when('/usr/:id/cmds', {
+		.when('/usr/cmds', {
 			templateUrl: './partials/commands.html',
 			controller: 'CommandCtrl'
 		})
-		.when('/usr/:id/cmd/:idcmd', {
+		.when('/usr/cmd/:idcmd', {
 			templateUrl: './partials/command.html',
 			controller: 'CommandCtrl'
 		})
-		.when('/usr/:id/events', {
+		.when('/usr/events', {
 			templateUrl: './partials/userEvents.html',
 			controller: 'UserEventsCtrl'
 		})
@@ -49,8 +49,7 @@ app.config(function($routeProvider){
 			controller: 'EventCtrl'
 		})
 		.when('/event/:id/ticket/:idt', {
-			templateUrl: './partials/ticket.html',
-			controller: 'EventCtrl'
+			templateUrl: './partials/ticket.html'
 		})
 		.when('/event/:id/ticket/:idt/validate', {
 			templateUrl: './partials/validate.html',

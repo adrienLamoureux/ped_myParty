@@ -6,12 +6,12 @@ var Schema = mongoose.Schema;
 // Association ticket for event
 var eventTicket = new Schema({
 	eventID: {type: mongoose.Schema.Types.ObjectId, ref:'eventModel'},
-	tickets: [ticketSchema]
+	tickets: [{type: mongoose.Schema.Types.ObjectId, ref: 'ticketModel'}]
 }, {collection: 'eventTicket'});
 
 var cmdSchema = new Schema({
-	eventTickets: [eventTicket],
-	dateBuy: Date
+	dateBuy: Date,
+	eventTickets: [eventTicket]
 }, {collection: 'cmd'});
 
 var commandsSchema = new Schema({
@@ -20,7 +20,6 @@ var commandsSchema = new Schema({
 
 // ticket sold to user for an event
 var ticketSchema = new Schema({
-	qRCodeUniqueID: Number,
 	userID: String,
 	ticketTypeID: Number,
 	used: {type: Boolean, default: false}
@@ -56,6 +55,12 @@ var ticketTypeSchema = new Schema({
 var userSchema = new Schema({
 	apiID: String,
 	inscriptionDate: Date,
+	photo: {
+		filetype: String,
+		filename: String,
+		filesize: Number,
+		base64: String
+	},
 	eventsID: [{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
 	commandsID: {type: mongoose.Schema.Types.ObjectId, ref:'commandsModel'},
 	basket : [cmdSchema]
@@ -76,9 +81,8 @@ var eventSchema = new Schema({
 		filesize: Number,
 		base64: String
 	},
-	tickets: [ticketSchema],
+	tickets: [{type: mongoose.Schema.Types.ObjectId, ref: 'ticketModel'}],
 	ticketsType: [ticketTypeSchema],
-	uniqueTicketID: Number, // pour la génération du QRCode
 	dateStarting: Date,
 	dateEnding: Date,
 	online: {type: Boolean, default: false}
@@ -89,11 +93,13 @@ var eventSchema = new Schema({
 var userModel = mongoose.model('user', userSchema);
 var eventModel = mongoose.model('event', eventSchema);
 var commandsModel = mongoose.model('commands', commandsSchema);
+var ticketModel = mongoose.model('ticket', ticketSchema);
 var imageModel = mongoose.model('img', imgSchema);
 
 module.exports = {
   userModel: userModel,
   eventModel: eventModel,
   commandsModel: commandsModel,
+  ticketModel: ticketModel,
   imageModel: imageModel
 };
