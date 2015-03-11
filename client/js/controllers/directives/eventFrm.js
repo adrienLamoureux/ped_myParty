@@ -22,7 +22,6 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 			'type': '',
 			'expirationDate': null
 		}],
-		'uniqueTicketID': 0,
 		'dateStarting': null,
 		'dateEnding': null,
 		'online': false
