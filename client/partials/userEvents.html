@@ -29,19 +29,19 @@
 		<!-- income -->
 		<table id="income" class="col-md-7 col-xs-12">
 			<tr>
-				<th>Qté</th>
-				<th class="col-md-8 text-center">Type billet</th>
+				<th>Ventes</th>
+				<th class="col-md-8 text-center">Type billet (Qté)</th>
 				<th>Prix</th>
 				<th>Total</th>
 			</tr>
 			<tr id="ticketTypeIncome" ng-repeat="ticketType in event.ticketsType">
 				<td class="col-md-1 text-right">{{ticketType.sold}}</td>
-				<td class="col-md-8 text-center">{{ticketType.type}}</td>
+				<td class="col-md-8 text-center">{{ticketType.type}} ({{ticketType.ticketLeft + ticketType.sold}})</td>
 				<td class="col-md-1 text-right">{{ticketType.price}}</td> 
 				<td class="col-md-2 text-right">{{ticketType.income}}</td>
 			</tr>
 			<tr id="totalIncome">
-				<th class="text-right" colspan="3"> Revenu total </th>
+				<th class="text-right" colspan="3"> Revenu Total :</th>
 				<td class="text-right"> {{event.income}}€</td>
 			</tr>
 		</table>		
