@@ -1,4 +1,5 @@
 var connect = require('./connect.js');
+var path = require('path');
 
 var completeCreateEvent = function(){
 	var eventForm = browser.findElement(by.id("eventForm"));
@@ -58,6 +59,15 @@ var completeCreateEvent = function(){
 
 	var fileEventImage = browser.findElement(by.id("eventImage"));
 	expect(fileEventImage.isDisplayed()).toBe(true);
+	var fileToUpload = './resources/back.jpg';
+  	var absolutePath = path.resolve(__dirname, fileToUpload);
+	fileEventImage.sendKeys(absolutePath);
+
+	var eventSmallImage =  browser.findElement(by.id("eventSmallImage"));
+	expect(eventSmallImage.isDisplayed()).toBe(true);
+	fileToUpload = './resources/small.jpg';
+  	absolutePath = path.resolve(__dirname, fileToUpload);
+	eventSmallImage.sendKeys(absolutePath);
 
 	var txtEventType1 = browser.findElement(by.id("txtEventType1"));
 	expect(txtEventType1.isDisplayed()).toBe(true);
@@ -83,16 +93,21 @@ var completeCreateEvent = function(){
 	txtEventPrice1.sendKeys('10');
 	expect(txtEventPrice1.getAttribute('value')).toBe('10');
 
+	browser.sleep(1000);
+
 	var fileTicketTypeImage1 = browser.findElement(by.id("ticketImage"));
 	expect(fileTicketTypeImage1.isDisplayed()).toBe(true);
+	fileToUpload = './resources/ticket.jpg';
+  	absolutePath = path.resolve(__dirname, fileToUpload);
+	fileTicketTypeImage1.sendKeys(absolutePath);
 
-	var bt_add_ticket = browser.findElement(by.id("bt_add_ticket"));
+	/*var bt_add_ticket = browser.findElement(by.id("bt_add_ticket"));
 	expect(bt_add_ticket.isDisplayed()).toBe(true);
 	bt_add_ticket.click();
-
+*//*
 	var bt_rem_ticketType1 = browser.findElement(by.id("bt_rem_ticketType1"));
 	expect(bt_rem_ticketType1.isDisplayed()).toBe(true);
-
+*/
 	var txtEventType1 = browser.findElement(by.id("txtEventType1"));
 	expect(txtEventType1.isDisplayed()).toBe(true);
 	txtEventType1.clear();
@@ -152,6 +167,7 @@ describe('Event view' , function () {
 		expect(organiseEvent.isDisplayed()).toBe(true);
 		organiseEvent.click();
 		completeCreateEvent();
+		browser.sleep(1000);
 		var bt_restore = browser.findElement(by.id("bt_restore"));
 		expect(bt_restore.isDisplayed()).toBe(true);
 		var bt_submit =  browser.findElement(by.id("bt_submit"));
@@ -160,7 +176,7 @@ describe('Event view' , function () {
 		expect(bt_save.isDisplayed()).toBe(true);
 		browser.actions().mouseMove(bt_save).click();
 	});
-
+/*
 	it('Create an event with publication', function(){
 		var organiseEvent = browser.findElement(by.id("bt_createEvent"));
 		expect(organiseEvent.isDisplayed()).toBe(true);
@@ -219,4 +235,5 @@ describe('Event view' , function () {
 		//cancel2.click();
 		//expect(cancel3.isDisplayed()).toBe(false);
 	});
+*/
 });
