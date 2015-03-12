@@ -181,7 +181,8 @@ app.get('/api/user/:id/command', function (req, res, next){
 app.put('/api/user/:id', function (req, res, next){
 	delete req.body._id; //duplicate id bug
   console.log('put user : '+req.body);
-  userModel.findOneAndUpdate({apiID: req.params.id}, req.body, function (err, result){
+  userModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
+    console.log("to : "+req.params.id);
     if (err) return next(err);
     res.send(result);
   });

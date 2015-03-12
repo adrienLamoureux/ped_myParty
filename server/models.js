@@ -3,6 +3,25 @@ var mongoose = require('mongoose');
 // Schema
 var Schema = mongoose.Schema;
 
+
+//basket
+var tQuantity = new Schema({
+	ticketType: Number,
+	nbTicket: Number,
+	price: Number,
+	entitled: String
+}, {collection:'tQuantity'});
+
+var basketEventTicket = new Schema ({
+	eventID: {type: mongoose.Schema.Types.ObjectId, ref:'eventModel'},
+	eventTitle: String,
+	tickets : [tQuantity]
+}, {collection: 'basketEventTicket'})
+
+var basketSchema = new Schema({
+	basketEventTicket:[basketEventTicket]
+}, {collection: 'basket'});
+
 // Association ticket for event
 var eventTicket = new Schema({
 	eventID: {type: mongoose.Schema.Types.ObjectId, ref:'eventModel'},
@@ -57,7 +76,7 @@ var userSchema = new Schema({
 	inscriptionDate: Date,
 	eventsID: [{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
 	commandsID: {type: mongoose.Schema.Types.ObjectId, ref:'commandsModel'},
-	basket : [cmdSchema]
+	basket : [basketEventTicket]
 }, {collection: 'user'});
 
 var eventSchema = new Schema({

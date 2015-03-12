@@ -1,12 +1,44 @@
 // BasketEvent Directive Controller
 app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', '$routeParams', function ($rootScope, $scope, User, Event, $routeParams){
 
+console.log($rootScope.user.user_id);
+$scope.user = null;
+$scope.basketOfUser = null;
+
+function getBasketWithUserId() {
+	$scope.user = User.get({id:$rootScope.user.user_id}, function (res, e){
+	console.log('Récuperation de l\'utilisateur réussie :');
+	console.log(res);
+		// On test si il un panier est deja associé au User et si il contient deja des articles
+		if(typeof(res.basket.basketEventTicket) != 'undefined' && res.basket.basketEventTicket.length > 0){
+			// Si oui alors on recupere les datas
+			for(i=0;i<res.basket.basketEventTicket.length;i++){
+				$scope.basketOfUser.push(res.basket.basketEventTicket[i]);
+			}
+			console.log($scope.basketOfUser);
+		}else{
+			console.log("Panier vide");
+		}
+
+	}, function (){
+	console.log('Récuperation de l\'utilisateur échoué');
+	console.log(e);
+	})
+}
+
+// Fonctions lancées lors de l'execution du controleur 
+getBasketWithUserId();
+
+}]);
+
+
+
+/*
 	// Tableau stockant les infos pour l'affichage du panier.
 	$scope.basketUser = {basket: []};
 	$scope.user = null;
 
 	function getBasketWithUserId (){
-
 		$scope.tabGrand = [];
 		$scope.user = User.get({id:$rootScope.user.user_id}, function (res, e){
 		console.log(res);
@@ -199,5 +231,4 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', '$rou
 
 $scope.calculateTotal();
 getBasketWithUserId();
-
-}]);
+*/

@@ -12,6 +12,35 @@ var initUser = function(db){
 				eventsID: [],
 				commandsID: [],
 				basket : []
+				/*
+					[{
+						eventID: 1231561,
+						eventTitle: "fefzefzfzf",
+						tickets: [
+							{
+							ticketType: 1,
+							nbTicket: 5,
+							price: 50,
+							entitled: "le ticket de test"
+							}
+						]
+					}] */
+				/* [
+				{
+					basketEventTicket:
+					[{
+						eventID: 1231561,
+						eventTitle: "fefzefzfzf",
+						tickets: [
+							{
+							ticketType: 1,
+							nbTicket: 5,
+							price: 50,
+							entitled: "le ticket de test"
+							}
+						]
+					}]
+				}] */
 			}
 			], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'user'\n"); return false; }
