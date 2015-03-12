@@ -21,7 +21,7 @@ app.config(function($routeProvider){
 		})
 		.when('/usr/basket', {
 			templateUrl: './partials/basket.html',
-			controller: 'UserCtrl'
+			controller: 'BasketEventCtrl'
 		})
 		.when('/usr/cmds', {
 			templateUrl: './partials/commands.html',
