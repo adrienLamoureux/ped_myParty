@@ -218,3 +218,35 @@
 	#mineEvents div.management{
 		padding-top:15px;
 	}
+
+/*********************************/
+/*** ticket **********************/
+/***        **********************/
+	#ticket{
+		font-size:16px;
+		background:white;
+		padding:0px;
+		border: 1px solid #cecece;
+		height:300px;
+		width:800px;
+		text-align:left;
+		margin-left:auto;
+		margin-right:auto;
+	}
+	#ticket td.fixTotal{
+		width:320px;
+	}
+	#ticket tr.fixTop{
+		height:100px;
+	}
+	#ticket tr.fixBottom{
+		height:200px;
+	}
+	#ticket img.eventSmallImage{
+		width:300px;
+	}
+	#ticket p{
+		margin-left:20px;
+	}
+
+
