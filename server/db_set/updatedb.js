@@ -35,7 +35,7 @@ var updateRefID = function(db){
 											userCollection.update({_id:userDocs[0]._id},{
 												$set: {
 													eventsID:[eventDocs[0]._id, eventDocs[1]._id, eventDocs[2]._id],
-													commandsID:[commandsDocs[0]._id]
+													commandsID:commandsDocs[0]._id
 												}
 											}, function(err, result){});
 											
@@ -43,7 +43,7 @@ var updateRefID = function(db){
 												$set:{
 													ownerID:userDocs[0].apiID,
 													tickets:[ticketDocs[0]._id],
-													ticketType:[{			
+													ticketsType:[{			
 														uniqueID: 0,
 														description: 'Ticket valide pour les 3 jours du festival',
 														ticketLeft: 99999,
@@ -82,7 +82,9 @@ var updateRefID = function(db){
 											ticketCollection.update({_id:ticketDocs[0]._id}, {
 												$set: {
 													userID: userDocs[0].apiID,
+													eventID: eventDocs[0]._id,
 													ticketTypeID: eventDocs[0].ticketsType[0].uniqueID,
+													expirationDate: '1524339270481',
 													used: false
 												}
 											}, function(err, result){});										
@@ -104,4 +106,6 @@ mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {
 	console.log("\t--> Successfully connected to the database!\n");
 
 	updateRefID(db);
+
+	console.log("\t--> update success!\n");
 });

@@ -1,5 +1,8 @@
 // Event Frm Directive Controller
-app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', '$window', '$timeout', function ($scope, $rootScope, Event, EventImages, $window, $timeout){
+app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', '$window', '$timeout', 'ngProgress', function ($scope, $rootScope, Event, EventImages, $window, $timeout, ngProgress){
+	
+	ngProgress.color("#B40404");
+	
 	var cptType = 0;
 	$scope.loading=true;
 	$scope.defaultEvent = {
@@ -49,7 +52,13 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 	$scope.eventPost = null;
 
 	$scope.editMode = (angular.isDefined($scope.thisEvent));
-	$timeout( function(){ initForm();$scope.loading=false; }, 200);	
+	ngProgress.start();
+
+	$timeout( function(){ 
+		initForm();
+		$scope.loading=false; 
+		ngProgress.complete();
+	}, 500);	
 
 	
 	// initialize / restore form
