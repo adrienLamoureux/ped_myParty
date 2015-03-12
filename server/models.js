@@ -21,7 +21,9 @@ var commandsSchema = new Schema({
 // ticket sold to user for an event
 var ticketSchema = new Schema({
 	userID: String,
+	eventID: {type: mongoose.Schema.Types.ObjectId, ref:'eventModel'},
 	ticketTypeID: Number,
+	expirationDate: Date,
 	used: {type: Boolean, default: false}
 }, {collection: 'ticket'});
 
