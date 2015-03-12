@@ -43,7 +43,7 @@ var updateRefID = function(db){
 												$set:{
 													ownerID:userDocs[0].apiID,
 													tickets:[ticketDocs[0]._id],
-													ticketType:[{			
+													ticketsType:[{			
 														uniqueID: 0,
 														description: 'Ticket valide pour les 3 jours du festival',
 														ticketLeft: 99999,
@@ -104,4 +104,6 @@ mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {
 	console.log("\t--> Successfully connected to the database!\n");
 
 	updateRefID(db);
+
+	console.log("\t--> update success!\n");
 });
