@@ -7,11 +7,23 @@ exports.config = {
   ],
 
   capabilities: {
-    'browserName': 'chrome'
+    'browserName': 'chrome',
+    'count': 5
   },
 
   baseUrl: 'http://localhost:4711/',
 
-  frameworks: ['mocha', 'jasmine']
+  frameworks: ['mocha', 'jasmine'],
+
+  //After each instance
+  onCleanUp: function(exitCode) {
+
+  },
+  //After all instance
+  afterLaunch: function() {
+
+  },
+
+  resultJsonOutputFile: './outputTest.txt'
 };
 

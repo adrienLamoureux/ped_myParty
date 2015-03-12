@@ -49,20 +49,6 @@ describe('Test suite for userModel', function() {
 		insertDb(done);
 	});
 
-	/*afterEach(function() {
-		var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
-		mongoclient.open(function(err, mongoclient) {
-			var db = mongoclient.db("test_mongodb");
-			db.collection('user', function(err, userCollection){
-				userCollection.find().toArray(function(err, userDocs){
-					console.log('');
-					console.log('End of a test');
-					console.log(userDocs);
-				});
-			});
-		});
-	});	*/
-
 	describe('finding tests', function(){
 		it('find a user', function(done){
 			userModel.find().exec().then(function (coll) {
@@ -131,31 +117,10 @@ describe('Test suite for userModel', function() {
 				done();
 			});
 		});
+
 		afterEach(function(done){
 			clearDb(done);
 			insertDb(done);
 		});
-	});
-/*
-	describe('deleting tests', function(){
-		it('remove a user', function(done){
-			userModel.find(function (err, coll) {
-				userModel.remove({_id: coll[0]._id}, function (err, result){
-					assert.equal(err, null);
-					userModel.findOne({_id: coll[0]._id}, function (err, result){
-						assert.equal(err, null);
-						assert.equal(result, null);
-						done();
-					});
-				});
-			});
-		});
-		afterEach(function(){
-			insertDb();
-		});
-	});
-*/
-	it('next', function(){
-		//require('./testEvent.js');
 	});
 });

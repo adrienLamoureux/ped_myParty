@@ -49,21 +49,6 @@ describe('Test suite for imageModel', function() {
 		insertDb(done);
 	});
 
-	/*afterEach(function() {
-		var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
-		mongoclient.open(function(err, mongoclient) {
-			var db = mongoclient.db("test_mongodb");
-			db.collection('commands', function(err, commandsCollection){
-				commandsCollection.find().toArray(function(err, commandsDocs){
-					console.log('');
-					console.log('End of a test');
-					console.log(commandsDocs);
-				});
-			});
-		});
-	});*/
-
-
 	describe('finding test', function(){
 		it('find an image', function(done){
 			imageModel.find().exec().then(function (coll) {
@@ -144,30 +129,10 @@ describe('Test suite for imageModel', function() {
 				done();
 			});
 		});
+
 		afterEach(function(done){
 			clearDb(done);
 			insertDb(done);
 		});
-	});
-/*
-	describe('deleting tests', function(){
-		it('remove an commands', function(){
-			imageModel.find(function (err, coll) {
-				imageModel.remove({_id: coll[0]._id}, function (err, result){
-					assert.equal(err, null);
-					imageModel.findOne({_id: coll[0]._id}, function (err, result){
-						assert.equal(err, null);
-						expect(result).toBeNull();
-					});
-				});
-			});
-		});
-		afterEach(function(){
-			insertDb();
-		});
-	});
-*/
-	it('next', function(){
-		//require('./testLinkUserEventCommands');
 	});
 });

@@ -43,20 +43,6 @@ describe('Test suite for ticketModel', function() {
 		insertDb(done);
 	});
 
-	/*afterEach(function() {
-		var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
-		mongoclient.open(function(err, mongoclient) {
-			var db = mongoclient.db("test_mongodb");
-			db.collection('event', function(err, eventCollection){
-				eventCollection.find().toArray(function(err, eventDocs){
-					console.log('');
-					console.log('End of a test');
-					console.log(eventDocs);
-				});
-			});
-		});
-	});*/
-
 	describe('finding test', function(){
 		it('find a ticket', function(done){
 			ticketModel.find().exec().then(function (coll) {
@@ -129,26 +115,4 @@ describe('Test suite for ticketModel', function() {
 			insertDb(done);
 		});
 	});
-	
-/*
-	describe('deleting tests', function(){
-		it('remove an event', function(){
-			ticketModel.find(function (err, coll) {
-				ticketModel.remove({_id: coll[0]._id}, function (err, result){
-					assert.equal(err, null);
-					ticketModel.findOne({_id: coll[0]._id}, function (err, result){
-						assert.equal(err, null);
-						assert.equal(result, null);
-					});
-				});
-			});
-		});
-		afterEach(function(){
-			insertDb();
-		});
-	});
-*/
-	it('next', function(){
-		//require('./testCommands.js');
-	})
 });

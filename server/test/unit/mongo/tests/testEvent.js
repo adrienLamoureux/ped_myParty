@@ -65,20 +65,6 @@ describe('Test suite for eventModel', function() {
 		insertDb(done);
 	});
 
-	/*afterEach(function() {
-		var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
-		mongoclient.open(function(err, mongoclient) {
-			var db = mongoclient.db("test_mongodb");
-			db.collection('event', function(err, eventCollection){
-				eventCollection.find().toArray(function(err, eventDocs){
-					console.log('');
-					console.log('End of a test');
-					console.log(eventDocs);
-				});
-			});
-		});
-	});*/
-
 	describe('finding test', function(){
 		it('find an event', function(done){
 			eventModel.find().exec().then(function (coll) {
@@ -173,26 +159,4 @@ describe('Test suite for eventModel', function() {
 			insertDb(done);
 		});
 	});
-	
-/*
-	describe('deleting tests', function(){
-		it('remove an event', function(){
-			eventModel.find(function (err, coll) {
-				eventModel.remove({_id: coll[0]._id}, function (err, result){
-					assert.equal(err, null);
-					eventModel.findOne({_id: coll[0]._id}, function (err, result){
-						assert.equal(err, null);
-						assert.equal(result, null);
-					});
-				});
-			});
-		});
-		afterEach(function(){
-			insertDb();
-		});
-	});
-*/
-	it('next', function(){
-		//require('./testCommands.js');
-	})
 });

@@ -42,4 +42,4 @@ testEvent();
 testCommands();
 testImage();
 testTicket();
-//testLinkUserEventCommands();
+//testLinkModels();
