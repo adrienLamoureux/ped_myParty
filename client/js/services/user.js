@@ -1,13 +1,8 @@
 // Recuperer le panier avec l'id de l'utilisateur
 app.factory('User', ['$resource', function($resource){
-	return $resource('./../api/user/:id', {id: '@_id'},
-		{'query': {method: 'GET', isArray:true}}
-	);		
-}]);
-
-// Ajouter un article au panier
-app.factory('AddTicketToBasket', ['$resource', function($resource){
 	return $resource('./../api/user/:id', {id: '@_id'}, {
-		'update' : {method: 'PUT', isArray:false},
-	});		
+		get : {method: 'GET', isArray:false},
+  		post : {method: 'POST', isArray:false},
+  		put: {method:'PUT', isArray:false}
+  	});  
 }]);

@@ -26,6 +26,22 @@
 	#page{
 		margin-top:50px; /* required to let some place for the top-fixed main menu bar. */
 	}
+/*********************************/
+/*** Profile Image ************************/
+/***      ************************/
+.roundedImage{
+    overflow:hidden;
+    -webkit-border-radius:50px;
+    -moz-border-radius:50px;
+    border-radius:50px;
+    width:90px;
+    height:90px;
+}
+
+.roundedImage img{
+	width: 90px;
+	height: 90px;
+}
 
 
 /*********************************/
@@ -144,6 +160,21 @@
 /*********************************/
 /*** mineEvents ******************/
 /***            ******************/
+	nav#mineEventNav{
+		padding:40px;
+	}
+
+	div#content{
+		padding:0px 20px 20px 20px;
+		border: 1px solid black;
+		-webkit-border-radius: 10px;
+		 -khtml-border-radius: 10px;
+		   -moz-border-radius: 10px;
+			-ms-border-radius: 10px;
+			 -o-border-radius: 10px;
+				border-radius: 10px;
+	}
+
 	#mineEvents{
 		color:white;
 		background-color: rgba(0, 0, 0, 0.90);
@@ -157,20 +188,20 @@
 				border-radius: 10px;
 	}
 
-	#mineEvents #income td{
+	#mineEvents table.income td{
 		border:solid 1px lightgrey;
 	}
 
-	#mineEvents table#income{
+	#mineEvents table.income{
 		margin-left:auto;
 		margin-right:auto;
 	}
 
-	#mineEvents table#income th{
+	#mineEvents table.income th{
 		padding-top:5px;
 		padding-bottom:5px;
 	}
 
-	#mineEvents #management{
+	#mineEvents .management{
 		margin-bottom: 20px;
 	}

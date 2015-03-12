@@ -1,5 +1,5 @@
 // Application MyParty
-var app = angular.module('MyPartyApp', ['naif.base64', 'ngRoute', 'ngResource', 'ja.qr', 'UserApp']);
+var app = angular.module('MyPartyApp', ['naif.base64', 'ngRoute', 'ngResource', 'ja.qr', 'UserApp','ngProgress']);
 
 app.config(function($routeProvider){
 	$routeProvider
@@ -56,11 +56,11 @@ app.config(function($routeProvider){
 			controller: 'EventCtrl'
 		})
 		.when('/login',{
-			templateUrl : './layouts/login.html',
+			templateUrl : './partials/login.html',
 			login: true
 		})
 		.when('/signup', {
-			templateUrl : './layouts/signup.html',
+			templateUrl : './partials/signup.html',
 			public: true
 		})
 		.when('/verify/email', {

@@ -1,49 +1,58 @@
 <!-- UserEvents Template -->
-<h1> Revenu total : {{income}} €</h1>
-<div class="container">
-	<div id="mineEvents" ng-repeat="event in events" class="col-md-6 col-xs-12">		
-		<!-- picture -->
-		<a class="col-md-5 col-xs-4 block-left" id="show" href="#/event/{{event._id}}"><img ng-src="data:{{event.imageSmall.filetype}};base64,{{event.imageSmall.base64}}" class="img-thumbnail" alt="{{event.title}}"></a>
-		
-		<!-- management -->
-		<div id="management" class="col-md-7 col-xs-8 text-right">	
-			<a id="edit" ng-hide="event.online" class="btn btn-primary" ng-href="#/event/{{event._id}}/edit">
-				Editer
-			</a>
-			<button id="publish" ng-hide="event.online || dateExpired(event.dateStarting)" class="btn btn-primary" confirmed-click="publish(event)" ng-confirm-click="Etes-vous sûr de vouloir publier l'événement {{event.title}} ?" >
-				Publier
-			</button>
-			<button id="delete" ng-hide="event.online" class="btn btn-danger" confirmed-click="delete(event)" ng-confirm-click="Etes-vous sûr de vouloir supprimer l'événement {{event.title}} ?">
-				Supprimer
-			</button>
-			<button id="cancel" ng-show="event.online && !dateExpired(event.dateStarting)" class="btn btn-danger" confirmed-click="cancel(event)" ng-confirm-click="Etes-vous sûr de vouloir annuler l'événement {{event.title}} ?
-	 (Tous les clients seront remboursés)">
-				Annuler
-			</button>
-			<span id="noActions" ng-show="event.online && dateExpired(event.dateStarting)" class="span-text span-error">
-				Evénement en cours ou expiré !
-				<br/>(aucune action possible)
-			</span>
-		</div>
+<!--Menu-->
+<nav id="mineEventNav">
+	<button type="button" class="btn btn-primary col-sm-6 col-xs-12" ng-click="organised=true; participed=false;">Les événements que j'organise</button>
+	<button type="button" class="btn btn-primary col-sm-6 col-xs-12" ng-click="organised=false; participed=true;">Les événements auxquels je participe</button>
+</nav>
 
-		<!-- income -->
-		<table id="income" class="col-md-7 col-xs-12">
-			<tr>
-				<th>Qté</th>
-				<th class="col-md-8 text-center">Type billet</th>
-				<th>Prix</th>
-				<th>Total</th>
-			</tr>
-			<tr id="ticketTypeIncome" ng-repeat="ticketType in event.ticketsType">
-				<td class="col-md-1 text-right">{{ticketType.sold}}</td>
-				<td class="col-md-8 text-center">{{ticketType.type}}</td>
-				<td class="col-md-1 text-right">{{ticketType.price}}</td> 
-				<td class="col-md-2 text-right">{{ticketType.income}}</td>
-			</tr>
-			<tr id="totalIncome">
-				<th class="text-right" colspan="3"> Revenu total </th>
-				<td class="text-right"> {{event.income}}€</td>
-			</tr>
-		</table>		
+<!--Organisés-->
+<div id="content" ng-show="organised">
+	<h1> Revenu global : {{income}} €</h1>
+	<div class="container">
+		<div id="mineEvents" ng-repeat="event in events" class="col-md-6 col-xs-12">		
+			<!-- picture -->
+			<a class="col-md-5 col-xs-4 block-left" id="show{{$index+1}}" href="#/event/{{event._id}}"><img ng-src="data:{{event.imageSmall.filetype}};base64,{{event.imageSmall.base64}}" class="img-thumbnail" alt="{{event.title}}"></a>
+			
+			<!-- management -->
+			<div id="management{{$index+1}}" class="management col-md-7 col-xs-8 text-right">	
+				<a id="edit{{$index+1}}" ng-hide="event.online" class="btn btn-primary" ng-href="#/event/{{event._id}}/edit">
+					Editer
+				</a>
+				<button id="publish{{$index+1}}" ng-hide="event.online || dateExpired(event.dateStarting)" class="btn btn-primary" confirmed-click="publish(event)" ng-confirm-click="Etes-vous sûr de vouloir publier l'événement {{event.title}} ?" >
+					Publier
+				</button>
+				<button id="delete{{$index+1}}" ng-hide="event.online" class="btn btn-danger" confirmed-click="delete(event)" ng-confirm-click="Etes-vous sûr de vouloir supprimer l'événement {{event.title}} ?">
+					Supprimer
+				</button>
+				<button id="cancel{{$index+1}}" ng-show="event.online && !dateExpired(event.dateStarting)" class="btn btn-danger" confirmed-click="cancel(event)" ng-confirm-click="Etes-vous sûr de vouloir annuler l'événement {{event.title}} ?
+		 (Tous les clients seront remboursés)">
+					Annuler
+				</button>
+				<span id="noActions{{$index+1}}" ng-show="event.online && dateExpired(event.dateStarting)" class="span-text span-error">
+					Evénement en cours ou expiré !
+					<br/>(aucune action possible)
+				</span>
+			</div>
+
+			<!-- income -->
+			<table id="income{{$index+1}}" class="income col-md-7 col-xs-12">
+				<tr>
+					<th>Ventes</th>
+					<th class="col-md-8 text-center">Type billet (Qté)</th>
+					<th>Prix</th>
+					<th>Total</th>
+				</tr>
+				<tr id="ticketTypeIncome{{$index+1}}" ng-repeat="ticketType in event.ticketsType">
+					<td class="col-md-1 text-right">{{ticketType.sold}}</td>
+					<td class="col-md-8 text-center">{{ticketType.type}} ({{ticketType.ticketLeft + ticketType.sold}})</td>
+					<td class="col-md-1 text-right">{{ticketType.price}}</td> 
+					<td class="col-md-2 text-right">{{ticketType.income}}</td>
+				</tr>
+				<tr id="totalIncome{{$index+1}}">
+					<th class="text-right" colspan="3"> Revenu Total :</th>
+					<td class="text-right"> {{event.income}}€</td>
+				</tr>
+			</table>		
+		</div>
 	</div>
 </div>
