@@ -43,14 +43,13 @@
 				<a id="edit{{$index+1}}" ng-hide="event.online" class="btn btn-primary" ng-href="#/event/{{event._id}}/edit">
 					Editer
 				</a>
-				<button id="publish{{$index+1}}" ng-hide="event.online || dateExpired(event.dateStarting)" class="btn btn-primary" confirmed-click="publish(event)" ng-confirm-click="Etes-vous sûr de vouloir publier l'événement {{event.title}} ?" >
+				<button id="publish{{$index+1}}" ng-hide="event.online || dateExpired(event.dateStarting)" class="btn btn-primary" ng-click="publish(event)" >
 					Publier
 				</button>
-				<button id="delete{{$index+1}}" ng-hide="event.online" class="btn btn-danger" confirmed-click="delete(event)" ng-confirm-click="Etes-vous sûr de vouloir supprimer l'événement {{event.title}} ?">
+				<button id="delete{{$index+1}}" ng-hide="event.online" class="btn btn-danger" ng-click="delete(event)">
 					Supprimer
 				</button>
-				<button id="cancel{{$index+1}}" ng-show="event.online && !dateExpired(event.dateStarting)" class="btn btn-danger" confirmed-click="cancel(event)" ng-confirm-click="Etes-vous sûr de vouloir annuler l'événement {{event.title}} ?
-		 (Tous les clients seront remboursés)">
+				<button id="cancel{{$index+1}}" ng-show="event.online && !dateExpired(event.dateStarting)" class="btn btn-danger" ng-click="cancel(event)">
 					Annuler
 				</button>
 				<span id="noActions{{$index+1}}" ng-show="event.online && dateExpired(event.dateStarting)" class="span-text span-error">
