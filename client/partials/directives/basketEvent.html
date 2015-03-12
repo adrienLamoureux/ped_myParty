@@ -1,4 +1,5 @@
 <br>
+Directive
 <div ng-show="event.tickets.length > 0">
   <div class="col-lg-offset-1 col-lg-10">
     <fieldset class="scheduler-border fieldfield">
@@ -19,20 +20,20 @@
                 &nbsp; {{event.eventTitle}}
               </legend>
 
-              <td>{{ticket.type}}</td>
+              <td>{{ticket.entitled}}</td>
               <td>{{ticket.price}} €</td>
               <td>
                 <button class="btn-xs">
-                  <span class="glyphicon glyphicon-minus" ng-click="decrement(event.eventID,ticket.ticketType,ticket.quantity)"></span>
+                  <span class="glyphicon glyphicon-minus" ng-click="decrement(event.eventID,ticket.ticketType,ticket.nbTicket)"></span>
                 </button>
                 &nbsp;&nbsp;
-                <strong>{{ticket.quantity}}</strong>
+                <input ng-model="ticket.nbTicket" ng-readonly="true"></input>
                 &nbsp;&nbsp;
                 <button class="btn-xs">
-                  <span class="glyphicon glyphicon-plus" ng-click="increment(event.eventID,ticket.ticketType)"></span>
+                  <span class="glyphicon glyphicon-plus" ng-click="increment(event.eventID,ticket.ticketType,ticket.nbTicket)"></span>
                 </button>
               </td>
-              <td>{{ticket.price*ticket.quantity}} €</td>
+              <td>{{ticket.price*ticket.nbTicket}} €</td>
               <td>
                 <button class="btn-xs label-danger">
                   <span ng-click="deleteElement(event.eventID,ticket.ticketType,ticket.type)" class="glyphicon glyphicon-remove"></span>
