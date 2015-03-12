@@ -13,22 +13,22 @@
 
 
 /*********************************/
-/*** login ***********************/
-/***     *************************/
-
-#login {
-	padding-top: 80px;	
-}
-
-/*********************************/
 /*** page ************************/
 /***      ************************/
 	#page{
 		margin-top:50px; /* required to let some place for the top-fixed main menu bar. */
 	}
+
+
 /*********************************/
-/*** Profile Image ************************/
-/***      ************************/
+/*** login ***********************/
+/***       ***********************/
+	#login {
+		padding-top: 80px;	
+	}
+/*********************************/
+/*** Profile Image ***************/
+/***               ***************/
 .roundedImage{
     overflow:hidden;
     -webkit-border-radius:50px;
@@ -46,7 +46,7 @@
 
 /*********************************/
 /*** eventPage *******************/
-/***      ************************/
+/***           *******************/
 	#eventPage{
 		width:100%;
 		color: #FFF;
@@ -54,9 +54,9 @@
 		font-family: "Century Gothic",arial,serif;
 		text-align: left;
 		padding-top:20px;
-		background:black;
 	}
 	#eventPage #eventImage{
+		color:black;
 		margin-top:10px;
 		margin-bottom:20px;
 	}
@@ -103,6 +103,8 @@
 		font-weight: bolder;
 		margin-left:10px;
 	}
+
+
 /*********************************/
 /*** eventFrm ********************/
 /***          ********************/
@@ -157,6 +159,7 @@
 	  	border: 1px solid green;
 	}
 
+
 /*********************************/
 /*** mineEvents ******************/
 /***            ******************/
@@ -188,20 +191,30 @@
 				border-radius: 10px;
 	}
 
+	#mineEvents h2{
+		margin:0px;
+	}
+
+	#mineEvents .eventSmallImage{
+		margin-top:10px;
+		margin-bottom:10px;
+	}
+
+	#mineEvents table.income{
+		margin-bottom:5px;
+	}
 	#mineEvents table.income td{
 		border:solid 1px lightgrey;
 	}
-
 	#mineEvents table.income{
 		margin-left:auto;
 		margin-right:auto;
 	}
-
 	#mineEvents table.income th{
 		padding-top:5px;
 		padding-bottom:5px;
 	}
 
-	#mineEvents .management{
-		margin-bottom: 20px;
+	#mineEvents div.management{
+		padding-top:15px;
 	}
