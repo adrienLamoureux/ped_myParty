@@ -105,7 +105,6 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 					panier.push(newBasketEventTicket);
 				}
 
-
 				console.log(panier);
 				$scope.Myuser.basket = panier;
 				console.log($scope.Myuser);
@@ -115,6 +114,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 					User.put({id:$rootScope.user.user_id}, $scope.Myuser, function (res2, e){
 						console.log("Update reussie");
 						console.log(res2);
+						window.location.reload();
 					}, function (){
 						console.log("Erreur lors de l'update du USER et son nouveau panier");
 					});
