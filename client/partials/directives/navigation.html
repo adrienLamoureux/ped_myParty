@@ -13,9 +13,16 @@
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul id="menu" class="nav navbar-nav">
 				<li id="bt_home" ng-class="activeMenu==0? 'active' : 'notActive'"><a href="#/" ng-click="changeActiveMenu(0)">Accueil</a></li>
-				<li id="bt_account" ng-show="user.authenticated" ng-class="activeMenu==5? 'active' : 'notActive'"><a href="#/usr" ng-click="changeActiveMenu(5)">Mon Compte</a></li>
-				<li id="bt_mineEvents"ng-show="user.authenticated" ng-class="activeMenu==10? 'active' : 'notActive'"><a href="#/usr/events" ng-click="changeActiveMenu(10)">Mes Evenements</a></li>
-				<li id="bt_mineOrders" ng-show="user.authenticated" ng-class="activeMenu==15? 'active' : 'notActive'"><a href="#/usr/cmds" ng-click="changeActiveMenu(15)">Mes Commandes</a></li>
+
+ 		 <li class="dropdown" ng-show="user.authenticated" >
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mon Compte <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+       		   	<li><a href="#/usr/events" >Mes Evenements</a></li>
+				<li><a href="#/usr/cmds" >Mes Commandes</a></li>
+				<li><a href="#/usr"> Mon Profil </a></li>
+          </ul>
+        </li>
+
 			</ul>
 			<ul id="menu" class="nav navbar-nav pull-right">
 				<li id="bt_createEvent" ng-show="user.authenticated" ng-class="activeMenu==18? 'active' : 'notActive'"><a href="#/event/create" ng-click="changeActiveMenu(18)">Organiser un Evenement</a></li>
