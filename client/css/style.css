@@ -250,26 +250,34 @@
 		background:white;
 		padding:0px;
 		border: 1px solid #cecece;
-		height:300px;
+		height:250px;
 		width:800px;
 		text-align:left;
 		margin-left:auto;
 		margin-right:auto;
+		margin-top:80px;
+		margin-bottom:0px;
+		padding:0px;
 	}
-	#ticket td.fixTotal{
-		width:320px;
+	#ticket h3{
+		margin-bottom:5px;
+		margin-top:0px;
+		padding-top:0px;
 	}
-	#ticket tr.fixTop{
-		height:100px;
+	#ticket h2{
+		margin:0px;
+		padding:0px;
 	}
-	#ticket tr.fixBottom{
-		height:200px;
+	#ticket table{
+		margin-left:15px;
 	}
 	#ticket img.eventSmallImage{
-		width:300px;
+		width:250px;
+		margin:0px;
+		padding:0px;
 	}
-	#ticket p{
-		margin-left:20px;
+	#ticket td.info{
+		padding-left:15px;
 	}
 
 

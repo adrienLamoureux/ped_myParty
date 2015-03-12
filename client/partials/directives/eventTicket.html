@@ -9,7 +9,7 @@
 					<td colspan="2" >
 						<h2>{{event.title}}</h2>
 						<p>
-							Du {{event.dateStarting | date:'dd/MM/yyyy'}} au {{event.dateEnding | date:'dd/MM/yyyy'}}
+							Du {{event.dateStarting | date:'dd/MM/yyyy'}} au {{event.dateEnding | date:'dd/MM/yyyy'}}.
 						</p>	
 					</td>
 				</tr>
@@ -17,12 +17,12 @@
 					<td>
 						<qr class="qrCode" type-number="8" correction-level="'M'" size="150" text="qrcode" image="true"></qr>
 					</td>
-					<td>
-						<p>
-							<strong>Type : {{ticket.type}}</strong><br/>
+					<td class="info">
+						<h3>{{ticket.type}}</h3>
+						<p>	
 							<strong>Description :</strong> {{ticket.description}}<br/>
-							<strong>Prix :</strong> {{ticket.price}}<br/>
-							<strong>Date d'expiration :</strong> {{ticket.expirationDate | date:'dd/MM/yyyy'}}<br/>
+							<strong>Prix :</strong> {{ticket.price}} €<br/>
+							<strong>Date d'expiration :</strong> {{ticket.expirationDate | date:'dd/MM/yyyy'}}
 						</p>
 					</td>
 				</tr>

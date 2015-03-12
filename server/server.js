@@ -144,7 +144,7 @@ app.delete('/api/event/:id/images', function (req, res, next){
 app.get('/api/user', passport.authenticate('userapp'),
   function(req, res) {
     res.send({ user: req.user });
- });
+});
 
 
 app.get('/api/user/:id', function (req, res, next){
