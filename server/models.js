@@ -18,10 +18,6 @@ var basketEventTicket = new Schema ({
 	tickets : [tQuantity]
 }, {collection: 'basketEventTicket'})
 
-var basketSchema = new Schema({
-	basketEventTicket:[basketEventTicket]
-}, {collection: 'basket'});
-
 // Association ticket for event
 var eventTicket = new Schema({
 	eventID: {type: mongoose.Schema.Types.ObjectId, ref:'eventModel'},

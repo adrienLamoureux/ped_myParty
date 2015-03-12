@@ -1,11 +1,10 @@
 <!-- Basket Template --> 
 <br>
-Template
 <!--<div ng-show="calculateTotal() > 0"> -->
 
 	<div class="col-lg-offset-1">
 		<br>
-		<h3> Cher {{user.firstName}} {{user.name}}, votre Panier : </h3>
+		<h3> Cher {{user.first_name}} {{user.last_name}}, votre Panier : </h3>
 		<br>
 	</div>
 <!--
@@ -17,10 +16,8 @@ Template
 		<basket-event></basket-event>
 	</div>
 
-<basket-event></basket-event>
-
 	<div class="text-center">
-		<strong> Total : {{calculateTotal()}} €</strong>
+		<strong> Total : {{totalOfBasket}} €</strong>
 	</div>
 
 	<div class="text-center">

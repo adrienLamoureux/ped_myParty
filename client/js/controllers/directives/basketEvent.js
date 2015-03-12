@@ -1,13 +1,13 @@
 // BasketEvent Directive Controller
 app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', '$routeParams', function ($rootScope, $scope, User, Event, $routeParams){
 
-$scope.user = null;
-$scope.basketOfUser = [];
+	$scope.basketOfUser = [];
+	console.log($rootScope.user)
 
-function getBasketWithUserId() {
-	$scope.user = User.get({id:$rootScope.user.user_id}, function (res, e){
-	console.log('Récuperation de l\'utilisateur réussie :'+$scope.user.apiID);
-	console.log(res);
+	function getBasketWithUserId() {
+		$scope.theUser = User.get({id:$rootScope.user.user_id}, function (res, e){
+			console.log('Récuperation de l\'utilisateur réussie :'+$scope.theUser.apiID);
+			console.log(res);
 		// On test si il un panier est deja associé au User et si il contient deja des articles
 		if(typeof(res.basket) != 'undefined' && res.basket.length > 0){
 			// Si oui alors on recupere les datas
@@ -18,49 +18,33 @@ function getBasketWithUserId() {
 		}else{
 			console.log("Panier vide");
 		}
-
+		$scope.totalOfBasket = calculateTotal();
 	}, function (){
-	console.log('Récuperation de l\'utilisateur échoué');
-	console.log(e);
+		console.log('Récuperation de l\'utilisateur échoué');
+		console.log(e);
 	})
-}
-
-
-
-//fonction permettant de décrémenter le nombre d'un element du panier
-	$scope.decrement = function(eventid,type,qtty){
 	}
 
-	/*fonction permettant de décrémenter le nombre d'un element du panier
-	$scope.decrement = function(eventid,type,qtty){
-		alert("DECREMENTER:"+eventid+" "+type+" "+qtty)
-		if(qtty > 1){
-			for(i=0;i<$scope.user.basket[0].eventTickets.length;i++){
-				if($scope.user.basket[0].eventTickets[i].eventID == eventid){
-					for(j=0;j<$scope.user.basket[0].eventTickets[i].tickets.length;j++){
-						if($scope.user.basket[0].eventTickets[i].tickets[j].ticketTypeNb == type){
-							$scope.user.basket[0].eventTickets[i].tickets.splice(j,1);
-							j = $scope.user.basket[0].eventTickets[i].tickets.length;
-						}
-					}
+	//fonction permettant de recalculer le total
+	function calculateTotal(){
+		var total = 0;
+		console.log($scope.basketOfUser)
+		if($scope.basketOfUser.length > 0) {
+			for(i=0;i<$scope.basketOfUser.length;i++){
+				for(j=0;j<$scope.basketOfUser[i].tickets.length;j++){
+					total = total + $scope.basketOfUser[i].tickets[j].price * $scope.basketOfUser[i].tickets[j].nbTicket;
 				}
 			}
-				// On update le panier
-				User.update({id:$rootScope.user.user_id}, $scope.user, function (res, e){
-				}, function (){
-					alert ('Mise a jour du panier panier : ERREUR');
-				});
-				
-			}else{
-				// Rien ne se passe, on ne decremente pas 1
-			}
-		 //qtty--;
-		} */
+		}
+		console.log(total);
+		return total;
+	}
+
+
 
 
 // Fonctions lancées lors de l'execution du controleur 
 getBasketWithUserId();
-
 }]);
 
 
