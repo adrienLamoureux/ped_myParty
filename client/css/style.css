@@ -10,6 +10,10 @@
 	body{
 		background:lightgrey;
 	}
+	div.search{
+		margin-top:20px;
+		margin-bottom:10px;
+	}
 
 /*********************************/
 /*** dropdown menu ***************/
@@ -183,7 +187,7 @@
 /*** mineEvents ******************/
 /***            ******************/
 	nav#mineEventNav{
-		padding:40px;
+		padding-top:40px;
 	}
 
 	div#content{
