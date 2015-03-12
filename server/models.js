@@ -9,7 +9,8 @@ var tQuantity = new Schema({
 	ticketType: Number,
 	nbTicket: Number,
 	price: Number,
-	entitled: String
+	entitled: String,
+	expirationDate:Date
 }, {collection:'tQuantity'});
 
 var basketEventTicket = new Schema ({

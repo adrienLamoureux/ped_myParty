@@ -1,5 +1,5 @@
 //EventController
-app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'EventImages','User', function ($rootScope, $scope, $routeParams, Event, EventImages, User){
+app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'EventImages','User', '$window', function ($rootScope, $scope, $routeParams, Event, EventImages, User, $window){
 	//URL event argument
 
 	if(angular.isDefined($routeParams.id)){
@@ -16,7 +16,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 
 	$scope.Myuser = null;
 
-	$scope.addToBasket = function(numberplace, ticketType, ticketPrice, ticketDescription, ticketleft, eventTitle){
+	$scope.addToBasket = function(numberplace, ticketType, ticketPrice, ticketDescription, ticketleft, expirationDate, eventTitle){
 		//alert("numberplace = "+numberplace+" ticketType = "+ticketType+" ticketPrice = "+ticketPrice+" ticketDescription = "+ticketDescription+" ticketleft = "+ticketleft+" eventTitle = "+eventTitle);
 
 		// On commence par regarder si le ticket type de cet evenement est bien disponible
@@ -64,7 +64,8 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 										ticketType: ticketType,
 										nbTicket: numberplace,
 										price: ticketPrice,
-										entitled: ticketDescription
+										entitled: ticketDescription,
+										expirationDate: expirationDate
 									}
 									// Et on ajoute ce ticket
 									panier[i].tickets.push(newTQuantity);
@@ -76,14 +77,13 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 								var newBasketEventTicket = {
 									eventID: $routeParams.id,
 									eventTitle: eventTitle,
-									tickets: [
-									{
+									tickets: [{
 										ticketType: ticketType,
 										nbTicket: numberplace,
 										price: ticketPrice,
-										entitled: ticketDescription
-									}
-									]
+										entitled: ticketDescription,
+										expirationDate: expirationDate
+									}]
 								}
 								panier.push(newBasketEventTicket);
 							}
@@ -93,15 +93,14 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 					var newBasketEventTicket = {
 						eventID: $routeParams.id,
 						eventTitle: eventTitle,
-						tickets: [
-							{
+						tickets: [{
 							ticketType: ticketType,
 							nbTicket: numberplace,
 							price: ticketPrice,
-							entitled: ticketDescription
-							}
-						]
-					}
+							entitled: ticketDescription, 
+							expirationDate: expirationDate
+						}]
+					};
 					panier.push(newBasketEventTicket);
 				}
 
@@ -123,7 +122,8 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 				console.log("Probleme lors de l\'ajout du ticket, erreur lors de la recuperation du panier utilisateur");
 			});
 		}
-	}
+		//$window.location.reload();
+	};
 
 	$scope.dateNotExpired=function(date){
 		return Date.parse(date)>Date.now();

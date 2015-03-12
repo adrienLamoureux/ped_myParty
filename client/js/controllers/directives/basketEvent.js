@@ -1,5 +1,5 @@
 // BasketEvent Directive Controller
-app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', '$routeParams', function ($rootScope, $scope, User, Event, $routeParams){
+app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams){
 
 	$scope.basketOfUser = [];
 	console.log($rootScope.user)
@@ -8,22 +8,22 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', '$rou
 		$scope.theUser = User.get({id:$rootScope.user.user_id}, function (res, e){
 			console.log('Récuperation de l\'utilisateur réussie :'+$scope.theUser.apiID);
 			console.log(res);
-		// On test si il un panier est deja associé au User et si il contient deja des articles
-		if(typeof(res.basket) != 'undefined' && res.basket.length > 0){
-			// Si oui alors on recupere les datas
-			for(i=0;i<res.basket.length;i++){
-				$scope.basketOfUser.push(res.basket[i]);
+			// On test si il un panier est deja associé au User et si il contient deja des articles
+			if(typeof(res.basket) != 'undefined' && res.basket.length > 0){
+				// Si oui alors on recupere les datas
+				for(i=0;i<res.basket.length;i++){
+					$scope.basketOfUser.push(res.basket[i]);
+				}
+				console.log($scope.basketOfUser);
+			}else{
+				console.log("Panier vide");
 			}
-			console.log($scope.basketOfUser);
-		}else{
-			console.log("Panier vide");
-		}
-		$scope.totalOfBasket = calculateTotal();
-	}, function (){
-		console.log('Récuperation de l\'utilisateur échoué');
-		console.log(e);
-	})
-	}
+			$scope.totalOfBasket = calculateTotal();
+		}, function (){
+			console.log('Récuperation de l\'utilisateur échoué');
+			console.log(e);
+		});
+	};
 
 	//fonction permettant de recalculer le total
 	function calculateTotal(){
@@ -38,13 +38,94 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', '$rou
 		}
 		console.log(total);
 		return total;
-	}
+	};
 
+	// Fonctions lancées lors de l'execution du controleur 
+	getBasketWithUserId();
 
+	/*$scope.submitBasket = function(){
+		var userCmd = Command.get({id:$scope.theUser.commandsID}, function (cmd){
+			userCmd = cmd;
 
+			var cmds = {
+				'dateBuy': Date.now(),
+				'eventTickets':[]
+			};
 
-// Fonctions lancées lors de l'execution du controleur 
-getBasketWithUserId();
+			angular.forEach($scope.basketOfUser, function (evnt, key1){
+				var completeEvent = Event.get({id:evnt.eventID}, function (evn){
+					completeEvent = evn;
+					
+					console.log(evnt.eventTitle);
+					var evntTickets = {
+						'eventID': evnt.eventID,
+						'tickets':[]
+					};
+					// tickets du panier
+					angular.forEach(evnt.tickets, function(ticket, key2){
+						angular.forEach(completeEvent.ticketsType, function (tType, key3){
+							
+							if (tType.uniqueID == ticket.ticketType){
+								if (tType.ticketLeft >= ticket.nbTicket){
+	
+									tType.ticketLeft -= ticket.nbTicket;
+									tType.sold += ticket.nbTicket;
+	
+									Event.put({id:completeEvent._id}, completeEvent, function(data){
+										
+										console.log("Event Updated");
+										
+										var tckt = {
+											'userID': $rootScope.user.user_id,
+											'eventID': evnt.eventID,
+											'ticketTypeID': ticket.ticketType,
+											'expirationDate': ticket.expirationDate,
+											'used':false
+										};
+
+										for(i=0;i<ticket.nbTicket;i++) {
+											// création du ticket en base.
+											var mongoTicket = Ticket.post(tckt, function (ticketData){
+
+												mongoTicket = ticketData;
+
+												completeEvent.tickets.push(mongoTicket._id);
+												evntTickets.tickets.push(mongoTicket._id);
+											});
+										}
+
+										Event.put({id:completeEvent._id}, completeEvent, function (data){
+											console.log ("event Updated 2")
+										}, function (err){
+											console.log(err);
+										});
+									});
+								}
+								else {
+									alert("le nombre de billets souhaité n'est plus dispo à la vente, veuillez retenter votre achat ultérieurement. Merci de votre compréhension.");
+								}	
+							}
+						});
+					});
+					cmds.eventTickets.push(evntTickets);
+				}, function (err){
+					console.log (err);
+				});
+			});
+			
+			userCmd.commands.push(cmds);
+
+			Command.put({id:userCmd._id}, userCmd, function (data){
+				console.log("command Updated");
+			}, function (err){
+				console.log (err);
+			});
+
+		}, function (err){
+			console.log(err);
+		});
+	};
+	*/
 }]);
 
 
