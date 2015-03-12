@@ -11,6 +11,25 @@
 		background:lightgrey;
 	}
 
+/*********************************/
+/*** dropdown menu ***************/
+/***               ***************/
+	.inverse-dropdown{
+	  	background-color: #222;
+	  	border-color: #080808;
+	}
+	.inverse-dropdown li a{
+	    color: #999;
+	}
+	.inverse-dropdown li a:hover{
+	    color: white;
+	    background-color: #222;
+	}
+	.inverse-dropdown li a.active{
+	    color: white;
+	    background-color: black;
+	}
+
 
 /*********************************/
 /*** page ************************/
