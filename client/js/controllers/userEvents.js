@@ -1,5 +1,5 @@
 // User Events
-app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event', 'EventImages', 'EventByOrganizerId', '$window', function ($rootScope, $scope, $routeParams, Event, EventImages, EventByOrganizerId, $window){
+app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event', 'EventImages', 'EventByOrganizerId', '$window', 'User', 'Command', function ($rootScope, $scope, $routeParams, Event, EventImages, EventByOrganizerId, $window, User, Command){
 
 	//URL user argument
 	$scope.events = EventByOrganizerId.query({id:$rootScope.user.user_id}, function(data){
@@ -8,16 +8,39 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 		//compute Global Income
 		$scope.income = 0;
 		for (var e=0; e < $scope.events.length; ++e) {
-			console.log($scope.events[e]);
+			//console.log($scope.events[e]);
 			$scope.events[e].income = 0;
 		
 			for (var t=0; t < $scope.events[e].ticketsType.length; ++t) {
-				console.log($scope.events[e].ticketsType[t]);
+				//console.log($scope.events[e].ticketsType[t]);
 	    		$scope.events[e].ticketsType[t].income = $scope.events[e].ticketsType[t].sold * $scope.events[e].ticketsType[t].price;
 	    		$scope.events[e].income += $scope.events[e].ticketsType[t].income;
 	    	}
 	    	$scope.income += $scope.events[e].income;
 		}
+	});
+
+	$scope.participatedEvent = [];
+
+	var mongoUser = User.get({id:$rootScope.user.user_id}, function (data){
+		mongoUser = data;
+		console.log("User reccup");
+		console.log (mongoUser);
+		var commands = Command.get({id:mongoUser.commandsID}, function (cmds){
+			commands = cmds;
+			console.log("Commandes reccup");
+			console.log (commands);
+
+			angular.forEach(commands.commands, function (command, key1){
+				angular.forEach(command.eventTickets, function (eventT, key2){
+					console.log (eventT.eventID);	
+					var eventTmp = Event.get({id:eventT.eventID}, function (evnt){
+						eventTmp = 	evnt;
+						$scope.participatedEvent.push(eventTmp);
+					});
+				});
+			});
+		});
 	});
 	
 	$scope.organised=true;

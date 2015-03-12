@@ -171,6 +171,15 @@ app.get('/api/user/:id/command', function (req, res, next){
   });
 });
 
+app.post('/api/user', function (req, res, next){
+  console.log('new User : '+req.body);
+  var newUser = new userModel(req.body);
+  newUser.save(function (e, results){
+    if (e) return next(e);
+    console.log(results);
+  });
+});
+
 app.put('/api/user/:id', function (req, res, next){
 	delete req.body._id; //duplicate id bug
   console.log('put user');
@@ -209,19 +218,6 @@ app.delete('/api/ticket/:id', function (req, res, next){
 
 
 // Command
-/* jms utilisé ? */
-app.get('/api/command', function (req, res, next){
-	console.log('get commands');
-	commandsModel.find(function (e, result){
-		if (!err) {
-        return res.send(coll);
-    } else {
-        console.log(err);
-        next(err);
-	}
-	});
-});
-
 app.get('/api/command/:id', function (req, res, next) {
   console.log('get command '+req.params.id);
   commandsModel.findOne({_id: req.params.id}, function (e, result) {
