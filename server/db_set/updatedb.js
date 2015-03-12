@@ -35,7 +35,7 @@ var updateRefID = function(db){
 											userCollection.update({_id:userDocs[0]._id},{
 												$set: {
 													eventsID:[eventDocs[0]._id, eventDocs[1]._id, eventDocs[2]._id],
-													commandsID:[commandsDocs[0]._id]
+													commandsID:commandsDocs[0]._id
 												}
 											}, function(err, result){});
 											

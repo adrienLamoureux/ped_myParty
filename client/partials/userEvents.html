@@ -3,16 +3,21 @@
 <nav id="mineEventNav">
 	<button type="button" class="btn btn-primary col-sm-6 col-xs-12" ng-click="organised=true; participed=false;">Les événements que j'organise</button>
 	<button type="button" class="btn btn-primary col-sm-6 col-xs-12" ng-click="organised=false; participed=true;">Les événements auxquels je participe</button>
+	<br/>
+	Rechercher un évènement : 
+	<input value="barre de recherche" class="form-control" type="text" ng-model="search.title">
+	<br/>
 </nav>
 
 <!--Organisés-->
 <div id="content" ng-show="organised">
 	<h1> Revenu global : {{income}} €</h1>
 	<div class="container">
-		<div id="mineEvents" ng-repeat="event in events" class="col-md-6 col-xs-12">		
+		<div id="mineEvents" ng-repeat="event in events  | filter:search" class="col-md-6 col-xs-12">		
+			<h2>{{event.title}}</h2>
 			<!-- picture -->
 			<a class="col-md-5 col-xs-4 block-left" id="show{{$index+1}}" href="#/event/{{event._id}}"><img ng-src="data:{{event.imageSmall.filetype}};base64,{{event.imageSmall.base64}}" class="img-thumbnail" alt="{{event.title}}"></a>
-			
+
 			<!-- management -->
 			<div id="management{{$index+1}}" class="management col-md-7 col-xs-8 text-right">	
 				<a id="edit{{$index+1}}" ng-hide="event.online" class="btn btn-primary" ng-href="#/event/{{event._id}}/edit">
@@ -54,5 +59,11 @@
 				</tr>
 			</table>		
 		</div>
+	</div>
+</div>
+
+<div ng-show="participed">
+	<div class="container text-center" ng-repeat="event in participatedEvent | filter:search">
+		<event-miniature></event-miniature>
 	</div>
 </div>
