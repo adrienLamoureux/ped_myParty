@@ -13,7 +13,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 	// if not event => $scope.thisEvent = undefined
 	$scope.places_number = 1;
 
-	$scope.addToBasket = function(numberplace, ticketid, ticketleft){
+	$scope.addToBasket = function(numberplace, ticketid, ticketleft, id){
 		alert("Ajout de "+numberplace+" places.");
 		// On commence par regarder si le ticket type de cet evenement est bien disponible
 		if(ticketleft < numberplace){
@@ -24,9 +24,10 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 			}
 		}else{
 
-		var $id_user = $rootScope.user.user_id;
 		// On recupere le panier de l'utilisateur
-		User.get({id:$id_user}, function (res, e){
+		UserApp.User.get({
+			"user_id": id
+		}, function (res, e){
 			var Newbasket = res.basket;
 		// On check si il existe deja un panier
 		if(Newbasket.length == 0){
