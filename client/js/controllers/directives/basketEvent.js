@@ -1,19 +1,18 @@
 // BasketEvent Directive Controller
 app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', '$routeParams', function ($rootScope, $scope, User, Event, $routeParams){
 
-console.log($rootScope.user.user_id);
 $scope.user = null;
-$scope.basketOfUser = null;
+$scope.basketOfUser = [];
 
 function getBasketWithUserId() {
 	$scope.user = User.get({id:$rootScope.user.user_id}, function (res, e){
-	console.log('Récuperation de l\'utilisateur réussie :');
+	console.log('Récuperation de l\'utilisateur réussie :'+$scope.user.apiID);
 	console.log(res);
 		// On test si il un panier est deja associé au User et si il contient deja des articles
-		if(typeof(res.basket.basketEventTicket) != 'undefined' && res.basket.basketEventTicket.length > 0){
+		if(typeof(res.basket) != 'undefined' && res.basket.length > 0){
 			// Si oui alors on recupere les datas
-			for(i=0;i<res.basket.basketEventTicket.length;i++){
-				$scope.basketOfUser.push(res.basket.basketEventTicket[i]);
+			for(i=0;i<res.basket.length;i++){
+				$scope.basketOfUser.push(res.basket[i]);
 			}
 			console.log($scope.basketOfUser);
 		}else{
@@ -25,6 +24,39 @@ function getBasketWithUserId() {
 	console.log(e);
 	})
 }
+
+
+
+//fonction permettant de décrémenter le nombre d'un element du panier
+	$scope.decrement = function(eventid,type,qtty){
+	}
+
+	/*fonction permettant de décrémenter le nombre d'un element du panier
+	$scope.decrement = function(eventid,type,qtty){
+		alert("DECREMENTER:"+eventid+" "+type+" "+qtty)
+		if(qtty > 1){
+			for(i=0;i<$scope.user.basket[0].eventTickets.length;i++){
+				if($scope.user.basket[0].eventTickets[i].eventID == eventid){
+					for(j=0;j<$scope.user.basket[0].eventTickets[i].tickets.length;j++){
+						if($scope.user.basket[0].eventTickets[i].tickets[j].ticketTypeNb == type){
+							$scope.user.basket[0].eventTickets[i].tickets.splice(j,1);
+							j = $scope.user.basket[0].eventTickets[i].tickets.length;
+						}
+					}
+				}
+			}
+				// On update le panier
+				User.update({id:$rootScope.user.user_id}, $scope.user, function (res, e){
+				}, function (){
+					alert ('Mise a jour du panier panier : ERREUR');
+				});
+				
+			}else{
+				// Rien ne se passe, on ne decremente pas 1
+			}
+		 //qtty--;
+		} */
+
 
 // Fonctions lancées lors de l'execution du controleur 
 getBasketWithUserId();

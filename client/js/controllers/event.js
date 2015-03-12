@@ -1,6 +1,7 @@
 //EventController
 app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'EventImages','User', function ($rootScope, $scope, $routeParams, Event, EventImages, User){
 	//URL event argument
+
 	if(angular.isDefined($routeParams.id)){
 		$scope.thisEvent = Event.get({id:$routeParams.id}, function(data){
 			$scope.thisEvent = data;		
@@ -108,7 +109,8 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 				console.log($scope.user);
 
 				// Et maintenant on met a jour les donnees en base
-					User.put({apiID:$rootScope.user.user_id}, $scope.user, function (res2, e){
+				console.log($rootScope.user.user_id);
+					User.put({id:$rootScope.user.user_id}, $scope.user, function (res2, e){
 						console.log("Update reussie");
 						console.log(res2);
 					}, function (){
