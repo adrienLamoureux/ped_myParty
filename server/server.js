@@ -72,20 +72,17 @@ app.get('/api/event/:id', function (req, res, next) {
   console.log('get event '+req.params.id);
   eventModel.findOne({_id: req.params.id}, function (e, result) {
    	if (e) return next(e);
-   		console.log(result);
     	res.send(result);
   });
 });
 
 app.post('/api/event', function (req, res, next){
-	console.log('new event : '+req.body);
+	console.log('new event');
 	var newEvent = new eventModel(req.body);
 	newEvent.save(function (e, results){
     if (e) return next(e);
-    console.log(results);
     userModel.findOne({apiID:results.ownerID}, function (e, user){
     	if(e) return next(e);
-    	console.log(user);
     	user.eventsID.push(results._id);
     	userModel.update({_id:user._id}, {$set:{eventsID:user.eventsID}}, function (e, numberAffected, newUser){
     		if(e) return next(e);
@@ -97,7 +94,7 @@ app.post('/api/event', function (req, res, next){
 
 app.put('/api/event/:id', function (req, res, next){
   delete req.body._id; //duplicate id bug
-  console.log('put event : '+req.body);
+  console.log('put event');
   eventModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
     if (err) return next(err);
     res.send(result);
@@ -115,24 +112,22 @@ app.get('/api/event/:id/images', function (req, res, next) {
   console.log('get images '+req.params.id);
   imageModel.findOne({eventID: req.params.id}, function (e, result) {
     if (e) return next(e);
-      console.log(result);
       res.send(result);
   });
 });
 
 app.post('/api/event/images', function (req, res, next){
-  console.log('new images : '+req.body);
+  console.log('new images');
   var newImage = new imageModel(req.body);
   newImage.save(function (e, results){
         if (e) return next(e);
         res.send(results);
-        console.log(results);
     });
 });
 
 app.put('/api/event/:id/images', function (req, res, next){
   delete req.body._id; //duplicate id bug
-  console.log('put images : '+req.body);
+  console.log('put images');
   imageModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
     if (err) return next(err);
     res.send(result);
@@ -162,7 +157,6 @@ app.get('/api/user/:id/event', function (req, res, next){
   console.log('get event of user '+req.params.id);
   userModel.findOne({apiID:req.params.id}, function (err, user){
     eventModel.find({_id:{$in:user.eventsID}}, function (e, events){
-          console.log(events);
           res.send(events);
     });
   });
@@ -172,7 +166,6 @@ app.get('/api/user/:id/command', function (req, res, next){
 	console.log('get command of user '+req.params.id);
   userModel.findOne({apiID:req.params.id}, function (err, user){
   	commandModel.findOne({_id:user.commandsID}, function (e, command){
-  		console.log(command);
   		res.send(command);
   	});
   });
@@ -180,7 +173,7 @@ app.get('/api/user/:id/command', function (req, res, next){
 
 app.put('/api/user/:id', function (req, res, next){
 	delete req.body._id; //duplicate id bug
-  console.log('put user : '+req.body);
+  console.log('put user');
   userModel.findOneAndUpdate({apiID: req.params.id}, req.body, function (err, result){
     if (err) return next(err);
     res.send(result);
@@ -196,17 +189,15 @@ app.get('/api/ticket/:id', function (req, res, next) {
   console.log('get ticket '+req.params.id);
   ticketModel.findOne({_id: req.params.id}, function (e, result) {
     if (e) return next(e);
-      console.log(result);
       res.send(result);
   });
 });
 
 app.post('/api/ticket', function (req, res, next){
-  console.log('new ticket : '+req.body);
+  console.log('new ticket');
   var newTicket = new ticketModel(req.body);
   newTicket.save(function (e, results){
     if (e) return next(e);
-    console.log(results);
   });
 });
 
@@ -240,7 +231,7 @@ app.get('/api/command/:id', function (req, res, next) {
 });
 
 app.post('/api/command', function (req, res, next){
-	console.log('new command : '+req.body);
+	console.log('new command');
 	var newCommand = new commandsModel(req.body);
 	newCommand.save(function (e, results){
         if (e) return next(e);
@@ -250,7 +241,7 @@ app.post('/api/command', function (req, res, next){
 
 app.put('/api/command/:id', function (req, res, next){
   delete req.body._id; //duplicate id bug
-  console.log('put command : '+req.body);
+  console.log('put command');
   commandsModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
     if (err) return next(err);
     res.send(result);
@@ -271,7 +262,6 @@ app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
   eventModel.findOne({_id: req.params.id}, function (err, result){
     if (err) return next(e);
     ticketModel.findOne({_id:req.params.idt}, function (error, ticket){
-      console.log(ticket);
       if(ticket.used == false){
         for(var j=0;j<result.ticketsType.length;++j){
           if(result.ticketsType[j].uniqueID == ticket.ticketTypeID){
