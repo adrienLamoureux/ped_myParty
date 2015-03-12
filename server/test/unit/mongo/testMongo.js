@@ -41,4 +41,5 @@ testUser();
 testEvent();
 testCommands();
 testImage();
+testTicket();
 //testLinkUserEventCommands();
