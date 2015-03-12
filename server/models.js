@@ -54,7 +54,6 @@ var ticketTypeSchema = new Schema({
 
 var userSchema = new Schema({
 	apiID: String,
-	inscriptionDate: Date,
 	photo: {
 		filetype: String,
 		filename: String,

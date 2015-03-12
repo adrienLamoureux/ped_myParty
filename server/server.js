@@ -146,12 +146,23 @@ app.get('/api/user', passport.authenticate('userapp'),
     res.send({ user: req.user });
  });
 
+
 app.get('/api/user/:id', function (req, res, next){
   console.log('get user '+req.params.id);
   userModel.findOne({apiID:req.params.id}, function (err, user){
     res.send(user);
   });
+    /*userModel.find(function (e, result){
+      if (!e) {
+          return res.send(result);
+      } else {
+          console.log(e);
+          next(e);
+      }
+    });*/
+
 });
+
 
 app.get('/api/user/:id/event', function (req, res, next){
   console.log('get event of user '+req.params.id);
@@ -190,7 +201,11 @@ app.put('/api/user/:id', function (req, res, next){
 });
 
 app.delete('/api/user/:id', function (req, res, next){
-	//delete user
+  console.log("coucou delete")
+   userModel.remove({apiID: req.params.id}, function (err, result){
+    if (err) return next(err);
+    else console.log("user removed")
+  });
 });
 
 // Ticket

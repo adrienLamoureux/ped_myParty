@@ -8,7 +8,6 @@ var initUser = function(db){
 		collection.insert([
 			{
 				apiID: 'swiPjk21RqmEPu21KVi84w',
-				inscriptionDate: '1424339270481',
 				photo:{
 					filetype : "image/jpeg",
 					filename : "small.jpg",
