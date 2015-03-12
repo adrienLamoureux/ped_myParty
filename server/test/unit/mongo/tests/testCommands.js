@@ -23,31 +23,15 @@ var insertDb = function(done){
 	mongoclient.open(function(err, mongoclient) {
 		var db = mongoclient.db("test_mongodb");
 		db.collection('commands', function(err, collection) {
-			collection.insert([
-			{
-				commands: 
-				[
-					{
-						eventTickets: 
-						[
-							{
-							eventID: null,
-							tickets: 
-							[
-								{
-									uniqueID: 0,
-									userID: null,
-									ticketTypeNb: 1,
-									used: false
-								}
-							]
-							}
-						],
-						dateBuy: null
-					}
-				]
-			}
-			], function (err, result) {done();});
+			collection.insert([{
+			commands:[{
+				dateBuy: '1424339270481',
+				eventTickets: [{
+					eventID: null,
+					tickets: null
+				}]	
+			}]
+		}], function (err, result) {done();});
 		});
 	});
 };
@@ -76,19 +60,25 @@ describe('Test suite for commandsModel', function() {
 
 	describe('finding test', function(){
 		it('find a commands', function(done){
-			commandsModel.find(function (err, coll) {
-				assert.equal(err, null);
-				commandsModel.findOne({_id: coll[0]._id}, function (err, result){
-					assert.equal(err, null);
+			commandsModel.find().exec().then(function (coll) {
+				commandsModel.findOne({_id: coll[0]._id}).exec().then(function (result){
 					assert.ok(result._id.equals(coll[0]._id));
 					done();
+				}, function(failed){
+					console.error(failed);
+					done();
 				});
+			}, function(failed){
+				console.error(failed);
+				done();
 			});
 		});
 		it('find all commands', function(done){
-			commandsModel.find(function (err, coll) {
-				assert.equal(err, null);
+			commandsModel.find().exec().then(function (coll) {
 				assert.notEqual(coll.length,0);
+				done();
+			}, function(failed){
+				console.error(failed);
 				done();
 			});
 		});
@@ -96,29 +86,14 @@ describe('Test suite for commandsModel', function() {
 
 	describe('updating test', function(){
 		it('inserting a new commands', function(done){
-			var commandsBody = 
-			{
-				commands: 
-				[
-					{
-						eventTickets: 
-						[
-							{
-							eventID: null,
-							tickets: 
-							[
-								{
-									uniqueID: 1,
-									userID: null,
-									ticketTypeNb: 5,
-									used: false
-								}
-							]
-							}
-						],
-						dateBuy: null
-					}
-				]
+			var commandsBody = {
+			commands:[{
+				dateBuy: '1424339270481',
+				eventTickets: [{
+					eventID: null,
+					tickets: null
+				}]	
+			}]
 			};
 
 			newCommands = new commandsModel(commandsBody);
@@ -126,10 +101,13 @@ describe('Test suite for commandsModel', function() {
 			assert.notEqual(newCommands, null); 
 			
 			newCommands.save(function(err, results) {
+				browser.sleep(500);
 				assert.equal(err, null);
-				commandsModel.findOne({_id: newCommands._id}, function (err, result) {
-					assert.equal(err, null);
+				commandsModel.findOne({_id: newCommands._id}).exec().then(function (result) {
 					assert.ok(result._id.equals(newCommands._id));
+					done();
+				}, function(failed){
+					console.error(failed);
 					done();
 				});
 			});
@@ -138,35 +116,23 @@ describe('Test suite for commandsModel', function() {
 		
 		it('updating an commands', function(done){
 			var commandsBody = {
-				commands: 
-				[
-					{
-						eventTickets: 
-						[
-							{
-							eventID: null,
-							tickets: 
-							[
-								{
-									uniqueID: 0,
-									userID: null,
-									ticketTypeNb: 1,
-									used: true
-								}
-							]
-							}
-						],
-						dateBuy: null
-					}
-				]
+			commands:[{
+				dateBuy: '1424339270482',
+				eventTickets: [{
+					eventID: null,
+					tickets: null
+				}]	
+			}]
 			};
-
-			commandsModel.find(function (err, coll) {
-				commandsModel.findOneAndUpdate({_id: coll[0]._id}, commandsBody,function (err, result) {
+			commandsModel.find().exec().then(function (coll) {
+				commandsModel.update({_id: coll[0]._id}, {$set:{commands:commandsBody}}, function (err, affected, result) {
 					assert.equal(err, null);
-					assert.equal(result.commands[0].eventTickets[0].tickets[0].used, true);
+					assert.equal(affected, 1);
 					done();
 				});
+			},function(failed){
+				console.error(failed);
+				done();
 			});
 		});
 		afterEach(function(done){
