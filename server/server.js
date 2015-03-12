@@ -152,15 +152,6 @@ app.get('/api/user/:id', function (req, res, next){
   userModel.findOne({apiID:req.params.id}, function (err, user){
     res.send(user);
   });
-    /*userModel.find(function (e, result){
-      if (!e) {
-          return res.send(result);
-      } else {
-          console.log(e);
-          next(e);
-      }
-    });*/
-
 });
 
 
