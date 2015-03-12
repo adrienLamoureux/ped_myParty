@@ -178,6 +178,15 @@ app.get('/api/user/:id/command', function (req, res, next){
   });
 });
 
+app.post('/api/user', function (req, res, next){
+  console.log('new User : '+req.body);
+  var newUser = new userModel(req.body);
+  newUser.save(function (e, results){
+    if (e) return next(e);
+    console.log(results);
+  });
+});
+
 app.put('/api/user/:id', function (req, res, next){
 	delete req.body._id; //duplicate id bug
   console.log('put user : '+req.body);
