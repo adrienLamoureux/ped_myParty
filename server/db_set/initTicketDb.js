@@ -8,7 +8,9 @@ var initTicket = function(db){
 		collection.insert(
 			[{
 				userID: null,
+				eventID: null,
 				ticketTypeID: null,
+				expirationDate: '1524339270481',
 				used: false
 			}], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'ticket'\n"); return false; }

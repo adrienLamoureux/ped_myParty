@@ -233,19 +233,6 @@ app.delete('/api/ticket/:id', function (req, res, next){
 
 
 // Command
-/* jms utilisé ? */
-app.get('/api/command', function (req, res, next){
-	console.log('get commands');
-	commandsModel.find(function (e, result){
-		if (!err) {
-        return res.send(coll);
-    } else {
-        console.log(err);
-        next(err);
-	}
-	});
-});
-
 app.get('/api/command/:id', function (req, res, next) {
   console.log('get command '+req.params.id);
   commandsModel.findOne({_id: req.params.id}, function (e, result) {
