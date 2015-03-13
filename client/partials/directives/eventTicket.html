@@ -1,32 +1,35 @@
-<table id="ticket">
-	<tr>
-		<td class="fixTotal">
-			<img ng-src="data:{{event.imageSmall.filetype}};base64,{{event.imageSmall.base64}}" class="eventSmallImage" alt="{{event.title}}"/>
-		</td>
-		<td>
-			<table>
-				<tr class="fixTop">
-					<td colspan="2" >
-						<h2>{{event.title}}</h2>
-						<p>
-							Du {{event.dateStarting | date:'dd/MM/yyyy'}} au {{event.dateEnding | date:'dd/MM/yyyy'}}.
-						</p>	
-					</td>
-				</tr>
-				<tr class="fixBottom">
-					<td>
-						<qr class="qrCode" type-number="8" correction-level="'M'" size="150" text="qrcode" image="true"></qr>
-					</td>
-					<td class="info">
-						<h3>{{ticket.type}}</h3>
-						<p>	
-							<strong>Description :</strong> {{ticket.description}}<br/>
-							<strong>Prix :</strong> {{ticket.price}} €<br/>
-							<strong>Date d'expiration :</strong> {{ticket.expirationDate | date:'dd/MM/yyyy'}}
-						</p>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
+<div id="printable">
+	<table id="ticket">
+		<tr>
+			<td class="fixTotal">
+				<img ng-src="data:{{event.imageSmall.filetype}};base64,{{event.imageSmall.base64}}" class="eventSmallImage" alt="{{event.title}}"/>
+			</td>
+			<td>
+				<table>
+					<tr class="fixTop">
+						<td colspan="2" >
+							<h2>{{event.title}}</h2>
+							<p>
+								Du {{event.dateStarting | date:'dd/MM/yyyy'}} au {{event.dateEnding | date:'dd/MM/yyyy'}}.
+							</p>	
+						</td>
+					</tr>
+					<tr class="fixBottom">
+						<td>
+							<qr class="qrCode" type-number="8" correction-level="'M'" size="150" text="qrcode" image="true"></qr>
+						</td>
+						<td class="info">
+							<h3>{{ticket.type}}</h3>
+							<p>	
+								<strong>Description :</strong> {{ticket.description}}<br/>
+								<strong>Prix :</strong> {{ticket.price}} €<br/>
+								<strong>Date d'expiration :</strong> {{ticket.expirationDate | date:'dd/MM/yyyy'}}
+							</p>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+<button id="bt_print" ng-click="printTicket('printable')" class="btn btn-primary col-xs-6 col-xs-offset-3">Imprimer le billet</button>

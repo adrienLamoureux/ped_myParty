@@ -83,7 +83,7 @@
 		margin-top:10px;
 		margin-bottom:20px;
 	}
-	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event, #eventPage #event #ticket{
+	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event, #eventPage #event .ticket{
 		background-color: rgba(0, 0, 0, 0.90);
 		padding:10px 10px 10px 10px;
 		border: 1px solid #cecece;
@@ -111,17 +111,17 @@
 		margin:0px;
 		padding:0px;
 	}
-	#eventPage #event #ticket h2{
+	#eventPage #event .ticket h2{
 		margin-top:0px;
 		padding-top:0px;
 		font-style: oblique;
 	}
-	#eventPage #event #ticket input[type=number]{
+	#eventPage #event .ticket input[type=number]{
 		width:50px;
 		background:black;
 		height:34px;
 	}
-	#eventPage #event #ticket button{
+	#eventPage #event .ticket button{
 		color:black;
 		font-weight: bolder;
 		margin-left:10px;
@@ -245,7 +245,7 @@
 /*********************************/
 /*** ticket **********************/
 /***        **********************/
-	#ticket{
+	table#ticket{
 		font-size:16px;
 		background:white;
 		padding:0px;
@@ -259,24 +259,24 @@
 		margin-bottom:0px;
 		padding:0px;
 	}
-	#ticket h3{
+	table#ticket h3{
 		margin-bottom:5px;
 		margin-top:0px;
 		padding-top:0px;
 	}
-	#ticket h2{
+	table#ticket h2{
 		margin:0px;
 		padding:0px;
 	}
-	#ticket table{
+	table#ticket table{
 		margin-left:15px;
 	}
-	#ticket img.eventSmallImage{
+	table#ticket img.eventSmallImage{
 		width:250px;
 		margin:0px;
 		padding:0px;
 	}
-	#ticket td.info{
+	table#ticket td.info{
 		padding-left:15px;
 	}
 
