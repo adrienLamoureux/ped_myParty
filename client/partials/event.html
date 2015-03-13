@@ -29,7 +29,8 @@
 						</ul>
 						<div class="pull-right" ng-show="thisEvent.online && dateNotExpired(thisEvent.dateEnding) && user.authenticated">
 							<input ng-model="places_number" type="number" value="0" min="0">
-							<button ng-click="addToBasket(places_number,ticketType.uniqueID,ticketType.price,ticketType.type,ticketType.ticketLeft,thisEvent.title)" class="btn btn-primary">
+
+							<button ng-click="addToBasket(places_number,ticketType.uniqueID,ticketType.price,ticketType.type,ticketType.ticketLeft, ticketType.expirationDate, thisEvent.title)" class="btn btn-primary">
 								Ajouter au panier
 							</button>	
 						</div>
