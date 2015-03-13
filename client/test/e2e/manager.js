@@ -14,9 +14,9 @@ describe('Manager test', function(){
 
 	it('others tests', function(){
 		connect.connect();
-		browser.sleep(1000);
-		require('./home.js');
-		//browser.sleep(1000);
-		//require('./event.js');
+		//browser.sleep(500);
+		//require('./home.js');
+		browser.sleep(500);
+		require('./event.js');
 	});
 });

@@ -12,8 +12,11 @@ describe('Home view' , function () {
 		expect(menu.isDisplayed()).toBe(true);
 		var accueil = browser.findElement(by.id("bt_home"));
 		expect(accueil.isDisplayed()).toBe(true);
-		var myAccount = browser.findElement(by.id("bt_account"));
-		expect(myAccount.isDisplayed()).toBe(true);
+		var bt_account = browser.findElement(by.id("bt_account"));
+		expect(bt_account.isDisplayed()).toBe(true);
+		bt_account.click();
+		var bt_profil = browser.findElement(by.id("bt_profil"));
+		expect(bt_profil.isDisplayed()).toBe(true);
 		var myEvents = browser.findElement(by.id("bt_mineEvents"));
 		expect(myEvents.isDisplayed()).toBe(true);
 		var myCommands = browser.findElement(by.id("bt_mineOrders"));

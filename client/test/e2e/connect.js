@@ -8,7 +8,7 @@ var connect = function(){
 	loginBtn.click();
 	browser.sleep(3000);
 	browser.get('http://localhost:4711/#/home');
-	browser.sleep(1000);
+	browser.sleep(500);
 };
 
 module.exports.connect = connect;

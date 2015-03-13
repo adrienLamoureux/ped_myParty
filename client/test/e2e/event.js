@@ -2,6 +2,9 @@ var connect = require('./connect.js');
 var path = require('path');
 
 var completeCreateEvent = function(){
+
+	browser.sleep(1000);
+
 	var eventForm = browser.findElement(by.id("eventForm"));
 	expect(eventForm.isDisplayed()).toBe(true);
 	
@@ -93,7 +96,7 @@ var completeCreateEvent = function(){
 	txtEventPrice1.sendKeys('10');
 	expect(txtEventPrice1.getAttribute('value')).toBe('10');
 
-	browser.sleep(1000);
+	browser.sleep(500);
 
 	var fileTicketTypeImage1 = browser.findElement(by.id("ticketImage"));
 	expect(fileTicketTypeImage1.isDisplayed()).toBe(true);
@@ -167,7 +170,7 @@ describe('Event view' , function () {
 		expect(organiseEvent.isDisplayed()).toBe(true);
 		organiseEvent.click();
 		completeCreateEvent();
-		browser.sleep(1000);
+		browser.sleep(500);
 		var bt_restore = browser.findElement(by.id("bt_restore"));
 		expect(bt_restore.isDisplayed()).toBe(true);
 		var bt_submit =  browser.findElement(by.id("bt_submit"));
@@ -176,12 +179,13 @@ describe('Event view' , function () {
 		expect(bt_save.isDisplayed()).toBe(true);
 		browser.actions().mouseMove(bt_save).click();
 	});
-/*
+
 	it('Create an event with publication', function(){
 		var organiseEvent = browser.findElement(by.id("bt_createEvent"));
 		expect(organiseEvent.isDisplayed()).toBe(true);
 		organiseEvent.click();
 		completeCreateEvent();
+		browser.sleep(500);
 		var bt_restore = browser.findElement(by.id("bt_restore"));
 		expect(bt_restore.isDisplayed()).toBe(true);
 		var bt_submit =  browser.findElement(by.id("bt_submit"));
@@ -196,6 +200,7 @@ describe('Event view' , function () {
 		expect(organiseEvent.isDisplayed()).toBe(true);
 		organiseEvent.click();
 		completeCreateEvent();
+		browser.sleep(500);
 		var bt_restore = browser.findElement(by.id("bt_restore"));
 		expect(bt_restore.isDisplayed()).toBe(true);
 		var bt_submit =  browser.findElement(by.id("bt_submit"));
@@ -206,17 +211,40 @@ describe('Event view' , function () {
 	});
 
 	it('Edit an event', function(){
+		var bt_account = browser.findElement(by.id("bt_account"));
+		expect(bt_account.isDisplayed()).toBe(true);
+		bt_account.click();
 		var myEvents = browser.findElement(by.id("bt_mineEvents"));
 		expect(myEvents.isDisplayed()).toBe(true);
 		myEvents.click();
 		var edit3 = browser.findElement(by.id("edit3"));
 		expect(edit3.isDisplayed()).toBe(true);
 		edit3.click();
-		browser.sleep(1000);
+		browser.sleep(500);
 		completeCreateEvent();
 	});
 
+	it('View the event that a user created', function(){
+		var bt_account = browser.findElement(by.id("bt_account"));
+		expect(bt_account.isDisplayed()).toBe(true);
+		bt_account.click();
+		var myEvents = browser.findElement(by.id("bt_mineEvents"));
+		expect(myEvents.isDisplayed()).toBe(true);
+		myEvents.click();
+		var cancel2 = browser.findElement(by.id("cancel2"));
+		expect(cancel2.isDisplayed()).toBe(true);
+		var delete3 = browser.findElement(by.id("delete3"));
+		expect(delete3.isDisplayed()).toBe(true);
+	});
+
+	it('View the event that a user participated', function(){
+	
+	});
+
 	it('Remove an event', function(){
+		var bt_account = browser.findElement(by.id("bt_account"));
+		expect(bt_account.isDisplayed()).toBe(true);
+		bt_account.click();
 		var myEvents = browser.findElement(by.id("bt_mineEvents"));
 		expect(myEvents.isDisplayed()).toBe(true);
 		myEvents.click();
@@ -224,11 +252,14 @@ describe('Event view' , function () {
 		expect(delete3.isDisplayed()).toBe(true);
 		delete3.click();
 		var alertDialog = browser.switchTo().alert();
-		alertDialog.accept();
-		//expect(delete2.isDisplayed()).toBe(false);
+		alertDialog.dismiss();
+		//expect(delete3.isDisplayed()).toBe(false);
 	});
 
 	it('Cancel an event', function(){
+		var bt_account = browser.findElement(by.id("bt_account"));
+		expect(bt_account.isDisplayed()).toBe(true);
+		bt_account.click();
 		var myEvents = browser.findElement(by.id("bt_mineEvents"));
 		expect(myEvents.isDisplayed()).toBe(true);
 		myEvents.click();
@@ -236,8 +267,7 @@ describe('Event view' , function () {
 		expect(cancel2.isDisplayed()).toBe(true);
 		cancel2.click();
 		var alertDialog = browser.switchTo().alert();
-		alertDialog.accept();
-		//expect(cancel3.isDisplayed()).toBe(false);
+		alertDialog.dismiss();
+		//expect(cancel2.isDisplayed()).toBe(false);
 	});
-*/
 });
