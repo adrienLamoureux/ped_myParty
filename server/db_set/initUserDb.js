@@ -8,7 +8,6 @@ var initUser = function(db){
 		collection.insert([
 			{
 				apiID: 'swiPjk21RqmEPu21KVi84w',
-				inscriptionDate: '1424339270481',
 				photo:{
 					filetype : "image/jpeg",
 					filename : "small.jpg",
@@ -18,6 +17,35 @@ var initUser = function(db){
 				eventsID: [],
 				commandsID: null,
 				basket : []
+				/*
+					[{
+						eventID: 1231561,
+						eventTitle: "fefzefzfzf",
+						tickets: [
+							{
+							ticketType: 1,
+							nbTicket: 5,
+							price: 50,
+							entitled: "le ticket de test"
+							}
+						]
+					}] */
+				/* [
+				{
+					basketEventTicket:
+					[{
+						eventID: 1231561,
+						eventTitle: "fefzefzfzf",
+						tickets: [
+							{
+							ticketType: 1,
+							nbTicket: 5,
+							price: 50,
+							entitled: "le ticket de test"
+							}
+						]
+					}]
+				}] */
 			}
 			], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'user'\n"); return false; }
