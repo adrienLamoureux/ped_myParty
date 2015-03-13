@@ -83,7 +83,7 @@
 		margin-top:10px;
 		margin-bottom:20px;
 	}
-	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event, #eventPage #event #ticket{
+	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event, #eventPage #event .ticket{
 		background-color: rgba(0, 0, 0, 0.90);
 		padding:10px 10px 10px 10px;
 		border: 1px solid #cecece;
@@ -111,17 +111,17 @@
 		margin:0px;
 		padding:0px;
 	}
-	#eventPage #event #ticket h2{
+	#eventPage #event .ticket h2{
 		margin-top:0px;
 		padding-top:0px;
 		font-style: oblique;
 	}
-	#eventPage #event #ticket input[type=number]{
+	#eventPage #event .ticket input[type=number]{
 		width:50px;
 		background:black;
 		height:34px;
 	}
-	#eventPage #event #ticket button{
+	#eventPage #event .ticket button{
 		color:black;
 		font-weight: bolder;
 		margin-left:10px;
