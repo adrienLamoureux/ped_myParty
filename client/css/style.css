@@ -249,7 +249,7 @@
 		font-size:16px;
 		background:white;
 		padding:0px;
-		border: 1px solid #cecece;
+		border: 1px solid black;
 		height:250px;
 		width:800px;
 		text-align:left;
@@ -278,6 +278,9 @@
 	}
 	table#ticket td.info{
 		padding-left:15px;
+	}
+	button#bt_print{
+		margin-top:20px;
 	}
 
 
