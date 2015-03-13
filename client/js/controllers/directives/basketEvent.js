@@ -5,15 +5,13 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', '$rou
 
 	function getBasketWithUserId() {
 		$scope.theUser = User.get({id:$rootScope.user.user_id}, function (res, e){
-			console.log('Récuperation de l\'utilisateur réussie :'+$scope.theUser.apiID);
-			console.log(res);
+		//console.log('Récuperation de l\'utilisateur réussie :'+$scope.theUser.apiID);
 		// On test si il un panier est deja associé au User et si il contient deja des articles
 		if(typeof(res.basket) != 'undefined' && res.basket.length > 0){
 			// Si oui alors on recupere les datas
 			for(i=0;i<res.basket.length;i++){
 				$scope.basketOfUser.push(res.basket[i]);
 			}
-			console.log($scope.basketOfUser);
 		}else{
 			console.log("Panier vide");
 		}
@@ -27,7 +25,6 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', '$rou
 	// Fonction permettant de recalculer le total
 	function calculateTotal(){
 		var total = 0;
-		console.log($scope.basketOfUser)
 		if($scope.basketOfUser.length > 0) {
 			for(i=0;i<$scope.basketOfUser.length;i++){
 				for(j=0;j<$scope.basketOfUser[i].tickets.length;j++){
@@ -54,7 +51,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', '$rou
 			// On update le panier
 			User.put({id:$rootScope.user.user_id}, $scope.theUser, function (res, e){
 				ticket.nbTicket--;
-				$scope.totalOfBasket = calculateTotal();
+				$scope.$parent.totalOfBasket = calculateTotal();
 			}, function (){
 				console.log('Mise a jour du panier panier : ERREUR');
 			});
@@ -78,6 +75,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', '$rou
 			// On update le panier
 			User.put({id:$rootScope.user.user_id}, $scope.theUser, function (res, e){
 				ticket.nbTicket++;
+				$scope.$parent.totalOfBasket = calculateTotal();
 			}, function (){
 				alert("Il ne rester qu'un ticket de ce type, veuillez le supprimer.")
 			});
