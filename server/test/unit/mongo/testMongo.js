@@ -25,15 +25,21 @@ var testCommands = function(){
 	require('./tests/testCommands.js');
 };
 
-var testLinkUserEventCommands = function(){
-	require('./tests/testLinkUserEventCommands.js');
+var testLinkModels = function(){
+	require('./tests/testLinkModels.js');
 };
 
 var testImage = function(){
 	require('./tests/testImage.js');
 };
 
-//testUser();
-//testEvent();
-//testCommands();
-//testLinkUserEventCommands();
+var testTicket = function(){
+	require('./tests/testTicket.js');
+};
+
+testUser();
+testEvent();
+testCommands();
+testImage();
+testTicket();
+//testLinkModels();

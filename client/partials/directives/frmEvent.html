@@ -42,11 +42,11 @@
 			<input id="txtEventCountry" type="text" class="form-control" placeholder="France" ng-model="eventFormData.country" required/><br/>
 
 			<label>Image de la page de présentation</label>
-			<input type="file" ng-model="eventFormImage.backgroundImg" name="file" base-sixty-four-input required/>
+			<input id="eventImage" type="file" ng-model="eventFormImage.backgroundImg" name="file" base-sixty-four-input required/>
 			<p>Prévisualisation : <img ng-src="data:{{eventFormImage.backgroundImg.filetype}};base64,{{eventFormImage.backgroundImg.base64}}" alt=""></p>
 
 			<label>Image miniature de l'évènement</label>
-			<input type="file" ng-model="eventFormData.imageSmall" name="file" base-sixty-four-input required/>
+			<input id="eventSmallImage" type="file" ng-model="eventFormData.imageSmall" name="file" base-sixty-four-input required/>
 			<p>Prévisualisation : <img ng-src="data:{{eventFormData.imageSmall.filetype}};base64,{{eventFormData.imageSmall.base64}}" alt=""></p>
 			<hr />
 		</div>
@@ -55,7 +55,7 @@
 		<h2>Billetterie</h2>
 		<div>
 			<label>Image de fond du billet</label>
-			<input type="file" ng-model="eventFormImage.ticketImg" name="file" base-sixty-four-input required/>
+			<input id="ticketImage" type="file" ng-model="eventFormImage.ticketImg" name="file" base-sixty-four-input required/>
 			<p>Prévisualisation : <img ng-src="data:{{eventFormImage.ticketImg.filetype}};base64,{{eventFormImage.ticketImg.base64}}" alt=""></p>
 
 			<div ng-repeat="t in eventFormData.ticketsType">

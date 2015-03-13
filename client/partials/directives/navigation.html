@@ -13,11 +13,11 @@
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul id="menu" class="nav navbar-nav">
 				<li id="bt_home" ng-class="activeMenu==0? 'active' : 'notActive'"><a href="#/" ng-click="changeActiveMenu(0)">Accueil</a></li>
-		 		<li class="dropdown" ng-class="activeMenu==5? 'active' : 'notActive'" ng-show="user.authenticated" ><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mon Compte <span class="caret"></span></a>
+		 		<li id = "bt_account" class="dropdown" ng-class="activeMenu==5? 'active' : 'notActive'" ng-show="user.authenticated" ><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mon Compte <span class="caret"></span></a>
 		        	<ul class="dropdown-menu inverse-dropdown"  role="menu">
 		       		   	<li id="bt_mineEvents"><a href="#/usr/events" ng-click="changeActiveMenu(5);changeActiveSubMenu(1)" ng-class="activeSubMenu==1? 'active' : 'notActive'">Mes Evenements</a></li>
 						<li id="bt_mineOrders"><a href="#/usr/cmds" ng-click="changeActiveMenu(5);changeActiveSubMenu(2)" ng-class="activeSubMenu==2? 'active' : 'notActive'">Mes Commandes</a></li>
-						<li id="bt_account"><a href="#/usr" ng-click="changeActiveMenu(5);changeActiveSubMenu(3)" ng-class="activeSubMenu==3? 'active' : 'notActive'"> Mon Profil </a></li>
+						<li id="bt_profil"><a href="#/usr" ng-click="changeActiveMenu(5);changeActiveSubMenu(3)" ng-class="activeSubMenu==3? 'active' : 'notActive'"> Mon Profil </a></li>
 		          	</ul>
 		        </li>
 		    </ul>

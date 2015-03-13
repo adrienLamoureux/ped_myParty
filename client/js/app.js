@@ -5,7 +5,8 @@ app.config(function($routeProvider){
 	$routeProvider
 		.when('/', {
 			templateUrl: './partials/home.html',
-			controller: 'HomeCtrl'
+			controller: 'HomeCtrl',
+			public: true
 		})
 		.when('/usr/create', {
 			templateUrl: './partials/createUser.html',
