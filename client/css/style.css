@@ -245,7 +245,7 @@
 /*********************************/
 /*** ticket **********************/
 /***        **********************/
-	#ticket{
+	table#ticket{
 		font-size:16px;
 		background:white;
 		padding:0px;
@@ -259,24 +259,24 @@
 		margin-bottom:0px;
 		padding:0px;
 	}
-	#ticket h3{
+	table#ticket h3{
 		margin-bottom:5px;
 		margin-top:0px;
 		padding-top:0px;
 	}
-	#ticket h2{
+	table#ticket h2{
 		margin:0px;
 		padding:0px;
 	}
-	#ticket table{
+	table#ticket table{
 		margin-left:15px;
 	}
-	#ticket img.eventSmallImage{
+	table#ticket img.eventSmallImage{
 		width:250px;
 		margin:0px;
 		padding:0px;
 	}
-	#ticket td.info{
+	table#ticket td.info{
 		padding-left:15px;
 	}
 

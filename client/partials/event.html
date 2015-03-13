@@ -2,7 +2,7 @@
 <div id="eventPage" class="container">
 	<img id="eventImage" class="img-responsive center-block" data-ng-src="data:{{imgs.backgroundImg.filetype}};base64,{{imgs.backgroundImg.base64}}" alt="event_image">
 	<section id="event" class="col-sm-8 col-sm-offset-2">
-		<section id="info" class="col-sm-12">
+		<section id="info" class="col-md-12">
 			<h1>{{thisEvent.title}}</h1>
 			<ul>
 				<li>Description :</li><p class="center">{{thisEvent.description}}</p>
@@ -13,16 +13,15 @@
 				{{thisEvent.country}}</p>
 			</ul>
 		</section>
-		<section class="col-sm-12">
+		<section class="col-md-12">
 			<h1>Billeterie</h1>
 			<div id="tickets" ng-repeat="ticketType in thisEvent.ticketsType">
 				<div id="ticket" class="container-fluid" ng-show="ticketType.ticketLeft>0">			  		
-					<div class="col-sm-3">
+					<div class="col-md-3">
 						<img id="ticket_$index_image" class="img-responsive center-block" data-ng-src="data:{{imgs.ticketImg.filetype}};base64,{{imgs.ticketImg.base64}}">
 					</div>
-					<div class="col-sm-9">
-						<h2>{{ticketType.type}}<span class="pull-right">{{ticketType.ticketLeft}} restant</span></h2>
-						
+					<div class="col-md-9">
+						<h2>{{ticketType.type}}<div class="pull-right">{{ticketType.ticketLeft}} restant</div></h2>
 						<ul>
 							<li>Description : {{ticketType.description}}</li>
 							<li>Expiration : {{ticketType.expirationDate | date:'dd/MM/yyyy'}}</li>
