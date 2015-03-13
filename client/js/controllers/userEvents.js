@@ -24,16 +24,12 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 
 	var mongoUser = User.get({id:$rootScope.user.user_id}, function (data){
 		mongoUser = data;
-		console.log("User reccup");
-		console.log (mongoUser);
+			
 		var commands = Command.get({id:mongoUser.commandsID}, function (cmds){
 			commands = cmds;
-			console.log("Commandes reccup");
-			console.log (commands);
 
 			angular.forEach(commands.commands, function (command, key1){
 				angular.forEach(command.eventTickets, function (eventT, key2){
-					console.log (eventT.eventID);	
 					var eventTmp = Event.get({id:eventT.eventID}, function (evnt){
 						eventTmp = 	evnt;
 						$scope.participatedEvent.push(eventTmp);

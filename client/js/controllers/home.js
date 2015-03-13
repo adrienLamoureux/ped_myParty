@@ -51,9 +51,4 @@ app.controller('HomeCtrl', ['$scope', 'ngProgress', 'User', '$rootScope', 'Comma
 			console.log(failed);
 		});
 	}
-
-
-	
-
-
 }]);
