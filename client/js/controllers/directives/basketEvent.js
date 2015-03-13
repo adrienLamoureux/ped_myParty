@@ -2,21 +2,21 @@
 app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams){
 
 	$scope.basketOfUser = [];
-	console.log($rootScope.user)
+	//console.log($rootScope.user)
 
 	function getBasketWithUserId() {
 		$scope.theUser = User.get({id:$rootScope.user.user_id}, function (res, e){
-			console.log('Récuperation de l\'utilisateur réussie :'+$scope.theUser.apiID);
-			console.log(res);
+			//console.log('Récuperation de l\'utilisateur réussie :'+$scope.theUser.apiID);
+			//console.log(res);
 			// On test si il un panier est deja associé au User et si il contient deja des articles
 			if(typeof(res.basket) != 'undefined' && res.basket.length > 0){
 				// Si oui alors on recupere les datas
 				for(i=0;i<res.basket.length;i++){
 					$scope.basketOfUser.push(res.basket[i]);
 				}
-				console.log($scope.basketOfUser);
+				//console.log($scope.basketOfUser);
 			}else{
-				console.log("Panier vide");
+			//	console.log("Panier vide");
 			}
 			$scope.totalOfBasket = calculateTotal();
 		}, function (){
@@ -28,7 +28,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 	//fonction permettant de recalculer le total
 	function calculateTotal(){
 		var total = 0;
-		console.log($scope.basketOfUser)
+		//console.log($scope.basketOfUser)
 		if($scope.basketOfUser.length > 0) {
 			for(i=0;i<$scope.basketOfUser.length;i++){
 				for(j=0;j<$scope.basketOfUser[i].tickets.length;j++){
@@ -36,99 +36,100 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 				}
 			}
 		}
-		console.log(total);
+		//console.log(total);
 		return total;
 	};
 
 	// Fonctions lancées lors de l'execution du controleur 
 	getBasketWithUserId();
 
-	/*$scope.submitBasket = function(){
-		var userCmd = Command.get({id:$scope.theUser.commandsID}, function (cmd){
+	$scope.submitBasket = function(){
+		var newCmd = {
+			'dateBuy': Date.now(),
+			'eventTickets':[]
+		};
+
+		var userCmd = Command.post(newCmd, function (cmd){
 			userCmd = cmd;
 
-			var cmds = {
-				'dateBuy': Date.now(),
-				'eventTickets':[]
-			};
+			var mongoUser = User.get({id:$scope.theUser.apiID}, function(userData) {
+				mongoUser = userData;
 
-			angular.forEach($scope.basketOfUser, function (evnt, key1){
-				var completeEvent = Event.get({id:evnt.eventID}, function (evn){
-					completeEvent = evn;
-					
-					console.log(evnt.eventTitle);
-					var evntTickets = {
-						'eventID': evnt.eventID,
-						'tickets':[]
-					};
-					// tickets du panier
-					angular.forEach(evnt.tickets, function(ticket, key2){
-						angular.forEach(completeEvent.ticketsType, function (tType, key3){
+				mongoUser.commandsID.push(userCmd._id);
+
+				mongoUser = User.put({id:mongoUser.apiID}, mongoUser, function (userData2){
+					mongoUser = userData2;
+					angular.forEach($scope.basketOfUser, function (evnt, key1){
+						var completeEvent = Event.get({id:evnt.eventID}, function (evn){
+							completeEvent = evn;
+							userCmd.eventTickets.push({
+								'eventID': evnt.eventID,
+								'tickets':[]
+							});
 							
-							if (tType.uniqueID == ticket.ticketType){
-								if (tType.ticketLeft >= ticket.nbTicket){
-	
-									tType.ticketLeft -= ticket.nbTicket;
-									tType.sold += ticket.nbTicket;
-	
-									Event.put({id:completeEvent._id}, completeEvent, function(data){
-										
-										console.log("Event Updated");
-										
-										var tckt = {
-											'userID': $rootScope.user.user_id,
-											'eventID': evnt.eventID,
-											'ticketTypeID': ticket.ticketType,
-											'expirationDate': ticket.expirationDate,
-											'used':false
-										};
+							angular.forEach(evnt.tickets, function(ticket, key2){
+								angular.forEach(completeEvent.ticketsType, function (tType, key3){
+											
+									if (tType.uniqueID == ticket.ticketType){
+										if (tType.ticketLeft >= ticket.nbTicket){											
+											tType.ticketLeft -= ticket.nbTicket;
+											tType.sold += ticket.nbTicket;
+			
+											var eventUp = Event.put({id:completeEvent._id}, completeEvent, function (evUp){
+												eventUp = evUp;											
+												var tckt = {
+													'userID': $rootScope.user.user_id,
+													'eventID': evnt.eventID,
+													'ticketTypeID': ticket.ticketType,
+													'expirationDate': new Date(ticket.expirationDate).getTime(),
+													'used':false
+												};
+												for(i=0;i<ticket.nbTicket;i++) {
+													var mongoTicket = Ticket.post(tckt, function (ticketData){
+														mongoTicket = ticketData;
+														completeEvent.tickets.push(mongoTicket._id);
+														Event.put({id:completeEvent._id}, completeEvent, function (data){
+															$scope.evnt = completeEvent;
+														}, function (err){
+															console.log(err);
+														});
 
-										for(i=0;i<ticket.nbTicket;i++) {
-											// création du ticket en base.
-											var mongoTicket = Ticket.post(tckt, function (ticketData){
+														angular.forEach(userCmd.eventTickets, function (evTicket, key){
+															if (evTicket.eventID == evnt.eventID){
+																evTicket.tickets.push(mongoTicket._id);
+																userCmd = Command.put({id:userCmd._id}, userCmd, function (dataCmd){
+																	userCmd = dataCmd;
+																}, function (err){
+																	console.log(err);
+																});
+															}
+														});
 
-												mongoTicket = ticketData;
-
-												completeEvent.tickets.push(mongoTicket._id);
-												evntTickets.tickets.push(mongoTicket._id);
+													}, function (err){
+														console.log(err);
+													});
+												}
 											});
 										}
-
-										Event.put({id:completeEvent._id}, completeEvent, function (data){
-											console.log ("event Updated 2")
-										}, function (err){
-											console.log(err);
-										});
-									});
-								}
-								else {
-									alert("le nombre de billets souhaité n'est plus dispo à la vente, veuillez retenter votre achat ultérieurement. Merci de votre compréhension.");
-								}	
-							}
+										else {
+											alert("Le nombre de billets souhaité n'est plus dispo à la vente, veuillez retenter votre achat ultérieurement. Merci de votre compréhension.");
+										}	
+									}
+								});
+							});
+						}, function (err){
+							console.log (err);
 						});
+						$scope.evnt = completeEvent;
 					});
-					cmds.eventTickets.push(evntTickets);
-				}, function (err){
-					console.log (err);
+					$scope.cmdss = userCmd;
 				});
 			});
-			
-			userCmd.commands.push(cmds);
-
-			Command.put({id:userCmd._id}, userCmd, function (data){
-				console.log("command Updated");
-			}, function (err){
-				console.log (err);
-			});
-
 		}, function (err){
 			console.log(err);
 		});
 	};
-	*/
 }]);
-
-
 
 /*
 	// Tableau stockant les infos pour l'affichage du panier.

@@ -25,6 +25,29 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 	var mongoUser = User.get({id:$rootScope.user.user_id}, function (data){
 		mongoUser = data;
 			
+		angular.forEach(mongoUser.commandsID, function (commandID, key1){
+			
+			var command = Command.get({id:commandID}, function (cmd){
+				command = cmd;
+			
+				angular.forEach(command.eventTickets, function (eventT, key2){
+					var eventTmp = Event.get({id:eventT.eventID}, function (evnt){
+						eventTmp = 	evnt;
+						$scope.participatedEvent.push(eventTmp);
+					});
+				});
+			}, function (err){
+				console.log(err);
+			});
+		});
+	}, function (err){
+		console.log (err);
+	});
+
+
+	/*var mongoUser = User.get({id:$rootScope.user.user_id}, function (data){
+		mongoUser = data;
+			
 		var commands = Command.get({id:mongoUser.commandsID}, function (cmds){
 			commands = cmds;
 
@@ -37,7 +60,7 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 				});
 			});
 		});
-	});
+	});*/
 	
 	$scope.organised=true;
 	$scope.participed=false;
