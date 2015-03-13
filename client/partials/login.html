@@ -15,7 +15,7 @@
             <input type="password" class="form-control" name="password" placeholder="Mot de passe">
         </div>
 
-        <button type="submit" class="btn btn-warning btn-lg">Login</button>
+        <button type="submit" class="btn btn-warning btn-lg" ng-click="createUser()">Login</button>
         <p ng-show="loading"><img src="https://app.userapp.io/img/ajax-loader-transparent.gif"></p>
 		<p ng-show="error">{{ error.message }}</p>
     </form>

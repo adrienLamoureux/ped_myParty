@@ -11,7 +11,7 @@
       <h3 class="panel-title"> Email: </h3>
     </div>
     <div class="panel-body">
-      {{user.email}}
+      {{email}}
     </div>
   </div>
 
@@ -20,7 +20,7 @@
       <h3 class="panel-title"> Prenom:  </h3>
     </div>
     <div class="panel-body" >
-      {{user.first_name}}
+      {{first_name}}
       <span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editName"></span>
     </div>
   </div>
@@ -30,7 +30,7 @@
       <h3 class="panel-title"> Nom:  </h3>
     </div>
     <div class="panel-body">
-      {{user.last_name}}
+      {{last_name}}
     </div>
   </div>
 
@@ -69,20 +69,32 @@
             <h4 class="modal-title">Nouveau Prénom</h4>
           </div>
           <div class="modal-body">
-            <input ng-model="newPrenom">
+          <form name="myForm">
+            <input ng-minlength="4" ng-maxlength="15" name="lastName"ng-model="newPrenom" >
+            <span class="error" ng-show="myForm.lastName.$error.minlength">
+               Min 4 caractères!</span><br>
+            <span class="error" ng-show="myForm.lastName.$error.maxlength">
+               Max 15 caractères!</span><br>
+            <span  ng-show="errorMsg">
+               Veuillez remplir le champ</span><br>
+          </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" ng-click="validateChange(newPrenom)">Save changes</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reloadPage()">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="validateChange(newPrenom, newPrenom.length)">Save changes</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    <label>Image miniature de l'évènement</label>
-    <input type="file" ng-model="mongoUser.photo" name="file" base-sixty-four-input required/>
+    <label>Image miniature du profil</label>
+    <span>
+    <input type="file" ng-model="mongoUser.photo" name="file" base-sixty-four-input required ng-click="viewImgP()"/>
+    <button id="bt_submit" type="submit" ng-click="updateProfile()">validate</button>
+    </span>
+    <div ng-show="viewImg">
     <p>Prévisualisation : <img ng-src="data:{{mongoUser.photo.filetype}};base64,{{mongoUser.photo.base64}}" alt=""></p>
-    <button id="bt_submit" type="submit" ng-click="updateProfile()">Mettre le profil à jour</button>
+    </div>
 
     <div class="alert alert-success" role="alert" ng-if="user.locks.length === 0">
       Votre compte est : Actif 

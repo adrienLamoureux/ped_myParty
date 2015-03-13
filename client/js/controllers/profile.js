@@ -1,14 +1,17 @@
 // User Events
-app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User){
+app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', '$route', '$location', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User, $route, $location){
 
 	ngProgress.color("#B40404");
 	ngProgress.start();
-	var currentUserId = $rootScope.user.user_id;		
+	var currentUserId = $rootScope.user.user_id;
+	$scope.viewImg = false;		
+	$scope.newPrenom = '';
 
 	$scope.mongoUser = User.get({id:currentUserId});
 
 	$scope.updateProfile = function (){
 		User.put({id:currentUserId}, $scope.mongoUser);
+		$scope.viewImg = false;
 	};
 
 	UserApp.User.get({
@@ -19,8 +22,15 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 			$scope.create_account = new Date(res[0].created_at);
 			$scope.updated_at = new Date(res[0].updated_at);
 			$scope.last_login = new Date(res[0].last_login_at);	
+			$scope.first_name = res[0].first_name;
+			$scope.last_name = res[0].last_name;
+			$scope.email = res[0].email;
 		}
 	});
+
+	$scope.viewImgP = function(){
+		$scope.viewImg = true;
+	}
 
 	$scope.callAtTimeout = function() {
 		ngProgress.complete()
@@ -42,14 +52,27 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 		};
 	}
 
+	$scope.reloadPage = function(){
+		$location.path("/usr");
+		$timeout( function (){$route.reload()} , 1000);
+	}
+
+
 	$scope.validateChange = function(newName){
-		UserApp.User.save({
+		if(newName){
+		 UserApp.User.save({
 		    "user_id": currentUserId,
 		    "first_name": newName,
 		},function (err, res){
 			if(err) console.log(err)
-			else console.log(res);
-		});
-	};
+			else {
+				console.log(res);
+			}
+		})
+		}
+		else $scope.errorMsg = true;
+	}
+
+	$scope.errorMsg = false;
 }]);
 

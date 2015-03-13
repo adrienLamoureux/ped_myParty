@@ -1,12 +1,18 @@
 <!-- UserEvents Template -->
 <!--Menu-->
 <nav id="mineEventNav">
-	<button id="bt_organised" type="button" class="btn btn-primary col-sm-6 col-xs-12" ng-click="organised=true; participed=false;">Les événements que j'organise</button>
-	<button id="bt_participed" type="button" class="btn btn-primary col-sm-6 col-xs-12" ng-click="organised=false; participed=true;">Les événements auxquels je participe</button>
-	<br/>
-	Rechercher un évènement : 
-	<input value="barre de recherche" class="form-control" type="text" ng-model="search.title">
-	<br/>
+	<div class="row">
+		<button id="bt_organised" type="button" class="btn btn-primary col-sm-6 col-xs-12" ng-click="organised=true; participed=false;">Les événements que j'organise</button>
+		<button id="bt_participed" type="button" class="btn btn-primary col-sm-6 col-xs-12" ng-click="organised=false; participed=true;">Les événements auxquels je participe</button>
+	</div>
+	<div class="search row">
+		<div class="col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 ">
+			<div class="input-group">
+				<span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
+				<input value="barre de recherche" class="form-control" type="text" ng-model="search.title" aria-describedby="basic-addon1">
+			</div>
+		</div>
+	</div>
 </nav>
 
 <!--Organisés-->
@@ -43,14 +49,13 @@
 				<a id="edit{{$index+1}}" ng-hide="event.online" class="btn btn-primary" ng-href="#/event/{{event._id}}/edit">
 					Editer
 				</a>
-				<button id="publish{{$index+1}}" ng-hide="event.online || dateExpired(event.dateStarting)" class="btn btn-primary" confirmed-click="publish(event)" ng-confirm-click="Etes-vous sûr de vouloir publier l'événement {{event.title}} ?" >
+				<button id="publish{{$index+1}}" ng-hide="event.online || dateExpired(event.dateStarting)" class="btn btn-primary" ng-click="publish(event)" >
 					Publier
 				</button>
-				<button id="delete{{$index+1}}" ng-hide="event.online" class="btn btn-danger" confirmed-click="delete(event)" ng-confirm-click="Etes-vous sûr de vouloir supprimer l'événement {{event.title}} ?">
+				<button id="delete{{$index+1}}" ng-hide="event.online" class="btn btn-danger" ng-click="delete(event)">
 					Supprimer
 				</button>
-				<button id="cancel{{$index+1}}" ng-show="event.online && !dateExpired(event.dateStarting)" class="btn btn-danger" confirmed-click="cancel(event)" ng-confirm-click="Etes-vous sûr de vouloir annuler l'événement {{event.title}} ?
-		 (Tous les clients seront remboursés)">
+				<button id="cancel{{$index+1}}" ng-show="event.online && !dateExpired(event.dateStarting)" class="btn btn-danger" ng-click="cancel(event)">
 					Annuler
 				</button>
 				<span id="noActions{{$index+1}}" ng-show="event.online && dateExpired(event.dateStarting)" class="span-text span-error">
@@ -63,7 +68,7 @@
 	</div>
 </div>
 
-<div ng-show="participed">
+<div id="content" ng-show="participed">
 	<div class="container text-center" ng-repeat="event in participatedEvent | filter:search">
 		<event-miniature></event-miniature>
 	</div>

@@ -144,7 +144,8 @@ app.delete('/api/event/:id/images', function (req, res, next){
 app.get('/api/user', passport.authenticate('userapp'),
   function(req, res) {
     res.send({ user: req.user });
- });
+});
+
 
 app.get('/api/user/:id', function (req, res, next){
   console.log('get user '+req.params.id);
@@ -152,6 +153,7 @@ app.get('/api/user/:id', function (req, res, next){
     res.send(user);
   });
 });
+
 
 app.get('/api/user/:id/event', function (req, res, next){
   console.log('get event of user '+req.params.id);
@@ -190,7 +192,11 @@ app.put('/api/user/:id', function (req, res, next){
 });
 
 app.delete('/api/user/:id', function (req, res, next){
-	//delete user
+  console.log("coucou delete")
+   userModel.remove({apiID: req.params.id}, function (err, result){
+    if (err) return next(err);
+    else console.log("user removed")
+  });
 });
 
 // Ticket
@@ -255,36 +261,25 @@ app.delete('/api/command/:id', function (req, res, next){
 app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
   console.log('get ticket ' + req.params.idt + ' of event '+req.params.id);
   var response = {valide: false};
-  eventModel.findOne({_id: req.params.id}, function (err, result){
-    if (err) return next(e);
-    ticketModel.findOne({_id:req.params.idt}, function (error, ticket){
-      if(ticket.used == false){
-        for(var j=0;j<result.ticketsType.length;++j){
-          if(result.ticketsType[j].uniqueID == ticket.ticketTypeID){
-            if(result.ticketsType[j].expirationDate > (new Date)){
-              response.valide = true;
-              break;
-            };
-          };
-        };
-      };
-      res.send(response);
-    });
+  ticketModel.findOne({_id:req.params.idt}, function (err, ticket){
+    if (err) return next(err);
+    if((ticket.used == false) && (ticket.eventID == req.params.id) && (ticket.expirationDate > (new Date))){
+      response.valide = true;
+    };
+    res.send(response);
   });
 });
 
 app.get('/api/event/:id/ticket/:idt/validate/:toValide', function (req, res, next){
   delete req.body._id; //duplicate id bug
   console.log('update ticket ' + req.params.idt + ' of event '+req.params.id);
-  eventModel.findOne({_id: req.params.id}, function (err, result){
-    if (err) return next(err);
-    ticketModel.findOne({_id:req.params.idt}, function (error, ticket){
-      if(ticket.used == false){
-        ticket.used = true;
-        ticketModel.update({_id:req.params.idt}, {$set:{used:ticket.used}}, function (err, numberAffected, raw){
-          console.log(numberAffected);
-        });
-      };
-    });
+  ticketModel.findOne({_id:req.params.idt}, function (error, ticket){
+    if((ticket.used == false) && (ticket.eventID == req.params.id)){
+      ticket.used = true;
+      ticketModel.update({_id:req.params.idt}, {$set:{used:ticket.used}}, function (err, numberAffected, raw){
+        if (err) return next(err);
+        console.log(numberAffected);
+      });
+    };
   });
 });
