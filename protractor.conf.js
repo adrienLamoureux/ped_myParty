@@ -1,3 +1,6 @@
+var nbTest = 0;
+var success = 0;
+
 exports.config = {
   allScriptsTimeout: 110000,
 
@@ -15,13 +18,11 @@ exports.config = {
 
   frameworks: ['mocha', 'jasmine'],
 
-  //After each instance
-  onCleanUp: function(exitCode) {
-
-  },
-  //After all instance
-  afterLaunch: function() {
-
+  jasmineNodeOpts: {
+    isVerbose: true,
+    showColors: true,
+    includeStackTrace: true,
+    defaultTimeoutInterval: 10000
   },
 
   resultJsonOutputFile: './outputTest.txt'
