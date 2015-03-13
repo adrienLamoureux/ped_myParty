@@ -5,13 +5,13 @@ exports.config = {
   allScriptsTimeout: 110000,
 
   specs: [
-    'server/test/unit/mongo/testMongo.js',
+    //'server/test/unit/mongo/testMongo.js',
     'client/test/e2e/**/manager.js'
   ],
 
   capabilities: {
     'browserName': 'chrome',
-    'count': 5
+    'count': 1
   },
 
   baseUrl: 'http://localhost:4711/',

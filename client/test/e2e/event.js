@@ -222,7 +222,9 @@ describe('Event view' , function () {
 		myEvents.click();
 		var delete3 = browser.findElement(by.id("delete3"));
 		expect(delete3.isDisplayed()).toBe(true);
-		//delete3.click();
+		delete3.click();
+		var alertDialog = browser.switchTo().alert();
+		alertDialog.accept();
 		//expect(delete2.isDisplayed()).toBe(false);
 	});
 
@@ -232,7 +234,9 @@ describe('Event view' , function () {
 		myEvents.click();
 		var cancel2 = browser.findElement(by.id("cancel2"));
 		expect(cancel2.isDisplayed()).toBe(true);
-		//cancel2.click();
+		cancel2.click();
+		var alertDialog = browser.switchTo().alert();
+		alertDialog.accept();
 		//expect(cancel3.isDisplayed()).toBe(false);
 	});
 */
