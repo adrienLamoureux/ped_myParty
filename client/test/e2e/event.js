@@ -1,4 +1,3 @@
-var connect = require('./connect.js');
 var path = require('path');
 
 var completeCreateEvent = function(){
@@ -104,13 +103,6 @@ var completeCreateEvent = function(){
   	absolutePath = path.resolve(__dirname, fileToUpload);
 	fileTicketTypeImage1.sendKeys(absolutePath);
 
-	/*var bt_add_ticket = browser.findElement(by.id("bt_add_ticket"));
-	expect(bt_add_ticket.isDisplayed()).toBe(true);
-	bt_add_ticket.click();
-*//*
-	var bt_rem_ticketType1 = browser.findElement(by.id("bt_rem_ticketType1"));
-	expect(bt_rem_ticketType1.isDisplayed()).toBe(true);
-*/
 	var txtEventType1 = browser.findElement(by.id("txtEventType1"));
 	expect(txtEventType1.isDisplayed()).toBe(true);
 	txtEventType1.clear();
@@ -238,7 +230,21 @@ describe('Event view' , function () {
 	});
 
 	it('View the event that a user participated', function(){
-	
+		var bt_account = browser.findElement(by.id("bt_account"));
+		expect(bt_account.isDisplayed()).toBe(true);
+		bt_account.click();
+		var myEvents = browser.findElement(by.id("bt_mineEvents"));
+		expect(myEvents.isDisplayed()).toBe(true);
+		myEvents.click();
+		var bt_participed = browser.findElement(by.id("bt_participed"));
+		expect(bt_participed.isDisplayed()).toBe(true);
+		bt_participed.click();
+		//browser.sleep(100);
+		//var event = browser.findElement(by.xpath("id('content')/div/event-miniature/div/a/img"));
+		//expect(event.isDisplayed()).toBe(true);
+		//var eventSmallImage1 = browser.findElement(by.id("eventSmallImage1"));
+		//expect(eventSmallImage1.isDisplayed()).toBe(true);
+		//eventSmallImage1.click();		
 	});
 
 	it('Remove an event', function(){
