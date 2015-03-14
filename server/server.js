@@ -178,7 +178,7 @@ app.post('/api/user', function (req, res, next){
   var newUser = new userModel(req.body);
   newUser.save(function (e, results){
     if (e) return next(e);
-    console.log(results);
+    res.send(results);
   });
 });
 
@@ -199,6 +199,7 @@ app.delete('/api/user/:id', function (req, res, next){
   });
 });
 
+
 // Ticket
 app.get('/api/ticket/:id', function (req, res, next) {
   console.log('get ticket '+req.params.id);
@@ -213,6 +214,7 @@ app.post('/api/ticket', function (req, res, next){
   var newTicket = new ticketModel(req.body);
   newTicket.save(function (e, results){
     if (e) return next(e);
+    res.send(results);
   });
 });
 

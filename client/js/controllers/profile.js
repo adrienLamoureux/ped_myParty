@@ -1,4 +1,4 @@
-// User Events
+// Profile
 app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', '$route', '$location', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User, $route, $location){
 
 	ngProgress.color("#B40404");
@@ -34,7 +34,7 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 
 	$scope.callAtTimeout = function() {
 		ngProgress.complete()
-        console.log("$scope.callAtTimeout - Timeout occurred");
+        //console.log("$scope.callAtTimeout - Timeout occurred");
     }
 
     $timeout( function(){ $scope.callAtTimeout(); }, 300);
@@ -66,7 +66,7 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 		},function (err, res){
 			if(err) console.log(err)
 			else {
-				console.log(res);
+		//		console.log(res);
 			}
 		})
 		}

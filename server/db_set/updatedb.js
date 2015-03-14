@@ -35,7 +35,7 @@ var updateRefID = function(db){
 											userCollection.update({_id:userDocs[0]._id},{
 												$set: {
 													eventsID:[eventDocs[0]._id, eventDocs[1]._id, eventDocs[2]._id],
-													commandsID:commandsDocs[0]._id
+													commandsID:[commandsDocs[0]._id]
 												}
 											}, function(err, result){});
 											
@@ -69,13 +69,11 @@ var updateRefID = function(db){
 
 											commandsCollection.update({_id:commandsDocs[0]._id}, {
 												$set: {
-													commands: [{
-														dateBuy: '1424339270481',
-														eventTickets: [{
-															eventID: eventDocs[0]._id,
-															tickets: ticketDocs[0]._id
-														}]	
-													}]
+													dateBuy: '1424339270481',
+													eventTickets: [{
+														eventID: eventDocs[0]._id,
+														tickets: ticketDocs[0]._id
+													}]	
 												}
 											}, function(err, result){});
 

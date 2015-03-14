@@ -69,7 +69,7 @@
 </div>
 
 <div id="content" ng-show="participed">
-	<div class="container text-center" ng-repeat="event in participatedEvent | filter:search">
+	<div class="container text-center" ng-repeat="event in participatedEvent | unique:title | filter:search">
 		<event-miniature></event-miniature>
 	</div>
 </div>
