@@ -245,17 +245,25 @@
 /*********************************/
 /*** ticket **********************/
 /***        **********************/
+	.fixTicketWidth{
+		width:800px;
+		margin-left:auto;
+		margin-right:auto;
+	}
+	p.fixTicketWidth{
+		margin-top:5px;
+	}
 	table#ticket{
 		font-size:16px;
 		background:white;
 		padding:0px;
-		border: 1px solid #cecece;
+		border: 1px solid black;
 		height:250px;
 		width:800px;
 		text-align:left;
 		margin-left:auto;
 		margin-right:auto;
-		margin-top:80px;
+		margin-top:10px;
 		margin-bottom:0px;
 		padding:0px;
 	}
@@ -270,6 +278,11 @@
 	}
 	table#ticket table{
 		margin-left:15px;
+		margin-right:0px;
+		width:550px;
+	}
+	table#ticket table td.qrCode{
+		width:150px;
 	}
 	table#ticket img.eventSmallImage{
 		width:250px;
@@ -278,6 +291,9 @@
 	}
 	table#ticket td.info{
 		padding-left:15px;
+	}
+	button#bt_print{
+		margin-top:5px;
 	}
 
 

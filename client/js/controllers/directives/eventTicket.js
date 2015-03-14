@@ -18,7 +18,7 @@ app.controller('EventTicketCtrl', ['$scope', '$routeParams','Event', 'Ticket', '
 	$scope.printTicket = function(elt){
 		var printContents = $window.document.getElementById(elt).innerHTML;
         var originalHead = $window.document.head.innerHTML;
-        var popupWin = $window.open('', '_blank', 'width=850,height=400');
+        var popupWin = $window.open('', '_blank', 'width=850,height=600');
         popupWin.document.open()
         popupWin.document.write('<html>'+ originalHead +'<body onload="window.print()">'+ printContents + '</html>');
         popupWin.document.close();

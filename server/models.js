@@ -9,7 +9,8 @@ var tQuantity = new Schema({
 	ticketType: Number,
 	nbTicket: Number,
 	price: Number,
-	entitled: String
+	entitled: String,
+	expirationDate:Date
 }, {collection:'tQuantity'});
 
 var basketEventTicket = new Schema ({
@@ -27,10 +28,6 @@ var eventTicket = new Schema({
 var cmdSchema = new Schema({
 	dateBuy: Date,
 	eventTickets: [eventTicket]
-}, {collection: 'cmd'});
-
-var commandsSchema = new Schema({
-	commands: [cmdSchema]
 }, {collection: 'commands'});
 
 // ticket sold to user for an event
@@ -78,7 +75,7 @@ var userSchema = new Schema({
 		base64: String
 	},
 	eventsID: [{type: mongoose.Schema.Types.ObjectId, ref: 'eventModel'}],
-	commandsID: {type: mongoose.Schema.Types.ObjectId, ref:'commandsModel'},
+	commandsID: [{type: mongoose.Schema.Types.ObjectId, ref:'commandsModel'}],
 	basket : [basketEventTicket]
 }, {collection: 'user'});
 
@@ -108,7 +105,7 @@ var eventSchema = new Schema({
 
 var userModel = mongoose.model('user', userSchema);
 var eventModel = mongoose.model('event', eventSchema);
-var commandsModel = mongoose.model('commands', commandsSchema);
+var commandsModel = mongoose.model('commands', cmdSchema);
 var ticketModel = mongoose.model('ticket', ticketSchema);
 var imageModel = mongoose.model('img', imgSchema);
 
