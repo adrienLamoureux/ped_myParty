@@ -19,7 +19,7 @@
                 &nbsp; {{event.eventTitle}}
               </legend>
               <td>{{ticket.entitled}}</td>
-              <td>{{ticket.price}} €</td>
+              <td id="basketSingleTicketPrice">{{ticket.price}} €</td>
               <td>
                 <button class="btn-xs">
                   <span id="btn_basketMinus{{$index+1}}"class="glyphicon glyphicon-minus" ng-click="decrement(event.eventID, ticket.ticketType, ticket.nbTicket,ticket)"></span>
@@ -31,7 +31,7 @@
                 <span id="btn_basketPlus{{$index+1}}" class="glyphicon glyphicon-plus" ng-click="increment(event.eventID, ticket.ticketType, ticket.nbTicket, ticket)"></span>
                 </button>
               </td>
-              <td>{{ticket.price*ticket.nbTicket}} €</td>
+              <td id="basketSetTicketsPrice">{{ticket.price*ticket.nbTicket}} €</td>
               <td>
                 <button class="btn-xs label-danger">
                   <span id="btn_basketDelete{{$index+1}}" ng-click="deleteElement(event.eventID, ticket.ticketType, ticket.entitled)" class="glyphicon glyphicon-remove"></span>
