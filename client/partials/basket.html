@@ -17,12 +17,12 @@
 	</div>
 
 	<div class="text-center">
-		<strong> Total : {{totalOfBasket}} €</strong>
+		<strong id="basketTotal"> Total : {{totalOfBasket}} €</strong>
 	</div>
 
 	<br>
 	<div class="text-center">
-		<button ng-click="submitBasket()" class="btn label-success">
+		<button id="btn_basketValidation" ng-click="submitBasket()" class="btn label-success">
 			<span caria-hidden="true"> Valider mon panier</span>
 		</button>
 	</div>
