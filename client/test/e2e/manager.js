@@ -3,7 +3,7 @@ var connect = require('./connect.js');
 describe('Manager test', function(){
 
 	beforeEach(function(){
-		browser.get('http://localhost:4711/#/home');
+		browser.get('http://localhost:4711/#/');
 	});
 
 	it('inscription tests', function(){
@@ -16,7 +16,13 @@ describe('Manager test', function(){
 		connect.connect();
 		//browser.sleep(500);
 		//require('./home.js');
+		//browser.sleep(500);
+		//require('./event.js');
 		browser.sleep(500);
-		require('./event.js');
+		require('./basket.js');
+	});
+
+	afterEach(function(){
+		browser.get('http://localhost:4711/#/');
 	});
 });
