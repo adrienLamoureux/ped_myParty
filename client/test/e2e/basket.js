@@ -5,7 +5,7 @@ var addOneTicket = function(){
 	var addPaner = browser.findElement(by.buttonText("Ajouter au panier"));
 	expect(addPaner.isDisplayed()).toBe(true);
 	addPaner.click();
-	browser.sleep(1000);
+	browser.sleep(500);
 };
 
 describe('basket view' , function () {
@@ -57,7 +57,53 @@ describe('basket view' , function () {
 	});
 
 	it('should check that the total price is printed correctly', function(){
-		
+		addOneTicket();
+		/*browser.get('http://localhost:4711/#/');
+		var eventN = browser.findElement(by.xpath("id('page')/div/event-list/div/div[4]/event-miniature/div/a/img"));
+		expect(eventN.isDisplayed()).toBe(true); //When img uploading will work
+		eventN.click();
+		var addPaner = browser.findElement(by.buttonText("Ajouter au panier"));
+		expect(addPaner.isDisplayed()).toBe(true);
+		addPaner.click();
+		browser.sleep(500);
+		browser.get('http://localhost:4711/#/');*/
+		var myBasket = browser.findElement(by.id("bt_basket"));
+		expect(myBasket.isDisplayed()).toBe(true);
+		myBasket.click();
+		browser.sleep(200);
+		var basketCurrentTickets1 = browser.findElement(by.id("basketCurrentTickets1"));
+		//var basketCurrentTickets2 = browser.findElement(by.id("basketCurrentTickets2"));
+		expect(basketCurrentTickets1.isDisplayed()).toBe(true);
+		//expect(basketCurrentTickets2.isDisplayed()).toBe(true);
+		var basketSingleTicketPrice1 = browser.findElement(by.id("basketSingleTicketPrice1"));
+		//var basketSingleTicketPrice2 = browser.findElement(by.id("basketSingleTicketPrice2"));
+		expect(basketSingleTicketPrice1.isDisplayed()).toBe(true);
+		//expect(basketSingleTicketPrice2.isDisplayed()).toBe(true);
+		var basketSetTicketsPrice1 = browser.findElement(by.id("basketSetTicketsPrice1"));
+		//var basketSetTicketsPrice2 = browser.findElement(by.id("basketSetTicketsPrice2"));
+		expect(basketSetTicketsPrice1.isDisplayed()).toBe(true);
+		//expect(basketSetTicketsPrice2.isDisplayed()).toBe(true);
+		var basketTotal = browser.findElement(by.id("basketTotal"));
+		expect(basketTotal.isDisplayed()).toBe(true);
+
+		basketCurrentTickets1.getAttribute('value').then(function(nbTicket){
+			basketSingleTicketPrice1.getText().then(function(ticketPrice){
+				basketSetTicketsPrice1.getText().then(function(setTicketPrice){
+					basketTotal.getText().then(function(totalPrice){
+						ticketPrice = ticketPrice.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
+						setTicketPrice = setTicketPrice.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
+						totalPrice = totalPrice.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
+						console.log(nbTicket);
+						console.log(ticketPrice);
+						console.log(setTicketPrice);
+						console.log(totalPrice);
+						expect((nbTicket*ticketPrice).toString()).toEqual(setTicketPrice);
+						expect(setTicketPrice).toEqual(totalPrice);
+					});
+				});
+			});
+		});
+		//expect(basketCurrentTickets1.getAttribute('value')*basketSingleTicketPrice1.getAttribute('value')).toEqual(basketSetTicketsPrice1.getAttribute('value'));
 	});
 
 	it('should validate a basket', function(){
