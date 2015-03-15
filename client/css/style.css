@@ -10,6 +10,29 @@
 	body{
 		background:lightgrey;
 	}
+	div.search{
+		margin-top:20px;
+		margin-bottom:10px;
+	}
+
+/*********************************/
+/*** dropdown menu ***************/
+/***               ***************/
+	.inverse-dropdown{
+	  	background-color: #222;
+	  	border-color: #080808;
+	}
+	.inverse-dropdown li a{
+	    color: #999;
+	}
+	.inverse-dropdown li a:hover{
+	    color: white;
+	    background-color: #222;
+	}
+	.inverse-dropdown li a.active{
+	    color: white;
+	    background-color: black;
+	}
 
 
 /*********************************/
@@ -60,7 +83,7 @@
 		margin-top:10px;
 		margin-bottom:20px;
 	}
-	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event, #eventPage #event #ticket{
+	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event, #eventPage #event .ticket{
 		background-color: rgba(0, 0, 0, 0.90);
 		padding:10px 10px 10px 10px;
 		border: 1px solid #cecece;
@@ -88,17 +111,17 @@
 		margin:0px;
 		padding:0px;
 	}
-	#eventPage #event #ticket h2{
+	#eventPage #event .ticket h2{
 		margin-top:0px;
 		padding-top:0px;
 		font-style: oblique;
 	}
-	#eventPage #event #ticket input[type=number]{
+	#eventPage #event .ticket input[type=number]{
 		width:50px;
 		background:black;
 		height:34px;
 	}
-	#eventPage #event #ticket button{
+	#eventPage #event .ticket button{
 		color:black;
 		font-weight: bolder;
 		margin-left:10px;
@@ -164,7 +187,7 @@
 /*** mineEvents ******************/
 /***            ******************/
 	nav#mineEventNav{
-		padding:40px;
+		padding-top:40px;
 	}
 
 	div#content{
@@ -218,3 +241,59 @@
 	#mineEvents div.management{
 		padding-top:15px;
 	}
+
+/*********************************/
+/*** ticket **********************/
+/***        **********************/
+	.fixTicketWidth{
+		width:800px;
+		margin-left:auto;
+		margin-right:auto;
+	}
+	p.fixTicketWidth{
+		margin-top:5px;
+	}
+	table#ticket{
+		font-size:16px;
+		background:white;
+		padding:0px;
+		border: 1px solid black;
+		height:250px;
+		width:800px;
+		text-align:left;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:10px;
+		margin-bottom:0px;
+		padding:0px;
+	}
+	table#ticket h3{
+		margin-bottom:5px;
+		margin-top:0px;
+		padding-top:0px;
+	}
+	table#ticket h2{
+		margin:0px;
+		padding:0px;
+	}
+	table#ticket table{
+		margin-left:15px;
+		margin-right:0px;
+		width:550px;
+	}
+	table#ticket table td.qrCode{
+		width:150px;
+	}
+	table#ticket img.eventSmallImage{
+		width:250px;
+		margin:0px;
+		padding:0px;
+	}
+	table#ticket td.info{
+		padding-left:15px;
+	}
+	button#bt_print{
+		margin-top:5px;
+	}
+
+

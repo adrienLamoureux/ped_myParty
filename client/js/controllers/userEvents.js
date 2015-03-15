@@ -1,5 +1,5 @@
 // User Events
-app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event', 'EventImages', 'EventByOrganizerId', '$window', 'User', 'Command', function ($rootScope, $scope, $routeParams, Event, EventImages, EventByOrganizerId, $window, User, Command){
+app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event', 'EventImages', 'EventByOrganizerId', 'User', 'Command', function ($rootScope, $scope, $routeParams, Event, EventImages, EventByOrganizerId, User, Command){
 
 	//URL user argument
 	$scope.events = EventByOrganizerId.query({id:$rootScope.user.user_id}, function(data){
@@ -24,16 +24,35 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 
 	var mongoUser = User.get({id:$rootScope.user.user_id}, function (data){
 		mongoUser = data;
-		console.log("User reccup");
-		console.log (mongoUser);
+			
+		angular.forEach(mongoUser.commandsID, function (commandID, key1){
+			
+			var command = Command.get({id:commandID}, function (cmd){
+				command = cmd;
+			
+				angular.forEach(command.eventTickets, function (eventT, key2){
+					var eventTmp = Event.get({id:eventT.eventID}, function (evnt){
+						eventTmp = 	evnt;
+						$scope.participatedEvent.push(eventTmp);
+					});
+				});
+			}, function (err){
+				console.log(err);
+			});
+		});
+	}, function (err){
+		console.log (err);
+	});
+
+
+	/*var mongoUser = User.get({id:$rootScope.user.user_id}, function (data){
+		mongoUser = data;
+			
 		var commands = Command.get({id:mongoUser.commandsID}, function (cmds){
 			commands = cmds;
-			console.log("Commandes reccup");
-			console.log (commands);
 
 			angular.forEach(commands.commands, function (command, key1){
 				angular.forEach(command.eventTickets, function (eventT, key2){
-					console.log (eventT.eventID);	
 					var eventTmp = Event.get({id:eventT.eventID}, function (evnt){
 						eventTmp = 	evnt;
 						$scope.participatedEvent.push(eventTmp);
@@ -41,7 +60,7 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 				});
 			});
 		});
-	});
+	});*/
 	
 	$scope.organised=true;
 	$scope.participed=false;

@@ -1,11 +1,12 @@
 // Application MyParty
-var app = angular.module('MyPartyApp', ['naif.base64', 'ngRoute', 'ngResource', 'ja.qr', 'UserApp','ngProgress']);
+var app = angular.module('MyPartyApp', ['naif.base64', 'ngRoute', 'ngResource', 'ja.qr', 'UserApp','ngProgress', 'ui']);
 
 app.config(function($routeProvider){
 	$routeProvider
 		.when('/', {
 			templateUrl: './partials/home.html',
-			controller: 'HomeCtrl'
+			controller: 'HomeCtrl',
+			public: true
 		})
 		.when('/usr/create', {
 			templateUrl: './partials/createUser.html',

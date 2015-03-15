@@ -1,14 +1,13 @@
 <!-- Events Template -->
 <div class="container text-center">
-	<h1> Evennements organisés par le site  </h1>
-	Rechercher un évènement : 
-	<div class="row">
-	<div class="col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-3 col-lg-3 col-lg-3 ">
-	<div class="input-group">
-		<span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
-		<input value="barre de recherche" class="form-control" type="text" ng-model="search.title" aria-describedby="basic-addon1">
-	</div>
-	</div>
+	<h1>Evénements organisés par le site</h1>
+	<div class="search row">
+		<div class="col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 ">
+			<div class="input-group">
+				<span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
+				<input value="barre de recherche" class="form-control" type="text" ng-model="search.title" aria-describedby="basic-addon1">
+			</div>
+		</div>
 	</div>
 	<div ng-repeat="event in events | filter:search">
 		<event-miniature></event-miniature>

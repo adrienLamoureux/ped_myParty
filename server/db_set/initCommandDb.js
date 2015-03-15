@@ -6,13 +6,11 @@ var initCommands = function(db){
 	console.log("Inserting new documents in 'commands' ...");
 	db.collection('commands', function(err, collection) {
 		collection.insert([{
-			commands:[{
-				dateBuy: '1424339270481',
-				eventTickets: [{
-					eventID: null,
-					tickets: null
-				}]	
-			}]
+			dateBuy: '1424339270481',
+			eventTickets: [{
+				eventID: null,
+				tickets: null
+			}]	
 		}], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'commands'\n"); return false; }
 			console.log("\t--> New documents have been added to 'commands'!\n"+
@@ -22,7 +20,6 @@ var initCommands = function(db){
 		});
 	});
 };
-
 
 mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {
 	if (err) { console.log("\t--> Connection failure !\n"); return false; }

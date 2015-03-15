@@ -1,10 +1,10 @@
 <!-- Basket Template --> 
 <br>
-<!--<div ng-show="calculateTotal() > 0"> -->
+<div ng-show="totalOfBasket > 0">
 
 	<div class="col-lg-offset-1">
 		<br>
-		<h3> Cher {{user.first_name}} {{user.last_name}}, votre Panier : </h3>
+		<h3> Cher {{user.first_name}}, votre Panier : </h3>
 		<br>
 	</div>
 <!--
@@ -17,20 +17,17 @@
 	</div>
 
 	<div class="text-center">
-		<strong> Total : {{totalOfBasket}} €</strong>
+		<strong id="basketTotal"> Total : {{totalOfBasket}} €</strong>
 	</div>
 
+	<br>
 	<div class="text-center">
-		<button ng-click="validateBasket()" class="btn label-success">
+		<button id="btn_basketValidation" ng-click="submitBasket()" class="btn label-success">
 			<span caria-hidden="true"> Valider mon panier</span>
 		</button>
 	</div>
-<!-- </div> -->
-
-<div class="alert alert-warning" role="alert" ng-show="calculateTotal() === 0">
-	Votre panier est vide
 </div>
 
-
-
-
+<div class="alert alert-warning" role="alert" ng-show="totalOfBasket === 0">
+	Votre panier est vide
+</div>
