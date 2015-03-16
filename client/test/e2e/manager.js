@@ -18,8 +18,10 @@ describe('Manager test', function(){
 		//require('./home.js');
 		//browser.sleep(500);
 		//require('./event.js');
+		//browser.sleep(500);
+		//require('./basket.js');
 		browser.sleep(500);
-		require('./basket.js');
+		require('./user.js');
 	});
 
 	afterEach(function(){
