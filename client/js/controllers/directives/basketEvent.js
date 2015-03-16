@@ -1,7 +1,9 @@
 // BasketEvent Directive Controller
-app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams){
+app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', 'ngProgress', '$timeout', '$window', function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams, ngProgress, $timeout, $window){
 
 	$scope.basketOfUser = [];
+
+	ngProgress.color("#B40404");
 
 	function getBasketWithUserId() {
 		$scope.theUser = User.get({id:$rootScope.user.user_id}, function (res, e){
@@ -125,6 +127,10 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 	getBasketWithUserId();
 
 	$scope.submitBasket = function(){
+		ngProgress.start();
+
+		var cptTicket = 0 ;
+		
 		var newCmd = {
 			'dateBuy': Date.now(),
 			'eventTickets':[]
@@ -149,6 +155,9 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 							});
 							
 							angular.forEach(evnt.tickets, function(ticket, key2){
+
+								cptTicket += ticket.nbTicket;
+								
 								angular.forEach(completeEvent.ticketsType, function (tType, key3){
 											
 									if (tType.uniqueID == ticket.ticketType){
@@ -168,6 +177,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 												for(i=0;i<ticket.nbTicket;i++) {
 													var mongoTicket = Ticket.post(tckt, function (ticketData){
 														mongoTicket = ticketData;
+														cptTicket--;
 														completeEvent.tickets.push(mongoTicket._id);
 														Event.put({id:completeEvent._id}, completeEvent, function (data){
 															$scope.evnt = completeEvent;
@@ -186,6 +196,20 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 															}
 														});
 
+														if (cptTicket == 0){
+															$timeout( function(){ 
+																$scope.basketOfUser = [];
+																$scope.theUser.basket = $scope.basketOfUser;
+																User.put({id:$rootScope.user.user_id}, $scope.theUser, function (res, e){
+																	ngProgress.complete();
+																	$window.location.href = '#/usr/cmds';
+																	$window.location.reload();
+																}, function (err){
+																	console.log(err);
+																});																
+															}, 500);	
+														}
+
 													}, function (err){
 														console.log(err);
 													});
@@ -201,9 +225,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 						}, function (err){
 							console.log (err);
 						});
-						$scope.evnt = completeEvent;
 					});
-					$scope.cmdss = userCmd;
 				});
 			});
 		}, function (err){
