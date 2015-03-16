@@ -88,7 +88,8 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 
 	$scope.cancel = function(event){
 		// TODO: Event cancelation + sending mail
-		// Remove all tickets and payback commands
-		
+		// mark all tickets as used
+		event.canceled=true;
+		Event.put({id:event._id}, event);
 	}
 }]);

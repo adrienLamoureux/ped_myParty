@@ -98,7 +98,8 @@ var eventSchema = new Schema({
 	ticketsType: [ticketTypeSchema],
 	dateStarting: Date,
 	dateEnding: Date,
-	online: {type: Boolean, default: false}
+	online: {type: Boolean, default: false},	
+	canceled: {type: Boolean, default: false}
 }, {collection: 'event'});
 
 // Model
