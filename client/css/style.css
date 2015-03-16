@@ -14,7 +14,9 @@
 		margin-top:20px;
 		margin-bottom:10px;
 	}
-
+	.alert{
+		margin:10px;
+	}
 /*********************************/
 /*** dropdown menu ***************/
 /***               ***************/
@@ -186,12 +188,16 @@
 /*********************************/
 /*** mineEvents ******************/
 /***            ******************/
+	#bt_participed{
+		margin-bottom:10px;
+	}
+
 	nav#mineEventNav{
 		padding-top:40px;
 	}
 
 	div#content{
-		padding:0px 20px 20px 20px;
+		padding:20px 20px 20px 20px;
 		border: 1px solid black;
 		-webkit-border-radius: 10px;
 		 -khtml-border-radius: 10px;

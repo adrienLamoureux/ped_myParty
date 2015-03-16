@@ -10,6 +10,6 @@
 		</div>
 	</div>
 	<div ng-repeat="event in events | filter:search">
-		<event-miniature></event-miniature>
+		<event-miniature ng-show="event.online && dateNotExpired(event.dateEnding)"></event-miniature>
 	</div>
 </div>
