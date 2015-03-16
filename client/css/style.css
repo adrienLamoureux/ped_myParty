@@ -113,6 +113,15 @@
 		margin:0px;
 		padding:0px;
 	}
+	#eventPage #event #tickets a#link_connect{
+		color: #999;
+		font-style:italic;
+	}
+	#eventPage #event #tickets a#link_connect:hover{
+		color: #FFF;
+		font-style:italic;
+		text-decoration:none;
+	}
 	#eventPage #event .ticket h2{
 		margin-top:0px;
 		padding-top:0px;
