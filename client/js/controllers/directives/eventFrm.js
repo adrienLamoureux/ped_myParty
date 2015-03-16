@@ -27,7 +27,8 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 		}],
 		'dateStarting': null,
 		'dateEnding': null,
-		'online': false
+		'online': false,
+		'canceled':false
 	};
 
 	$scope.defaultImages = {

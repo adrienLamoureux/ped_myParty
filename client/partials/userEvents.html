@@ -61,12 +61,16 @@
 				<button id="delete{{$index+1}}" ng-hide="event.online" class="btn btn-danger" confirmed-click="delete(event)" ng-confirm-click="Etes-vous sûr de vouloir supprimer l'événement {{event.title}} ?">
 					Supprimer
 				</button>
-				<button id="cancel{{$index+1}}" ng-show="event.online && !dateExpired(event.dateStarting)" class="btn btn-danger" confirmed-click="cancel(event)" ng-confirm-click="Etes-vous sûr de vouloir annuler l'événement {{event.title}} ?
+				<button id="cancel{{$index+1}}" ng-show="event.online && !dateExpired(event.dateStarting) && !event.canceled" class="btn btn-danger" confirmed-click="cancel(event)" ng-confirm-click="Etes-vous sûr de vouloir annuler l'événement {{event.title}} ?
 				(Tous les clients seront remboursés)">
 					Annuler
 				</button>
-				<span id="noActions{{$index+1}}" ng-show="event.online && dateExpired(event.dateStarting)" class="span-text span-error">
+				<span id="noActions{{$index+1}}" ng-show="event.online && !event.canceled && dateExpired(event.dateStarting)" class="span-text span-error">
 					Evénement en cours ou expiré !
+					<br/>(aucune action possible)
+				</span>
+				<span id="noActions{{$index+1}}" ng-show="event.canceled" class="span-text span-error">
+					Evénement annulé !
 					<br/>(aucune action possible)
 				</span>
 			</div>
@@ -82,6 +86,6 @@
 		</a>
 	</div>
 	<div class="container text-center" ng-repeat="event in participatedEvent | unique:title | filter:search">
-		<event-miniature></event-miniature>
+		<event-miniature ng-hide="event.canceled"></event-miniature>
 	</div>
 </div>
