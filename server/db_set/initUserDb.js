@@ -46,6 +46,17 @@ var initUser = function(db){
 						]
 					}]
 				}] */
+			},{
+				apiID: 'PGOofZbcTjSzxOBv8wcXgA',
+				photo:{
+					filetype : null,
+					filename : null,
+					filesize : null,
+					base: null
+				},
+				eventsID: [],
+				commandsID: [],
+				basket : []
 			}
 			], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'user'\n"); return false; }
