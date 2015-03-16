@@ -93,17 +93,12 @@ describe('basket view' , function () {
 						ticketPrice = ticketPrice.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
 						setTicketPrice = setTicketPrice.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
 						totalPrice = totalPrice.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
-						console.log(nbTicket);
-						console.log(ticketPrice);
-						console.log(setTicketPrice);
-						console.log(totalPrice);
 						expect((nbTicket*ticketPrice).toString()).toEqual(setTicketPrice);
 						expect(setTicketPrice).toEqual(totalPrice);
 					});
 				});
 			});
 		});
-		//expect(basketCurrentTickets1.getAttribute('value')*basketSingleTicketPrice1.getAttribute('value')).toEqual(basketSetTicketsPrice1.getAttribute('value'));
 	});
 
 	it('should validate a basket', function(){
