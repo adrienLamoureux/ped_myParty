@@ -89,13 +89,6 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 	$scope.cancel = function(event){
 		// TODO: Event cancelation + sending mail
 		// Remove all tickets and payback commands
-		Event.delete({id:event._id});
-
-		var eventImgs = EventImages.get({id:event._id}, function(data){
-			eventImgs = data;
-			EventImages.delete({id:eventImgs._id});
-		});
-
-		$scope.events = EventByOrganizerId.query({id:$rootScope.user.user_id});
+		
 	}
 }]);

@@ -16,7 +16,7 @@
 		<section class="col-md-12">
 			<h1>Billeterie</h1>
 			<div id="tickets" ng-repeat="ticketType in thisEvent.ticketsType">
-				<div id="ticket{{$index+1}}" class="ticket container-fluid" ng-show="ticketType.ticketLeft>0">			  		
+				<div id="ticket{{$index+1}}" class="ticket container-fluid">			  		
 					<div class="col-md-3">
 						<img id="ticket_$index_image" class="img-responsive center-block" data-ng-src="data:{{imgs.ticketImg.filetype}};base64,{{imgs.ticketImg.base64}}">
 					</div>
@@ -27,7 +27,11 @@
 							<li>Expiration : {{ticketType.expirationDate | date:'dd/MM/yyyy'}}</li>
 							<li>Prix : {{ticketType.price}} €</li>
 						</ul>
-						<div class="pull-right" ng-show="thisEvent.online && dateNotExpired(thisEvent.dateEnding) && user.authenticated">
+						<span class="pull-right" ng-hide="(ticketType.ticketLeft > 0)">-Epuisé-</span>
+						<div class="pull-right" ng-show="(ticketType.ticketLeft > 0) && !user.authenticated">
+							-<a id="link_connect" href="#/login">Connectez-vous</a> pour acheter-
+						</div>
+						<div class="pull-right" ng-show="thisEvent.online && dateNotExpired(thisEvent.dateEnding) && (ticketType.ticketLeft > 0) && user.authenticated">
 							<input ng-model="places_number" type="number" value="0" min="0">
 
 							<button ng-click="addToBasket(places_number,ticketType.uniqueID,ticketType.price,ticketType.type,ticketType.ticketLeft, ticketType.expirationDate, thisEvent.title)" class="btn btn-primary">
