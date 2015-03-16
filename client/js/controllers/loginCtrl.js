@@ -1,5 +1,5 @@
 // HomePage Controller
-app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q', function ($scope, ngProgress, User, Command, $q){
+app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q', '$route', function ($scope, ngProgress, User, Command, $q, $route){
 
 	ngProgress.color("#B40404");
 
@@ -42,6 +42,7 @@ $scope.createUser = function (log, pass) {
 						console.log("success to create")
 						console.log(success)
 						ngProgress.complete()
+						$route.reload();
 					}).catch(function(failed){ 
 						console.log(failed)
 					})
