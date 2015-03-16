@@ -90,7 +90,7 @@ var initEvent = function(db){
 			},
 			{
 				ownerID: null,
-				title: 'Great event 3 (not online)',
+				title: 'Great event 3',
 				description: 'Super party',
 				country: 'France',
 				county: 'Aquitaine',
@@ -115,7 +115,7 @@ var initEvent = function(db){
 				}],
 				dateStarting: '1424339270481',
 				dateEnding: '1524339270481',
-				online: false
+				online: true
 			}
 			], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'event'\n"); return false; }
