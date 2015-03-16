@@ -177,6 +177,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 														completeEvent.tickets.push(mongoTicket._id);
 														Event.put({id:completeEvent._id}, completeEvent, function (data){
 															$scope.evnt = completeEvent;
+
 														}, function (err){
 															console.log(err);
 														});
@@ -196,7 +197,8 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 															$timeout( function(){ 
 																$scope.basketOfUser = [];
 																$scope.theUser.basket = $scope.basketOfUser;
-																User.put({id:$rootScope.user.user_id}, $scope.theUser, function (res, e){
+																mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
+																	mongoUser = res;
 																	ngProgress.complete();
 																	$window.location.href = '#/usr/cmds';
 																	$window.location.reload();
