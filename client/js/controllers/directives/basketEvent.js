@@ -196,7 +196,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 														if (cptTicket == 0){
 															$timeout( function(){ 
 																$scope.basketOfUser = [];
-																$scope.theUser.basket = $scope.basketOfUser;
+																mongoUser.basket = $scope.basketOfUser;
 																mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
 																	mongoUser = res;
 																	ngProgress.complete();
