@@ -21,8 +21,8 @@
               <td>{{ticket.entitled}}</td>
               <td id="basketSingleTicketPrice{{$index+1}}">{{ticket.price}} €</td>
               <td>
-                <button class="btn-xs">
-                  <span id="btn_basketMinus{{$index+1}}"class="glyphicon glyphicon-minus" ng-click="decrement(event.eventID, ticket.ticketType, ticket.nbTicket,ticket)"></span>
+                <button id="btn_basketMinus{{$index+1}}" ng-click="decrement(event.eventID, ticket.ticketType, ticket.nbTicket,ticket)" class="btn-xs">
+                  <span class="glyphicon glyphicon-minus" ></span>
                 </button>
                 &nbsp;&nbsp;
                 <input id="basketCurrentTickets{{$index+1}}" ng-model="ticket.nbTicket" ng-readonly="true"></input>
