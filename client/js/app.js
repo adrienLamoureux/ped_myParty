@@ -58,6 +58,7 @@ app.config(function($routeProvider){
 		})
 		.when('/login',{
 			templateUrl : './partials/login.html',
+			controller: 'LoginCtrl',
 			login: true
 		})
 		.when('/signup', {

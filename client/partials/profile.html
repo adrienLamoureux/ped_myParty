@@ -4,13 +4,12 @@
   <div class="roundedImage span8 offset2">
       <img data-ng-src="data:{{mongoUser.photo.filetype}};base64,{{mongoUser.photo.base64}}" alt="Photo profil"/>
   </div>
-
    <label>Mon profil</label>   
       <div class="panel panel-info">
     <div class="panel-heading ">
       <h3 class="panel-title"> Email: </h3>
     </div>
-    <div class="panel-body">
+    <div id="userEmail" class="panel-body">
       {{email}}
     </div>
   </div>
@@ -19,7 +18,7 @@
     <div class="panel-heading ">
       <h3 class="panel-title"> Prenom:  </h3>
     </div>
-    <div class="panel-body" >
+    <div id="userFirstName" class="panel-body" >
       {{first_name}}
       <span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editName"></span>
     </div>
@@ -29,7 +28,7 @@
     <div class="panel-heading ">
       <h3 class="panel-title"> Nom:  </h3>
     </div>
-    <div class="panel-body">
+    <div id="userLastName" class="panel-body">
       {{last_name}}
     </div>
   </div>
@@ -38,7 +37,7 @@
     <div class="panel-heading ">
       <h3 class="panel-title"> Création du compte : </h3>
     </div>
-    <div class="panel-body">
+    <div id="userDateCreate" class="panel-body">
       {{create_account | date:'dd/MM/yyyy - HH:mm:ss'}}
     </div>
   </div>
@@ -47,7 +46,7 @@
     <div class="panel-heading">
       <h3 class="panel-title"> Dernière connexion:  </h3>
     </div>
-    <div class="panel-body">
+    <div id="userDateLastLogin" class="panel-body">
       {{last_login | date:'dd/MM/yyyy - HH:mm:ss'}}    
     </div>
   </div>
@@ -56,7 +55,7 @@
     <div class="panel-heading">
       <h3 class="panel-title"> Modifications du profil : </h3>
     </div>
-    <div class="panel-body">
+    <div id="userDateUpdate" class="panel-body">
       {{updated_at | date:'dd/MM/yyyy - HH:mm:ss'}}
     </div>
   </div>
@@ -65,12 +64,12 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button id="btn_userNewFirstName" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Nouveau Prénom</h4>
           </div>
           <div class="modal-body">
           <form name="myForm">
-            <input ng-minlength="4" ng-maxlength="15" name="lastName"ng-model="newPrenom" >
+            <input id="userNewFirstName" ng-minlength="4" ng-maxlength="15" name="lastName"ng-model="newPrenom" >
             <span class="error" ng-show="myForm.lastName.$error.minlength">
                Min 4 caractères!</span><br>
             <span class="error" ng-show="myForm.lastName.$error.maxlength">
@@ -80,8 +79,8 @@
           </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reloadPage()">Close</button>
-            <button type="button" class="btn btn-primary" ng-click="validateChange(newPrenom, newPrenom.length)">Save changes</button>
+            <button id="btn_userFirstNameClose" type="button" class="btn btn-default" data-dismiss="modal" ng-click="reloadPage()">Close</button>
+            <button id="btn_userFirstNameSave" type="button" class="btn btn-primary" ng-click="validateChange(newPrenom, newPrenom.length)">Save changes</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -89,7 +88,7 @@
 
     <label>Image miniature du profil</label>
     <span>
-    <input type="file" ng-model="mongoUser.photo" name="file" base-sixty-four-input required ng-click="viewImgP()"/>
+    <input id="userGetImage" type="file" ng-model="mongoUser.photo" name="file" base-sixty-four-input required ng-click="viewImgP()"/>
     <button id="bt_submit" type="submit" ng-click="updateProfile()">validate</button>
     </span>
     <div ng-show="viewImg">
@@ -98,7 +97,7 @@
 
     <div class="alert alert-success" role="alert" ng-if="user.locks.length === 0">
       Votre compte est : Actif 
-      <button type="submit" class="btn btn-danger" ng-click="lockUsr(user)">Désactiver Compte</button>
+      <button id="btn_disableAccount" type="submit" class="btn btn-danger" ng-click="lockUsr(user)">Désactiver Compte</button>
     </div>
 </div>
 
