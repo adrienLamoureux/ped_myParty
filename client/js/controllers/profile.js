@@ -7,7 +7,15 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	$scope.viewImg = false;		
 	$scope.newPrenom = '';
 
-	$scope.mongoUser = User.get({id:currentUserId});
+
+
+	User.get({id:currentUserId}).$promise.then(function(res){
+		$scope.mongoUser =  res;
+		ngProgress.complete();
+	}, function(err){
+		console.log(err)
+	});
+
 
 	$scope.updateProfile = function (){
 		User.put({id:currentUserId}, $scope.mongoUser);
@@ -33,14 +41,12 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	}
 
 	$scope.callAtTimeout = function() {
-		ngProgress.complete()
-        //console.log("$scope.callAtTimeout - Timeout occurred");
     }
 
     $timeout( function(){ $scope.callAtTimeout(); }, 300);
 
 	$scope.lockUsr = function (){
-		if(confirm("Etes vous sûr de lock votre Compte ? vous ne pourrez plus vous connecter")){
+		if(confirm("Etes vous sûr de verrouiller votre Compte ? vous ne pourrez plus vous connecter")){
 			UserApp.User.lock({
 				"user_id" : currentUserId,
 				"type" : "ACCOUNT_EXPIRED",
