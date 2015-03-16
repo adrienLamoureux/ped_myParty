@@ -27,14 +27,14 @@
                 &nbsp;&nbsp;
                 <input id="basketCurrentTickets{{$index+1}}" ng-model="ticket.nbTicket" ng-readonly="true"></input>
                 &nbsp;&nbsp;
-                <button class="btn-xs">
-                <span id="btn_basketPlus{{$index+1}}" class="glyphicon glyphicon-plus" ng-click="increment(event.eventID, ticket.ticketType, ticket.nbTicket, ticket)"></span>
+                <button id="btn_basketPlus{{$index+1}}" ng-click="increment(event.eventID, ticket.ticketType, ticket.nbTicket, ticket)" class="btn-xs">
+                  <span class="glyphicon glyphicon-plus" ></span>
                 </button>
               </td>
               <td id="basketSetTicketsPrice{{$index+1}}">{{ticket.price*ticket.nbTicket}} €</td>
               <td>
-                <button class="btn-xs label-danger">
-                  <span id="btn_basketDelete{{$index+1}}" ng-click="deleteElement(event.eventID, ticket.ticketType, ticket.entitled)" class="glyphicon glyphicon-remove"></span>
+                <button id="btn_basketDelete{{$index+1}}" ng-click="deleteElement(event.eventID, ticket.ticketType, ticket.entitled)" class="btn-xs label-danger">
+                  <span  class="glyphicon glyphicon-remove"></span>
                 </button>
               </td>
             </tr>
