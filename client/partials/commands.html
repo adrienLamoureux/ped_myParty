@@ -1,7 +1,19 @@
 <!-- Commands List Template --> 
-<h1> Visualiser mes commandes </h1>
-<ul>
-	<li ng-repeat="cmd in commands">
-		<a href="#/usr/cmd/{{cmd._id}}"> Commande du {{cmd.dateBuy | date:'dd/MM/yyyy - H:mm'}}	</a>
-	</li>
-</ul>
+
+<div class="command">
+	<h1> Visualiser mes commandes </h1>
+	<div class="table-responsive" style="margin:0px auto;max-width:800px;">
+		<table class="commandTable table table-bordered table-condensed table-center table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Mes commandes</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="cmd in commands">
+					<td><a href="#/usr/cmd/{{cmd._id}}"> Commande du {{cmd.dateBuy | date:'dd/MM/yyyy - H:mm'}}	</a></td>
+				<tr>
+			</tbody>
+		</table>
+	</div>
+</div>

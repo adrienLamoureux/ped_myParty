@@ -304,6 +304,9 @@
 
 
 /* Command */
+.command{
+	text-align:center;
+}
 .commandTable thead th {
 	background:#555555;
 	color:#FFFFFF;
@@ -312,5 +315,6 @@
 }
 
 .commandTable td {
+	text-align: center;
 	vertical-align:middle;
 }
