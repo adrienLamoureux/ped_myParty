@@ -20,11 +20,6 @@ $scope.createUser = function (log, pass) {
 						console.log("user still exist")
 						ngProgress.complete()
 						return $q.reject( 'Rejecting this promise');
-					}else {
-						var cmdJSON = {
-							commands:[]
-						};
-						return Command.post(cmdJSON)
 					}}).then(function(res){
 						console.log(res)
 						var user = {
@@ -35,7 +30,7 @@ $scope.createUser = function (log, pass) {
 								"filename":"profile.png",
 								"filetype":"image/png"
 							},
-							"commandsID": res._id
+							"commandsID": []
 						};
 						return User.post(user);
 					}).then(function(success){
