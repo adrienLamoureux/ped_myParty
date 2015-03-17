@@ -165,12 +165,14 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 												eventUp = evUp;											
 												var tckt = {
 													'userID': $rootScope.user.user_id,
-													'eventID': evnt.eventID,
+													'ownerID': eventUp.ownerID,
+													'eventID': eventUp._id,
 													'ticketTypeID': ticket.ticketType,
 													'expirationDate': new Date(ticket.expirationDate).getTime(),
 													'used':false
 												};
 												for(i=0;i<ticket.nbTicket;i++) {
+													console.log(tckt);
 													var mongoTicket = Ticket.post(tckt, function (ticketData){
 														mongoTicket = ticketData;
 														cptTicket--;
@@ -200,8 +202,8 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 																mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
 																	mongoUser = res;
 																	ngProgress.complete();
-																	$window.location.href = '#/usr/cmds';
-																	$window.location.reload();
+																	//$window.location.href = '#/usr/cmds';
+																	//$window.location.reload();
 																}, function (err){
 																	console.log(err);
 																});																
