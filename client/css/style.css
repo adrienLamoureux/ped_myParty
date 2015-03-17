@@ -9,6 +9,7 @@
 	}
 	body{
 		background:lightgrey;
+		min-width:450px;
 	}
 	div.search{
 		margin-top:0px;
@@ -400,19 +401,28 @@
 /* Command */
 .command{
 	text-align:center;
+	margin-top:10px;
+}
+.command h2{
+	margin-top:5px;
+	margin-bottom:15px;
 }
 
 #commandImage {
 	text-align:center;
 }
-.commandTable thead th {
-	background:#222;
-	color:#FFFFFF;
+
+table.commandTable {
+	margin-top:15px;
+}
+table.commandTable thead th {
+	background:#444;
+	color:#ddd;
 	text-align:center;
 	vertical-align:middle;
 }
 
-.commandTable td {
+table.commandTable td {
 	text-align: center;
 	vertical-align:middle;
 }
