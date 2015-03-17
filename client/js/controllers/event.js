@@ -24,6 +24,10 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 				alert("Désolé, il ne reste plus que "+ticketleft+" billets de ce type pour cet evenement");
 			}
 		}else{
+			console.log(numberplace)
+			if(typeof(numberplace) == "undefined"){
+				alert("Merci d'ajouter à votre panier un nombre de ticket valide.");
+			}else{
 			// Si les tickets sont disponibles on recupere le panier de l'utilisateur
 			$scope.Myuser = User.get({id:$rootScope.user.user_id}, function (res){
 				var panier = res.basket;
@@ -121,6 +125,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 			}, function (){
 				//console.log("Probleme lors de l\'ajout du ticket, erreur lors de la recuperation du panier utilisateur");
 			});
+			}
 		}
 		//$window.location.reload();
 	};
