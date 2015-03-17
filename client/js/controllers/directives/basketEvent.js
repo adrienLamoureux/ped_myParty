@@ -7,31 +7,30 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 
 	function getBasketWithUserId() {
 		$scope.theUser = User.get({id:$rootScope.user.user_id}, function (res, e){
-			//console.log('Récuperation de l\'utilisateur réussie :'+$scope.theUser.apiID);
-			// On test si il un panier est deja associé au User et si il contient deja des articles
-			if(typeof(res.basket) != 'undefined' && res.basket.length > 0){
-				// Si oui alors on recupere les datas
-				for(i=0;i<res.basket.length;i++){
-					$scope.basketOfUser.push(res.basket[i]);
-				}
-			}else{
-				console.log("Panier vide");
+		// On test si il un panier est deja associé au User et si il contient deja des articles
+		if(typeof(res.basket) != 'undefined' && res.basket.length > 0){
+			// Si oui alors on recupere les datas
+			for(i=0;i<res.basket.length;i++){
+				$scope.basketOfUser.push(res.basket[i]);
 			}
-			$scope.totalOfBasket = calculateTotal();
-		}, function (){
-			console.log('Récuperation de l\'utilisateur échoué');
-			console.log(e);
-		});
+		}else{
+			//console.log("Panier vide");
+		}
+		$scope.totalOfBasket = calculateTotal();
+	}, function (){
+		//console.log('Récuperation de l\'utilisateur échoué');
+	})
 	}
 
 	// Fonction permettant de recalculer le total
 	function calculateTotal(){
-		var total = 0;
-
-		if($scope.basketOfUser.length > 0) {
-			for(i=0;i<$scope.basketOfUser.length;i++){
-				for(j=0;j<$scope.basketOfUser[i].tickets.length;j++){
-					total = total + $scope.basketOfUser[i].tickets[j].price * $scope.basketOfUser[i].tickets[j].nbTicket;
+		var total = null;
+		if(typeof(total) != undefined) {
+			if($scope.basketOfUser.length > 0) {
+				for(i=0;i<$scope.basketOfUser.length;i++){
+					for(j=0;j<$scope.basketOfUser[i].tickets.length;j++){
+						total = total + $scope.basketOfUser[i].tickets[j].price * $scope.basketOfUser[i].tickets[j].nbTicket;
+					}
 				}
 			}
 		}
@@ -39,7 +38,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 	};
 
 	// Fonction permettant de décrémenter le nombre d'un element du panier
-	$scope.decrement = function(eventid, type, qtty, ticket){
+	$scope.decrement = function(eventid, type, qtty, ticket, nomTicket){
 		if(qtty > 1){
 			for(i=0;i<$scope.basketOfUser.length;i++){
 				if($scope.basketOfUser[i].eventID == eventid){
@@ -56,16 +55,17 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 			User.put({id:$rootScope.user.user_id}, $scope.theUser, function (res, e){
 				ticket.nbTicket--;
 				$scope.$parent.totalOfBasket = calculateTotal();
+				$scope.$parent.basketOfUser = $scope.theUser.basket;
 			}, function (){
-				console.log('Mise a jour du panier panier : ERREUR');
+				//console.log('Mise a jour du panier panier : ERREUR');
 			});
 		}else{
-			alert("Il ne rester qu'un ticket de ce type, veuillez le supprimer.")
+			$scope.deleteElement(eventid, type, nomTicket);
 		}
-	};
+	}
 
-	// Fonction permettant d'incrémenter' le nombre d'un element du panier
-	$scope.increment = function(eventid, type, qtty, ticket){
+	// Fonction permettant d'incrémenter le nombre d'un element du panier
+	$scope.increment = function(eventid, type, qtty, ticket, nomTicket){
 		for(i=0;i<$scope.basketOfUser.length;i++){
 			if($scope.basketOfUser[i].eventID == eventid){
 				for(j=0;j<$scope.basketOfUser[i].tickets.length;j++){
@@ -75,15 +75,15 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 				}
 			}
 		}
-
 		$scope.theUser.basket = $scope.basketOfUser;
-		// On update le panier
-		User.put({id:$rootScope.user.user_id}, $scope.theUser, function (res, e){
-			ticket.nbTicket++;
-			$scope.$parent.totalOfBasket = calculateTotal();
-		}, function (){
-			alert("Il ne rester qu'un ticket de ce type, veuillez le supprimer.")
-		});
+			// On update le panier
+			User.put({id:$rootScope.user.user_id}, $scope.theUser, function (res, e){
+				ticket.nbTicket++;
+				$scope.$parent.totalOfBasket = calculateTotal();
+				$scope.$parent.basketOfUser = $scope.theUser.basket;
+			}, function (){
+				alert("Il ne rester qu'un ticket de ce type, veuillez le supprimer.")
+			});
 	};
 
 	// Fonction permettant de supprimer un element du panier. Demander si l'utilisateur est sur de vouloir le supprimer
@@ -115,16 +115,12 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 		}
 		// On update le panier
 		User.put({id:$rootScope.user.user_id}, $scope.theUser, function (res, e){
-			window.location.reload();
+			$scope.$parent.totalOfBasket = calculateTotal();
+			$scope.$parent.basketOfUser = $scope.theUser.basket;
 		}, function (){
 			alert ('Mise a jour du panier panier : ERREUR');
-			console.log(res);
-			console.log(e);
 		});
 	}
-
-	// Fonctions lancées lors de l'execution du controleur 
-	getBasketWithUserId();
 
 	$scope.submitBasket = function(){
 		ngProgress.start();
@@ -181,6 +177,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 														completeEvent.tickets.push(mongoTicket._id);
 														Event.put({id:completeEvent._id}, completeEvent, function (data){
 															$scope.evnt = completeEvent;
+
 														}, function (err){
 															console.log(err);
 														});
@@ -199,8 +196,9 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 														if (cptTicket == 0){
 															$timeout( function(){ 
 																$scope.basketOfUser = [];
-																$scope.theUser.basket = $scope.basketOfUser;
-																User.put({id:$rootScope.user.user_id}, $scope.theUser, function (res, e){
+																mongoUser.basket = $scope.basketOfUser;
+																mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
+																	mongoUser = res;
 																	ngProgress.complete();
 																	$window.location.href = '#/usr/cmds';
 																	$window.location.reload();
@@ -232,4 +230,8 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 			console.log(err);
 		});
 	};
+
+
+	// Fonctions lancées lors de l'execution du controleur 
+	getBasketWithUserId();
 }]);
