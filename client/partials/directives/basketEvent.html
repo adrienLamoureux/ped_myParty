@@ -10,6 +10,7 @@
               <th class="text-center">Prix à l'unité</th>
               <th class="text-center">Quantité</th>
               <th class="text-center">Montant</th>
+              <th class="text-center">Disponible</th>
               <th class="text-center"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>
             </tr>
           </thead>
@@ -32,7 +33,8 @@
                 </button>
               </td>
               <td id="basketSetTicketsPrice{{$index+1}}">{{ticket.price*ticket.nbTicket}} €</td>
-              <td>
+              <td>{{ticket.disponibility}}</td>
+              <td>             
                 <button id="btn_basketDelete{{$index+1}}" ng-click="deleteElement(event.eventID, ticket.ticketType, ticket.entitled, ticket.entitled)" class="btn-xs label-danger">
                   <span  class="glyphicon glyphicon-remove"></span>
                 </button>

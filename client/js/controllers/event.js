@@ -13,7 +13,6 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 
 	// if not event => $scope.thisEvent = undefined
 	$scope.places_number = 1;
-
 	$scope.Myuser = null;
 
 	$scope.addToBasket = function(numberplace, ticketType, ticketPrice, ticketDescription, ticketleft, expirationDate, eventTitle){

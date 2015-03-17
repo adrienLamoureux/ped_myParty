@@ -1,11 +1,11 @@
 // BasketEvent Directive Controller
-app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', 'ngProgress', '$timeout', '$window', function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams, ngProgress, $timeout, $window){
+app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', 'ngProgress', '$timeout', '$window',  function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams, ngProgress, $timeout, $window){
 
 	$scope.basketOfUser = [];
-
+	$scope.AllTicketsValid = true;
 	ngProgress.color("#B40404");
 
-	function getBasketWithUserId() {
+	function getBasketWithUserId(){
 		$scope.theUser = User.get({id:$rootScope.user.user_id}, function (res, e){
 		// On test si il un panier est deja associé au User et si il contient deja des articles
 		if(typeof(res.basket) != 'undefined' && res.basket.length > 0){
@@ -16,6 +16,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 		}else{
 			//console.log("Panier vide");
 		}
+		checkDisponibilityOfBasketTickets(res.basket);
 		$scope.totalOfBasket = calculateTotal();
 	}, function (){
 		//console.log('Récuperation de l\'utilisateur échoué');
@@ -231,7 +232,40 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 		});
 	};
 
+	function checkDisponibilityOfBasketTickets(basket){
+		// On recupere le panier utilisateur et on le parcours
+		for(i=0;i<basket.length;i++){
+			var eventID = basket[i].eventID;
+			// On parcours les tickets de l'evenement
+			for(j=0;j<basket[i].tickets.length;j++){
+				// On recupere le type de ticket et son nombre
+				var typeTicket = basket[i].tickets[j].ticketType;
+				var typeTicketNumber = basket[i].tickets[j].nbTicket
+				// Et on check en base si le tickets et bien disponible
+				basket = checkValidityOfATicket(basket,i,j,eventID,typeTicketNumber);
+			}
+		}
+	}
+
+	 function checkValidityOfATicket(basket, i, j, eventID, typeTicketNumber){
+		var thisEvent = Event.get({id:eventID}, function(data){
+		thisEvent = data;	
+		for(k=0;k<thisEvent.ticketsType.length;k++){
+			//console.log("try:"+i+" "+j+" "+eventID+" "+typeTicketNumber+"  ---->> "+thisEvent.ticketsType[k].ticketLeft +" "+typeTicketNumber)
+				if(thisEvent.ticketsType[k].ticketLeft >= typeTicketNumber){
+				basket[i].tickets[j].disponibility = "Oui";
+				}else{
+				basket[i].tickets[j].disponibility = "Non";
+				$scope.AllTicketsValid = false;
+				}
+			}
+
+		});
+		console.log(basket)
+		return basket;
+	}
 
 	// Fonctions lancées lors de l'execution du controleur 
 	getBasketWithUserId();
+
 }]);
