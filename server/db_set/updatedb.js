@@ -80,6 +80,7 @@ var updateRefID = function(db){
 											ticketCollection.update({_id:ticketDocs[0]._id}, {
 												$set: {
 													userID: userDocs[0].apiID,
+													ownerID: userDocs[0].apiID,
 													eventID: eventDocs[0]._id,
 													ticketTypeID: eventDocs[0].ticketsType[0].uniqueID,
 													expirationDate: '1524339270481',
