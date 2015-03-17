@@ -17,6 +17,18 @@
 	.alert{
 		margin:10px;
 	}
+
+/********************************/
+/***********  Menu  *************/
+/********************************/
+	sup.version {
+		font-size: 50%;
+		text-transform: uppercase;
+		top: -1em;
+	}
+	.version-beta {
+		color: orange;
+	}
 /*********************************/
 /*** dropdown menu ***************/
 /***               ***************/
@@ -85,7 +97,7 @@
 		margin-top:10px;
 		margin-bottom:20px;
 	}
-	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event, #eventPage #event .ticket{
+	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event section h2, #eventPage #event, #eventPage #event .ticket{
 		background-color: rgba(0, 0, 0, 0.90);
 		padding:10px 10px 10px 10px;
 		border: 1px solid #cecece;
@@ -112,6 +124,15 @@
 	#eventPage #event #tickets{
 		margin:0px;
 		padding:0px;
+	}
+	#eventPage #event #tickets a#link_connect{
+		color: #999;
+		font-style:italic;
+	}
+	#eventPage #event #tickets a#link_connect:hover{
+		color: #FFF;
+		font-style:italic;
+		text-decoration:none;
 	}
 	#eventPage #event .ticket h2{
 		margin-top:0px;
@@ -303,3 +324,41 @@
 	}
 
 
+/* Command */
+.command{
+	text-align:center;
+}
+
+#commandImage {
+	text-align:center;
+}
+.commandTable thead th {
+	background:#222;
+	color:#FFFFFF;
+	text-align:center;
+	vertical-align:middle;
+}
+
+.commandTable td {
+	text-align: center;
+	vertical-align:middle;
+}
+
+table.commandTable a:hover,
+table.commandTable tr:hover{
+	background : #CCC;
+	text-decoration:none;
+}
+
+table.commandTable tr {
+	background : #EEE;
+	color: #222;
+
+}
+
+table.commandTable a.block  {
+	display: block;
+	height:100%;
+	width:100%;
+	color: #222;
+}
