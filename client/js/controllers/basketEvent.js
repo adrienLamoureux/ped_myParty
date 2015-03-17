@@ -3,7 +3,6 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 
 	$scope.basketOfUser = [];
 	$scope.AllTicketsValid = true;
-	console.log($scope.AllTicketsValid)
 
 	ngProgress.color("#B40404");
 
@@ -96,7 +95,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 				//console.log('Mise a jour du panier panier : ERREUR');
 			});
 		}else{
-			$scope.deleteElement(eventid, type, nomTicket);
+			//$scope.deleteElement(eventid, type, nomTicket);
 		}
 	}
 
