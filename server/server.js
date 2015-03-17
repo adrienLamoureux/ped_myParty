@@ -7,12 +7,14 @@ var application_root = __dirname,
     bodyParser  = require('body-parser'),
     mongoose = require('mongoose'),
     passport = require('passport'),
-	UserAppStrategy = require('passport-userapp').Strategy;
+    UserAppStrategy = require('passport-userapp').Strategy;
 
 var APP_ID = "54f5bfbac1eb6";
 
 //Create server
 var app = express();
+
+app.set('port', (process.env.PORT || 5000));
 
 // Configure server
 app.use(bodyParser.json({limit:'16mb'}));
@@ -21,19 +23,21 @@ app.use(express.static(path.join(application_root ,'../client/')));
 //Show all errors in development
 
 //Start server
-var port = 4711;
-app.listen(port, function () {
-    'use strict'
-    console.log('Express server listening on port %d in %s mode', port, app.settings.env)
+app.listen(app.get('port'), function() {
+  console.log("Node app is running at localhost:" + app.get('port'));
 });
 
-mongoose.connect('mongodb://localhost:27017/mongodb', function(err){
-	if(err){
-		console.error("Failed to connect to MongoDB");
-		console.log(err);
-	}
-	else
-		"Successfully connection to MongoDB";
+app.get('/', function(request, response) {
+  response.send('Hello World!');
+});
+
+mongoose.connect('mongodb://adrien:lunaticpandora8@ds039341.mongolab.com:39341/ped_myparty/mongodb', function(err){
+  if(err){
+    console.error("Failed to connect to MongoDB");
+    console.log(err);
+  }
+  else
+    console.log("Successfully connection to MongoDB");
 });
 
 
