@@ -104,7 +104,7 @@
 /*** page ************************/
 /***      ************************/
 	#page{
-		margin-top:50px; /* required to let some place for the top-fixed main menu bar. */
+		margin-top:60px; /* required to let some place for the top-fixed main menu bar. */
 	}
 
 
@@ -133,9 +133,9 @@
 
 
 /*********************************/
-/*** eventPage *******************/
-/***           *******************/
-	#eventPage{
+/*** event ***********************/
+/***       ***********************/
+	#eventPage, #eventBasket{
 		width:100%;
 		color: #FFF;
 		font-size: 16px;
@@ -143,12 +143,23 @@
 		text-align: left;
 		padding-top:20px;
 	}
+	#eventMin{
+		color: #FFF;
+		font-size: 16px;
+		font-family: "Century Gothic",arial,serif;
+		text-align: center;
+	}
 	#eventPage #eventImage{
 		color:black;
 		margin-top:10px;
 		margin-bottom:20px;
 	}
-	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event, #eventPage #event .ticket{
+	#eventPage #event #info > *, 
+	#eventPage #event section h1,
+	#eventPage #event, 
+	#eventPage #event .ticket, 
+	#eventMin > *,
+	#eventBasket > *{
 		background-color: rgba(0, 0, 0, 0.90);
 		padding:10px 10px 10px 10px;
 		border: 1px solid #cecece;
@@ -159,9 +170,16 @@
 			 -o-border-radius: 10px;
 				border-radius: 10px;
 	}
-	#eventPage #event{
+	#eventPage #event, #basket{
 		background-color: grey;
 		padding:0px 0px 15px 0px;
+		border: 1px solid #cecece;
+		-webkit-border-radius: 10px;
+		 -khtml-border-radius: 10px;
+		   -moz-border-radius: 10px;
+			-ms-border-radius: 10px;
+			 -o-border-radius: 10px;
+				border-radius: 10px;
 	}
 	#eventPage #event * h1{		
 		text-align: center;
@@ -200,7 +218,15 @@
 		font-weight: bolder;
 		margin-left:10px;
 	}
-
+	#eventBasket legend{
+		color:white;
+	}
+	#eventBasket input{
+		color:white;
+		background:black;
+		text-align:center;
+		width:55px;
+	}
 
 /*********************************/
 /*** eventFrm ********************/
@@ -296,7 +322,7 @@
 		margin:0px;
 	}
 
-	#mineEvents .eventSmallImage{
+	#mineEvents img.eventSmallImage{
 		margin-top:10px;
 		margin-bottom:10px;
 	}

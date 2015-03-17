@@ -1,21 +1,19 @@
-<br>
-<div ng-show="event.tickets.length > 0 ">
-  <div class="col-lg-offset-1 col-lg-10">
-    <fieldset class="scheduler-border">
+<div id="eventBasket" class="col-sm-8" ng-show="event.tickets.length > 0 ">
+  <fieldset class="scheduler-border">
       <div class="table-responsive">
         <table class="table table-bordered text-center">
           <thead >
             <tr>
-              <th class="text-center">Article</th>
-              <th class="text-center">Prix à l'unité</th>
-              <th class="text-center">Quantité</th>
-              <th class="text-center">Montant</th>
-              <th class="text-center"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>
+              <th class="col-xs-4 text-center">Article</th>
+              <th class="col-xs-2 text-center">Prix à l'unité</th>
+              <th class="col-xs-3 text-center">Quantité</th>
+              <th class="col-xs-2 text-center">Montant</th>
+              <th class="col-xs-1 text-center"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="ticket in event.tickets">
-              <legend >
+              <legend>
                 &nbsp; {{event.eventTitle}}
               </legend>
               <td>{{ticket.entitled}}</td>
@@ -40,5 +38,4 @@
         </table>
       </div>
     </fieldset>
-  </div>
 </div>
