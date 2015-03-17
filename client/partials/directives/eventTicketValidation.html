@@ -1,7 +1,14 @@
-<div id="validateTicket">
-	<span ng-switch="valide">
-		<span ng-switch-when="true"><p id="valideTicket" class="text-center">Valide</p></span>
-		<span ng-switch-when="false"><p id="noValideTicket" class="text-center">Non valide</p></span>
-		<span ng-switch-default><p id="otherTicket" class="text-center">En attente...</p></span>
+
+<section  class="col-md-12">
+	<span ng-switch="success">
+		<span ng-switch-when="true"><h1>Ticket valide !</h1></span>
+		<span ng-switch-when="false"><h1>Ticket non valide !</h1></span>
+		<span ng-switch-default><h1>En attente de validation</h1></span>
 	</span>
-</div>
+
+	<span ng-switch="success">
+		<span ng-switch-when="true"><div class="alert alert-success">{{message}}</div></span>
+		<span ng-switch-when="false"><div class="alert alert-danger">{{message}}</div></span>
+		<span ng-switch-default><div class="alert alert-info">En attente...</div></span>
+	</span>
+</section>

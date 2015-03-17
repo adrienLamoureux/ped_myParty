@@ -1,31 +1,32 @@
 <!-- Command Template -->
-<div class="command" >
-	<h1> Contenu de ma commande du {{command.dateBuy | date:'dd/MM/yyyy - H:mm'}} </h1>
-	<div ng-repeat="evnt in events">
-
-		<h2>Tickets pour le {{evnt.title}}</h2>
-		<img ng-src="data:{{evnt.ticketImage.ticketImg.filetype}};base64,{{evnt.ticketImage.ticketImg.base64}}" class="img-thumbnail" alt="{{evnt.title}}">
-		<div class="table-responsive" style="margin:0px auto;max-width:800px;">
-			<table class="commandTable table table-bordered table-condensed table-center table-striped table-hover">
-				<thead>
-					<tr>
-						<th>Type de ticket</th>
-						<th>Prix</th>
-						<th>Date d'expiration</th>
-						<th>Utilisé</th>
-						<th>Accéder à mon ticket</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="ticket in evnt.tickets">
-						<td data-title="Type de ticket">{{ticket.ticketTypeName}}</td>
-						<td data-title="Prix">{{ticket.price}}€</td>
-						<td data-title="Date d'expiration">{{ticket.expirationDate | date : 'dd/MM/yyyy'}}</td>
-						<td data-title="Utilisé">{{ticket.used}}</td>
-						<td data-title="Accéder à mon ticket"><a href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">visualiser</a></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+<div id="eventPage" class="container" >
+	<section id="event" class="col-sm-10 col-sm-offset-1">
+		<section id="info" class="col-md-12">
+			<h1> Contenu de ma commande du {{command.dateBuy | date:'dd/MM/yyyy - H:mm'}} </h1>
+			<div class="command" ng-repeat="evnt in events">
+				<h2>Tickets pour le {{evnt.title}}</h2>
+				<img  ng-src="data:{{evnt.ticketImage.ticketImg.filetype}};base64,{{evnt.ticketImage.ticketImg.base64}}" class="img-thumbnail" alt="{{evnt.title}}">
+				<div id="cmdsTable" class=" table-responsive" >
+					<table class="commandTable table table-condensed table-center">
+						<thead>
+							<tr>
+								<th>Type de ticket</th>
+								<th>Prix</th>
+								<th>Date d'expiration</th>
+								<th>Utilisé</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="ticket in evnt.tickets">
+								<td data-title="Type de ticket"><a class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.ticketTypeName}}</a></td>
+								<td data-title="Prix"><a class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.price}}€</a></td>
+								<td data-title="Date d'expiration"><a class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.expirationDate | date : 'dd/MM/yyyy'}}<a/></td>
+								<td data-title="Utilisé"><a class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.used}}</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+	</section>
 </div>

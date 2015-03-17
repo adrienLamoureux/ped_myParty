@@ -1,42 +1,37 @@
-<br>
-<div ng-show="event.tickets.length > 0 ">
-  <div class="col-lg-offset-1 col-lg-10">
-    <fieldset class="scheduler-border">
+<div id="eventBasket" class="col-sm-8" ng-show="event.tickets.length > 0 ">
+  <fieldset class="scheduler-border">
       <div class="table-responsive">
         <table class="table table-bordered text-center">
           <thead >
-            <tr>
-              <th class="text-center">Article</th>
-              <th class="text-center">Prix à l'unité</th>
-              <th class="text-center">Quantité</th>
-              <th class="text-center">Montant</th>
-              <th class="text-center">Disponible</th>
-              <th class="text-center"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>
+              <th class="col-xs-4 text-center">Article</th>
+              <th class="col-xs-2 text-center">Prix à l'unité</th>
+              <th class="col-xs-3 text-center">Quantité</th>
+              <th class="col-xs-2 text-center">Montant</th>
+              <th class="col-xs-2 text-center">Disponible</th>
+              <th class="col-xs-1 text-center"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="ticket in event.tickets">
-              <legend >
+              <legend>
                 &nbsp; {{event.eventTitle}}
               </legend>
               <td>{{ticket.entitled}}</td>
               <td id="basketSingleTicketPrice{{$index+1}}">{{ticket.price}} €</td>
               <td>
-                <button id="btn_basketMinus{{$index+1}}" ng-click="decrement(event.eventID, ticket.ticketType, ticket.nbTicket,ticket, ticket.entitled)" class="btn-xs">
-                  <span class="glyphicon glyphicon-minus" ></span>
+                <button id="btn_basketMinus{{$index+1}}" ng-click="decrement(event.eventID, ticket.ticketType, ticket.nbTicket,ticket, ticket.entitled)" class="btn btn-custom">
+                  <span class="glyphicon glyphicon-minus collapse" ></span>
                 </button>
-                &nbsp;&nbsp;
                 <input id="basketCurrentTickets{{$index+1}}" ng-model="ticket.nbTicket" ng-readonly="true"></input>
-                &nbsp;&nbsp;
-                <button id="btn_basketPlus{{$index+1}}" ng-click="increment(event.eventID, ticket.ticketType, ticket.nbTicket, ticket, ticket.entitled)" class="btn-xs">
-                  <span class="glyphicon glyphicon-plus" ></span>
+                <button id="btn_basketPlus{{$index+1}}" ng-click="increment(event.eventID, ticket.ticketType, ticket.nbTicket, ticket, ticket.entitled)" class="btn btn-custom">
+                  <span class="glyphicon glyphicon-plus collapse" ></span>
                 </button>
               </td>
               <td id="basketSetTicketsPrice{{$index+1}}">{{ticket.price*ticket.nbTicket}} €</td>
               <td>{{ticket.disponibility}}</td>
               <td>             
                 <button id="btn_basketDelete{{$index+1}}" ng-click="deleteElement(event.eventID, ticket.ticketType, ticket.entitled, ticket.entitled)" class="btn-xs label-danger">
-                  <span  class="glyphicon glyphicon-remove"></span>
+                  <span  class="glyphicon glyphicon-remove collapse"></span>
                 </button>
               </td>
             </tr>
@@ -44,5 +39,4 @@
         </table>
       </div>
     </fieldset>
-  </div>
 </div>

@@ -61,7 +61,9 @@
 			<div ng-repeat="t in eventFormData.ticketsType">
 				<hr />
 				<h3>Billet {{$index+1}}
-					<img src="./image/delete.png" id="bt_rem_ticketType{{$index+1}}" ng-show="eventFormData.ticketsType.length-1" ng-click="eventFormData.ticketsType.splice($index, 1)" title="Supprimer ce billet ?" alt="Supprimer Billet {{$index+1}}" />
+					<span id="bt_rem_ticketType{{$index+1}}" class="" ng-show="eventFormData.ticketsType.length-1" ng-click="eventFormData.ticketsType.splice($index, 1)" title="Supprimer ce billet ?" alt="Supprimer Billet {{$index+1}}">
+						<span class="glyphicon glyphicon-remove"></span>
+					</span>
 				</h3>
 				
 				<label>Type</label>
@@ -85,19 +87,19 @@
 				<input id="txtEventPrice{{$index+1}}" type="number" class="form-control" title="Enter a price" min="0" ng-model="t.price" required/><br/>
 			</div>
 
-			<button id="bt_add_ticket" class="btn btn-primary btn-block" ng-click="addNewTicketType()">	Nouveau Billet </button>
+			<button id="bt_add_ticket" class="btn btn-custom btn-block" ng-click="addNewTicketType()">	<span class="glyphicon glyphicon-plus"></span> Nouveau Billet </button>
 		</div>
 		<hr />
 
 		<!-- Validation -->
-		<button id="bt_restore" type="button" class="btn btn-warning" ng-click="cancel();">
-			Restaurer cet événement
+		<button id="bt_restore" type="button" class="btn btn-custom" ng-click="cancel();">
+			<span class="glyphicon glyphicon-refresh"></span>Restaurer cet événement
 		</button>
-		<button id="bt_submit" type="submit" class="btn btn-success pull-right" ng-disabled="eventForm.$invalid" ng-click="editMode?updateEvent(true):createEvent(true);" >
-			Publier !
+		<button id="bt_submit" type="submit" class="btn btn-custom pull-right" ng-disabled="eventForm.$invalid" ng-click="editMode?updateEvent(true):createEvent(true);" >
+			<span class="glyphicon glyphicon-send"></span>Publier !
 		</button>	
-		<button id="bt_save" type="submit" class="btn btn-warning pull-right" ng-disabled="eventForm.$invalid" ng-click="editMode?updateEvent(false):createEvent(false);">
-			Sauvegarder sans publier
+		<button id="bt_save" type="submit" class="btn btn-custom pull-right" ng-disabled="eventForm.$invalid" ng-click="editMode?updateEvent(false):createEvent(false);">
+			<span class="glyphicon glyphicon-floppy-save"></span>Sauvegarder sans publier
 		</button>	
 	</form>
 </fieldset>

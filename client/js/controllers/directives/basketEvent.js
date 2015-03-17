@@ -166,7 +166,8 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 												eventUp = evUp;											
 												var tckt = {
 													'userID': $rootScope.user.user_id,
-													'eventID': evnt.eventID,
+													'ownerID': eventUp.ownerID,
+													'eventID': eventUp._id,
 													'ticketTypeID': ticket.ticketType,
 													'expirationDate': new Date(ticket.expirationDate).getTime(),
 													'used':false
@@ -178,7 +179,6 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 														completeEvent.tickets.push(mongoTicket._id);
 														Event.put({id:completeEvent._id}, completeEvent, function (data){
 															$scope.evnt = completeEvent;
-
 														}, function (err){
 															console.log(err);
 														});
@@ -197,7 +197,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 														if (cptTicket == 0){
 															$timeout( function(){ 
 																$scope.basketOfUser = [];
-																$scope.theUser.basket = $scope.basketOfUser;
+																mongoUser.basket = $scope.basketOfUser;
 																mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
 																	mongoUser = res;
 																	ngProgress.complete();

@@ -1,5 +1,5 @@
 // CommandController
-app.controller('CommandCtrl', ['$scope', '$rootScope', '$routeParams', 'Event', 'Command', 'EventImages', 'Ticket',  function ($scope, $rootScope, $routeParams, Event, Command, EventImages, Ticket){
+app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'EventImages', 'Ticket',  function ($scope, $routeParams, Event, Command, EventImages, Ticket){
 	$scope.command = Command.get({id:$routeParams.id}, function (cmdData){
 		$scope.command = cmdData;
 		$scope.events = [];
@@ -12,6 +12,7 @@ app.controller('CommandCtrl', ['$scope', '$rootScope', '$routeParams', 'Event', 
 				angular.forEach (eventTicket.tickets, function (tid, key){
 					var ticketTmp = Ticket.get({id:tid}, function (tData){
 						ticketTmp = tData;
+						(ticketTmp.used == true)?ticketTmp.used = "Oui":ticketTmp.used = "Non";
 						angular.forEach(evnt.ticketsType, function (tType, key){
 							if (tType.uniqueID == ticketTmp.ticketTypeID){
 								ticketTmp.ticketTypeName = tType.type;
