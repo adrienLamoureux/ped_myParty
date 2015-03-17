@@ -31,7 +31,7 @@ app.get('/', function(request, response) {
   response.send('Hello World!');
 });
 
-mongoose.connect('mongodb://adrien:lunaticpandora8@ds039341.mongolab.com:39341/ped_myparty/mongodb', function(err){
+mongoose.connect('mongodb://adrien:ped_adrien@ds039341.mongolab.com:39341/ped_myparty/mongodb', function(err){
   if(err){
     console.error("Failed to connect to MongoDB");
     console.log(err);
