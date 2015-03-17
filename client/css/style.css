@@ -11,7 +11,7 @@
 		background:lightgrey;
 	}
 	div.search{
-		margin-top:20px;
+		margin-top:0px;
 		margin-bottom:10px;
 	}
 	.alert{
@@ -288,10 +288,6 @@
 /***            ******************/
 	#bt_participed{
 		margin-bottom:10px;
-	}
-
-	nav#mineEventNav{
-		padding-top:40px;
 	}
 
 	div#content{

@@ -85,7 +85,9 @@
 			<span class="glyphicon glyphicon-list-alt"></span>Consulter les évènements disponibles
 		</a>
 	</div>
-	<div class="container text-center" ng-repeat="event in participatedEvent | unique:title | filter:search">
-		<event-miniature ng-hide="event.canceled"></event-miniature>
+	<div class="container">
+		<div class="text-center" ng-repeat="event in participatedEvent | unique:title | filter:search">
+			<event-miniature ng-hide="event.canceled"></event-miniature>
+		</div>
 	</div>
 </div>
