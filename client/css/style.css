@@ -9,6 +9,7 @@
 	}
 	body{
 		background:lightgrey;
+		min-width:450px;
 	}
 	div.search{
 		margin-top:0px;
@@ -20,6 +21,15 @@
 
 	.ui-notification{
 		margin-top:50px;
+	}
+
+	h2{
+		margin:0px;
+		padding:0px;
+	}
+	.noMargTop{
+		margin-top:0px;
+
 	}
 	
 	/*****************/
@@ -66,8 +76,9 @@
 	.btn-custom.disabled.active,
 	.btn-custom[disabled].active,
 	fieldset[disabled] .btn-custom.active {
-	  background-color: #353535!important;
+	  background-color: #222!important;
 	  border-color: #000!important;
+	  color:#ccc!important;
 	}
 	.btn-custom .badge {
 	  color: white!important;
@@ -235,13 +246,11 @@
 /*********************************/
 /*** eventFrm ********************/
 /***          ********************/
-	#eventForm { 
-		width:500px;
-		margin:auto;
-		margin-bottom:20px; 
-		border:1px solid gray; 
-		border-radius:10px; 
-		padding:10px; 
+	#eventForm {
+		margin-top:15px;
+	}
+	#eventForm label {
+		font-weight: normal;
 	}
 	#eventForm hr { 
 		border:1px solid gray; 
@@ -257,13 +266,24 @@
 		display:inline-block; 
 		width:80px; 
 		text-align:center; 
+		color:black;
 	}
+	#eventForm textarea { 
+		color:black;
+	}
+	#eventForm input[type=file] { 
+		color:white;
+	}
+	
 	#eventForm label + input, #eventForm label + textarea  { 
 		width:95%;
 		margin-bottom:10px; 
 	}
 	#eventForm button[type=submit], #eventForm button[type=button], #eventForm a{
 		margin-top:10px;
+	}
+	#eventForm button#bt_add_ticket{
+		margin:5px 0px 10px 0px;
 	}
 	#eventForm img{
 		height:25px; 
@@ -280,10 +300,10 @@
 		margin-bottom:15px;
 	}
 	#eventForm input.ng-invalid, #eventForm textarea.ng-invalid{
-  		border: 1px solid red;
+  		box-shadow: -1px -1px 1px 2px rgba(255, 0, 0, 0.7); 
 	}
 	#eventForm input.ng-valid, #eventForm textarea.ng-valid{
-	  	border: 1px solid green;
+	  	box-shadow: 1px 1px 1px 2px rgba(0, 255, 0, 0.7); 
 	}
 
 
@@ -304,7 +324,10 @@
 			 -o-border-radius: 10px;
 				border-radius: 10px;
 	}
-
+	nav#mineEventNav{
+		margin-top:15px;
+		margin-bottom:15px;
+	}
 	#mineEvents{
 		color:white;
 		background-color: rgba(0, 0, 0, 0.90);
@@ -318,7 +341,7 @@
 				border-radius: 10px;
 	}
 
-	#mineEvents h2{
+	#mineEvents h2 {
 		margin:0px;
 	}
 
@@ -404,19 +427,28 @@
 /* Command */
 .command{
 	text-align:center;
+	margin-top:10px;
+}
+.command h2{
+	margin-top:5px;
+	margin-bottom:15px;
 }
 
 #commandImage {
 	text-align:center;
 }
-.commandTable thead th {
-	background:#222;
-	color:#FFFFFF;
+
+table.commandTable {
+	margin-top:15px;
+}
+table.commandTable thead th {
+	background:#444;
+	color:#ddd;
 	text-align:center;
 	vertical-align:middle;
 }
 
-.commandTable td {
+table.commandTable td {
 	text-align: center;
 	vertical-align:middle;
 }

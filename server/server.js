@@ -7,7 +7,9 @@ var application_root = __dirname,
     bodyParser  = require('body-parser'),
     mongoose = require('mongoose'),
     passport = require('passport'),
-	UserAppStrategy = require('passport-userapp').Strategy;
+	  UserAppStrategy = require('passport-userapp').Strategy,
+    stripe = require("stripe")("sk_test_1scGPnwjVqqrBTc8h8gSylT9");
+
 
 var APP_ID = "54f5bfbac1eb6";
 
@@ -42,6 +44,23 @@ var eventModel = require('./models.js').eventModel;
 var commandsModel = require('./models.js').commandsModel;
 var ticketModel = require('./models.js').ticketModel;
 var imageModel = require('./models.js').imageModel;
+
+app.post('/charge', function(request, res, next){
+    var stripeToken = request.body.id;
+    var mAmount = request.body.price;
+
+    var charge = stripe.charges.create({
+      amount: mAmount, 
+      currency: "eur",
+      source: stripeToken,
+      description: "user@example.com"
+    }, function(err, charge) {
+      if (err && err.type === 'StripeCardError') {
+        console.log(JSON.stringify(err, null, 2));
+      }
+      res.send("completed payment!");
+    });
+});
 
 /********* PASSPORT **********/
 passport.use(new UserAppStrategy({
