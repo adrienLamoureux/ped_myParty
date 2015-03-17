@@ -77,9 +77,15 @@ app.config(function($routeProvider){
 			templateUrl: 'partials/set_password.html', 
 			set_password: true
 		})
+		.when('/payment', {
+			templateUrl: 'partials/payment.html',
+			controller: 'PaymentCtrl'
+		})
 		.otherwise({redirectTo: '/'});
 });
 
 app.run(function(user) {
 	user.init({ appId: '54f5bfbac1eb6' });
 });
+
+

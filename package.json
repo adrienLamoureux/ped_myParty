@@ -13,7 +13,8 @@
     "mongodb": "*",
     "mongoose": "*",
     "passport": "^0.2.1",
-    "passport-userapp": "^1.1.2"
+    "passport-userapp": "^1.1.2",
+    "stripe": "^3.3.2"
   },
   "scripts": {
     "postinstall": "bower install"
