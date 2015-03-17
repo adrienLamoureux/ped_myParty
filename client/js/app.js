@@ -26,9 +26,9 @@ app.config(function($routeProvider){
 		})
 		.when('/usr/cmds', {
 			templateUrl: './partials/commands.html',
-			controller: 'CommandCtrl'
+			controller: 'CommandsCtrl'
 		})
-		.when('/usr/cmd/:idcmd', {
+		.when('/usr/cmd/:id', {
 			templateUrl: './partials/command.html',
 			controller: 'CommandCtrl'
 		})
@@ -50,7 +50,8 @@ app.config(function($routeProvider){
 			controller: 'EventCtrl'
 		})
 		.when('/event/:id/ticket/:idt', {
-			templateUrl: './partials/ticket.html'
+			templateUrl: './partials/ticket.html',
+			controller: 'EventCtrl'
 		})
 		.when('/event/:id/ticket/:idt/validate', {
 			templateUrl: './partials/validate.html',

@@ -12,7 +12,7 @@
 	<table id="ticket">
 		<tr>
 			<td class="">
-				<img ng-src="data:{{event.imageSmall.filetype}};base64,{{event.imageSmall.base64}}" class="eventSmallImage" alt="{{event.title}}"/>
+				<img ng-src="data:{{imgs.ticketImg.filetype}};base64,{{imgs.ticketImg.base64}}" class="eventSmallImage" alt="{{event.title}}"/>
 			</td>
 			<td>
 				<table>
@@ -45,4 +45,4 @@
 		Attention: à l'entrée de l'événement, il peut vous être demandé de présenter des justificatifs (Carte d'identité, carte d'étudiant, etc.) pour valider votre billet.
 	</p>
 </div>
-<button id="bt_print" ng-click="printTicket('printable')" class="btn btn-primary col-xs-6 col-xs-offset-3">Imprimer le billet</button>
+<button id="bt_print" ng-click="printTicket('printable')" class="btn btn-custom col-xs-6 col-xs-offset-3"><span class="glyphicon glyphicon-print"></span>Imprimer le billet</button>

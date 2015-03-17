@@ -33,7 +33,8 @@ var initEvent = function(db){
 				}],
 				dateStarting: '1424339270481',
 				dateEnding: '1524339270481',
-				online: true
+				online: true,
+				canceled:false
 			},
 			{ 
 				ownerID : null,
@@ -86,11 +87,12 @@ var initEvent = function(db){
 				tickets : [],
 				dateStarting : '1437523200000',
 				dateEnding : '1437782400000',
-				online : true
+				online : true,
+				canceled:false
 			},
 			{
 				ownerID: null,
-				title: 'Great event 3 (not online)',
+				title: 'Great event 3',
 				description: 'Super party',
 				country: 'France',
 				county: 'Aquitaine',
@@ -115,7 +117,8 @@ var initEvent = function(db){
 				}],
 				dateStarting: '1424339270481',
 				dateEnding: '1524339270481',
-				online: false
+				online: true,
+				canceled:false
 			}
 			], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'event'\n"); return false; }

@@ -1,3 +1,8 @@
 <!-- Ticket Template -->
-<h1>Voici votre billet !</h1>
-<event-ticket></event-ticket>
+<h1>Votre billet pour {{event.title}}</h1>
+<event-ticket ng-hide="event.canceled"></event-ticket>
+<div class="alert alert-warning" role="alert" ng-show="event.canceled">
+	Billet non disponible : <br/>
+	Ce billet vous a été remboursé suite à l'annulation de l'événement "{{event.title}}" !
+</div>
+

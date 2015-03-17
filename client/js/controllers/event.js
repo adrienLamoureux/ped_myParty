@@ -17,8 +17,6 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 	$scope.Myuser = null;
 
 	$scope.addToBasket = function(numberplace, ticketType, ticketPrice, ticketDescription, ticketleft, expirationDate, eventTitle){
-		//alert("numberplace = "+numberplace+" ticketType = "+ticketType+" ticketPrice = "+ticketPrice+" ticketDescription = "+ticketDescription+" ticketleft = "+ticketleft+" eventTitle = "+eventTitle);
-
 		// On commence par regarder si le ticket type de cet evenement est bien disponible
 		if(ticketleft < numberplace){
 			if(ticketleft == 0){
@@ -43,7 +41,6 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 							exist_in_basket = i;
 						}
 					}
-					console.log(exist_in_basket);
 						if(exist_in_basket != null){
 							var i = exist_in_basket;
 							// Alors on regarde si le ticket pour cet event correspond au type du ticket ajouté
@@ -73,7 +70,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 								
 							}else{
 								// Si il n'existe pas ticket de ce type d'evenement dans le panier, alors on ajoute toute la structure
-								console.log("il n'existe pas ticket de ce type d'evenement dans le panier");
+								//console.log("il n'existe pas ticket de ce type d'evenement dans le panier");
 								var newBasketEventTicket = {
 									eventID: $routeParams.id,
 									eventTitle: eventTitle,
@@ -104,22 +101,18 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 					panier.push(newBasketEventTicket);
 				}
 
-				console.log(panier);
 				$scope.Myuser.basket = panier;
-				console.log($scope.Myuser);
 
 				// Et maintenant on met a jour les donnees en base
-				console.log($rootScope.user.user_id);
 					User.put({id:$rootScope.user.user_id}, $scope.Myuser, function (res2, e){
-						console.log("Update reussie");
-						console.log(res2);
+						//console.log("Update reussie");
 						window.location.reload();
 					}, function (){
-						console.log("Erreur lors de l'update du USER et son nouveau panier");
+						//console.log("Erreur lors de l'update du USER et son nouveau panier");
 					});
 
 			}, function (){
-				console.log("Probleme lors de l\'ajout du ticket, erreur lors de la recuperation du panier utilisateur");
+				//console.log("Probleme lors de l\'ajout du ticket, erreur lors de la recuperation du panier utilisateur");
 			});
 		}
 		//$window.location.reload();

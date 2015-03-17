@@ -11,10 +11,75 @@
 		background:lightgrey;
 	}
 	div.search{
-		margin-top:20px;
+		margin-top:0px;
 		margin-bottom:10px;
 	}
-
+	.alert{
+		margin:10px;
+	}
+	
+	/*****************/
+	/*** buttons *****/
+	.glyphicon{
+		margin-right:10px;
+		cursor:pointer;
+	}
+	.collapse{
+		margin-right:1px;
+	}
+	.btn-custom {
+		color: #eee!important;
+		font-weight: normal!important;
+		background-color: #222;
+		border-color: #cecece!important;
+	}
+	.btn-custom:hover,
+	.btn-custom:focus,
+	.btn-custom:active,
+	.btn-custom.active,
+	.open .dropdown-toggle.btn-custom {
+	  color: white!important;
+	  background-color: #353535;
+	  border-color: #fff;
+	}
+	.btn-custom:active,
+	.btn-custom.active,
+	.open .dropdown-toggle.btn-custom {
+	  background-image: none;
+	}
+	.btn-custom.disabled,
+	.btn-custom[disabled],
+	fieldset[disabled] .btn-custom,
+	.btn-custom.disabled:hover,
+	.btn-custom[disabled]:hover,
+	fieldset[disabled] .btn-custom:hover,
+	.btn-custom.disabled:focus,
+	.btn-custom[disabled]:focus,
+	fieldset[disabled] .btn-custom:focus,
+	.btn-custom.disabled:active,
+	.btn-custom[disabled]:active,
+	fieldset[disabled] .btn-custom:active,
+	.btn-custom.disabled.active,
+	.btn-custom[disabled].active,
+	fieldset[disabled] .btn-custom.active {
+	  background-color: #353535!important;
+	  border-color: #000!important;
+	}
+	.btn-custom .badge {
+	  color: white!important;
+	  background-color: #727272;
+	}
+/********************************/
+/***********  Menu  *************/
+/********************************/
+	sup.version {
+		font-size: 50%;
+		text-transform: uppercase;
+		top: -1em;
+	}
+	.version-beta {
+		color: orange;
+	}
 /*********************************/
 /*** dropdown menu ***************/
 /***               ***************/
@@ -39,7 +104,7 @@
 /*** page ************************/
 /***      ************************/
 	#page{
-		margin-top:50px; /* required to let some place for the top-fixed main menu bar. */
+		margin-top:60px; /* required to let some place for the top-fixed main menu bar. */
 	}
 
 
@@ -68,9 +133,9 @@
 
 
 /*********************************/
-/*** eventPage *******************/
-/***           *******************/
-	#eventPage{
+/*** event ***********************/
+/***       ***********************/
+	#eventPage, #eventBasket{
 		width:100%;
 		color: #FFF;
 		font-size: 16px;
@@ -78,12 +143,23 @@
 		text-align: left;
 		padding-top:20px;
 	}
+	#eventMin{
+		color: #FFF;
+		font-size: 16px;
+		font-family: "Century Gothic",arial,serif;
+		text-align: center;
+	}
 	#eventPage #eventImage{
 		color:black;
 		margin-top:10px;
 		margin-bottom:20px;
 	}
-	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event, #eventPage #event .ticket{
+	#eventPage #event #info > *, 
+	#eventPage #event section h1,
+	#eventPage #event, 
+	#eventPage #event .ticket, 
+	#eventMin > *,
+	#eventBasket > *{
 		background-color: rgba(0, 0, 0, 0.90);
 		padding:10px 10px 10px 10px;
 		border: 1px solid #cecece;
@@ -94,9 +170,16 @@
 			 -o-border-radius: 10px;
 				border-radius: 10px;
 	}
-	#eventPage #event{
+	#eventPage #event, #basket{
 		background-color: grey;
 		padding:0px 0px 15px 0px;
+		border: 1px solid #cecece;
+		-webkit-border-radius: 10px;
+		 -khtml-border-radius: 10px;
+		   -moz-border-radius: 10px;
+			-ms-border-radius: 10px;
+			 -o-border-radius: 10px;
+				border-radius: 10px;
 	}
 	#eventPage #event * h1{		
 		text-align: center;
@@ -110,6 +193,15 @@
 	#eventPage #event #tickets{
 		margin:0px;
 		padding:0px;
+	}
+	#eventPage #event #tickets a#link_connect{
+		color: #999;
+		font-style:italic;
+	}
+	#eventPage #event #tickets a#link_connect:hover{
+		color: #FFF;
+		font-style:italic;
+		text-decoration:none;
 	}
 	#eventPage #event .ticket h2{
 		margin-top:0px;
@@ -126,7 +218,15 @@
 		font-weight: bolder;
 		margin-left:10px;
 	}
-
+	#eventBasket legend{
+		color:white;
+	}
+	#eventBasket input{
+		color:white;
+		background:black;
+		text-align:center;
+		width:55px;
+	}
 
 /*********************************/
 /*** eventFrm ********************/
@@ -186,12 +286,12 @@
 /*********************************/
 /*** mineEvents ******************/
 /***            ******************/
-	nav#mineEventNav{
-		padding-top:40px;
+	#bt_participed{
+		margin-bottom:10px;
 	}
 
 	div#content{
-		padding:0px 20px 20px 20px;
+		padding:20px 20px 20px 20px;
 		border: 1px solid black;
 		-webkit-border-radius: 10px;
 		 -khtml-border-radius: 10px;
@@ -218,7 +318,7 @@
 		margin:0px;
 	}
 
-	#mineEvents .eventSmallImage{
+	#mineEvents img.eventSmallImage{
 		margin-top:10px;
 		margin-bottom:10px;
 	}
@@ -297,3 +397,41 @@
 	}
 
 
+/* Command */
+.command{
+	text-align:center;
+}
+
+#commandImage {
+	text-align:center;
+}
+.commandTable thead th {
+	background:#222;
+	color:#FFFFFF;
+	text-align:center;
+	vertical-align:middle;
+}
+
+.commandTable td {
+	text-align: center;
+	vertical-align:middle;
+}
+
+table.commandTable a:hover,
+table.commandTable tr:hover{
+	background : #CCC;
+	text-decoration:none;
+}
+
+table.commandTable tr {
+	background : #EEE;
+	color: #222;
+
+}
+
+table.commandTable a.block  {
+	display: block;
+	height:100%;
+	width:100%;
+	color: #222;
+}

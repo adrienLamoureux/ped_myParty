@@ -33,6 +33,7 @@ var cmdSchema = new Schema({
 // ticket sold to user for an event
 var ticketSchema = new Schema({
 	userID: String,
+	ownerID: String,
 	eventID: {type: mongoose.Schema.Types.ObjectId, ref:'eventModel'},
 	ticketTypeID: Number,
 	expirationDate: Date,
@@ -98,7 +99,8 @@ var eventSchema = new Schema({
 	ticketsType: [ticketTypeSchema],
 	dateStarting: Date,
 	dateEnding: Date,
-	online: {type: Boolean, default: false}
+	online: {type: Boolean, default: false},	
+	canceled: {type: Boolean, default: false}
 }, {collection: 'event'});
 
 // Model

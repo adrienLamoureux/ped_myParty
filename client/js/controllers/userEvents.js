@@ -2,6 +2,7 @@
 app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event', 'EventImages', 'EventByOrganizerId', 'User', 'Command', function ($rootScope, $scope, $routeParams, Event, EventImages, EventByOrganizerId, User, Command){
 
 	//URL user argument
+	$scope.events = [];
 	$scope.events = EventByOrganizerId.query({id:$rootScope.user.user_id}, function(data){
 		$scope.events = data;
 
@@ -19,9 +20,10 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 	    	$scope.income += $scope.events[e].income;
 		}
 	});
+	console.log($scope.events.length);
 
+	//get user participated events
 	$scope.participatedEvent = [];
-
 	var mongoUser = User.get({id:$rootScope.user.user_id}, function (data){
 		mongoUser = data;
 			
@@ -43,7 +45,6 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 	}, function (err){
 		console.log (err);
 	});
-
 
 	/*var mongoUser = User.get({id:$rootScope.user.user_id}, function (data){
 		mongoUser = data;
@@ -86,14 +87,9 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 	}
 
 	$scope.cancel = function(event){
-		//TODO: Event cancelation + sending mail and payback all customers!
-		Event.delete({id:event._id});
-
-		var eventImgs = EventImages.get({id:event._id}, function(data){
-			eventImgs = data;
-			EventImages.delete({id:eventImgs._id});
-		});
-
-		$scope.events = EventByOrganizerId.query({id:$rootScope.user.user_id});
+		// TODO: Event cancelation + sending mail
+		// mark all tickets as used
+		event.canceled=true;
+		Event.put({id:event._id}, event);
 	}
 }]);
