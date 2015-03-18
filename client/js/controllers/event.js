@@ -4,7 +4,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 
 	if(angular.isDefined($routeParams.id)){
 		$scope.thisEvent = Event.get({id:$routeParams.id}, function(data){
-			$scope.thisEvent = data;		
+			$scope.thisEvent = data;
 		});
 		$scope.imgs = EventImages.get({id:$routeParams.id}, function(data){
 			$scope.imgs = data;
@@ -16,6 +16,9 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 	$scope.Myuser = null;
 
 	$scope.addToBasket = function(numberplace, ticketType, ticketPrice, ticketDescription, ticketleft, expirationDate, eventTitle){
+		
+		var addOrNot = true;
+
 		// On commence par regarder si le ticket type de cet evenement est bien disponible
 		if(ticketleft < numberplace){
 			if(ticketleft == 0){
@@ -24,7 +27,6 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 				alert("Désolé, il ne reste plus que "+ticketleft+" billets de ce type pour cet evenement");
 			}
 		}else{
-			console.log(numberplace)
 			if(typeof(numberplace) == "undefined"){
 				alert("Merci d'ajouter à votre panier un nombre de ticket valide.");
 			}else{
@@ -56,7 +58,15 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 							}
 							if(exist_in_event != null){
 								var j = exist_in_event;
+
+								// Si oui on incremente son nbTicket si le nb de ticket dispo le permet
+								if(panier[i].tickets[j].ticketType == ticketType){
+									if(panier[i].tickets[j].nbTicket + numberplace > ticketleft){
+									addOrNot = false;
+									}else{
 									panier[i].tickets[j].nbTicket = panier[i].tickets[j].nbTicket + numberplace;
+									}
+								}
 								// Dans le cas contraire on ajoute une structure tQuantity
 								}else{
 									// On créé la structure du nouveau type de ticket pour cet evenement
@@ -85,11 +95,9 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 										expirationDate: expirationDate
 									}]
 								}
-								panier.push(newBasketEventTicket);
 							}
 						
 				}else{
-					console.log("Panier vide");
 					var newBasketEventTicket = {
 						eventID: $routeParams.id,
 						eventTitle: eventTitle,
@@ -105,17 +113,18 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 				}
 
 				$scope.Myuser.basket = panier;
-
 				// Et maintenant on met a jour les donnees en base
 					User.put({id:$rootScope.user.user_id}, $scope.Myuser, function (res2, e){
-						//console.log("Update reussie");
-						//window.location.reload();
 						//numberplace, ticketType, ticketPrice, ticketDescription, ticketleft, expirationDate, eventTitle
 						if(numberplace == 1) {
-							//Notification.info("Ajout d'un ticket au panier !");
+							// Affichage de la notification d'ajout au panier
+							if(addOrNot == true){
 							notification2Sec("Ajout d'un ticket au panier !", eventTitle);
+							}
 						}else{
+							if(addOrNot == true){
 							notification2Sec('Ajout de '+numberplace+' tickets au panier !', eventTitle);
+							}
 						}
 						
 					}, function (){
@@ -127,7 +136,6 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 			});
 			}
 		}
-		//$window.location.reload();
 	};
 
 	$scope.dateNotExpired=function(date){
@@ -137,4 +145,5 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 	notification2Sec = function(text, eventTitle) {
          Notification.success({message: text, delay: 2000, title: '<i>'+eventTitle+'</i>'});
     };
+
 }]);
