@@ -21,6 +21,21 @@
 	.alert{
 		margin:10px;
 	}
+	.modal > * {
+		margin-top:80px;
+		color:black!important;		
+		box-shadow: 0px 0px 2px 2px rgba(255, 255, 255, 0.7); 
+		-webkit-border-radius: 5px;
+		 -khtml-border-radius: 5px;
+		   -moz-border-radius: 5px;
+			-ms-border-radius: 5px;
+			 -o-border-radius: 5px;
+				border-radius: 5px;
+	}
+	.modal-header, .modal-footer{
+		color:white!important;
+		background-color: rgba(0, 0, 0, 0.90)!important;
+	}
 
 	.ui-notification{
 		margin-top:50px;
@@ -103,7 +118,7 @@
 	}
 	.btn-custom .badge {
 	  color: white!important;
-	  background-color: #727272;
+	  background-color: #000!important;
 	}
 /********************************/
 /***********  Menu  *************/
@@ -162,6 +177,8 @@
 /*** Profile Image ***************/
 /***               ***************/
 .roundedImage{
+	box-shadow: 0px 0px 1px 4px rgba(0, 0, 0, 0.9); 
+	margin:10px auto 10px auto;
     overflow:hidden;
     -webkit-border-radius:50px;
     -moz-border-radius:50px;
@@ -198,6 +215,7 @@
 		margin-top:10px;
 		margin-bottom:20px;
 	}
+	#profil > .panel,
 	#eventPage #event #info > *, 
 	#eventPage #event section h1,
 	#eventPage #event, 
@@ -314,12 +332,11 @@
 	#eventForm button#bt_add_ticket{
 		margin:5px 0px 10px 0px;
 	}
-	#eventForm img{
-		height:25px; 
+	#eventForm img, #previewProfileImg{
+		height:100px;
 		margin:0px; 
 		padding:0px;
 		padding-bottom:5px;
-		cursor:pointer;
 	}
 
 	/* Form Validation */
