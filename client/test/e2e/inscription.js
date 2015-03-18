@@ -1,11 +1,11 @@
 describe('Inscription' , function () {
 
 	beforeEach(function(){
-		browser.get('http://localhost:4711/#/home');
+		browser.get('http://localhost:5000/#/home');
 	});
 
 	it('inscription of a new user', function(){ // Verify route redirection
-		browser.get('http://localhost:4711/#/signup');
+		browser.get('http://localhost:5000/#/signup');
 		var first_name = browser.findElement(by.name('first_name'));
 		expect(first_name.isDisplayed()).toBe(true);
 		var login = browser.findElement(by.name('login'));
@@ -34,11 +34,11 @@ describe('Inscription' , function () {
 		expect(loginBtn.isDisplayed()).toBe(true);
 		loginBtn.click();
 		browser.sleep(3000);
-		browser.get('http://localhost:4711/#/home');
+		browser.get('http://localhost:5000/#/home');
 		browser.sleep(1000);
 		var disconnect = browser.findElement(by.linkText("Se Déconnecter"));
 		expect(disconnect.isDisplayed()).toBe(true);
 		disconnect.click();
-		browser.get('http://localhost:4711/#/login');
+		browser.get('http://localhost:5000/#/login');
 	});
 });

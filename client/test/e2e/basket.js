@@ -11,7 +11,7 @@ var addOneTicket = function(){
 describe('basket view' , function () {
 
 	beforeEach(function(){
-		browser.get('http://localhost:4711/#/');
+		browser.get('http://localhost:5000/#/');
 	});
 
 	it('should access to the basket view', function(){

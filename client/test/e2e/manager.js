@@ -3,7 +3,7 @@ var connect = require('./connect.js');
 describe('Manager test', function(){
 
 	beforeEach(function(){
-		browser.get('http://localhost:4711/#/');
+		browser.get('http://localhost:5000/#/');
 	});
 
 	it('inscription tests', function(){
@@ -25,6 +25,6 @@ describe('Manager test', function(){
 	});
 
 	afterEach(function(){
-		browser.get('http://localhost:4711/#/');
+		browser.get('http://localhost:5000/#/');
 	});
 });

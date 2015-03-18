@@ -1,7 +1,7 @@
 describe('Home view' , function () {
 
 	it('look for route title', function(){ // Verify route redirection
-		browser.get('http://localhost:4711/#/');
+		browser.get('http://localhost:5000/#/');
 		expect(browser.getTitle()).toEqual('MyParty');
 	});
 
