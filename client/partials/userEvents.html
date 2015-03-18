@@ -82,19 +82,22 @@
 					</div>
 				</div>
 			</div>
-		</section>
-		<div ng-show="participed">
-			<div class="alert alert-warning " role="alert" ng-hide="participatedEvent.length">
-				Vous n'avez participé à aucun évènement ! 
-				<a id="bt_createMineEvent" class="btn btn-custom" href="#/">
-					<span class="glyphicon glyphicon-list-alt"></span>Consulter les évènements disponibles
-				</a>
-			</div>
-			<div class="container">
-				<div class="text-center" ng-repeat="event in participatedEvent | unique:title | filter:search">
-					<event-miniature ng-hide="event.canceled"></event-miniature>
+			
+
+			<div ng-show="participed">
+				<div class="alert alert-warning " role="alert" ng-hide="participatedEvent.length">
+					Vous n'avez participé à aucun évènement ! 
+					<a id="bt_createMineEvent" class="btn btn-custom" href="#/">
+						<span class="glyphicon glyphicon-list-alt"></span>Consulter les évènements disponibles
+					</a>
+				</div>
+				<div>
+					<div class="text-center" ng-repeat="event in participatedEvent | unique:title | filter:search">
+						<event-miniature ng-hide="event.canceled"></event-miniature>
+					</div>	
 				</div>
 			</div>
-		</div>
+
+		</section>
 	</section>
 </div>
