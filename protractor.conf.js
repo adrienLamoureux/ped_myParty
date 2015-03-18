@@ -22,7 +22,7 @@ exports.config = {
     isVerbose: true,
     showColors: true,
     includeStackTrace: true,
-    defaultTimeoutInterval: 10000
+    defaultTimeoutInterval: 20000
   },
 
   resultJsonOutputFile: './outputTest.txt'

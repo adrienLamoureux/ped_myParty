@@ -28,7 +28,8 @@ describe('Home view' , function () {
 	});
 
 	it('look for events elements sample', function(){
-		var eventN = browser.findElement(by.id("eventMin1"));
+		browser.get('http://localhost:5000/#/');
+		var eventN = browser.findElement(by.id("eventMinID"));
 		expect(eventN.isDisplayed()).toBe(true);
 	});
 });

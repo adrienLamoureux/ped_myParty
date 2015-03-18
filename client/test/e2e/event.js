@@ -137,7 +137,7 @@ var completeCreateEvent = function(){
 describe('Event view' , function () {
 
 	it('Access to an event information', function(){
-		var eventN = browser.findElement(by.id("eventMin1"));		
+		var eventN = browser.findElement(by.id("eventMinID"));		
 		expect(eventN.isDisplayed()).toBe(true);
 		eventN.click();
 
@@ -240,7 +240,7 @@ describe('Event view' , function () {
 		var bt_participed = browser.findElement(by.id("bt_participed"));
 		expect(bt_participed.isDisplayed()).toBe(true);
 		bt_participed.click();
-		var eventN = browser.findElement(by.id("eventMin1"));		
+		var eventN = browser.findElement(by.id("eventMinID"));		
 		expect(eventN.isDisplayed()).toBe(true);
 		browser.get('http://localhost:5000/#/');		
 	});
@@ -273,5 +273,20 @@ describe('Event view' , function () {
 		var alertDialog = browser.switchTo().alert();
 		alertDialog.dismiss();
 		//expect(cancel2.isDisplayed()).toBe(false);
+	});
+
+	it('Should see a notification when a ticket is added', function(){
+		var eventN = browser.findElement(by.id("eventMinID"));		
+		expect(eventN.isDisplayed()).toBe(true);
+		eventN.click();
+
+		var addPaner = browser.findElement(by.buttonText("Ajouter au panier"));
+		expect(addPaner.isDisplayed()).toBe(true);
+		addPaner.click();
+
+		browser.sleep(200);
+
+		var notif = browser.findElement(by.className("message"));
+		expect(notif.isDisplayed()).toBe(true);
 	});
 });

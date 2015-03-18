@@ -22,6 +22,8 @@ describe('Manager test', function(){
 		require('./basket.js');
 		browser.sleep(500);
 		require('./user.js');
+		browser.sleep(500);
+		require('./commands.js');
 	});
 
 	afterEach(function(){
