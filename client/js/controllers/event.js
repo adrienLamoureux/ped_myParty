@@ -20,7 +20,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 
 	$scope.addToBasket = function(numberplace, ticketType, ticketPrice, ticketDescription, ticketleft, expirationDate, eventTitle){
 		
-		var addOrNot = true;
+		var addOrNot = false;
 
 		// On commence par regarder si le ticket type de cet evenement est bien disponible
 		if(ticketleft < numberplace){
@@ -61,13 +61,14 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 							}
 							if(exist_in_event != null){
 								var j = exist_in_event;
-
+									console.log("connaissance de l event")
 								// Si oui on incremente son nbTicket si le nb de ticket dispo le permet
 								if(panier[i].tickets[j].ticketType == ticketType){
+									console.log("connaissance de ")
 									if(panier[i].tickets[j].nbTicket + numberplace > ticketleft){
-									addOrNot = false;
 									}else{
 									panier[i].tickets[j].nbTicket = panier[i].tickets[j].nbTicket + numberplace;
+									addOrNot = true;
 									}
 								}
 								// Dans le cas contraire on ajoute une structure tQuantity
@@ -82,6 +83,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 									}
 									// Et on ajoute ce ticket
 									panier[i].tickets.push(newTQuantity);
+									addOrNot = true;
 									}
 								
 							}else{
@@ -98,6 +100,8 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 										expirationDate: expirationDate
 									}]
 								}
+								panier.push(newBasketEventTicket);
+								addOrNot = true;
 							}
 						
 				}else{
@@ -113,9 +117,10 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 						}]
 					};
 					panier.push(newBasketEventTicket);
+					addOrNot = true;
 				}
-
-				$scope.Myuser.basket = panier;
+				console.log("OK")
+				$scope.Myuser.basket = panier;	
 				// Et maintenant on met a jour les donnees en base
 					User.put({id:$rootScope.user.user_id}, $scope.Myuser, function (res2, e){
 						//numberplace, ticketType, ticketPrice, ticketDescription, ticketleft, expirationDate, eventTitle
