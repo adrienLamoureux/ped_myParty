@@ -33,6 +33,7 @@ var cmdSchema = new Schema({
 // ticket sold to user for an event
 var ticketSchema = new Schema({
 	userID: String,
+	ownerID: String,
 	eventID: {type: mongoose.Schema.Types.ObjectId, ref:'eventModel'},
 	ticketTypeID: Number,
 	expirationDate: Date,

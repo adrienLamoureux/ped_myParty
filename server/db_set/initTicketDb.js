@@ -8,6 +8,7 @@ var initTicket = function(db){
 		collection.insert(
 			[{
 				userID: null,
+				ownerID: null,
 				eventID: null,
 				ticketTypeID: null,
 				expirationDate: '1524339270481',

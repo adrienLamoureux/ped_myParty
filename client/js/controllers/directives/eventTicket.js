@@ -24,20 +24,3 @@ app.controller('EventTicketCtrl', ['$scope', '$routeParams','Event', 'Ticket', '
         popupWin.document.close();
 	};
 }]);
-	/*event
-	title: String,
-	imageSmall: {
-		filetype: String,
-		filename: String,
-		filesize: Number,
-		base64: String
-	}
-	dateStarting: Date,
-	dateEnding: Date
-
-
-	ticket
-	description: String,
-	price: Number,
-	type: String,
-	expirationDate: Date*/

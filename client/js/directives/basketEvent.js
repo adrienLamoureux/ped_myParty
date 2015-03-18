@@ -1,8 +1,8 @@
 // basketEvent Directive 
-app.directive('basketEvent', function (){
+app.directive('basketOneEvent', function (){
 	return {
 		restrict: 'E',
-		controller: 'BasketEventCtrl',
+		controller: 'BasketOneEventCtrl',
 		templateUrl: '../../partials/directives/basketEvent.html'
 	};
 });
