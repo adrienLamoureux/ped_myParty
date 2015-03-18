@@ -3,6 +3,7 @@
 ## Brief Introduction
 
 ped_myParty is a web site to manage events organisation. It has been developped into an university cursus study. 
+You can look at https://protected-thicket-6477.herokuapp.com to test it ! 
 
 ## Functionnality
 

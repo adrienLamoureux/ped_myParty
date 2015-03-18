@@ -1,5 +1,7 @@
 # Installation instructions
 
+Go to release branch (git checkout release) for a local deployement 
+
 ## Configuration System
 
 Install 
@@ -15,25 +17,30 @@ Add to the global variable on the windows system the path to the mongodb/bin fol
 
 npm install in ./
 
-## Server execution
+## Server and MongoDB execution
+
+### For all systems
+
+* mongod --dbpath ./mongodb/
+* npm start ./
 
 ### Windows
 
-To start server :
+To start server and MongoDB:
 * go to ./server/ 
 * remove .ex extension on the runWindows.bat.ex
 * run runWindows.bat 
 
 ### Linux
 
-To start server :
+To start server and MongoDB:
 * go to ./server/ 
 * remove .ex extension on the runLinux.sh.ex
 * run runLinux.sh 
 
 ### MacOSX
 
-To start server :
+To start server and MongoDB:
 * go to ./server/ 
 * remove .ex extension on the runMacOSX.sh.ex
 * run runMacOSX.sh 
