@@ -40,20 +40,21 @@ describe('user view' , function () {
 		expect(userClickOnFirstName.isDisplayed()).toBe(true);
 		userClickOnFirstName.click();
 		browser.driver.switchTo().activeElement();
-		browser.sleep(250);
+		browser.sleep(500);
 		var userNewFirstName = browser.findElement(by.id("userNewFirstName"));
 		expect(userNewFirstName.isDisplayed()).toBe(true);
 		userNewFirstName.clear();
 		userNewFirstName.sendKeys('totoX');
-		browser.sleep(200);
+		browser.sleep(500);
 		expect(userNewFirstName.getAttribute('value')).toBe('totoX');
 		btn_userFirstNameClose = browser.findElement(by.id("btn_userFirstNameClose"));
 		expect(userFirstName.isDisplayed()).toBe(true);
 		btn_userFirstNameSave = browser.findElement(by.id("btn_userFirstNameSave"));
 		expect(userFirstName.isDisplayed()).toBe(true);
 		btn_userFirstNameSave.click();
-		browser.sleep(250);
+		browser.sleep(500);
 		browser.driver.switchTo().activeElement();
+		browser.get('http://localhost:5000/#/');
 	});
 
 	it('should disable the user profil', function(){

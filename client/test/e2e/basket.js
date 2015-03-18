@@ -1,5 +1,5 @@
 var addOneTicket = function(){
-	var eventN = browser.findElement(by.xpath("id('page')/div/event-list/div/div[2]/event-miniature/div/a/img"));
+	var eventN = browser.findElement(by.id("eventMin1"))	
 	expect(eventN.isDisplayed()).toBe(true); //When img uploading will work
 	eventN.click();
 	var addPaner = browser.findElement(by.buttonText("Ajouter au panier"));

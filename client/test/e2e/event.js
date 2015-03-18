@@ -137,8 +137,8 @@ var completeCreateEvent = function(){
 describe('Event view' , function () {
 
 	it('Access to an event information', function(){
-		var eventN = browser.findElement(by.xpath("id('page')/div/event-list/div/div[2]/event-miniature/div/a/img"));
-		expect(eventN.isDisplayed()).toBe(true); //When img uploading will work
+		var eventN = browser.findElement(by.id("eventMin1"));		
+		expect(eventN.isDisplayed()).toBe(true);
 		eventN.click();
 
 		var eventPage = browser.findElement(by.id("eventPage"));

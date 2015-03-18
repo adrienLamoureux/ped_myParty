@@ -28,8 +28,8 @@ describe('Home view' , function () {
 	});
 
 	it('look for events elements sample', function(){
-		var eventN = browser.findElement(by.xpath("id('page')/div/event-list/div/div[2]/event-miniature/div/a/img"));
+		var eventN = browser.findElement(by.id("eventMin1"));
 		expect(eventN.isDisplayed()).toBe(true);
-		//eventN.click();
+		eventN.click();
 	});
 });

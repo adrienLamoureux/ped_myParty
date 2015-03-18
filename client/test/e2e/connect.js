@@ -4,7 +4,7 @@ var connect = function(){
 	var password = browser.findElement(by.name('password'));
 	login.sendKeys("vergil1534@gmail.com");
 	password.sendKeys("password");
-	var loginBtn = browser.findElement(by.buttonText('Login'));
+	var loginBtn = browser.findElement(by.buttonText('Connecter'));
 	loginBtn.click();
 	browser.sleep(3000);
 	browser.get('http://localhost:5000/#/home');
