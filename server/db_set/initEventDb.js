@@ -117,7 +117,7 @@ var initEvent = function(db){
 				}],
 				dateStarting: '1424339270481',
 				dateEnding: '1524339270481',
-				online: true,
+				online: false,
 				canceled:false
 			}
 			], function (err, result) {
