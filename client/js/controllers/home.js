@@ -2,7 +2,7 @@
 app.controller('HomeCtrl', ['$scope', 'ngProgress', 'User', '$rootScope', 'Command', function ($scope, ngProgress, User, $rootScope, Command){
 
 	ngProgress.color("#B40404");
-
+	
 	var currentUserId = $rootScope.user.user_id;
 	console.log(currentUserId);
 

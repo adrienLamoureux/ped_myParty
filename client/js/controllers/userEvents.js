@@ -1,8 +1,12 @@
 // User Events
-app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event', 'EventImages', 'EventByOrganizerId', 'User', 'Command', function ($rootScope, $scope, $routeParams, Event, EventImages, EventByOrganizerId, User, Command){
+app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event', 'EventImages', 'EventByOrganizerId', 'User', 'Command', 'ngProgress', function ($rootScope, $scope, $routeParams, Event, EventImages, EventByOrganizerId, User, Command, ngProgress){
+
+	ngProgress.color("#B40404");
+	
 
 	//URL user argument
 	$scope.events = [];
+	ngProgress.start();
 	$scope.events = EventByOrganizerId.query({id:$rootScope.user.user_id}, function(data){
 		$scope.events = data;
 
@@ -19,8 +23,10 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 	    	}
 	    	$scope.income += $scope.events[e].income;
 		}
+		ngProgress.complete();
 	});
-	console.log($scope.events.length);
+	ngProgress.reset();
+	ngProgress.start();
 
 	//get user participated events
 	$scope.participatedEvent = [];
@@ -38,6 +44,7 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 						$scope.participatedEvent.push(eventTmp);
 					});
 				});
+				ngProgress.complete();
 			}, function (err){
 				console.log(err);
 			});
