@@ -1,5 +1,5 @@
 // HomePage Controller
-app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q','$window', function ($scope, ngProgress, User, Command, $q, $window){
+app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q','$window', '$timeout', function ($scope, ngProgress, User, Command, $q, $window, $timeout){
 
 	ngProgress.color("#B40404");
 
@@ -19,9 +19,7 @@ app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q','$wi
 					.then(function(success){
 						if(success.apiID && success.apiID === currentUserId){
 							ngProgress.complete();
-							$window.location.href = '#';
-							$window.location.reload();
-							//return $q.reject( 'Rejecting this promise');
+							return $q.reject( 'Rejecting this promise');
 						}
 					})
 					.then(function(res){
@@ -38,13 +36,17 @@ app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q','$wi
 						return User.post(user);
 					})
 					.then(function(success){
-						$window.location.href = '#';
-						$window.location.reload();
 						ngProgress.complete();
+						$window.location.href = '#/';
+						$timeout( function(){ 
+							$window.location.reload();
+						}, 500);				
 					})
-					.catch(function(failed){ 
-						console.log(failed);
-						
+					.catch(function(failed){
+						$window.location.href = '#/';
+						$timeout( function(){ 
+							$window.location.reload();
+						}, 500);			
 					});
 			}
 		});
