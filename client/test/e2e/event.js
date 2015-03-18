@@ -150,7 +150,7 @@ describe('Event view' , function () {
 		var tickets = browser.findElement(by.id("tickets"));
 		expect(tickets.isDisplayed()).toBe(true);
 
-		var ticket = browser.findElement(by.id("ticket"));
+		var ticket = browser.findElement(by.id("ticket1"));
 		expect(ticket.isDisplayed()).toBe(true);
 
 		var addPaner = browser.findElement(by.buttonText("Ajouter au panier"));
@@ -227,6 +227,7 @@ describe('Event view' , function () {
 		expect(cancel2.isDisplayed()).toBe(true);
 		var delete3 = browser.findElement(by.id("delete3"));
 		expect(delete3.isDisplayed()).toBe(true);
+		browser.get('http://localhost:5000/#/');
 	});
 
 	it('View the event that a user participated', function(){
@@ -239,12 +240,9 @@ describe('Event view' , function () {
 		var bt_participed = browser.findElement(by.id("bt_participed"));
 		expect(bt_participed.isDisplayed()).toBe(true);
 		bt_participed.click();
-		//browser.sleep(100);
-		//var event = browser.findElement(by.xpath("id('content')/div/event-miniature/div/a/img"));
-		//expect(event.isDisplayed()).toBe(true);
-		//var eventSmallImage1 = browser.findElement(by.id("eventSmallImage1"));
-		//expect(eventSmallImage1.isDisplayed()).toBe(true);
-		//eventSmallImage1.click();		
+		var eventN = browser.findElement(by.id("eventMin1"));		
+		expect(eventN.isDisplayed()).toBe(true);
+		browser.get('http://localhost:5000/#/');		
 	});
 
 	it('Remove an event', function(){
