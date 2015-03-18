@@ -1,10 +1,13 @@
 //EventController
-app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'EventImages','User', '$window', 'Notification', function ($rootScope, $scope, $routeParams, Event, EventImages, User, $window, Notification){
-	//URL event argument
+app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'EventImages','User', '$window', 'Notification', 'ngProgress', function ($rootScope, $scope, $routeParams, Event, EventImages, User, $window, Notification, ngProgress){
+	ngProgress.color("#B40404");
 
+	//URL event argument
 	if(angular.isDefined($routeParams.id)){
+		ngProgress.start();
 		$scope.thisEvent = Event.get({id:$routeParams.id}, function(data){
-			$scope.thisEvent = data;		
+			$scope.thisEvent = data;	
+			ngProgress.complete();	
 		});
 		$scope.imgs = EventImages.get({id:$routeParams.id}, function(data){
 			$scope.imgs = data;
