@@ -31,6 +31,24 @@
     <p><a href="#/reset-password">Réinitialiser mot de passe</a></p>
     <p><a href="#/">Home</a>.</p>
 
+    <div ng-show="showUnlockButton" ng-init="showUnlockButton = false">
+        <button type="button" class="btn btn-info" data-target="#UnlockAccount" data-toggle="modal">Réactiver Mon Compte</button>
+    </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="UnlockAccount">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button id="btn_userNewFirstName" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Voulez-vous réactiver votre Compte ?</h4>
+              </div>
+              <div class="modal-body">
+                <button id="btn_userFirstNameClose" type="button" class="btn btn-danger" data-dismiss="modal" ng-click="reloadPage()">Non</button>
+                <button id="btn_userFirstNameSave" type="button" class="btn btn-success" data-dismiss="modal" ng-click="unlockUser(log, pass, idLock)">Oui</button>
+              </div>
+            </div>
+          </div>
+        </div>
 </div>
 
 </div>
