@@ -16,11 +16,11 @@
 				<li id="bt_createEvent" ng-show="user.authenticated" ng-class="activeMenu==18? 'active' : 'notActive'"><a href="#/event/create" ng-click="changeActiveMenu(18)">Organiser un Evenement</a></li>
 		    </ul>
 			<ul id="menu" class="nav navbar-nav pull-right">
-				<li title="Mon Compte" class="dropdown" ng-class="activeMenu==5? 'active' : 'notActive'" ng-show="user.authenticated" ><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img ng-src="data:{{mongoUser.photo.filetype}};base64,{{mongoUser.photo.base64}}"><span class="caret"></span></a>
+				<li title="Mon Compte" class="dropdown" ng-class="activeMenu==5? 'active' : 'notActive'" ng-show="user.authenticated" ><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img ng-src="data:{{mongoUser.photo.filetype}};base64,{{mongoUser.photo.base64}}"><span id="bt_account" class="caret"></span></a>
 		        	<ul class="dropdown-menu inverse-dropdown" role="menu">
 		       		   	<li id="bt_mineEvents"><a href="#/usr/events" ng-click="changeActiveMenu(5);changeActiveSubMenu(1)" ng-class="activeSubMenu==1? 'active' : 'notActive'">Mes Evenements</a></li>
 						<li id="bt_mineOrders"><a href="#/usr/cmds" ng-click="changeActiveMenu(5);changeActiveSubMenu(2)" ng-class="activeSubMenu==2? 'active' : 'notActive'">Mes Commandes</a></li>
-						<li id="bt_account"><a href="#/usr" ng-click="changeActiveMenu(5);changeActiveSubMenu(3)" ng-class="activeSubMenu==3? 'active' : 'notActive'"> Mon Profil </a></li>
+						<li id="bt_profil"><a href="#/usr" ng-click="changeActiveMenu(5);changeActiveSubMenu(3)" ng-class="activeSubMenu==3? 'active' : 'notActive'"> Mon Profil </a></li>
 		          	</ul>
 		        </li>
 				<li id="bt_basket" ng-show="user.authenticated" ng-class="activeMenu==20? 'active' : 'notActive'"><a href="#/usr/basket" ng-click="changeActiveMenu(20)" title="Mon Panier"><span class="glyphicon glyphicon-shopping-cart collapse"></span></a></li>
