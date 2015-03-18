@@ -17,11 +17,9 @@ $scope.createUser = function (log, pass) {
 				var currentUserId = res.user_id;
 				User.get({id : currentUserId}).$promise.then(function(success){
 					if(success.apiID && success.apiID === currentUserId){
-						console.log("user still exist")
 						ngProgress.complete()
 						return $q.reject( 'Rejecting this promise');
 					}}).then(function(res){
-						console.log(res)
 						var user = {
 							"apiID" : currentUserId,
 							"photo" : {
@@ -34,8 +32,6 @@ $scope.createUser = function (log, pass) {
 						};
 						return User.post(user);
 					}).then(function(success){
-						console.log("success to create")
-						console.log(success)
 						ngProgress.complete()
 					}).catch(function(failed){ 
 						console.log(failed)

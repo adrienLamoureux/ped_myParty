@@ -36,24 +36,26 @@
 						<a id="eventSmallImage{{$index+1}}" class="eventSmallImage col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1" id="show{{$index+1}}" href="#/event/{{event._id}}"><img ng-src="data:{{event.imageSmall.filetype}};base64,{{event.imageSmall.base64}}" class="img-thumbnail" alt="{{event.title}}"></a>
 						
 						<!-- income -->
-						<table id="income{{$index+1}}" class="income col-lg-12">
-							<tr>
-								<th>Ventes</th>
-								<th class="col-lg-8 text-center">Type billet (Qté)</th>
-								<th>Prix</th>
-								<th>Total</th>
-							</tr>
-							<tr id="ticketTypeIncome{{$index+1}}" ng-repeat="ticketType in event.ticketsType">
-								<td class="col-lg-1 text-right">{{ticketType.sold}}</td>
-								<td class="col-lg-8 text-center">{{ticketType.type}} ({{ticketType.ticketLeft + ticketType.sold}})</td>
-								<td class="col-lg-1 text-right">{{ticketType.price}}</td> 
-								<td class="col-lg-2 text-right">{{ticketType.income}}</td>
-							</tr>
-							<tr id="totalIncome{{$index+1}}">
-								<th class="text-right" colspan="3"> Revenu Total :</th>
-								<td class="text-right"> {{event.income}}€</td>
-							</tr>
-						</table>	
+						<table id="income{{$index+1}}" class="commandTable income col-lg-12">
+							<thead>
+								<tr>
+									<th class="col-lg-1 text-center">Ventes</th>
+									<th class="col-lg-8 text-center">Type billet (Qté)</th>
+									<th class="col-lg-1 text-center">Prix</th>
+									<th class="col-lg-2 text-center">Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="ticketTypeIncome{{$index+1}}" ng-repeat="ticketType in event.ticketsType">
+									<td class="col-lg-1 text-center">{{ticketType.sold}}</td>
+									<td class="col-lg-8 text-center">{{ticketType.type}} ({{ticketType.ticketLeft + ticketType.sold}})</td>
+									<td class="col-lg-1 text-center">{{ticketType.price}}€</td> 
+									<td class="col-lg-2 text-center">{{ticketType.income}}€</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<span> Revenu Total : {{event.income}}€</span>
 
 						<!-- management -->
 						<div id="management{{$index+1}}" class="management col-lg-12 text-right">	
@@ -82,8 +84,7 @@
 					</div>
 				</div>
 			</div>
-			
-
+		
 			<div ng-show="participed">
 				<div class="alert alert-warning " role="alert" ng-hide="participatedEvent.length">
 					Vous n'avez participé à aucun évènement ! 
@@ -97,7 +98,6 @@
 					</div>	
 				</div>
 			</div>
-
 		</section>
 	</section>
 </div>

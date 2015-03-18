@@ -353,9 +353,9 @@
 	#mineEvents table.income{
 		margin-bottom:5px;
 	}
-	#mineEvents table.income td{
+	/*#mineEvents table.income td{
 		border:solid 1px lightgrey;
-	}
+	}*/
 	#mineEvents table.income{
 		margin-left:auto;
 		margin-right:auto;
