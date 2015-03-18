@@ -27,9 +27,9 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	}, function(err,res){
 		if(err) console.log(err)
 		else{
-			$scope.create_account = new Date(res[0].created_at);
-			$scope.updated_at = new Date(res[0].updated_at);
-			$scope.last_login = new Date(res[0].last_login_at);	
+			$scope.create_account = new Date(res[0].created_at*1000);
+			$scope.updated_at = new Date(res[0].updated_at*1000);
+			$scope.last_login = new Date(res[0].last_login_at*1000);	
 			$scope.first_name = res[0].first_name;
 			$scope.last_name = res[0].last_name;
 			$scope.email = res[0].email;

@@ -2,7 +2,7 @@
 
 <div class="col-sm-6 col-sm-offset-3" id="x">
 
-    <h1><span class="fa fa-sign-in"></span> Login</h1>
+    <h1><span class="fa fa-sign-in"></span> Connexion</h1>
 
     <!-- LOGIN FORM -->
     <form ua-login>
@@ -15,7 +15,7 @@
             <input type="password" class="form-control" name="password" placeholder="Mot de passe" ng-model="pass">
         </div>
 
-        <button type="submit" class="btn btn-warning btn-lg" ng-click="createUser(log, pass)">Login</button>
+        <button type="submit" class="btn btn-custom btn-lg" ng-click="createUser(log, pass)"><span class="glyphicon glyphicon-log-in "></span>Connecter</button>
         <p ng-show="loading"><img src="https://app.userapp.io/img/ajax-loader-transparent.gif"></p>
 		<p ng-show="error">{{ error.message }}</p>
     </form>

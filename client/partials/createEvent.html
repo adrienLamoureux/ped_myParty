@@ -1,6 +1,14 @@
 <!-- CreateEvent Template -->
-<h1> Page de création d'un Event </h1>
-<event-frm ng-show="user.authenticated"></event-frm>
-<p class="alert alert-warning" role="alert" ng-hide="user.authenticated">
-	Vous devez être connecté pour organiser votre propre événement !
-</p>
+<div id="eventPage" class="container" >
+	<section id="event" class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+		<section id="info" class="col-xs-12">
+			<h1> Nouvel événement </h1>
+			<div>
+				<event-frm ng-show="user.authenticated"></event-frm>
+				<p class="alert alert-warning" role="alert" ng-hide="user.authenticated">
+					Vous devez être connecté pour organiser votre propre événement !
+				</p>
+			</div>
+		</section>
+	</section>
+</div>
