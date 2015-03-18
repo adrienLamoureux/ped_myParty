@@ -3,6 +3,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 
 	$scope.basketOfUser = [];
 	$scope.AllTicketsValid = true;
+	$scope.inValidation=false;
 
 	ngProgress.color("#B40404");
 	ngProgress.start();
@@ -176,6 +177,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 
 
 $scope.submitBasket = function(){
+	$scope.inValidation=true;
 	if($scope.AllTicketsValid == true) {
 		ngProgress.start();
 
@@ -233,6 +235,7 @@ $scope.submitBasket = function(){
 														Event.put({id:completeEvent._id}, completeEvent, function (data){
 															$scope.evnt = completeEvent;
 														}, function (err){
+															$scope.inValidation=false;
 															console.log(err);
 														});
 
@@ -242,6 +245,7 @@ $scope.submitBasket = function(){
 																userCmd = Command.put({id:userCmd._id}, userCmd, function (dataCmd){
 																	userCmd = dataCmd;
 																}, function (err){
+																	$scope.inValidation=false;
 																	console.log(err);
 																});
 															}
@@ -252,39 +256,46 @@ $scope.submitBasket = function(){
 																$scope.basketOfUser = [];
 																mongoUser.basket = $scope.basketOfUser;
 																mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
-																	mongoUser = res;
 																	notification2Sec("Commande effectuée");
 																	ngProgress.complete();
+																	mongoUser = res;
 																	$window.location.href = '#/usr/cmds';
-																	// $window.location.reload();
+																	$scope.inValidation=false;																
+																	$window.location.reload();
 																}, function (err){
+																	$scope.inValidation=false;
 																	console.log(err);
 																});																
 															}, 500);	
 														}
 
 													}, function (err){
+														$scope.inValidation=false;
 														console.log(err);
 													});
 												}
 											});
 										}
 										else {
+											$scope.inValidation=false;
 											alert("Le nombre de billets souhaité n'est plus dispo à la vente, veuillez retenter votre achat ultérieurement. Merci de votre compréhension.");
 										}	
 									}
 								});
 							});
 						}, function (err){
+							$scope.inValidation=false;
 							console.log (err);
 						});
 					});
 				});
 			});
 		}, function (err){
+			$scope.inValidation=false;
 			console.log(err);
 		});
 		}else{
+			$scope.inValidation=false;
 			alert("Impossible de commander, des tickets sont en quantité insuffisante. Veuillez changer votre commande.")
 		}
 	};
