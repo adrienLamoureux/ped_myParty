@@ -1,5 +1,7 @@
-app.controller('CommandsCtrl', ['$scope', '$rootScope', 'User', 'Command', function ($scope, $rootScope, User, Command){
-
+app.controller('CommandsCtrl', ['$scope', '$rootScope', 'User', 'Command', 'ngProgress', function ($scope, $rootScope, User, Command, ngProgress){
+	ngProgress.color("#B40404");
+	ngProgress.start();
+	
 	$scope.commands = [];
 
 	$scope.mongoUser = User.get({id:$rootScope.user.user_id}, function (userData){
@@ -13,6 +15,7 @@ app.controller('CommandsCtrl', ['$scope', '$rootScope', 'User', 'Command', funct
 				console.log(err);
 			});
 		});
+		ngProgress.complete();
 	}, function(err){
 		console.log(err);
 	});

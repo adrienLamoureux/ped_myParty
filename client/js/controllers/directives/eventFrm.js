@@ -37,6 +37,10 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 		'ticketImg':null
 	};
 
+	$scope.datePlusADay=function(date){
+		return new Date(date.getTime() + (24*3600*1000));
+	}
+
 	$scope.addNewTicketType = function (){
 		cptType +=1;
 		$scope.eventFormData.ticketsType.push({

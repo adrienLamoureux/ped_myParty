@@ -5,6 +5,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 	$scope.AllTicketsValid = true;
 
 	ngProgress.color("#B40404");
+	ngProgress.start();
 
 	function getBasketWithUserId(){
 		$scope.theUser = User.get({id:$rootScope.user.user_id}, function (res, e){
@@ -19,6 +20,8 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 		}
 		checkDisponibilityOfBasketTickets(res.basket);
 		$scope.totalOfBasket = calculateTotal();
+		
+		ngProgress.complete();
 	}, function (){
 		//console.log('Récuperation de l\'utilisateur échoué');
 	})
