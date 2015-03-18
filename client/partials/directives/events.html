@@ -1,15 +1,12 @@
 <!-- Events Template -->
-<div class="container text-center">
-	<h2>Evénements organisés par le site</h2>
-	<div class="search row">
-		<div class="col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 ">
-			<div class="input-group">
-				<span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
-				<input value="barre de recherche" class="form-control" type="text" ng-model="search.title" aria-describedby="basic-addon1">
-			</div>
+<div class="search col-xs-12">
+	<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 ">
+		<div class="input-group">
+			<span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
+			<input value="barre de recherche" class="form-control" type="text" ng-model="search.title" aria-describedby="basic-addon1">
 		</div>
 	</div>
-	<div ng-repeat="event in events | filter:search">
-		<event-miniature ng-show="event.online && !event.canceled && dateNotExpired(event.dateEnding)"></event-miniature>
-	</div>
 </div>
+<event-miniature ng-repeat="event in events | filter:search" ng-show="event.online && !event.canceled && dateNotExpired(event.dateEnding)"></event-miniature>
+
+
