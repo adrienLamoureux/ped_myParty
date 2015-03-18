@@ -2,11 +2,11 @@
 	<article class="fixTicketWidth">
 		<h2>{{event.title}}<span class="pull-right">{{ticket.expirationDate | date:'dd/MM/yyyy'}}</span></h2>
 		<ul>
-			<li>{{event.description}}</li>
-			<li>{{event.street}}<br/>
-			{{event.zipCode}} {{event.city}}<br/>
-			{{event.county}}<br/>
-			{{event.country}}</li>
+			<li><span id="eventDescription">{{event.description}}</span></li>
+			<li><span id="eventStreet">{{event.street}}</span><br/>
+			<span id="eventZipCode">{{event.zipCode}}</span> <span id="eventCity">{{event.city}}</span><br/>
+			<span id="eventCounty">{{event.county}}</span><br/>
+			<span id="eventCountry">{{event.country}}</span></li>
 		</ul> 
 	</article>
 	<table id="ticket">
@@ -18,7 +18,7 @@
 				<table>
 					<tr class="">
 						<td colspan="2" >
-							<h2>{{event.title}}</h2>
+							<h2 id="eventTitle">{{event.title}}</h2>
 							<p>
 								Du {{event.dateStarting | date:'dd/MM/yyyy'}} au {{event.dateEnding | date:'dd/MM/yyyy'}}.
 							</p>	
@@ -29,11 +29,11 @@
 							<qr type-number="8" correction-level="'M'" size="150" text="qrcode" image="true"></qr>
 						</td>
 						<td class="info">
-							<h3>{{ticket.type}}</h3>
+							<h3 id="ticketType">{{ticket.type}}</h3>
 							<p>	
-								<strong>Description :</strong> {{ticket.description}}<br/>
-								<strong>Prix :</strong> {{ticket.price}} €<br/>
-								<strong>Date d'expiration :</strong> {{ticket.expirationDate | date:'dd/MM/yyyy'}}
+								<strong>Description :</strong> <span id="ticketDescription">{{ticket.description}}</span><br/>
+								<strong>Prix :</strong> <span id="ticketPrice">{{ticket.price}}</span> €<br/>
+								<strong>Date d'expiration :</strong> <span id="ticketExp">{{ticket.expirationDate | date:'dd/MM/yyyy'}}</span>
 							</p>
 						</td>
 					</tr>
@@ -45,4 +45,4 @@
 		Attention: à l'entrée de l'événement, il peut vous être demandé de présenter des justificatifs (Carte d'identité, carte d'étudiant, etc.) pour valider votre billet.
 	</p>
 </div>
-<button id="bt_print" ng-click="printTicket('printable')" class="btn btn-custom col-xs-6 col-xs-offset-3"><span class="glyphicon glyphicon-print"></span>Imprimer le billet</button>
+<button id="bt_print" ng-click="printTicket('printable')" class="btn btn-custom col-xs-6 col-xs-offset-3"><span class="glyphicon glyphicon-print"></span>Imprimer votre billet</button>
