@@ -1,27 +1,28 @@
 // HomePage Controller
-app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q', function ($scope, ngProgress, User, Command, $q){
+app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q','$window', '$timeout', function ($scope, ngProgress, User, Command, $q, $window, $timeout){
 
 	ngProgress.color("#B40404");
 
+	$scope.createUser = function (log, pass) {
+		var deferred = $q.defer();
 
-$scope.createUser = function (log, pass) {
-	var deferred = $q.defer();
-
-		ngProgress.start()
+		ngProgress.start();
 		UserApp.User.login({
 			"login" : log,
 			"password" : pass
 		}, function(err, res){
-			if(err) console.log(err)
+			if(err) console.log(err);
 			else{
 				var currentUserId = res.user_id;
-				User.get({id : currentUserId}).$promise.then(function(success){
-					if(success.apiID && success.apiID === currentUserId){
-						console.log("user still exist")
-						ngProgress.complete()
-						return $q.reject( 'Rejecting this promise');
-					}}).then(function(res){
-						console.log(res)
+				User.get({id : currentUserId})
+					.$promise
+					.then(function(success){
+						if(success.apiID && success.apiID === currentUserId){
+							ngProgress.complete();
+							return $q.reject( 'Rejecting this promise');
+						}
+					})
+					.then(function(res){
 						var user = {
 							"apiID" : currentUserId,
 							"photo" : {
@@ -33,15 +34,23 @@ $scope.createUser = function (log, pass) {
 							"commandsID": []
 						};
 						return User.post(user);
-					}).then(function(success){
-						console.log("success to create")
-						console.log(success)
-						ngProgress.complete()
-					}).catch(function(failed){ 
-						console.log(failed)
 					})
-		}
-})}
+					.then(function(success){
+						ngProgress.complete();
+						$window.location.href = '#/';
+						$timeout( function(){ 
+							$window.location.reload();
+						}, 500);				
+					})
+					.catch(function(failed){
+						$window.location.href = '#/';
+						$timeout( function(){ 
+							$window.location.reload();
+						}, 500);			
+					});
+			}
+		});
+	};
 }]);
 
 

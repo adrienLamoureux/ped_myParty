@@ -18,7 +18,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="ticket in evnt.tickets">
-								<td data-title="Type de ticket"><a id="typeToTicket{{$parent.$index+1}}_{{$index+1}} "class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.ticketTypeName}}</a></td>
+								<td data-title="Type de ticket"><a id="typeToTicket{{$parent.$index+1}}_{{$index+1}}" class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.ticketTypeName}}</a></td>
 								<td data-title="Prix"><a id="priceToTicket{{$parent.$index+1}}_{{$index+1}}" class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.price}}€</a></td>
 								<td data-title="Date d'expiration"><a id="expToTicket{{$parent.$index+1}}_{{$index+1}}" class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.expirationDate | date : 'dd/MM/yyyy'}}<a/></td>
 								<td data-title="Utilisé"><a id="usedToTicket{{$parent.$index+1}}_{{$index+1}}" class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.used}}</a></td>

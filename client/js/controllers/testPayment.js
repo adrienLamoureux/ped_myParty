@@ -1,5 +1,3 @@
-
-
 // HomePage Controller
 app.controller('PaymentCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q', '$route', '$http',function ($scope, ngProgress, User, Command, $q, $route, $http){
 

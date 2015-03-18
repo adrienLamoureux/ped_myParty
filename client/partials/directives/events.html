@@ -1,10 +1,7 @@
 <!-- Events Template -->
 <div class="search col-xs-12">
 	<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 ">
-		<div class="input-group">
-			<span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
-			<input value="barre de recherche" class="form-control" type="text" ng-model="search.title" aria-describedby="basic-addon1">
-		</div>
+		<input value="barre de recherche" class="form-control" placeholder="Rechercher un événement..." type="text" ng-model="search.title" aria-describedby="basic-addon1">
 	</div>
 </div>
 <event-miniature ng-repeat="event in events | filter:search" ng-show="event.online && !event.canceled && dateNotExpired(event.dateEnding)"></event-miniature>

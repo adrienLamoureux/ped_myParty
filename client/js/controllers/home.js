@@ -2,7 +2,7 @@
 app.controller('HomeCtrl', ['$scope', 'User', '$rootScope', 'Command', function ($scope, User, $rootScope, Command){
 
 	var currentUserId = $rootScope.user.user_id;
-	console.log(currentUserId);
+	//console.log(currentUserId);
 
 	$scope.deleteUser = function(){
 		User.remove({id : currentUserId},function(succes){

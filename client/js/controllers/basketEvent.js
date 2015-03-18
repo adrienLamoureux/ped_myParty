@@ -5,6 +5,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 	$scope.AllTicketsValid = true;
 
 	ngProgress.color("#B40404");
+	ngProgress.start();
 
 	function getBasketWithUserId(){
 		$scope.theUser = User.get({id:$rootScope.user.user_id}, function (res, e){
@@ -19,6 +20,8 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 		}
 		checkDisponibilityOfBasketTickets(res.basket);
 		$scope.totalOfBasket = calculateTotal();
+		
+		ngProgress.complete();
 	}, function (){
 		//console.log('Récuperation de l\'utilisateur échoué');
 	})
@@ -101,6 +104,18 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 
 	// Fonction permettant d'incrémenter le nombre d'un element du panier
 	$scope.increment = function(eventid, type, qtty, ticket, nomTicket){
+
+		var max = false;
+
+		Event.get({id:eventid}, function(data){
+		for(j=0;j<data.ticketsType.length;j++){
+			if(data.ticketsType[j].uniqueID == type){
+				if(data.ticketsType[j].ticketLeft <= qtty){
+				max = true;
+				}
+			}
+		}
+		if(max == false){
 		for(i=0;i<$scope.basketOfUser.length;i++){
 			if($scope.basketOfUser[i].eventID == eventid){
 				for(j=0;j<$scope.basketOfUser[i].tickets.length;j++){
@@ -119,6 +134,8 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 			}, function (){
 				alert("Il ne rester qu'un ticket de ce type, veuillez le supprimer.")
 			});
+		}
+		});
 	};
 
 	// Fonction permettant de supprimer un element du panier. Demander si l'utilisateur est sur de vouloir le supprimer
@@ -236,9 +253,10 @@ $scope.submitBasket = function(){
 																mongoUser.basket = $scope.basketOfUser;
 																mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
 																	mongoUser = res;
+																	notification2Sec("Commande effectuée");
 																	ngProgress.complete();
 																	$window.location.href = '#/usr/cmds';
-																	$window.location.reload();
+																	// $window.location.reload();
 																}, function (err){
 																	console.log(err);
 																});																
