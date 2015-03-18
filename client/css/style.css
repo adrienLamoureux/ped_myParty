@@ -15,6 +15,9 @@
 		margin-top:0px;
 		margin-bottom:10px;
 	}
+	div.search .glyphicon{
+		cursor:default;
+	}
 	.alert{
 		margin:10px;
 	}
@@ -43,8 +46,11 @@
 		padding:0px;
 	}
 	.noMargTop{
-		margin-top:0px;
+		margin-top:0px!important;
 
+	}
+	.noMargBottom{
+		margin-bottom:0px!important;
 	}
 	
 	/*****************/
