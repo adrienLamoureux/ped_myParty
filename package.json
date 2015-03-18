@@ -24,6 +24,7 @@
   "scripts": {
     "start": "node server/server.js",
     "postinstall": "bower install",
+    "postinstall": "npm install -g nodemon",
     "test": "node ./node_modules/protractor/bin/webdriver-manager update && ./node_modules/protractor/bin/protractor ./protractor.conf.js"
   }
 }
