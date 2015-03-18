@@ -8,14 +8,12 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	$scope.newPrenom = '';
 
 
-
 	User.get({id:currentUserId}).$promise.then(function(res){
 		$scope.mongoUser =  res;
 		ngProgress.complete();
 	}, function(err){
 		console.log(err)
 	});
-
 
 	$scope.updateProfile = function (){
 		User.put({id:currentUserId}, $scope.mongoUser);
