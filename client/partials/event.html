@@ -21,7 +21,7 @@
 						<img id="ticket_$index_image" class="img-responsive center-block" data-ng-src="data:{{imgs.ticketImg.filetype}};base64,{{imgs.ticketImg.base64}}">
 					</div>
 					<div class="col-md-9">
-						<h2>{{ticketType.type}}<div class="pull-right">{{ticketType.ticketLeft}} restant</div></h2>
+						<h2>{{ticketType.type}}<span class="pull-right">{{ticketType.ticketLeft}} restant</span></h2>
 						<ul>
 							<li>Description : {{ticketType.description}}</li>
 							<li>Expiration : {{ticketType.expirationDate | date:'dd/MM/yyyy'}}</li>
@@ -38,10 +38,10 @@
 							-Evénement annulé-
 						</div>
 						<div class="pull-right" ng-show="thisEvent.online && !thisEvent.canceled &&dateNotExpired(thisEvent.dateEnding) && (ticketType.ticketLeft > 0) && user.authenticated">
-							<input ng-model="places_number" type="number" value="0" min="0">
+							<input ng-model="places_number" type="number" value="0" min="1">
 
-							<button ng-click="addToBasket(places_number,ticketType.uniqueID,ticketType.price,ticketType.type,ticketType.ticketLeft, ticketType.expirationDate, thisEvent.title)" class="btn btn-primary">
-								Ajouter au panier
+							<button ng-click="addToBasket(places_number,ticketType.uniqueID,ticketType.price,ticketType.type,ticketType.ticketLeft, ticketType.expirationDate, thisEvent.title)" class="btn btn-custom">
+								<span class="glyphicon glyphicon-shopping-cart"></span>Ajouter au panier
 							</button>	
 						</div>
 					</div>	  		

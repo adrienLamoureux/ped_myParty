@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./vendor/ngprogress/ngProgress.css">
+  <link rel="stylesheet" href="./vendor/angular-ui-notification/dist/angular-ui-notification.min.css">
 </head>
 
 <body ng-app="MyPartyApp">
@@ -14,9 +15,7 @@
   <nav-bar></nav-bar>
   
   <div id="page" ng-view>
-
   </div>
-
 
 
   <script src="./vendor/jquery/jquery.js"></script>
@@ -26,9 +25,12 @@
   <script src="./vendor/angular-resource/angular-resource.js"></script>
   <script src="./vendor/angular-base64-upload/dist/angular-base64-upload.js"></script>
   <script src="./vendor/angular-ui/build/angular-ui.js"></script>
+  <script src="./vendor/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
   
   <!-- Progress Bar while loading -->
   <script src="./vendor/ngprogress/build/ngProgress.js"></script>
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
   
   <!-- UserApp -->
   <script src="https://app.userapp.io/js/userapp.client.js"></script>
@@ -57,13 +59,14 @@
   <script src="./js/controllers/directives/navigation.js"></script>
   <script src="./js/controllers/directives/eventList.js"></script>
   <script src="./js/controllers/directives/eventMiniature.js"></script>
-  <script src="./js/controllers/directives/basketEvent.js"></script>
+  <script src="./js/controllers/basketEvent.js"></script>
+  <script src="./js/controllers/directives/basketOneEvent.js"></script>
   <script src="./js/controllers/directives/eventFrm.js"></script>
   <script src="./js/controllers/directives/eventTicketValidation.js"></script>
   <script src="./js/controllers/directives/eventTicket.js"></script>
   <script src="./js/controllers/loginCtrl.js"></script>
+  <script src="./js/controllers/testPayment.js"></script>
 
-  
   <!-- Angular Directives -->
   <script src="./js/directives/navigation.js"></script>
   <script src="./js/directives/events.js"></script>

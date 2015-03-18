@@ -9,15 +9,81 @@
 	}
 	body{
 		background:lightgrey;
+		min-width:450px;
 	}
 	div.search{
-		margin-top:20px;
+		margin-top:0px;
 		margin-bottom:10px;
 	}
 	.alert{
 		margin:10px;
 	}
 
+	.ui-notification{
+		margin-top:50px;
+	}
+
+	h2{
+		margin:0px;
+		padding:0px;
+	}
+	.noMargTop{
+		margin-top:0px;
+
+	}
+	
+	/*****************/
+	/*** buttons *****/
+	.glyphicon{
+		margin-right:10px;
+		cursor:pointer;
+	}
+	.collapse{
+		margin-right:1px;
+	}
+	.btn-custom {
+		color: #eee!important;
+		font-weight: normal!important;
+		background-color: #222;
+		border-color: #cecece!important;
+	}
+	.btn-custom:hover,
+	.btn-custom:focus,
+	.btn-custom:active,
+	.btn-custom.active,
+	.open .dropdown-toggle.btn-custom {
+	  color: white!important;
+	  background-color: #353535;
+	  border-color: #fff;
+	}
+	.btn-custom:active,
+	.btn-custom.active,
+	.open .dropdown-toggle.btn-custom {
+	  background-image: none;
+	}
+	.btn-custom.disabled,
+	.btn-custom[disabled],
+	fieldset[disabled] .btn-custom,
+	.btn-custom.disabled:hover,
+	.btn-custom[disabled]:hover,
+	fieldset[disabled] .btn-custom:hover,
+	.btn-custom.disabled:focus,
+	.btn-custom[disabled]:focus,
+	fieldset[disabled] .btn-custom:focus,
+	.btn-custom.disabled:active,
+	.btn-custom[disabled]:active,
+	fieldset[disabled] .btn-custom:active,
+	.btn-custom.disabled.active,
+	.btn-custom[disabled].active,
+	fieldset[disabled] .btn-custom.active {
+	  background-color: #222!important;
+	  border-color: #000!important;
+	  color:#ccc!important;
+	}
+	.btn-custom .badge {
+	  color: white!important;
+	  background-color: #727272;
+	}
 /********************************/
 /***********  Menu  *************/
 /********************************/
@@ -53,7 +119,7 @@
 /*** page ************************/
 /***      ************************/
 	#page{
-		margin-top:50px; /* required to let some place for the top-fixed main menu bar. */
+		margin-top:60px; /* required to let some place for the top-fixed main menu bar. */
 	}
 
 
@@ -82,9 +148,9 @@
 
 
 /*********************************/
-/*** eventPage *******************/
-/***           *******************/
-	#eventPage{
+/*** event ***********************/
+/***       ***********************/
+	#eventPage, #eventBasket{
 		width:100%;
 		color: #FFF;
 		font-size: 16px;
@@ -92,12 +158,23 @@
 		text-align: left;
 		padding-top:20px;
 	}
+	#eventMin{
+		color: #FFF;
+		font-size: 16px;
+		font-family: "Century Gothic",arial,serif;
+		text-align: center;
+	}
 	#eventPage #eventImage{
 		color:black;
 		margin-top:10px;
 		margin-bottom:20px;
 	}
-	#eventPage #event #info > *, #eventPage #event section h1, #eventPage #event section h2, #eventPage #event, #eventPage #event .ticket{
+	#eventPage #event #info > *, 
+	#eventPage #event section h1,
+	#eventPage #event, 
+	#eventPage #event .ticket, 
+	#eventMin > *,
+	#eventBasket > *{
 		background-color: rgba(0, 0, 0, 0.90);
 		padding:10px 10px 10px 10px;
 		border: 1px solid #cecece;
@@ -108,9 +185,16 @@
 			 -o-border-radius: 10px;
 				border-radius: 10px;
 	}
-	#eventPage #event{
+	#eventPage #event, #basket{
 		background-color: grey;
 		padding:0px 0px 15px 0px;
+		border: 1px solid #cecece;
+		-webkit-border-radius: 10px;
+		 -khtml-border-radius: 10px;
+		   -moz-border-radius: 10px;
+			-ms-border-radius: 10px;
+			 -o-border-radius: 10px;
+				border-radius: 10px;
 	}
 	#eventPage #event * h1{		
 		text-align: center;
@@ -149,18 +233,24 @@
 		font-weight: bolder;
 		margin-left:10px;
 	}
-
+	#eventBasket legend{
+		color:white;
+	}
+	#eventBasket input{
+		color:white;
+		background:black;
+		text-align:center;
+		width:55px;
+	}
 
 /*********************************/
 /*** eventFrm ********************/
 /***          ********************/
-	#eventForm { 
-		width:500px;
-		margin:auto;
-		margin-bottom:20px; 
-		border:1px solid gray; 
-		border-radius:10px; 
-		padding:10px; 
+	#eventForm {
+		margin-top:15px;
+	}
+	#eventForm label {
+		font-weight: normal;
 	}
 	#eventForm hr { 
 		border:1px solid gray; 
@@ -176,13 +266,24 @@
 		display:inline-block; 
 		width:80px; 
 		text-align:center; 
+		color:black;
 	}
+	#eventForm textarea { 
+		color:black;
+	}
+	#eventForm input[type=file] { 
+		color:white;
+	}
+	
 	#eventForm label + input, #eventForm label + textarea  { 
 		width:95%;
 		margin-bottom:10px; 
 	}
 	#eventForm button[type=submit], #eventForm button[type=button], #eventForm a{
 		margin-top:10px;
+	}
+	#eventForm button#bt_add_ticket{
+		margin:5px 0px 10px 0px;
 	}
 	#eventForm img{
 		height:25px; 
@@ -199,10 +300,10 @@
 		margin-bottom:15px;
 	}
 	#eventForm input.ng-invalid, #eventForm textarea.ng-invalid{
-  		border: 1px solid red;
+  		box-shadow: -1px -1px 1px 2px rgba(255, 0, 0, 0.7); 
 	}
 	#eventForm input.ng-valid, #eventForm textarea.ng-valid{
-	  	border: 1px solid green;
+	  	box-shadow: 1px 1px 1px 2px rgba(0, 255, 0, 0.7); 
 	}
 
 
@@ -211,10 +312,6 @@
 /***            ******************/
 	#bt_participed{
 		margin-bottom:10px;
-	}
-
-	nav#mineEventNav{
-		padding-top:40px;
 	}
 
 	div#content{
@@ -227,7 +324,10 @@
 			 -o-border-radius: 10px;
 				border-radius: 10px;
 	}
-
+	nav#mineEventNav{
+		margin-top:15px;
+		margin-bottom:15px;
+	}
 	#mineEvents{
 		color:white;
 		background-color: rgba(0, 0, 0, 0.90);
@@ -241,11 +341,11 @@
 				border-radius: 10px;
 	}
 
-	#mineEvents h2{
+	#mineEvents h2 {
 		margin:0px;
 	}
 
-	#mineEvents .eventSmallImage{
+	#mineEvents img.eventSmallImage{
 		margin-top:10px;
 		margin-bottom:10px;
 	}
@@ -327,19 +427,28 @@
 /* Command */
 .command{
 	text-align:center;
+	margin-top:10px;
+}
+.command h2{
+	margin-top:5px;
+	margin-bottom:15px;
 }
 
 #commandImage {
 	text-align:center;
 }
-.commandTable thead th {
-	background:#222;
-	color:#FFFFFF;
+
+table.commandTable {
+	margin-top:15px;
+}
+table.commandTable thead th {
+	background:#444;
+	color:#ddd;
 	text-align:center;
 	vertical-align:middle;
 }
 
-.commandTable td {
+table.commandTable td {
 	text-align: center;
 	vertical-align:middle;
 }

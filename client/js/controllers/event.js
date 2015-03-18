@@ -1,5 +1,5 @@
 //EventController
-app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'EventImages','User', '$window', function ($rootScope, $scope, $routeParams, Event, EventImages, User, $window){
+app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'EventImages','User', '$window', 'Notification', function ($rootScope, $scope, $routeParams, Event, EventImages, User, $window, Notification){
 	//URL event argument
 
 	if(angular.isDefined($routeParams.id)){
@@ -13,7 +13,6 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 
 	// if not event => $scope.thisEvent = undefined
 	$scope.places_number = 1;
-
 	$scope.Myuser = null;
 
 	$scope.addToBasket = function(numberplace, ticketType, ticketPrice, ticketDescription, ticketleft, expirationDate, eventTitle){
@@ -25,6 +24,10 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 				alert("Désolé, il ne reste plus que "+ticketleft+" billets de ce type pour cet evenement");
 			}
 		}else{
+			console.log(numberplace)
+			if(typeof(numberplace) == "undefined"){
+				alert("Merci d'ajouter à votre panier un nombre de ticket valide.");
+			}else{
 			// Si les tickets sont disponibles on recupere le panier de l'utilisateur
 			$scope.Myuser = User.get({id:$rootScope.user.user_id}, function (res){
 				var panier = res.basket;
@@ -106,7 +109,15 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 				// Et maintenant on met a jour les donnees en base
 					User.put({id:$rootScope.user.user_id}, $scope.Myuser, function (res2, e){
 						//console.log("Update reussie");
-						window.location.reload();
+						//window.location.reload();
+						//numberplace, ticketType, ticketPrice, ticketDescription, ticketleft, expirationDate, eventTitle
+						if(numberplace == 1) {
+							//Notification.info("Ajout d'un ticket au panier !");
+							notification2Sec("Ajout d'un ticket au panier !", eventTitle);
+						}else{
+							notification2Sec('Ajout de '+numberplace+' tickets au panier !', eventTitle);
+						}
+						
 					}, function (){
 						//console.log("Erreur lors de l'update du USER et son nouveau panier");
 					});
@@ -114,6 +125,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 			}, function (){
 				//console.log("Probleme lors de l\'ajout du ticket, erreur lors de la recuperation du panier utilisateur");
 			});
+			}
 		}
 		//$window.location.reload();
 	};
@@ -121,4 +133,8 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 	$scope.dateNotExpired=function(date){
 		return Date.parse(date)>Date.now();
 	};
+
+	notification2Sec = function(text, eventTitle) {
+         Notification.success({message: text, delay: 2000, title: '<i>'+eventTitle+'</i>'});
+    };
 }]);

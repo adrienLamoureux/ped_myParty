@@ -7,7 +7,8 @@ var application_root = __dirname,
     bodyParser  = require('body-parser'),
     mongoose = require('mongoose'),
     passport = require('passport'),
-    UserAppStrategy = require('passport-userapp').Strategy;
+	  UserAppStrategy = require('passport-userapp').Strategy,
+    stripe = require("stripe")("sk_test_1scGPnwjVqqrBTc8h8gSylT9");
 
 var APP_ID = "54f5bfbac1eb6";
 
@@ -46,6 +47,23 @@ var eventModel = require('./models.js').eventModel;
 var commandsModel = require('./models.js').commandsModel;
 var ticketModel = require('./models.js').ticketModel;
 var imageModel = require('./models.js').imageModel;
+
+app.post('/charge', function(request, res, next){
+    var stripeToken = request.body.id;
+    var mAmount = request.body.price;
+
+    var charge = stripe.charges.create({
+      amount: mAmount, 
+      currency: "eur",
+      source: stripeToken,
+      description: "user@example.com"
+    }, function(err, charge) {
+      if (err && err.type === 'StripeCardError') {
+        console.log(JSON.stringify(err, null, 2));
+      }
+      res.send("completed payment!");
+    });
+});
 
 /********* PASSPORT **********/
 passport.use(new UserAppStrategy({
@@ -216,6 +234,7 @@ app.get('/api/ticket/:id', function (req, res, next) {
 app.post('/api/ticket', function (req, res, next){
   console.log('new ticket');
   var newTicket = new ticketModel(req.body);
+  console.log(newTicket);
   newTicket.save(function (e, results){
     if (e) return next(e);
     res.send(results);
@@ -264,10 +283,31 @@ app.delete('/api/command/:id', function (req, res, next){
 });
 
 /* Validation Ticket */
-app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
+app.get('/api/:idOwner/event/:id/ticket/:idt/validate', function (req, res, next){
   console.log('get ticket ' + req.params.idt + ' of event '+req.params.id);
-  var response = {valide: false};
-  eventModel.findOne({_id: req.params.id}, function (err, result){
+  var response = {valide: false, code: 200};
+  ticketModel.findOne({_id:req.params.idt}, function (error, ticket){
+    if (ticket.ownerID == req.params.idOwner){
+      if (ticket.eventID == req.params.id){
+        if(ticket.expirationDate > (new Date)){
+          if(ticket.used == false){
+            response.valide = true;
+          } else {
+            response.code = 405;
+          };// Ajout du cas ou le ticket est déjà utilisé
+        } else {
+          response.code = 412;
+        } 
+      } else {
+          response.code = 403;
+      };
+    } else {
+        response.code = 401;
+    };
+    res.send(response);
+  });
+
+  /*eventModel.findOne({_id: req.params.id}, function (err, result){
     if (err) return next(e);
     ticketModel.findOne({_id:req.params.idt}, function (error, ticket){
       if(ticket.used == false){
@@ -282,13 +322,31 @@ app.get('/api/event/:id/ticket/:idt/validate', function (req, res, next){
       };
       res.send(response);
     });
-  });
+  });*/
+
 });
 
-app.get('/api/event/:id/ticket/:idt/validate/:toValide', function (req, res, next){
+app.get('/api/:idOwner/event/:id/ticket/:idt/validate/:toValide', function (req, res, next){
   delete req.body._id; //duplicate id bug
   console.log('update ticket ' + req.params.idt + ' of event '+req.params.id);
-  eventModel.findOne({_id: req.params.id}, function (err, result){
+  var response= {status: false}
+  ticketModel.findOne({_id:req.params.idt}, function (error, ticket){
+    if (ticket.ownerID == req.params.idOwner){
+      if (ticket.eventID == req.params.id){
+        if(ticket.used == false){
+          ticket.used = true;
+          ticketModel.update({_id:req.params.idt}, {$set:{used:ticket.used}}, function (err, numberAffected, raw){
+            console.log(numberAffected);
+            response.status = true;
+            res.send(response);
+          });
+        };
+      };
+    };
+  });
+
+
+  /*eventModel.findOne({_id: req.params.id}, function (err, result){
     if (err) return next(err);
     ticketModel.findOne({_id:req.params.idt}, function (error, ticket){
       if(ticket.used == false){
@@ -299,4 +357,5 @@ app.get('/api/event/:id/ticket/:idt/validate/:toValide', function (req, res, nex
       };
     });
   });
+*/
 });
