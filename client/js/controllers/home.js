@@ -4,7 +4,7 @@ app.controller('HomeCtrl', ['$scope', 'ngProgress', 'User', '$rootScope', 'Comma
 	ngProgress.color("#B40404");
 	
 	var currentUserId = $rootScope.user.user_id;
-	console.log(currentUserId);
+	//console.log(currentUserId);
 
 
 	$scope.deleteUser = function(){

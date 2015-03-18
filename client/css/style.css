@@ -92,6 +92,14 @@
 		text-transform: uppercase;
 		top: -1em;
 	}
+
+	.navbar img {
+		margin-top :-12px;
+		margin-bottom :-12px;
+		margin-right : 10px;		
+		width:34px;
+    	height:34px;
+	}
 	.version-beta {
 		color: orange;
 	}
