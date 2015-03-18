@@ -37,10 +37,3 @@ To start server and MongoDB:
 * go to ./server/ 
 * remove .ex extension on the runLinux.sh.ex
 * run runLinux.sh 
-
-### MacOSX
-
-To start server and MongoDB:
-* go to ./server/ 
-* remove .ex extension on the runMacOSX.sh.ex
-* run runMacOSX.sh 
