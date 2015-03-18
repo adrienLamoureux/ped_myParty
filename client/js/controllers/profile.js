@@ -59,8 +59,7 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	}
 
 	$scope.reloadPage = function(){
-		$location.path("/usr");
-		$timeout( function (){$route.reload()} , 1000);
+		$timeout( function (){$route.reload()} , 500);
 	}
 
 
