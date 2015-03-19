@@ -1,56 +1,31 @@
-<div class="container" >
 
-<div class="col-sm-6 col-sm-offset-3" id="x">
-
-    <h1><span class="fa fa-sign-in"></span> Connexion</h1>
-
-    <!-- LOGIN FORM -->
-    <form ua-login>
-        <div class="form-group">
-            <label>Email</label>
-            <input type="text" class="form-control" name="login" placeholder="Email" ng-model="log">
-        </div>
-        <div class="form-group">
-            <label>Mot de passe</label>
-            <input type="password" class="form-control" name="password" placeholder="Mot de passe" ng-model="pass">
-        </div>
-
-        <button type="submit" class="btn btn-custom btn-lg" ng-click="createUser(log, pass)"><span class="glyphicon glyphicon-log-in "></span>Connecter</button>
-        <p ng-show="loading"><img src="https://app.userapp.io/img/ajax-loader-transparent.gif"></p>
-		<p ng-show="error">{{ error.message }}</p>
-    </form>
-
-    <button ua-oauth-link="linkedin" class="btn btn-lg btn-linkedin"><i class="fa fa-linkedin"></i></button>
-	<button ua-oauth-link="google" class="btn btn-lg btn-google-plus"><i class="fa fa-google-plus"></i></button>
-	<button ua-oauth-link="github" class="btn btn-lg btn-github"><i class="fa fa-github"></i></button>
-	<button ua-oauth-link="facebook" class="btn btn-lg btn-facebook"><i class="fa fa-facebook"></i></button>
-
-    <hr>
-
-    <p>Pas encore inscrit ? <a href="#/signup">Inscription</a></p>
-    <p><a href="#/reset-password">Réinitialiser mot de passe</a></p>
-    <p><a href="#/">Home</a>.</p>
-
-    <div ng-show="showUnlockButton" ng-init="showUnlockButton = false">
-        <button type="button" class="btn btn-info" data-target="#UnlockAccount" data-toggle="modal">Réactiver Mon Compte</button>
-    </div>
-
-        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="UnlockAccount">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button id="btn_userNewFirstName" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Voulez-vous réactiver votre Compte ?</h4>
-              </div>
-              <div class="modal-body">
-                <button id="btn_userFirstNameClose" type="button" class="btn btn-danger" data-dismiss="modal" ng-click="reloadPage()">Non</button>
-                <button id="btn_userFirstNameSave" type="button" class="btn btn-success" data-dismiss="modal" ng-click="unlockUser(log, pass, idLock)">Oui</button>
-              </div>
-            </div>
-          </div>
-        </div>
-</div>
-
-
+<div id="eventPage" class="container" >
+	<section id="event" class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+		<section id="info" class="col-sm-12">
+			<h1><span class="fa fa-sign-in"></span> Connexion</h1>
+			<!-- LOGIN FORM -->
+			<form ua-login>
+			<div class="form-group">
+				<label>Email</label>
+					<input type="text" class="form-control" name="login" placeholder="Email" ng-model="log">
+					</div>
+						<div class="form-group">
+						<label>Mot de passe</label>
+						<input type="password" class="form-control" name="password" placeholder="Mot de passe" ng-model="pass">
+						</div>
+						<div class="text-center">
+						<p ng-show="loading"><img src="https://app.userapp.io/img/ajax-loader-transparent.gif"></p>
+						<p ng-show="error" class="alert-danger">{{ error.message }}</p>
+						<button ng-hide="showUnlockButton" type="submit" class="btn btn-custom btn-lg" ng-click="createUser(log, pass)"><span class="glyphicon glyphicon-log-in "></span>Connecter</button>
+						<button type="button" ng-show="showUnlockButton" class="btn btn-custom btn-lg" ng-confirm-click="Voulez-vous réactiver votre Compte ?" confirmed-click="unlockUser(log, pass, idLock)">Réactiver Mon Compte</button>
+						</div>
+					</form>
+					<div class="margTop">
+					<p>Pas encore inscrit ? <a class="link_connect" href="#/signup">Inscription</a></p>
+					<p>Mot de passe oublié ? <a class="link_connect" href="#/reset-password">Réinitialiser mot de passe</a></p>
+				<p>Perdu ? <a class="link_connect" href="#/">Retournez à l'accueil</a>.</p>
+			</div>
+		</section>
+    </section>
 </div>
 

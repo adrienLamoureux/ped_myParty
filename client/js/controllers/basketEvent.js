@@ -185,7 +185,8 @@ $scope.submitBasket = function(){
 		
 		var newCmd = {
 			'dateBuy': Date.now(),
-			'eventTickets':[]
+			'eventTickets':[],
+			'canceled': false
 		};
 
 		var userCmd = Command.post(newCmd, function (cmd){
@@ -225,12 +226,15 @@ $scope.submitBasket = function(){
 													'eventID': eventUp._id,
 													'ticketTypeID': ticket.ticketType,
 													'expirationDate': new Date(ticket.expirationDate).getTime(),
-													'used':false
+													'used':false,
+													'canceled': false
 												};
 												for(i=0;i<ticket.nbTicket;i++) {
 													var mongoTicket = Ticket.post(tckt, function (ticketData){
 														mongoTicket = ticketData;
+														
 														cptTicket--;
+														
 														completeEvent.tickets.push(mongoTicket._id);
 														Event.put({id:completeEvent._id}, completeEvent, function (data){
 															$scope.evnt = completeEvent;
@@ -244,6 +248,11 @@ $scope.submitBasket = function(){
 																evTicket.tickets.push(mongoTicket._id);
 																userCmd = Command.put({id:userCmd._id}, userCmd, function (dataCmd){
 																	userCmd = dataCmd;
+																	
+																	$timeout(function() {
+																		
+																	}, 500);
+
 																}, function (err){
 																	$scope.inValidation=false;
 																	console.log(err);
@@ -263,7 +272,7 @@ $scope.submitBasket = function(){
 																	$scope.inValidation=false;
 																	console.log(err);
 																});																
-															}, 500);	
+															}, 1000);	
 														}
 
 													}, function (err){
