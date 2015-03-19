@@ -85,7 +85,10 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 		$scope.now = Date.now();
    	};
 
-   	$scope.cancel = initForm;
+   	$scope.cancel = function(){
+   		if($window.confirm("Etes vous sur de vouloir restaurer le formulaire ?"))
+   			initForm();
+   	}
 
    	// when submitting the add form, send the text to the node API
     $scope.createEvent = function(published) {
