@@ -5,7 +5,7 @@
 display:block;
 text-align:center;
 float:none;
-margin:auto;
+margin:auto!important;
 }
 body{
 background:lightgrey;
