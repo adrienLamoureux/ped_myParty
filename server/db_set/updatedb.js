@@ -73,7 +73,9 @@ var updateRefID = function(db){
 													eventTickets: [{
 														eventID: eventDocs[0]._id,
 														tickets: ticketDocs[0]._id
-													}]	
+													}],
+													canceled: false,
+													partiallyCanceled: false
 												}
 											}, function(err, result){});
 
@@ -84,7 +86,8 @@ var updateRefID = function(db){
 													eventID: eventDocs[0]._id,
 													ticketTypeID: eventDocs[0].ticketsType[0].uniqueID,
 													expirationDate: '1524339270481',
-													used: false
+													used: false,
+													canceled: false
 												}
 											}, function(err, result){});										
 

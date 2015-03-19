@@ -12,7 +12,8 @@ var initTicket = function(db){
 				eventID: null,
 				ticketTypeID: null,
 				expirationDate: '1524339270481',
-				used: false
+				used: false,
+				canceled: false
 			}], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'ticket'\n"); return false; }
 			console.log("\t--> New documents have been added to 'ticket'!\n"+

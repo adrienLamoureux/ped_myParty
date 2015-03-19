@@ -10,6 +10,11 @@ app.controller('CommandsCtrl', ['$scope', '$rootScope', 'User', 'Command', 'ngPr
 		angular.forEach(mongoUser.commandsID, function (cmdID, key){
 			var cmd = Command.get({id:cmdID}, function (cmdData){
 				cmd = cmdData;
+				if (cmd.partiallyCanceled == true){
+					cmd.canceled = (cmd.canceled == true)?"Annulée": "Partiellement Annulée";
+				} else {
+					cmd.canceled = "Valide";
+				}
 				$scope.commands.push(cmd);
 			}, function (err){
 				console.log(err);
