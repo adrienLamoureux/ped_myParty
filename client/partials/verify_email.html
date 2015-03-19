@@ -1,7 +1,13 @@
-<div ng-show="loading">
-	Adresse mail en cours de vérification, merci de patienter...
-</div>
-<div ng-show="!loading">
-	{{usr.usr_id}}
-	Votre adresse mail a été vérifée, <a href="#/login">connectez-vous</a> !
+<div id="eventPage" class="container" >
+	<section id="event" class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+		<section id="profil" class="col-sm-12">
+			<div ng-show="loading">
+				Adresse mail en cours de vérification, merci de patienter...
+			</div>
+			<div ng-show="!loading">
+				{{usr.usr_id}}
+				Votre adresse mail a été vérifée, <a href="#/login">connectez-vous</a> !
+			</div>
+		</section>
+	</section>
 </div>
