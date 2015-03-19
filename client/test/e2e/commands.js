@@ -1,5 +1,9 @@
 describe('commands view' , function () {
 
+	beforeEach(function(){
+		browser.get('http://localhost:5000/#/');
+	});
+
 	it('should access to the commands page', function(){
 		var bt_account = browser.findElement(by.id("bt_account"));
 		expect(bt_account.isDisplayed()).toBe(true);

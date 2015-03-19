@@ -14,7 +14,7 @@ describe('basket view' , function () {
 	beforeEach(function(){
 		browser.get('http://localhost:5000/#/');
 	});
-/*
+
 	it('should access to the basket view', function(){
 		var myBasket = browser.findElement(by.id("bt_basket"));
 		expect(myBasket.isDisplayed()).toBe(true);
@@ -96,7 +96,7 @@ describe('basket view' , function () {
 		expect(myBasket.isDisplayed()).toBe(true);
 		btn_basketValidation.click();
 	});
-*/
+
 	it('should see a notification when validate a basket', function(){
 		addOneTicket();
 		var myBasket = browser.findElement(by.id("bt_basket"));
