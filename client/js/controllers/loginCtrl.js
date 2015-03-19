@@ -31,7 +31,9 @@ app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q','$wi
 								"filename":"profile.png",
 								"filetype":"image/png"
 							},
-							"commandsID": []
+							"commandsID": [],
+							"eventsID": [],
+							"basket": []
 						};
 						return User.post(user);
 					})
@@ -40,13 +42,13 @@ app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q','$wi
 						$window.location.href = '#/';
 						$timeout( function(){ 
 							$window.location.reload();
-						}, 500);				
+						}, 700);				
 					})
 					.catch(function(failed){
 						$window.location.href = '#/';
 						$timeout( function(){ 
 							$window.location.reload();
-						}, 500);			
+						}, 700);			
 					});
 			}
 		});

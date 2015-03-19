@@ -61,10 +61,8 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 							}
 							if(exist_in_event != null){
 								var j = exist_in_event;
-									console.log("connaissance de l event")
 								// Si oui on incremente son nbTicket si le nb de ticket dispo le permet
 								if(panier[i].tickets[j].ticketType == ticketType){
-									console.log("connaissance de ")
 									if(panier[i].tickets[j].nbTicket + numberplace > ticketleft){
 									}else{
 									panier[i].tickets[j].nbTicket = panier[i].tickets[j].nbTicket + numberplace;
@@ -119,7 +117,6 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 					panier.push(newBasketEventTicket);
 					addOrNot = true;
 				}
-				console.log("OK")
 				$scope.Myuser.basket = panier;	
 				// Et maintenant on met a jour les donnees en base
 					User.put({id:$rootScope.user.user_id}, $scope.Myuser, function (res2, e){

@@ -1,11 +1,12 @@
 // BasketEvent Directive Controller
-app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', 'ngProgress', '$timeout', '$window',  function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams, ngProgress, $timeout, $window){
-
-	$scope.basketOfUser = [];
-	$scope.AllTicketsValid = true;
+app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', 'ngProgress', '$timeout', '$location', 'Notification', function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams, ngProgress, $timeout, $location, Notification){
 
 	ngProgress.color("#B40404");
 	ngProgress.start();
+
+	$scope.basketOfUser = [];
+	$scope.AllTicketsValid = true;
+	$scope.inValidation=false;
 
 	function getBasketWithUserId(){
 		$scope.theUser = User.get({id:$rootScope.user.user_id}, function (res, e){
@@ -176,6 +177,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 
 
 $scope.submitBasket = function(){
+	$scope.inValidation=true;
 	if($scope.AllTicketsValid == true) {
 		ngProgress.start();
 
@@ -233,6 +235,7 @@ $scope.submitBasket = function(){
 														Event.put({id:completeEvent._id}, completeEvent, function (data){
 															$scope.evnt = completeEvent;
 														}, function (err){
+															$scope.inValidation=false;
 															console.log(err);
 														});
 
@@ -242,6 +245,7 @@ $scope.submitBasket = function(){
 																userCmd = Command.put({id:userCmd._id}, userCmd, function (dataCmd){
 																	userCmd = dataCmd;
 																}, function (err){
+																	$scope.inValidation=false;
 																	console.log(err);
 																});
 															}
@@ -252,42 +256,51 @@ $scope.submitBasket = function(){
 																$scope.basketOfUser = [];
 																mongoUser.basket = $scope.basketOfUser;
 																mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
-																	mongoUser = res;
-																	notification2Sec("Commande effectuée");
+																	notification3Sec("Merci pour votre commande !", "Commande effectuée");
 																	ngProgress.complete();
-																	$window.location.href = '#/usr/cmds';
-																	// $window.location.reload();
+																	mongoUser = res;
+																	$location.path('/usr/cmd/' + userCmd._id);
 																}, function (err){
+																	$scope.inValidation=false;
 																	console.log(err);
 																});																
 															}, 500);	
 														}
 
 													}, function (err){
+														$scope.inValidation=false;
 														console.log(err);
 													});
 												}
 											});
 										}
 										else {
+											$scope.inValidation=false;
 											alert("Le nombre de billets souhaité n'est plus dispo à la vente, veuillez retenter votre achat ultérieurement. Merci de votre compréhension.");
 										}	
 									}
 								});
 							});
 						}, function (err){
+							$scope.inValidation=false;
 							console.log (err);
 						});
 					});
 				});
 			});
 		}, function (err){
+			$scope.inValidation=false;
 			console.log(err);
 		});
 		}else{
+			$scope.inValidation=false;
 			alert("Impossible de commander, des tickets sont en quantité insuffisante. Veuillez changer votre commande.")
 		}
 	};
+
+	notification3Sec = function(text, notifTitle) {
+         Notification.success({message: text, delay: 3000, title: '<i>'+notifTitle+'</i>'});
+    };
 
 	// Fonctions lancées lors de l'execution du controleur 
 	getBasketWithUserId();
