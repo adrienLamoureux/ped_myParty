@@ -54,6 +54,3 @@ app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q','$wi
 		});
 	};
 }]);
-
-
-	    

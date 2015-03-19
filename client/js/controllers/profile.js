@@ -41,22 +41,21 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	}
 
 	$scope.callAtTimeout = function() {
-    }
+	}
 
-    $timeout( function(){ $scope.callAtTimeout(); }, 300);
+	$timeout( function(){ $scope.callAtTimeout(); }, 300);
 
 	$scope.lockUsr = function (){
-		if(confirm("Etes vous sûr de verrouiller votre Compte ? vous ne pourrez plus vous connecter")){
-			UserApp.User.lock({
-				"user_id" : currentUserId,
-				"type" : "ACCOUNT_EXPIRED",
-				"reason" : "lock"
-			}, function(err, res){
-				if(err) console.log(err)
-				else console.log(res);
-			});
-		};
-	}
+		UserApp.User.lock({
+			"user_id" : currentUserId,
+			"type" : "ACCOUNT_EXPIRED",
+			"reason" : "lock"
+		}, function(err, res){
+			if(err) console.log(err)
+			else console.log(res);
+		});
+	};
+	
 
 	$scope.reloadPage = function(){
 		$timeout( function (){$window.location.reload()} , 500);
