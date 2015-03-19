@@ -51,19 +51,39 @@ var imageModel = require('./models.js').imageModel;
 app.post('/charge', function(request, res, next){
     var stripeToken = request.body.id;
     var mAmount = request.body.price;
+    var user = request.body.user;
 
     var charge = stripe.charges.create({
       amount: mAmount, 
       currency: "eur",
       source: stripeToken,
-      description: "user@example.com"
+      description: user
     }, function(err, charge) {
       if (err && err.type === 'StripeCardError') {
         console.log(JSON.stringify(err, null, 2));
       }
-      res.send("completed payment!");
-    });
+      else{
+           res.send("Paiement effectué!", charge);
+    }});
 });
+
+
+app.post('/refund', function(request, res, next){
+  var charge_id = request.body.id;
+  var optionalAmount = request.body.optionalA;
+  console.log(charge_id)
+  console.log(optionalAmount);
+   stripe.charges.createRefund(
+    charge_id,
+    {"amount": optionalAmount},function(err, refund) {
+        if (err) {
+          console.log(err);
+        }else{
+         console.log(refund);
+         res.send("Remboursement effectué"); 
+        }
+      });
+ });
 
 /********* PASSPORT **********/
 passport.use(new UserAppStrategy({

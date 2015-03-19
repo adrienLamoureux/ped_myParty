@@ -30,7 +30,7 @@
 					</div>
 					<div class="row">
 						<div class="form-group" style="text-align: right;">
-							<button type="submit" class="btn btn-info">
+							<button type="submit" class="btn btn-info" ng-disabled="isDisabled" ng-model="isDisabled" ng-init="isDisabled = false">
 								<span>Valider payement &rarr;</span>
 								<img src="img/ajax-loader-btn.gif" style="display: none; width: 13px;">
 							</button>
@@ -44,12 +44,19 @@
 						<h3 class="panel-title">Subscription Details</h3>
 					</div>
 					<div class="panel-body">
-						
+						<div>
+							Amount = 15
+{{data}}
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div id="error" class="row" style="display: none;">
 			<div id="error-message" class="alert alert-danger" style="border-radius: 0;"></div>
+		</div>
+		<div id="success" class="row" style="display: none;">
+			<div id="success-message" class="alert alert-success" style="border-radius: 0;"></div>
+			<button type="submit" class="btn btn-danger" ng-click="refund(refoundId, 1500)">Remboursement sur ma commande</button>
 		</div>
 	</div>
