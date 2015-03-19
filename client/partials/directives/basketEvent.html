@@ -1,13 +1,12 @@
-<div id="eventBasket" class="col-sm-8" ng-show="event.tickets.length > 0 ">
-  <fieldset class="scheduler-border">
-      <div class="table-responsive">
+<div id="eventBasket" class="col-xs-12" ng-show="event.tickets.length > 0 ">
+    <div class="table-responsive">
         <table class="commandTable table text-center">
           <thead >
               <th class="col-xs-4 text-center">Article</th>
               <th class="col-xs-2 text-center">Prix à l'unité</th>
-              <th class="col-xs-3 text-center">Quantité</th>
+              <th class="col-xs-2 text-center">Quantité</th>
               <th class="col-xs-2 text-center">Montant</th>
-              <th class="col-xs-2 text-center">Disponible</th>
+              <th class="col-xs-1 text-center">Disponible</th>
               <th class="col-xs-1 text-center"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>
             </tr>
           </thead>
@@ -30,7 +29,7 @@
               <td id="basketSetTicketsPrice{{$index+1}}">{{ticket.price*ticket.nbTicket}} €</td>
               <td>{{ticket.disponibility}}</td>
               <td>             
-                <button id="btn_basketDelete{{$index+1}}" ng-click="deleteElement(event.eventID, ticket.ticketType, ticket.entitled, ticket.entitled)" class="btn-xs label-danger">
+                <button id="btn_basketDelete{{$index+1}}" confirmed-click="deleteElement(event.eventID, ticket.ticketType, ticket.entitled, ticket.entitled)" class="btn-xs label-danger" ng-confirm-click="Etes-vous sûr de vouloir supprimer les tickets {{ticket.entitled}} de l'evenement {{event.eventTitle}} ?">
                   <span  class="glyphicon glyphicon-remove collapse"></span>
                 </button>
               </td>
@@ -38,5 +37,4 @@
           </tbody>
         </table>
       </div>
-    </fieldset>
 </div>

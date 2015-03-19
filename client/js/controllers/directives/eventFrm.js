@@ -38,6 +38,8 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 	};
 
 	$scope.datePlusADay=function(date){
+		if(date==null)
+			return Date.now();
 		return new Date(date.getTime() + (24*3600*1000));
 	}
 

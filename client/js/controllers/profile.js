@@ -1,5 +1,5 @@
 // Profile
-app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', '$route', '$location', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User, $route, $location){
+app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', '$route', '$window', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User, $route, $window){
 
 	ngProgress.color("#B40404");
 	ngProgress.start();
@@ -19,6 +19,7 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	$scope.updateProfile = function (){
 		User.put({id:currentUserId}, $scope.mongoUser);
 		$scope.viewImg = false;
+		$window.location.reload();
 	};
 
 	UserApp.User.get({
@@ -58,8 +59,7 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	}
 
 	$scope.reloadPage = function(){
-		$location.path("/usr");
-		$timeout( function (){$route.reload()} , 1000);
+		$timeout( function (){$window.location.reload()} , 500);
 	}
 
 

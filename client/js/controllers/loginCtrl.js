@@ -1,5 +1,5 @@
 // HomePage Controller
-app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q','$window', function ($scope, ngProgress, User, Command, $q, $window){
+app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q','$window', '$timeout', function ($scope, ngProgress, User, Command, $q, $window, $timeout){
 
 	ngProgress.color("#B40404");
 
@@ -59,19 +59,25 @@ $scope.unlockUser = function(log, pass, idLock){
 								"filename":"profile.png",
 								"filetype":"image/png"
 							},
-							"commandsID": []
+							"commandsID": [],
+							"eventsID": [],
+							"basket": []
 						};
 						return User.post(user);
 					})
 
 					.then(function(success){
-						$window.location.href = '#';
-						$window.location.reload();
 						ngProgress.complete();
+						$window.location.href = '#/';
+						$timeout( function(){ 
+							$window.location.reload();
+						}, 700);				
 					})
-					.catch(function(failed){ 
-						console.log(failed);
-						
+					.catch(function(failed){
+						$window.location.href = '#/';
+						$timeout( function(){ 
+							$window.location.reload();
+						}, 700);			
 					});
 			}
 		}});
