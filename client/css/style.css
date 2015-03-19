@@ -322,7 +322,7 @@ sup.version {
 	color:white;
 }
 
-#eventForm label + input, #eventForm label + textarea  { 
+#eventForm label + input, #eventForm label + textarea { 
 	width:95%;
 	margin-bottom:10px; 
 }

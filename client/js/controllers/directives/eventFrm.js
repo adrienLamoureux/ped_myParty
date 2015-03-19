@@ -57,7 +57,7 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 	};
 
 	$scope.eventPost = null;
-
+	$scope.publishing = false;
 	$scope.editMode = (angular.isDefined($scope.thisEvent));
 	ngProgress.start();
 
@@ -92,6 +92,9 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 
    	// when submitting the add form, send the text to the node API
     $scope.createEvent = function(published) {
+    	if(published)
+    		$scope.publishing = true;
+    	
     	$scope.eventFormData.online = published;
     	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
     		ticket.uniqueID = i;
