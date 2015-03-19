@@ -169,7 +169,7 @@ describe('Event view' , function () {
 		expect(bt_submit.isDisplayed()).toBe(true);
 		var bt_save =  browser.findElement(by.id("bt_save"));
 		expect(bt_save.isDisplayed()).toBe(true);
-		browser.actions().mouseMove(bt_save).click();
+		bt_save.click();
 	});
 
 	it('Create an event with publication', function(){
@@ -184,7 +184,7 @@ describe('Event view' , function () {
 		expect(bt_submit.isDisplayed()).toBe(true);
 		var bt_save =  browser.findElement(by.id("bt_save"));
 		expect(bt_save.isDisplayed()).toBe(true);
-		browser.actions().mouseMove(bt_submit).click();
+		bt_submit.click();
 	});
 
 	it('Cancel a no validated event', function(){
@@ -199,7 +199,13 @@ describe('Event view' , function () {
 		expect(bt_submit.isDisplayed()).toBe(true);
 		var bt_save =  browser.findElement(by.id("bt_save"));
 		expect(bt_save.isDisplayed()).toBe(true);
-		browser.actions().mouseMove(bt_restore).click();
+		bt_restore.click();
+		var alertDialog = browser.switchTo().alert();
+		alertDialog.accept();
+		browser.sleep(200);
+		var txtEventTitle = browser.findElement(by.id("txtEventTitle"));
+		expect(txtEventTitle.isDisplayed()).toBe(true);
+		expect(txtEventTitle.getAttribute('value')).toBe('');
 	});
 
 	it('Edit an event', function(){
