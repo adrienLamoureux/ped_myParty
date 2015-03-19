@@ -84,7 +84,9 @@ mongoclient.open(function(err, mongoclient) {
 					eventTickets: [{
 						eventID: null,
 						tickets: null
-					}]
+					}],
+					canceled: false,
+					partiallyCanceled: false
 				}]
 			}
 			], function (err, result) {})
@@ -122,7 +124,8 @@ mongoclient.open(function(err, mongoclient) {
 				eventID: null,
 				ticketTypeID: null,
 				expirationDate: '1524339270481',
-				used: false
+				used: false,
+				canceled:false
 			}
 			], function (err, result) {});
 		};
@@ -175,7 +178,9 @@ mongoclient.open(function(err, mongoclient) {
 														eventTickets: [{
 															eventID: eventDocs[0]._id,
 															tickets: ticketDocs[0]._id
-														}]	
+														}],
+														canceled: false,
+														partiallyCanceled: false
 													}]
 												}
 											}, function(err, result){});
@@ -187,7 +192,8 @@ mongoclient.open(function(err, mongoclient) {
 													eventID: eventDocs[0]._id,
 													ticketTypeID: eventDocs[0].ticketsType[0].uniqueID,
 													expirationDate: '1524339270481',
-													used: false
+													used: false,
+													canceled: false
 												}
 											}, function(err, result){});	
 

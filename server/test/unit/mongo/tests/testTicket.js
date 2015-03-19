@@ -30,7 +30,8 @@ var insertDb = function(done){
 				eventID: null,
 				ticketTypeID: null,
 				expirationDate: '1524339270481',
-				used: false
+				used: false,
+				canceled: false
 			}
 			], function (err, result) {done();});
 		});
@@ -79,7 +80,8 @@ describe('Test suite for ticketModel', function() {
 				eventID: null,
 				ticketTypeID: null,
 				expirationDate: '1524339270481',
-				used: false
+				used: false,
+				canceled: false
 			};
 
 			newTicket = new ticketModel(ticketBody);

@@ -29,7 +29,9 @@ var insertDb = function(done){
 				eventTickets: [{
 					eventID: null,
 					tickets: null
-				}]	
+				}],
+				canceled: false,
+				partiallyCanceled: false	
 			}]
 		}], function (err, result) {done();});
 		});
@@ -77,7 +79,9 @@ describe('Test suite for commandsModel', function() {
 				eventTickets: [{
 					eventID: null,
 					tickets: null
-				}]	
+				}],
+				canceled: false,
+				partiallyCanceled: false	
 			}]
 			};
 
