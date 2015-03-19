@@ -3,7 +3,7 @@ describe('Inscription' , function () {
 	beforeEach(function(){
 		browser.get('http://localhost:5000/#/home');
 	});
-
+/*
 	it('inscription of a new user', function(){ // Verify route redirection
 		browser.get('http://localhost:5000/#/signup');
 		var first_name = browser.findElement(by.name('first_name'));
@@ -39,6 +39,55 @@ describe('Inscription' , function () {
 		var disconnect = browser.findElement(by.linkText("Se Déconnecter"));
 		expect(disconnect.isDisplayed()).toBe(true);
 		disconnect.click();
+		browser.get('http://localhost:5000/#/login');
+	});
+*/
+	it('should disable and restore the user profil', function(){
+		browser.get('http://localhost:5000/#/login');
+		var login = browser.findElement(by.name('login'));
+		expect(login.isDisplayed()).toBe(true);
+		var password = browser.findElement(by.name('password'));
+		expect(login.isDisplayed()).toBe(true);
+		login.sendKeys("satoshi1534@gmail.com");
+		password.sendKeys("password");
+		var loginBtn = browser.findElement(by.buttonText('Connecter'));
+		expect(loginBtn.isDisplayed()).toBe(true);
+		loginBtn.click();
+		browser.get('http://localhost:5000/#/');
+		var bt_account = browser.findElement(by.id("bt_account"));
+		expect(bt_account.isDisplayed()).toBe(true);
+		bt_account.click();
+		var bt_profil = browser.findElement(by.id("bt_profil"));
+		expect(bt_profil.isDisplayed()).toBe(true);
+		bt_profil.click();
+		var btn_disableAccount = browser.findElement(by.id("btn_disableAccount"));
+		expect(btn_disableAccount.isDisplayed()).toBe(true);
+		btn_disableAccount.click();
+		var alertDialog = browser.switchTo().alert();
+		alertDialog.accept();
+		browser.sleep(3000);
+		browser.get('http://localhost:5000/#/login');
+		login = browser.findElement(by.name('login'));
+		expect(login.isDisplayed()).toBe(true);
+		password = browser.findElement(by.name('password'));
+		expect(login.isDisplayed()).toBe(true);
+		login.sendKeys("satoshi1534@gmail.com");
+		password.sendKeys("password");
+		loginBtn = browser.findElement(by.buttonText('Connecter'));
+		expect(loginBtn.isDisplayed()).toBe(true);
+		loginBtn.click();
+		var reactivationAccount = browser.findElement(by.id("reactivationAccount"));
+		expect(reactivationAccount.isDisplayed()).toBe(true);
+		reactivationAccount.click();
+		browser.driver.switchTo().activeElement();
+		browser.sleep(500);
+		var btn_userFirstNameClose = browser.findElement(by.id("btn_userFirstNameClose"));
+		expect(btn_userFirstNameClose.isDisplayed()).toBe(true);
+		var btn_userFirstNameSave = browser.findElement(by.id("btn_userFirstNameSave"));
+		expect(btn_userFirstNameSave.isDisplayed()).toBe(true);
+		btn_userFirstNameSave.click();
+		browser.sleep(500);
+		browser.driver.switchTo().activeElement();
 		browser.get('http://localhost:5000/#/login');
 	});
 });

@@ -7,12 +7,12 @@ describe('Manager test', function(){
 	});
 
 	it('inscription tests', function(){
-		//browser.sleep(1000);
-		//require('./inscription.js');
-		//browser.sleep(1000);
+		browser.sleep(500);
+		require('./inscription.js');
 	});
 
 	it('others tests', function(){
+	/*	browser.sleep(500);
 		connect.connect();
 		browser.sleep(500);
 		require('./home.js');
@@ -23,7 +23,7 @@ describe('Manager test', function(){
 		browser.sleep(500);
 		require('./user.js');
 		browser.sleep(500);
-		require('./commands.js');
+		require('./commands.js');*/
 	});
 
 	afterEach(function(){

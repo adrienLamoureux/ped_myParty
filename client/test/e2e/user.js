@@ -56,20 +56,4 @@ describe('user view' , function () {
 		browser.driver.switchTo().activeElement();
 		browser.get('http://localhost:5000/#/');
 	});
-
-	it('should disable the user profil', function(){
-		var bt_account = browser.findElement(by.id("bt_account"));
-		expect(bt_account.isDisplayed()).toBe(true);
-		bt_account.click();
-		var bt_profil = browser.findElement(by.id("bt_profil"));
-		expect(bt_profil.isDisplayed()).toBe(true);
-		bt_profil.click();
-		var btn_disableAccount = browser.findElement(by.id("btn_disableAccount"));
-		expect(btn_disableAccount.isDisplayed()).toBe(true);
-		//btn_disableAccount.click();
-	});
-
-	it('should restore a user profil', function(){
-		
-	});
 });
