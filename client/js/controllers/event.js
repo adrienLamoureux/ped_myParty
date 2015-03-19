@@ -64,6 +64,12 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 								// Si oui on incremente son nbTicket si le nb de ticket dispo le permet
 								if(panier[i].tickets[j].ticketType == ticketType){
 									if(panier[i].tickets[j].nbTicket + numberplace > ticketleft){
+									var ticketsNumberMax = ticketleft-panier[i].tickets[j].nbTicket;
+										if(ticketsNumberMax == 0){
+										alert("Vous possédez déja la quantité maximum des tickets disponibles dans votre panier");
+										}else{
+										alert("Vous ne pouvez pas ajouter, à votre panier, plus de tickets qu'il n'y en a en vente");
+										}
 									}else{
 									panier[i].tickets[j].nbTicket = panier[i].tickets[j].nbTicket + numberplace;
 									addOrNot = true;
