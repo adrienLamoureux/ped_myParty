@@ -6,7 +6,7 @@ mongoose.connect('mongodb://localhost:27017/test_mongodb', function(err){
 		console.log(err);
 	}
 	else
-	"Successfully connection to MongoDB";
+		console.log("Successfully connection to MongoDB");
 });
 
 mongoose.connection.db.executeDbCommand({

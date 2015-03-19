@@ -26,6 +26,7 @@ var insertDb = function(done){
 			collection.insert([
 			{
 				userID: null,
+				ownerID: null,
 				eventID: null,
 				ticketTypeID: null,
 				expirationDate: '1524339270481',
@@ -74,6 +75,7 @@ describe('Test suite for ticketModel', function() {
 		it('inserting a new ticket', function(done){
 			var ticketBody = {
 				userID: null,
+				ownerID: null,
 				eventID: null,
 				ticketTypeID: null,
 				expirationDate: '1524339270481',
