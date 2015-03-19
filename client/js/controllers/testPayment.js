@@ -45,7 +45,6 @@ app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$loca
                 }, function (err, res){
                     if(err) console.log(err)
                     else 
-                        console.log(res)
                         response.user = res[0].email;
                         callback(response)
                 });
@@ -56,14 +55,12 @@ app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$loca
     $scope.payment = function() {
         $('#error').hide();
         saveCreditCard(function(response){
-            console.log(response)
-    
         $http.post('/charge', response)
             .success(function(data, status, headers, config) {
-                console.log(data);
-                $('#success-message').text(data);
+                $('#success-message').text(data.status);
                 $('#success').show();
-                //$location.path('/#');
+                console.log(data)
+                $scope.charge = data;
             })
             .error(function(data, status, headers, config) {
                 console.log(data);
@@ -72,5 +69,20 @@ app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$loca
     return false;
     }
 
+$scope.refund = function(data, amountOptional){
+       $('#error').hide();
+       console.log(data)
+       data.optionalA = amountOptional;
+        $http.post('/refund', data)
+            .success(function(data, status, headers, config) {
+                $('#success-message').text("refunded");
+                $('#success').show();
+                //$location.path('/#');
+            })
+            .error(function(data, status, headers, config) {
+                console.log(data);
+            });
+    return false;
+}
 
 }]);
