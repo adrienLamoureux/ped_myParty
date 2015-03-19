@@ -256,10 +256,9 @@ $scope.submitBasket = function(){
 																$scope.basketOfUser = [];
 																mongoUser.basket = $scope.basketOfUser;
 																mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
-																	notification3Sec("Merci pour votre commande !", "Commande effectuée");
 																	ngProgress.complete();
 																	mongoUser = res;
-																	$location.path('/usr/cmd/' + userCmd._id);
+																	$location.path('/payment/' + userCmd._id + '/' + $scope.totalOfBasket);
 																}, function (err){
 																	$scope.inValidation=false;
 																	console.log(err);
@@ -296,6 +295,7 @@ $scope.submitBasket = function(){
 			$scope.inValidation=false;
 			alert("Impossible de commander, des tickets sont en quantité insuffisante. Veuillez changer votre commande.")
 		}
+
 	};
 
 	notification3Sec = function(text, notifTitle) {
