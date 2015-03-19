@@ -1,4 +1,5 @@
 var addOneTicket = function(){
+	browser.get('http://localhost:5000/#/');
 	var eventN = browser.findElement(by.id("eventMinID"));	
 	expect(eventN.isDisplayed()).toBe(true);
 	eventN.click();
@@ -13,7 +14,7 @@ describe('basket view' , function () {
 	beforeEach(function(){
 		browser.get('http://localhost:5000/#/');
 	});
-
+/*
 	it('should access to the basket view', function(){
 		var myBasket = browser.findElement(by.id("bt_basket"));
 		expect(myBasket.isDisplayed()).toBe(true);
@@ -75,12 +76,12 @@ describe('basket view' , function () {
 			basketSingleTicketPrice1.getText().then(function(ticketPrice){
 				basketSetTicketsPrice1.getText().then(function(setTicketPrice){
 					basketTotal.getText().then(function(totalPrice){
-						ticketPrice = ticketPrice.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
-						setTicketPrice = setTicketPrice.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
-						totalPrice = totalPrice.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
-						expect((nbTicket*ticketPrice).toString()).toEqual(setTicketPrice);
-						expect(setTicketPrice).toEqual(totalPrice);
-					});
+						ticketPrice = ticketPrice.match(/\d+.?\d*///)[0].replace(/ +?/g, '');
+						//setTicketPrice = setTicketPrice.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
+						//totalPrice = totalPrice.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
+						//expect((nbTicket*ticketPrice).toString()).toEqual(setTicketPrice);
+						//expect(setTicketPrice).toEqual(totalPrice);
+/*					});
 				});
 			});
 		});
@@ -94,5 +95,19 @@ describe('basket view' , function () {
 		var btn_basketValidation = browser.findElement(by.id("btn_basketValidation"));
 		expect(myBasket.isDisplayed()).toBe(true);
 		btn_basketValidation.click();
+	});
+*/
+	it('should see a notification when validate a basket', function(){
+		addOneTicket();
+		var myBasket = browser.findElement(by.id("bt_basket"));
+		expect(myBasket.isDisplayed()).toBe(true);
+		myBasket.click();
+		var btn_basketValidation = browser.findElement(by.id("btn_basketValidation"));
+		expect(myBasket.isDisplayed()).toBe(true);
+		btn_basketValidation.click();
+
+		browser.sleep(200);
+		var notif = browser.findElement(by.className("message"));
+		expect(notif.isDisplayed()).toBe(true);
 	});
 });

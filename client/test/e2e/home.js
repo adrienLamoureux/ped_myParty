@@ -29,6 +29,10 @@ describe('Home view' , function () {
 
 	it('look for events elements sample', function(){
 		browser.get('http://localhost:5000/#/');
+		browser.sleep(5000);
+		browser.get('http://localhost:5000/#/');
+		browser.sleep(5000);
+		browser.refresh();
 		var eventN = browser.findElement(by.id("eventMinID"));
 		expect(eventN.isDisplayed()).toBe(true);
 	});
