@@ -19,7 +19,7 @@ $scope.unlockUser = function(log, pass, idLock){
 					"type" : "ACCOUNT_EXPIRED"
 				}, function(err, res){
 					if(err) console.log(err)
-					else console.log(res);
+					else $window.location.reload();
 				});
 		}})
 	})
