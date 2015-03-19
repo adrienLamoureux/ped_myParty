@@ -3,10 +3,10 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 
 	ngProgress.color("#B40404");
 	ngProgress.start();
+	
 	var currentUserId = $rootScope.user.user_id;
 	$scope.viewImg = false;		
 	$scope.newPrenom = '';
-
 
 
 	User.get({id:currentUserId}).$promise.then(function(res){
@@ -15,7 +15,6 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	}, function(err){
 		console.log(err)
 	});
-
 
 	$scope.updateProfile = function (){
 		User.put({id:currentUserId}, $scope.mongoUser);

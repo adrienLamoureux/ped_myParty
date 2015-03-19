@@ -1,11 +1,13 @@
 // BasketEvent Directive Controller
-app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', 'ngProgress', '$timeout', '$window', function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams, ngProgress, $timeout, $window){
+app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', 'ngProgress', '$timeout', '$window',  function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams, ngProgress, $timeout, $window){
 
 	$scope.basketOfUser = [];
+	$scope.AllTicketsValid = true;
 
 	ngProgress.color("#B40404");
+	ngProgress.start();
 
-	function getBasketWithUserId() {
+	function getBasketWithUserId(){
 		$scope.theUser = User.get({id:$rootScope.user.user_id}, function (res, e){
 		// On test si il un panier est deja associé au User et si il contient deja des articles
 		if(typeof(res.basket) != 'undefined' && res.basket.length > 0){
@@ -16,7 +18,10 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 		}else{
 			//console.log("Panier vide");
 		}
+		checkDisponibilityOfBasketTickets(res.basket);
 		$scope.totalOfBasket = calculateTotal();
+		
+		ngProgress.complete();
 	}, function (){
 		//console.log('Récuperation de l\'utilisateur échoué');
 	})
@@ -37,6 +42,40 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 		return total;
 	};
 
+	function checkDisponibilityOfBasketTickets(basket){
+		// On recupere le panier utilisateur et on le parcours
+		for(i=0;i<basket.length;i++){
+			var eventID = basket[i].eventID;
+			// On parcours les tickets de l'evenement
+			for(j=0;j<basket[i].tickets.length;j++){
+				// On recupere le type de ticket et son nombre
+				var titleTicket = basket[i].tickets[j].entitled;
+				var typeTicketNumber = basket[i].tickets[j].nbTicket
+				// Et on check en base si le tickets et bien disponible
+				basket = checkValidityOfATicket(basket,i,j,eventID,typeTicketNumber,titleTicket);
+			}
+		}
+	}
+
+	 function checkValidityOfATicket(basket, i, j, eventID, typeTicketNumber, titleTicket){
+		var thisEvent = Event.get({id:eventID}, function(data){
+		thisEvent = data;	
+		for(k=0;k<thisEvent.ticketsType.length;k++){
+				if(titleTicket == thisEvent.ticketsType[k].type){
+					if(thisEvent.ticketsType[k].ticketLeft >= typeTicketNumber){
+					basket[i].tickets[j].disponibility = "Oui";
+					$scope.AllTicketsValid = true;
+					}else{
+					basket[i].tickets[j].disponibility = "Non";
+					$scope.AllTicketsValid = false;
+					}
+				}
+			}
+
+		});
+		return basket;
+	}
+
 	// Fonction permettant de décrémenter le nombre d'un element du panier
 	$scope.decrement = function(eventid, type, qtty, ticket, nomTicket){
 		if(qtty > 1){
@@ -49,18 +88,17 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 					}
 				}
 			}
-			
 			$scope.theUser.basket = $scope.basketOfUser;
 			// On update le panier
 			User.put({id:$rootScope.user.user_id}, $scope.theUser, function (res, e){
-				ticket.nbTicket--;
-				$scope.$parent.totalOfBasket = calculateTotal();
-				$scope.$parent.basketOfUser = $scope.theUser.basket;
+				$scope.totalOfBasket = calculateTotal();
+				$scope.basketOfUser = $scope.theUser.basket;
+				checkDisponibilityOfBasketTickets($scope.basketOfUser);
 			}, function (){
 				//console.log('Mise a jour du panier panier : ERREUR');
 			});
 		}else{
-			$scope.deleteElement(eventid, type, nomTicket);
+			//$scope.deleteElement(eventid, type, nomTicket);
 		}
 	}
 
@@ -78,9 +116,9 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 		$scope.theUser.basket = $scope.basketOfUser;
 			// On update le panier
 			User.put({id:$rootScope.user.user_id}, $scope.theUser, function (res, e){
-				ticket.nbTicket++;
-				$scope.$parent.totalOfBasket = calculateTotal();
-				$scope.$parent.basketOfUser = $scope.theUser.basket;
+				$scope.totalOfBasket = calculateTotal();
+				$scope.basketOfUser = $scope.theUser.basket;
+				checkDisponibilityOfBasketTickets($scope.basketOfUser);
 			}, function (){
 				alert("Il ne rester qu'un ticket de ce type, veuillez le supprimer.")
 			});
@@ -88,7 +126,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 
 	// Fonction permettant de supprimer un element du panier. Demander si l'utilisateur est sur de vouloir le supprimer
 	$scope.deleteElement = function(eventid, typeTicket, nomTicket){
-		alert("Voulez vous réelement supprimer le(s) ticket(s) \""+nomTicket+"\" ?");
+		//alert("Voulez vous réelement supprimer le(s) ticket(s) \""+nomTicket+"\" ?");
 		var tabtemp = [];
 		// On parcours le basket
 		for(i=0;i<$scope.basketOfUser.length;i++){
@@ -115,14 +153,16 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 		}
 		// On update le panier
 		User.put({id:$rootScope.user.user_id}, $scope.theUser, function (res, e){
-			$scope.$parent.totalOfBasket = calculateTotal();
-			$scope.$parent.basketOfUser = $scope.theUser.basket;
+			$scope.totalOfBasket = calculateTotal();
+			$scope.basketOfUser = $scope.theUser.basket;
 		}, function (){
 			alert ('Mise a jour du panier panier : ERREUR');
 		});
 	}
 
-	$scope.submitBasket = function(){
+
+$scope.submitBasket = function(){
+	if($scope.AllTicketsValid == true) {
 		ngProgress.start();
 
 		var cptTicket = 0 ;
@@ -229,9 +269,12 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 		}, function (err){
 			console.log(err);
 		});
+		}else{
+			alert("Impossible de commander, des tickets sont en quantité insuffisante. Veuillez changer votre commande.")
+		}
 	};
-
 
 	// Fonctions lancées lors de l'execution du controleur 
 	getBasketWithUserId();
+
 }]);

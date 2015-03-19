@@ -1,9 +1,11 @@
 // CommandController
-app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'EventImages', 'Ticket',  function ($scope, $routeParams, Event, Command, EventImages, Ticket){
+app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'EventImages', 'Ticket', 'ngProgress',  function ($scope, $routeParams, Event, Command, EventImages, Ticket, ngProgress){
+	ngProgress.color("#B40404");
+	ngProgress.start();
+	
 	$scope.command = Command.get({id:$routeParams.id}, function (cmdData){
 		$scope.command = cmdData;
 		$scope.events = [];
-
 		angular.forEach(cmdData.eventTickets, function (eventTicket, key){
 			var evnt = Event.get({id:eventTicket.eventID}, function (evntData){
 				evnt = evntData;
@@ -31,5 +33,6 @@ app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'Ev
 				$scope.events.push(evnt);
 			});
 		});
+		ngProgress.complete();
 	});
 }]);
