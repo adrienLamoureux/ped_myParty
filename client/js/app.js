@@ -72,7 +72,7 @@ app.config(function($routeProvider){
 		})
 		.when('/reset-password', {
 			templateUrl: './partials/reset_password.html',
-			 public: true
+			public: true
 		})
 		.when('/set-password', {
 			templateUrl: 'partials/set_password.html', 
