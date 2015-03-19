@@ -27,9 +27,8 @@
 					</table>
 				</div>
 			</div>
-			<button ng-show="(!command.canceled) && (!command.partiallyCanceled)" id="cancel" class="center btn btn-custom" confirmed-click="cancelCommand(command._id)" ng-confirm-click="Etes-vous sûr de vouloir annuler votre commande ? (Seuls les tickets correspondant aux évènements non débutés seront annulés)">
-				<span class="glyphicon glyphicon-ban-circle"></span>
-				Annuler ma commande
+			<button ng-show="(!command.canceled) && (!command.partiallyCanceled)" id="cancel" class="center btn btn-custom margTop" confirmed-click="cancelCommand(command._id)" ng-confirm-click="Etes-vous sûr de vouloir annuler votre commande ? (Seuls les tickets correspondant aux évènements non débutés seront annulés)">
+				<span class="glyphicon glyphicon-ban-circle"></span>Annuler ma commande
 			</button>
 		</section>
 	</section>
