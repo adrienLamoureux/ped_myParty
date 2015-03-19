@@ -40,6 +40,7 @@ app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$loca
                 displayError(response.error.message);
                 $scope.$apply(enable());
             } else {
+
                 response.price = totalAmount * 100;
                 UserApp.User.get({
                     "user_id" : 'self'
@@ -67,7 +68,7 @@ app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$loca
                   }, 
                   function settingCharge(charge){
                       $scope.data = charge; 
-                      console.log(charge)
+
                   }
                 );
             })

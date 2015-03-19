@@ -5,5 +5,3 @@
 	</div>
 </div>
 <event-miniature ng-repeat="event in events | filter:search" ng-show="event.online && !event.canceled && dateNotExpired(event.dateEnding)"></event-miniature>
-
-

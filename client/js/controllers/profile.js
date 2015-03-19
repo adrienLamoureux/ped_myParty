@@ -52,7 +52,6 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 			"reason" : "lock"
 		}, function(err, res){
 			if(err) console.log(err)
-			else console.log(res);
 		});
 	};
 	
@@ -68,10 +67,7 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 		    "user_id": currentUserId,
 		    "first_name": newName,
 		},function (err, res){
-			if(err) console.log(err)
-			else {
-		//		console.log(res);
-			}
+			if(err) console.log(err);
 		})
 		}
 		else $scope.errorMsg = true;
