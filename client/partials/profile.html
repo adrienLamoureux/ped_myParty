@@ -1,109 +1,108 @@
 <div id="eventPage" class="container" >
-  <section id="event" class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-    <section id="profil" class="col-sm-12">
-      <div class="roundedImage">
-        <img data-ng-src="data:{{mongoUser.photo.filetype}};base64,{{mongoUser.photo.base64}}" alt="Photo profil"/>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading ">
-          <h3 class="panel-title"> Email: </h3>
-        </div>
-        <div id="userEmail" class="panel-body text-center">
-          {{email}}
-        </div>
-      </div>
+	<section id="event" class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+		<section id="profil" class="col-sm-12">
+			<div class="roundedImage span8 offset2">
+				<img data-ng-src="data:{{mongoUser.photo.filetype}};base64,{{mongoUser.photo.base64}}" alt="Photo profil"/>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading ">
+					<h3 class="panel-title"> Email: </h3>
+				</div>
+				<div id="userEmail" class="panel-body text-center">
+					{{email}}
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading ">
+					<h3 class="panel-title"> Prenom:  </h3>
+				</div>
+				<div id="userFirstName" class="panel-body text-center">
+					{{first_name}}
+					<span id="userClickOnFirstName" class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editName"></span>
+				</div>
+			</div>
 
-      <div class="panel panel-default">
-        <div class="panel-heading ">
-          <h3 class="panel-title"> Prenom:  </h3>
-        </div>
-        <div id="userFirstName" class="panel-body text-center">
-          {{first_name}}
-          <span id="userClickOnFirstName" class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editName"></span>
-        </div>
-      </div>
+			<div class="panel panel-default" ng-show="user.last_name.length > 0">
+				<div class="panel-heading ">
+					<h3 class="panel-title"> Nom:  </h3>
+				</div>
+				<div id="userLastName" class="panel-body text-center">
+					{{last_name}}
+				</div>
+			</div>
 
-      <div class="panel panel-default" ng-show="user.last_name.length > 0">
-        <div class="panel-heading ">
-          <h3 class="panel-title"> Nom:  </h3>
-        </div>
-        <div id="userLastName" class="panel-body text-center">
-          {{last_name}}
-        </div>
-      </div>
+			<div class="panel panel-default">
+				<div class="panel-heading ">
+					<h3 class="panel-title"> Création du compte : </h3>
+				</div>
+				<div id="userDateCreate" class="panel-body text-center">
+					{{create_account | date:'dd/MM/yyyy - HH:mm:ss'}}
+				</div>
+			</div>
 
-      <div class="panel panel-default">
-        <div class="panel-heading ">
-          <h3 class="panel-title"> Création du compte : </h3>
-        </div>
-        <div id="userDateCreate" class="panel-body text-center">
-          {{create_account | date:'dd/MM/yyyy - HH:mm:ss'}}
-        </div>
-      </div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"> Dernière connexion:  </h3>
+				</div>
+				<div id="userDateLastLogin" class="panel-body text-center">
+					{{last_login | date:'dd/MM/yyyy - HH:mm:ss'}}    
+				</div>
+			</div>
 
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"> Dernière connexion:  </h3>
-        </div>
-        <div id="userDateLastLogin" class="panel-body text-center">
-          {{last_login | date:'dd/MM/yyyy - HH:mm:ss'}}    
-        </div>
-      </div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"> Modifications du profil : </h3>
+				</div>
+				<div id="userDateUpdate" class="panel-body text-center">
+					{{updated_at | date:'dd/MM/yyyy - HH:mm:ss'}}
+				</div>
+			</div>
 
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"> Modifications du profil : </h3>
-        </div>
-        <div id="userDateUpdate" class="panel-body text-center">
-          {{updated_at | date:'dd/MM/yyyy - HH:mm:ss'}}
-        </div>
-      </div>
-
-      <div class="modal fade" id="editName" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button id="btn_userNewFirstName" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"> Nouveau Prénom</h4>
-            </div>
-            <div class="modal-body">
-              <form name="myForm">
-                <label>Prénom : </label><input id="userNewFirstName" ng-minlength="4" ng-maxlength="15" name="lastName"ng-model="newPrenom" >
-                <span class="error" ng-show="myForm.lastName.$error.minlength">
-                  Min 4 caractères!</span><br>
-                <span class="error" ng-show="myForm.lastName.$error.maxlength">
-                  Max 15 caractères!</span><br>
-                <span  ng-show="errorMsg">
-                  Veuillez remplir le champ</span><br>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button id="btn_userFirstNameClose" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="reloadPage()">Close</button>
-              <button id="btn_userFirstNameSave" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="validateChange(newPrenom, newPrenom.length);reloadPage()">Save changes</button>
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
+			<div class="modal fade" id="editName" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button id="btn_userNewFirstName" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title"> Nouveau Prénom</h4>
+						</div>
+						<div class="modal-body">
+							<form name="myForm">
+								<label>Prénom : </label><input id="userNewFirstName" ng-minlength="4" ng-maxlength="15" name="lastName"ng-model="newPrenom" >
+								<span class="error" ng-show="myForm.lastName.$error.minlength">
+									Min 4 caractères!</span><br>
+								<span class="error" ng-show="myForm.lastName.$error.maxlength">
+									Max 15 caractères!</span><br>
+								<span  ng-show="errorMsg">
+									Veuillez remplir le champ</span><br>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button id="btn_userFirstNameClose" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="reloadPage()">Close</button>
+							<button id="btn_userFirstNameSave" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="validateChange(newPrenom, newPrenom.length);reloadPage()">Save changes</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 
 
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"> Image miniature du profil :</h3>
-        </div>
-        <div id="userImageUpdate" class="panel-body text-center">
-          <input id="userGetImage" type="file" ng-model="mongoUser.photo" name="file" base-sixty-four-input required ng-click="viewImgP()"/>
-          <button id="bt_submit" class="btn btn-custom pull-right" type="button" ng-click="updateProfile()">valider</button>
-          <div>
-            <p>Prévisualisation : <img id="previewProfileImg" ng-src="data:{{mongoUser.photo.filetype}};base64,{{mongoUser.photo.base64}}" alt=""></p>
-          </div>
-        </div>
-      </div>
-        
-      <div class="alert alert-success" role="alert" ng-if="user.locks.length === 0">
-        Votre compte est : Actif 
-        <button id="btn_disableAccount" type="submit" class="btn btn-danger" ng-click="lockUsr(user)">Désactiver Compte</button>
-      </div>
-    </section>
-  </section>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"> Image miniature du profil :</h3>
+				</div>
+				<div id="userImageUpdate" class="panel-body text-center">
+					<input id="userGetImage" type="file" ng-model="mongoUser.photo" name="file" base-sixty-four-input required ng-click="viewImgP()"/>
+					<button id="bt_submit" class="btn btn-custom pull-right" type="button" ng-click="updateProfile()">valider</button>
+					<div>
+						<p>Prévisualisation : <img id="previewProfileImg" ng-src="data:{{mongoUser.photo.filetype}};base64,{{mongoUser.photo.base64}}" alt=""></p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="alert alert-success" role="alert" ng-if="user.locks.length === 0">
+				Votre compte est : Actif 
+				<button id="btn_disableAccount" type="submit" class="btn btn-custom" confirmed-click="lockUsr(user)" ng-confirm-click="Etes vous sûr de verrouiller votre Compte ? vous ne pourrez plus vous connecter">Désactiver Compte</button>
+			</div>
+		</section>
+	</section>
 </div>
 

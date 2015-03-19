@@ -75,6 +75,3 @@ $scope.unlockUser = function(log, pass, idLock){
 		}});
 	};
 }]);
-
-
-	    
