@@ -59,12 +59,19 @@ app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$loca
             .success(function(data, status, headers, config) {
                 $('#success-message').text(data.status);
                 $('#success').show();
-                console.log(data)
-                $scope.charge = data;
+                $scope.$watch(function charge(){
+                     return data;
+                  }, 
+                  function settingCharge(charge){
+                      $scope.data = charge; 
+                      console.log(charge)
+                  }
+                );
             })
             .error(function(data, status, headers, config) {
                 console.log(data);
             });
+        
     })
     return false;
     }
@@ -75,9 +82,8 @@ $scope.refund = function(data, amountOptional){
        data.optionalA = amountOptional;
         $http.post('/refund', data)
             .success(function(data, status, headers, config) {
-                $('#success-message').text("refunded");
+                $('#success-message').text("Vous avez bien été remboursé, ce dernier sera effectif sur votre compte sous 10 jours");
                 $('#success').show();
-                //$location.path('/#');
             })
             .error(function(data, status, headers, config) {
                 console.log(data);
