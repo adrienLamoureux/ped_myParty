@@ -8,17 +8,9 @@ app.config(function($routeProvider){
 			controller: 'HomeCtrl',
 			public: true
 		})
-		.when('/usr/create', {
-			templateUrl: './partials/createUser.html',
-			controller: 'UserCtrl'
-		})
 		.when('/usr', {
 			templateUrl: './partials/profile.html',
 			controller: 'UserCtrl'
-		})
-		.when('/usr/edit', {
-			templateUrl: './partials/editUser.html',
-			controller: 'UserCtrl',
 		})
 		.when('/usr/basket', {
 			templateUrl: './partials/basket.html',
