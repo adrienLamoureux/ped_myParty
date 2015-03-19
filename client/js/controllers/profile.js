@@ -78,5 +78,12 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	}
 
 	$scope.errorMsg = false;
+
+
+	$scope.pw1="";
+	$scope.pw2="";
+	$scope.checkPwdModif = function(){
+		return (($scope.pw1.length > 0) && ($scope.pw2.length > 0) && ($scope.pw1 == $scope.pw2));
+	}
 }]);
 
