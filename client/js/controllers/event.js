@@ -117,7 +117,6 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 					panier.push(newBasketEventTicket);
 					addOrNot = true;
 				}
-				console.log("OK")
 				$scope.Myuser.basket = panier;	
 				// Et maintenant on met a jour les donnees en base
 					User.put({id:$rootScope.user.user_id}, $scope.Myuser, function (res2, e){
