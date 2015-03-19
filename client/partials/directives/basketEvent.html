@@ -29,7 +29,7 @@
               <td id="basketSetTicketsPrice{{$index+1}}">{{ticket.price*ticket.nbTicket}} €</td>
               <td>{{ticket.disponibility}}</td>
               <td>             
-                <button id="btn_basketDelete{{$index+1}}" ng-click="deleteElement(event.eventID, ticket.ticketType, ticket.entitled, ticket.entitled)" class="btn-xs label-danger">
+                <button id="btn_basketDelete{{$index+1}}" confirmed-click="deleteElement(event.eventID, ticket.ticketType, ticket.entitled, ticket.entitled)" class="btn-xs label-danger" ng-confirm-click="Etes-vous sûr de vouloir supprimer les tickets {{ticket.entitled}} de l'evenement {{event.eventTitle}} ?">
                   <span  class="glyphicon glyphicon-remove collapse"></span>
                 </button>
               </td>
