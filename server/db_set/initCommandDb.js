@@ -10,7 +10,9 @@ var initCommands = function(db){
 			eventTickets: [{
 				eventID: null,
 				tickets: null
-			}]	
+			}],
+			canceled: false,
+			partiallyCanceled: false
 		}], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'commands'\n"); return false; }
 			console.log("\t--> New documents have been added to 'commands'!\n"+
