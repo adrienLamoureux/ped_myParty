@@ -98,7 +98,7 @@ $scope.refund = function(data, amountOptional){
     return false;
 }
 
-notification3Sec = function(text, notifTitle) {
+var notification3Sec = function(text, notifTitle) {
          Notification.success({message: text, delay: 3000, title: '<i>'+notifTitle+'</i>'});
     };
 
