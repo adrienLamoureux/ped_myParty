@@ -92,7 +92,7 @@
         </div>
         <div id="userImageUpdate" class="panel-body text-center">
           <input id="userGetImage" type="file" ng-model="mongoUser.photo" name="file" base-sixty-four-input required ng-click="viewImgP()"/>
-          <button id="bt_submit" class="btn btn-custom pull-right" type="button" ng-click="updateProfile()">valider</button>
+          <button id="bt_submit" class="btn btn-custom pull-right" type="button" ng-click="updateProfile()">Valider</button>
           <div>
             <p>Prévisualisation : <img id="previewProfileImg" ng-src="data:{{mongoUser.photo.filetype}};base64,{{mongoUser.photo.base64}}" alt=""></p>
           </div>

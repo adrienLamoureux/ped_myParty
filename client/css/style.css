@@ -517,3 +517,23 @@ table.commandTable a.block  {
 	width:100%;
 	color: #222;
 }
+
+/*********************************/
+/*** navbarsmall *****************/
+/*********************************/
+@media (max-width: 1200px) {
+    ul.pull-right {
+        float: none !important;
+    }
+    .hidesmall {
+    	visibility:visible;
+    	display:inline;
+    }
+}
+
+@media (min-width: 1200px) {
+    .hidesmall {
+    	visibility:hidden;
+    	display:none;
+    }
+}
