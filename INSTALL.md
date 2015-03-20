@@ -27,6 +27,7 @@ npm install in ./
 ### Windows
 
 To start server and MongoDB:
+* npm install -g nodemon
 * go to ./server/ 
 * remove .ex extension on the runWindows.bat.ex
 * run runWindows.bat 
@@ -34,6 +35,7 @@ To start server and MongoDB:
 ### Linux
 
 To start server and MongoDB:
+* npm install -g nodemon
 * go to ./server/ 
 * remove .ex extension on the runLinux.sh.ex
 * run runLinux.sh 

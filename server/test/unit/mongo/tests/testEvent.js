@@ -51,7 +51,8 @@ var insertDb = function(done){
 				}],
 				dateStarting: '1424339270481',
 				dateEnding: '1524339270481',
-				online: false
+				online: false,
+				canceled:false
 			}
 			], function (err, result) {done();});
 		});
@@ -121,7 +122,8 @@ describe('Test suite for eventModel', function() {
 				}],
 				dateStarting: '1424339270481',
 				dateEnding: '1524339270481',
-				online: true
+				online: true,
+				canceled:false
 			};
 
 			newEvent = new eventModel(eventBody);

@@ -1,4 +1,3 @@
-var connect = require('./connect.js');
 var path = require('path');
 
 var completeCreateEvent = function(){
@@ -104,13 +103,6 @@ var completeCreateEvent = function(){
   	absolutePath = path.resolve(__dirname, fileToUpload);
 	fileTicketTypeImage1.sendKeys(absolutePath);
 
-	/*var bt_add_ticket = browser.findElement(by.id("bt_add_ticket"));
-	expect(bt_add_ticket.isDisplayed()).toBe(true);
-	bt_add_ticket.click();
-*//*
-	var bt_rem_ticketType1 = browser.findElement(by.id("bt_rem_ticketType1"));
-	expect(bt_rem_ticketType1.isDisplayed()).toBe(true);
-*/
 	var txtEventType1 = browser.findElement(by.id("txtEventType1"));
 	expect(txtEventType1.isDisplayed()).toBe(true);
 	txtEventType1.clear();
@@ -144,9 +136,13 @@ var completeCreateEvent = function(){
 
 describe('Event view' , function () {
 
+	beforeEach(function(){
+		browser.get('http://localhost:5000/#/');
+	});
+
 	it('Access to an event information', function(){
-		var eventN = browser.findElement(by.xpath("id('page')/div/event-list/div/div[2]/event-miniature/div/a/img"));
-		expect(eventN.isDisplayed()).toBe(true); //When img uploading will work
+		var eventN = browser.findElement(by.id("eventMinID"));		
+		expect(eventN.isDisplayed()).toBe(true);
 		eventN.click();
 
 		var eventPage = browser.findElement(by.id("eventPage"));
@@ -158,7 +154,7 @@ describe('Event view' , function () {
 		var tickets = browser.findElement(by.id("tickets"));
 		expect(tickets.isDisplayed()).toBe(true);
 
-		var ticket = browser.findElement(by.id("ticket"));
+		var ticket = browser.findElement(by.id("ticket1"));
 		expect(ticket.isDisplayed()).toBe(true);
 
 		var addPaner = browser.findElement(by.buttonText("Ajouter au panier"));
@@ -177,7 +173,7 @@ describe('Event view' , function () {
 		expect(bt_submit.isDisplayed()).toBe(true);
 		var bt_save =  browser.findElement(by.id("bt_save"));
 		expect(bt_save.isDisplayed()).toBe(true);
-		browser.actions().mouseMove(bt_save).click();
+		bt_save.click();
 	});
 
 	it('Create an event with publication', function(){
@@ -192,7 +188,7 @@ describe('Event view' , function () {
 		expect(bt_submit.isDisplayed()).toBe(true);
 		var bt_save =  browser.findElement(by.id("bt_save"));
 		expect(bt_save.isDisplayed()).toBe(true);
-		browser.actions().mouseMove(bt_submit).click();
+		bt_submit.click();
 	});
 
 	it('Cancel a no validated event', function(){
@@ -207,7 +203,13 @@ describe('Event view' , function () {
 		expect(bt_submit.isDisplayed()).toBe(true);
 		var bt_save =  browser.findElement(by.id("bt_save"));
 		expect(bt_save.isDisplayed()).toBe(true);
-		browser.actions().mouseMove(bt_restore).click();
+		bt_restore.click();
+		var alertDialog = browser.switchTo().alert();
+		alertDialog.accept();
+		browser.sleep(200);
+		var txtEventTitle = browser.findElement(by.id("txtEventTitle"));
+		expect(txtEventTitle.isDisplayed()).toBe(true);
+		expect(txtEventTitle.getAttribute('value')).toBe('');
 	});
 
 	it('Edit an event', function(){
@@ -235,10 +237,22 @@ describe('Event view' , function () {
 		expect(cancel2.isDisplayed()).toBe(true);
 		var delete3 = browser.findElement(by.id("delete3"));
 		expect(delete3.isDisplayed()).toBe(true);
+		browser.get('http://localhost:5000/#/');
 	});
 
 	it('View the event that a user participated', function(){
-	
+		var bt_account = browser.findElement(by.id("bt_account"));
+		expect(bt_account.isDisplayed()).toBe(true);
+		bt_account.click();
+		var myEvents = browser.findElement(by.id("bt_mineEvents"));
+		expect(myEvents.isDisplayed()).toBe(true);
+		myEvents.click();
+		var bt_participed = browser.findElement(by.id("bt_participed"));
+		expect(bt_participed.isDisplayed()).toBe(true);
+		bt_participed.click();
+		var eventN = browser.findElement(by.id("eventMinID"));		
+		expect(eventN.isDisplayed()).toBe(true);
+		browser.get('http://localhost:5000/#/');		
 	});
 
 	it('Remove an event', function(){
@@ -269,5 +283,20 @@ describe('Event view' , function () {
 		var alertDialog = browser.switchTo().alert();
 		alertDialog.dismiss();
 		//expect(cancel2.isDisplayed()).toBe(false);
+	});
+
+	it('Should see a notification when a ticket is added', function(){
+		var eventN = browser.findElement(by.id("eventMinID"));		
+		expect(eventN.isDisplayed()).toBe(true);
+		eventN.click();
+
+		var addPaner = browser.findElement(by.buttonText("Ajouter au panier"));
+		expect(addPaner.isDisplayed()).toBe(true);
+		addPaner.click();
+
+		browser.sleep(1000);
+
+		var notif = browser.findElement(by.className("message"));
+		expect(notif.isDisplayed()).toBe(true);
 	});
 });
