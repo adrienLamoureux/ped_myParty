@@ -3,7 +3,7 @@ describe('commands view' , function () {
 	beforeEach(function(){
 		browser.get('http://localhost:5000/#/');
 	});
-/*
+
 	it('should access to the commands page', function(){
 		var bt_account = browser.findElement(by.id("bt_account"));
 		expect(bt_account.isDisplayed()).toBe(true);
@@ -67,7 +67,7 @@ describe('commands view' , function () {
 		var bt_print = browser.findElement(by.id("bt_print"));
 		expect(bt_print.isDisplayed()).toBe(true);
 	});
-*/
+
 	it('should cancel a command', function(){
 		var bt_account = browser.findElement(by.id("bt_account"));
 		expect(bt_account.isDisplayed()).toBe(true);
