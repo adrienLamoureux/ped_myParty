@@ -102,10 +102,13 @@ describe('basket view' , function () {
 		var myBasket = browser.findElement(by.id("bt_basket"));
 		expect(myBasket.isDisplayed()).toBe(true);
 		myBasket.click();
+		var basketTotal = browser.findElement(by.id("basketTotal"));
+		var basketAmount = basketTotal.getText();
 		var btn_basketValidation = browser.findElement(by.id("btn_basketValidation"));
 		expect(myBasket.isDisplayed()).toBe(true);
 		btn_basketValidation.click();
-		browser.sleep(200);
+		browser.sleep(1000);
+		
 		var card_number = browser.findElement(by.id("card_number"));
 		expect(card_number.isDisplayed()).toBe(true);
 		card_number.clear();
@@ -126,6 +129,17 @@ describe('basket view' , function () {
 		cvc.clear();
 		cvc.sendKeys("111");
 		expect(cvc.getAttribute('value')).toBe("111");
+		
+		var commandAmount = browser.findElement(by.id("commandAmount"));
+		expect(commandAmount.isDisplayed()).toBe(true);
+		commandAmount.getText().then(function(text){
+			basketAmount.then(function(basket){
+				basket = basket.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
+				text = text.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
+				expect(text.toString()).toEqual(basket);
+			});
+		});
+		
 		var paiement = browser.findElement(by.buttonText("Valider le paiement"));
 		expect(paiement.isDisplayed()).toBe(true);
 		paiement.click();
@@ -159,7 +173,7 @@ describe('basket view' , function () {
 		var paiement = browser.findElement(by.buttonText("Valider le paiement"));
 		expect(paiement.isDisplayed()).toBe(true);
 		paiement.click();
-		browser.sleep(200);
+		browser.sleep(3000);
 		var notif = browser.findElement(by.className("message"));
 		expect(notif.isDisplayed()).toBe(true);
 	});
