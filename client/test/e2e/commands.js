@@ -3,7 +3,7 @@ describe('commands view' , function () {
 	beforeEach(function(){
 		browser.get('http://localhost:5000/#/');
 	});
-
+/*
 	it('should access to the commands page', function(){
 		var bt_account = browser.findElement(by.id("bt_account"));
 		expect(bt_account.isDisplayed()).toBe(true);
@@ -67,8 +67,26 @@ describe('commands view' , function () {
 		var bt_print = browser.findElement(by.id("bt_print"));
 		expect(bt_print.isDisplayed()).toBe(true);
 	});
-
+*/
 	it('should cancel a command', function(){
-
+		var bt_account = browser.findElement(by.id("bt_account"));
+		expect(bt_account.isDisplayed()).toBe(true);
+		bt_account.click();
+		var myCommands = browser.findElement(by.id("bt_mineOrders"));
+		expect(myCommands.isDisplayed()).toBe(true);
+		myCommands.click();
+		var cmd1 = browser.findElement(by.id("cmd1"));
+		expect(cmd1.isDisplayed()).toBe(true);
+		cmd1.click();
+		var cancel = browser.findElement(by.id("cancel"));
+		expect(cancel.isDisplayed()).toBe(true);
+		cancel.click();
+		var alertDialog = browser.switchTo().alert();
+		alertDialog.accept();
+		var cmdC1 = browser.findElement(by.id("cmdC1"));
+		expect(cmdC1.isDisplayed()).toBe(true);
+		cmdC1.getText().then(function(text){
+			expect(text == "Valide").toBe(false);
+		});
 	});
 });

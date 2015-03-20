@@ -16,14 +16,14 @@ describe('Manager test', function(){
 		connect.connect();
 		//browser.sleep(500);
 		//require('./home.js');
-		browser.sleep(500);
-		require('./event.js');
+		//browser.sleep(500);
+		//require('./event.js');
 		//browser.sleep(500);
 		//require('./basket.js');
 		//browser.sleep(500);
 		//require('./user.js');
-		//browser.sleep(500);
-		//require('./commands.js');
+		browser.sleep(500);
+		require('./commands.js');
 	});
 
 	afterEach(function(){

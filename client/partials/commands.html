@@ -14,7 +14,7 @@
 					<tbody>
 						<tr ng-repeat="cmd in commands">
 							<td><a id="cmd{{$index+1}}" class="block" href="#/usr/cmd/{{cmd._id}}"> Commande du {{cmd.dateBuy | date:'dd/MM/yyyy - H:mm'}}	</a></td>
-							<td><a id="cmd{{$index+1}}" class="block" href="#/usr/cmd/{{cmd._id}}"> {{cmd.canceled}}</a></td>
+							<td><a id="cmdC{{$index+1}}" class="block" href="#/usr/cmd/{{cmd._id}}"> <span id="test{{$index+1}}">{{cmd.canceled}}</span></a></td>
 						<tr>
 					</tbody>
 				</table>
