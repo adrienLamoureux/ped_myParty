@@ -1,148 +1,210 @@
 /*********************************/
 /*** global **********************/
 /***        **********************/
-	.center{
-		display:block;
-		text-align:center;
-		float:none;
-		margin:auto;
-	}
-	body{
-		background:lightgrey;
-		min-width:450px;
-	}
-	div.search{
-		margin-top:0px;
-		margin-bottom:10px;
-	}
-	.alert{
-		margin:10px;
-	}
+.center{
+	display:block;
+	text-align:center;
+	float:none;
+	margin:auto!important;
+}
+body{
+	background:lightgrey;
+	min-width:450px;
+}
+div.search{
+	margin-top:0px;
+	margin-bottom:10px;
+}
+div.search .glyphicon{
+	cursor:default;
+}
+.alert{
+	margin:10px;
+}
+.modal > * {
+	margin-top:80px;
+	color:black!important;		
+	box-shadow: 0px 0px 2px 2px rgba(255, 255, 255, 0.7); 
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}
+.modal-header, .modal-footer{
+	color:white!important;
+	background-color: rgba(0, 0, 0, 0.90)!important;
+}
 
-	.ui-notification{
-		margin-top:50px;
-	}
+.ui-notification{
+	margin-top:50px;
+}
+.ui-notification h3{
+	border-bottom:1px solid black!important;
+}
+.ui-notification.success{
+	background-color: rgba(255, 255, 255, 0.95)!important;
+	color:#222!important;
+	border: 1px solid #222!important;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 2px 2px rgba(255, 255, 255, 0.7); 
+}
 
-	h2{
-		margin:0px;
-		padding:0px;
-	}
-	.noMargTop{
-		margin-top:0px;
+h2{
+	margin:0px;
+	padding:0px;
+}
+.noMargTop{
+	margin-top:0px!important;
 
-	}
-	
-	/*****************/
-	/*** buttons *****/
-	.glyphicon{
-		margin-right:10px;
-		cursor:pointer;
-	}
-	.collapse{
-		margin-right:1px;
-	}
-	.btn-custom {
-		color: #eee!important;
-		font-weight: normal!important;
-		background-color: #222;
-		border-color: #cecece!important;
-	}
-	.btn-custom:hover,
-	.btn-custom:focus,
-	.btn-custom:active,
-	.btn-custom.active,
-	.open .dropdown-toggle.btn-custom {
-	  color: white!important;
-	  background-color: #353535;
-	  border-color: #fff;
-	}
-	.btn-custom:active,
-	.btn-custom.active,
-	.open .dropdown-toggle.btn-custom {
-	  background-image: none;
-	}
-	.btn-custom.disabled,
-	.btn-custom[disabled],
-	fieldset[disabled] .btn-custom,
-	.btn-custom.disabled:hover,
-	.btn-custom[disabled]:hover,
-	fieldset[disabled] .btn-custom:hover,
-	.btn-custom.disabled:focus,
-	.btn-custom[disabled]:focus,
-	fieldset[disabled] .btn-custom:focus,
-	.btn-custom.disabled:active,
-	.btn-custom[disabled]:active,
-	fieldset[disabled] .btn-custom:active,
-	.btn-custom.disabled.active,
-	.btn-custom[disabled].active,
-	fieldset[disabled] .btn-custom.active {
-	  background-color: #222!important;
-	  border-color: #000!important;
-	  color:#ccc!important;
-	}
-	.btn-custom .badge {
-	  color: white!important;
-	  background-color: #727272;
-	}
+}
+.margTop{
+	margin-top:10px!important;
+}
+.noMargBottom{
+	margin-bottom:0px!important;
+}
+
+/*****************/
+/*** buttons *****/
+.glyphicon{
+	margin-right:10px;
+	cursor:pointer;
+}
+.collapse{
+	margin-right:1px;
+}
+.btn-custom {
+	color: #eee!important;
+	font-weight: normal!important;
+	background-color: #222;
+	border-color: #cecece!important;
+}
+.btn-custom:hover,
+.btn-custom:focus,
+.btn-custom:active,
+.btn-custom.active,
+.open .dropdown-toggle.btn-custom {
+	color: white!important;
+	background-color: #353535;
+	border-color: #fff;
+}
+.btn-custom:active,
+.btn-custom.active,
+.open .dropdown-toggle.btn-custom {
+	background-image: none;
+}
+.btn-custom.disabled,
+.btn-custom[disabled],
+fieldset[disabled] .btn-custom,
+.btn-custom.disabled:hover,
+.btn-custom[disabled]:hover,
+fieldset[disabled] .btn-custom:hover,
+.btn-custom.disabled:focus,
+.btn-custom[disabled]:focus,
+fieldset[disabled] .btn-custom:focus,
+.btn-custom.disabled:active,
+.btn-custom[disabled]:active,
+fieldset[disabled] .btn-custom:active,
+.btn-custom.disabled.active,
+.btn-custom[disabled].active,
+fieldset[disabled] .btn-custom.active {
+	background-color: #222!important;
+	border-color: #000!important;
+	color:#ccc!important;
+}
+.btn-custom .badge {
+	color: white!important;
+	background-color: #000!important;
+}
 /********************************/
 /***********  Menu  *************/
 /********************************/
-	sup.version {
-		font-size: 50%;
-		text-transform: uppercase;
-		top: -1em;
+sup.version {
+	font-size: 50%;
+	text-transform: uppercase;
+	top: -1em;
+}
+
+.navbar img {
+	margin-top :-12px;
+	margin-bottom :-12px;
+	margin-right : 10px;		
+	width:auto;
+	height:34px;
+}
+.version-beta {
+	color: orange;
+}
+
+@media screen and (min-width: 800px) {
+	.mdRight {
+		float:right;
 	}
-	.version-beta {
-		color: orange;
+	.mdHide{
+		display:none;
 	}
+}
+@media screen and (max-width: 800px) {
+	.mdRight {
+		float:none;
+	}
+	.mdHide{
+		display:inline;
+	}
+}
 /*********************************/
 /*** dropdown menu ***************/
 /***               ***************/
-	.inverse-dropdown{
-	  	background-color: #222;
-	  	border-color: #080808;
-	}
-	.inverse-dropdown li a{
-	    color: #999;
-	}
-	.inverse-dropdown li a:hover{
-	    color: white;
-	    background-color: #222;
-	}
-	.inverse-dropdown li a.active{
-	    color: white;
-	    background-color: black;
-	}
+.inverse-dropdown{
+	background-color: #222;
+	border-color: #080808;
+}
+.inverse-dropdown li a{
+	color: #999;
+}
+.inverse-dropdown li a:hover{
+	color: white;
+	background-color: #222;
+}
+.inverse-dropdown li a.active{
+	color: white;
+	background-color: black;
+}
 
 
 /*********************************/
 /*** page ************************/
 /***      ************************/
-	#page{
-		margin-top:60px; /* required to let some place for the top-fixed main menu bar. */
-	}
+#page{
+	margin-top:60px; /* required to let some place for the top-fixed main menu bar. */
+}
 
 
 /*********************************/
 /*** login ***********************/
 /***       ***********************/
-	#login {
-		padding-top: 80px;	
-	}
+#login {
+	padding-top: 80px;	
+}
 /*********************************/
 /*** Profile Image ***************/
 /***               ***************/
 .roundedImage{
-    overflow:hidden;
-    -webkit-border-radius:50px;
-    -moz-border-radius:50px;
-    border-radius:50px;
-    width:90px;
-    height:90px;
+	text-align: center;
 }
 
 .roundedImage img{
-	width: 90px;
+	box-shadow: 0px 0px 1px 4px rgba(0, 0, 0, 0.9); 
+	margin:10px auto 10px auto;
+	overflow:hidden;
+	width: auto;
 	height: 90px;
 }
 
@@ -150,278 +212,280 @@
 /*********************************/
 /*** event ***********************/
 /***       ***********************/
-	#eventPage, #eventBasket{
-		width:100%;
-		color: #FFF;
-		font-size: 16px;
-		font-family: "Century Gothic",arial,serif;
-		text-align: left;
-		padding-top:20px;
-	}
-	.eventMin{
-		color: #FFF;
-		font-size: 16px;
-		font-family: "Century Gothic",arial,serif;
-		text-align: center;
-	}
-	#eventPage #eventImage{
-		color:black;
-		margin-top:10px;
-		margin-bottom:20px;
-	}
-	#eventPage #event #info > *, 
-	#eventPage #event section h1,
-	#eventPage #event, 
-	#eventPage #event .ticket, 
-	.eventMin > *,
-	#eventBasket > *{
-		background-color: rgba(0, 0, 0, 0.90);
-		padding:10px 10px 10px 10px;
-		border: 1px solid #cecece;
-		-webkit-border-radius: 10px;
-		 -khtml-border-radius: 10px;
-		   -moz-border-radius: 10px;
-			-ms-border-radius: 10px;
-			 -o-border-radius: 10px;
-				border-radius: 10px;
-	}
-	#eventPage #event, #basket{
-		background-color: grey;
-		padding:0px 0px 15px 0px;
-		border: 1px solid #cecece;
-		-webkit-border-radius: 10px;
-		 -khtml-border-radius: 10px;
-		   -moz-border-radius: 10px;
-			-ms-border-radius: 10px;
-			 -o-border-radius: 10px;
-				border-radius: 10px;
-	}
-	#eventPage #event * h1{		
-		text-align: center;
-	}
-	#eventPage #event #info ul{		
-		padding-left:25px;
-	}
-	#eventPage #event #info ul li{
-		font-style:oblique;
-	}
-	#eventPage #event #tickets{
-		margin:0px;
-		padding:0px;
-	}
-	#eventPage #event #tickets a#link_connect{
-		color: #999;
-		font-style:italic;
-	}
-	#eventPage #event #tickets a#link_connect:hover{
-		color: #FFF;
-		font-style:italic;
-		text-decoration:none;
-	}
-	#eventPage #event .ticket h2{
-		margin-top:0px;
-		padding-top:0px;
-		font-style: oblique;
-	}
-	#eventPage #event .ticket input[type=number]{
-		width:50px;
-		background:black;
-		height:34px;
-	}
-	#eventPage #event .ticket button{
-		color:black;
-		font-weight: bolder;
-		margin-left:10px;
-	}
-	#eventBasket legend{
-		color:white;
-	}
-	#eventBasket input{
-		color:white;
-		background:black;
-		text-align:center;
-		width:55px;
-	}
+#eventPage, #eventBasket{
+	width:100%;
+	color: #FFF;
+	font-size: 16px;
+	font-family: "Century Gothic",arial,serif;
+	text-align: left;
+	padding-top:20px;
+}
+.eventMin{
+	color: #FFF;
+	font-size: 16px;
+	font-family: "Century Gothic",arial,serif;
+	text-align: center;
+}
+#eventPage #eventImage{
+	color:black;
+	margin-top:10px;
+	margin-bottom:20px;
+}
+#profil > .panel,
+#payment .panel,
+#payment > *,
+#eventPage #event #info > *, 
+#eventPage #event section h1,
+#eventPage #event, 
+#eventPage #event .ticket, 
+.eventMin > *,
+#eventBasket > *{
+	background-color: rgba(0, 0, 0, 0.90);
+	padding:10px 10px 10px 10px;
+	border: 1px solid #cecece;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+}
+#eventPage #event {
+	background-color: grey;
+	padding:0px 0px 15px 0px;
+	border: 1px solid #cecece;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+}
+#eventPage #event * h1{		
+	text-align: center;
+}
+#eventPage #event #info ul{		
+	padding-left:25px;
+}
+#eventPage #event #info ul li{
+	font-style:oblique;
+}
+#eventPage #event #tickets{
+	margin:0px;
+	padding:0px;
+}
+#eventPage #event #tickets a#link_connect, a.link_connect{
+	color: #999;
+	font-style:italic;
+}
+#eventPage #event #tickets a#link_connect:hover{
+	color: #FFF;
+	font-style:italic;
+	text-decoration:none;
+}
+#eventPage #event .ticket h2{
+	margin-top:0px;
+	padding-top:0px;
+	font-style: oblique;
+}
+#eventPage #event .ticket input[type=number]{
+	width:50px;
+	background:black;
+	height:34px;
+}
+#eventPage #event .ticket button{
+	color:black;
+	font-weight: bolder;
+	margin-left:10px;
+}
+#eventBasket legend{
+	color:white;
+}
+#eventBasket input{
+	color:white;
+	background:black;
+	text-align:center;
+	width:55px;
+}
 
 /*********************************/
 /*** eventFrm ********************/
 /***          ********************/
-	#eventForm {
-		margin-top:15px;
-	}
-	#eventForm label {
-		font-weight: normal;
-	}
-	#eventForm hr { 
-		border:1px solid gray; 
-		margin:0;
-	}	
-	#eventForm label, #eventForm input, #eventForm textarea{
-		width:100%;
-	}
-	#eventForm div input, #eventForm div textarea,  #eventForm div label, #eventForm div p{ 
-		margin-left:15px; 
-	}
-	#eventForm input { 
-		display:inline-block; 
-		width:80px; 
-		text-align:center; 
-		color:black;
-	}
-	#eventForm textarea { 
-		color:black;
-	}
-	#eventForm input[type=file] { 
-		color:white;
-	}
-	
-	#eventForm label + input, #eventForm label + textarea  { 
-		width:95%;
-		margin-bottom:10px; 
-	}
-	#eventForm button[type=submit], #eventForm button[type=button], #eventForm a{
-		margin-top:10px;
-	}
-	#eventForm button#bt_add_ticket{
-		margin:5px 0px 10px 0px;
-	}
-	#eventForm img{
-		height:25px; 
-		margin:0px; 
-		padding:0px;
-		padding-bottom:5px;
-		cursor:pointer;
-	}
+#eventForm {
+	margin-top:15px;
+}
+#eventForm label, #payment label {
+	font-weight: normal;
+}
+#eventForm hr { 
+	border:1px solid gray; 
+	margin:0;
+}	
+#eventForm label, #eventForm input, #eventForm textarea{
+	width:100%;
+}
+#eventForm div input, #eventForm div textarea,  #eventForm div label, #eventForm div p{ 
+	margin-left:15px; 
+}
+#eventForm input { 
+	display:inline-block; 
+	width:80px; 
+	text-align:center; 
+	color:black;
+}
+#eventForm textarea { 
+	color:black;
+}
+#eventForm input[type=file] { 
+	color:white;
+}
 
-	/* Form Validation */
-	#eventForm div.red{
-		color:red;
-		text-align:center;
-		margin-bottom:15px;
-	}
-	#eventForm input.ng-invalid, #eventForm textarea.ng-invalid{
-  		box-shadow: -1px -1px 1px 2px rgba(255, 0, 0, 0.7); 
-	}
-	#eventForm input.ng-valid, #eventForm textarea.ng-valid{
-	  	box-shadow: 1px 1px 1px 2px rgba(0, 255, 0, 0.7); 
-	}
+#eventForm label + input, #eventForm label + textarea { 
+	width:95%;
+	margin-bottom:10px; 
+}
+#eventForm button[type=submit], #eventForm button[type=button], #eventForm a{
+	margin-top:10px;
+}
+#eventForm button#bt_add_ticket{
+	margin:5px 0px 10px 0px;
+}
+#eventForm img, #previewProfileImg{
+	height:100px;
+	margin:0px; 
+	padding:0px;
+	padding-bottom:5px;
+}
+
+/* Form Validation */
+#eventForm div.red{
+	color:red;
+	text-align:center;
+	margin-bottom:15px;
+}
+#eventForm input.ng-invalid, #eventForm textarea.ng-invalid{
+	box-shadow: -1px -1px 1px 2px rgba(255, 0, 0, 0.7); 
+}
+#eventForm input.ng-valid, #eventForm textarea.ng-valid{
+	box-shadow: 1px 1px 1px 2px rgba(0, 255, 0, 0.7); 
+}
 
 
 /*********************************/
 /*** mineEvents ******************/
 /***            ******************/
-	#bt_participed{
-		margin-bottom:10px;
-	}
+#bt_participed{
+	margin-bottom:10px;
+}
 
-	div#content{
-		padding:20px 20px 20px 20px;
-		border: 1px solid black;
-		-webkit-border-radius: 10px;
-		 -khtml-border-radius: 10px;
-		   -moz-border-radius: 10px;
-			-ms-border-radius: 10px;
-			 -o-border-radius: 10px;
-				border-radius: 10px;
-	}
-	nav#mineEventNav{
-		margin-top:15px;
-		margin-bottom:15px;
-	}
-	#mineEvents{
-		color:white;
-		background-color: rgba(0, 0, 0, 0.90);
-		padding:10px 10px 10px 10px;
-		border: 1px solid #cecece;
-		-webkit-border-radius: 10px;
-		 -khtml-border-radius: 10px;
-		   -moz-border-radius: 10px;
-			-ms-border-radius: 10px;
-			 -o-border-radius: 10px;
-				border-radius: 10px;
-	}
+div#content{
+	padding:20px 20px 20px 20px;
+	border: 1px solid black;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+}
+nav#mineEventNav{
+	margin-top:15px;
+	margin-bottom:15px;
+}
+#mineEvents{
+	color:white;
+	background-color: rgba(0, 0, 0, 0.90);
+	padding:10px 10px 10px 10px;
+	border: 1px solid #cecece;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+}
 
-	#mineEvents h2 {
-		margin:0px;
-	}
+#mineEvents h2 {
+	margin:0px;
+}
 
-	#mineEvents img.eventSmallImage{
-		margin-top:10px;
-		margin-bottom:10px;
-	}
+#mineEvents img.eventSmallImage{
+	margin-top:10px;
+	margin-bottom:10px;
+}
 
-	#mineEvents table.income{
-		margin-bottom:5px;
-	}
-	#mineEvents table.income td{
-		border:solid 1px lightgrey;
-	}
-	#mineEvents table.income{
-		margin-left:auto;
-		margin-right:auto;
-	}
-	#mineEvents table.income th{
-		padding-top:5px;
-		padding-bottom:5px;
-	}
+#mineEvents table.income{
+	margin-bottom:5px;
+}
+/*#mineEvents table.income td{
+border:solid 1px lightgrey;
+}*/
+#mineEvents table.income{
+	margin-left:auto;
+	margin-right:auto;
+}
+#mineEvents table.income th{
+	padding-top:5px;
+	padding-bottom:5px;
+}
 
-	#mineEvents div.management{
-		padding-top:15px;
-	}
+#mineEvents div.management{
+	padding-top:15px;
+}
 
 /*********************************/
 /*** ticket **********************/
 /***        **********************/
-	.fixTicketWidth{
-		width:800px;
-		margin-left:auto;
-		margin-right:auto;
-	}
-	p.fixTicketWidth{
-		margin-top:5px;
-	}
-	table#ticket{
-		font-size:16px;
-		background:white;
-		padding:0px;
-		border: 1px solid black;
-		height:250px;
-		width:800px;
-		text-align:left;
-		margin-left:auto;
-		margin-right:auto;
-		margin-top:10px;
-		margin-bottom:0px;
-		padding:0px;
-	}
-	table#ticket h3{
-		margin-bottom:5px;
-		margin-top:0px;
-		padding-top:0px;
-	}
-	table#ticket h2{
-		margin:0px;
-		padding:0px;
-	}
-	table#ticket table{
-		margin-left:15px;
-		margin-right:0px;
-		width:550px;
-	}
-	table#ticket table td.qrCode{
-		width:150px;
-	}
-	table#ticket img.eventSmallImage{
-		width:250px;
-		margin:0px;
-		padding:0px;
-	}
-	table#ticket td.info{
-		padding-left:15px;
-	}
-	button#bt_print{
-		margin-top:5px;
-	}
+.fixTicketWidth{
+	width:800px;
+	margin-left:auto;
+	margin-right:auto;
+}
+p.fixTicketWidth{
+	margin-top:5px;
+}
+table#ticket{
+	font-size:16px;
+	background:white;
+	padding:0px;
+	border: 1px solid black;
+	height:250px;
+	width:800px;
+	text-align:left;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:10px;
+	margin-bottom:0px;
+	padding:0px;
+}
+table#ticket h3{
+	margin-bottom:5px;
+	margin-top:0px;
+	padding-top:0px;
+}
+table#ticket h2{
+	margin:0px;
+	padding:0px;
+}
+table#ticket table{
+	margin-left:15px;
+	margin-right:0px;
+	width:550px;
+}
+table#ticket table td.qrCode{
+	width:150px;
+}
+table#ticket img.eventSmallImage{
+	width:250px;
+	margin:0px;
+	padding:0px;
+}
+table#ticket td.info{
+	padding-left:15px;
+}
+button#bt_print{
+	margin-top:5px;
+}
 
 
 /* Command */
@@ -462,7 +526,6 @@ table.commandTable tr:hover{
 table.commandTable tr {
 	background : #EEE;
 	color: #222;
-
 }
 
 table.commandTable a.block  {
@@ -470,4 +533,24 @@ table.commandTable a.block  {
 	height:100%;
 	width:100%;
 	color: #222;
+}
+
+/*********************************/
+/*** navbarsmall *****************/
+/*********************************/
+@media (max-width: 1200px) {
+    ul.pull-right {
+        float: none !important;
+    }
+    .hidesmall {
+    	visibility:visible;
+    	display:inline;
+    }
+}
+
+@media (min-width: 1200px) {
+    .hidesmall {
+    	visibility:hidden;
+    	display:none;
+    }
 }

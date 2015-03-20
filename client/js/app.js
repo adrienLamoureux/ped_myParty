@@ -8,17 +8,9 @@ app.config(function($routeProvider){
 			controller: 'HomeCtrl',
 			public: true
 		})
-		.when('/usr/create', {
-			templateUrl: './partials/createUser.html',
-			controller: 'UserCtrl'
-		})
 		.when('/usr', {
 			templateUrl: './partials/profile.html',
 			controller: 'UserCtrl'
-		})
-		.when('/usr/edit', {
-			templateUrl: './partials/editUser.html',
-			controller: 'UserCtrl',
 		})
 		.when('/usr/basket', {
 			templateUrl: './partials/basket.html',
@@ -72,13 +64,14 @@ app.config(function($routeProvider){
 		})
 		.when('/reset-password', {
 			templateUrl: './partials/reset_password.html',
-			 public: true
+			public: true
 		})
 		.when('/set-password', {
 			templateUrl: 'partials/set_password.html', 
+			controller: 'LoginCtrl',
 			set_password: true
 		})
-		.when('/payment', {
+		.when('/payment/:id', {
 			templateUrl: 'partials/payment.html',
 			controller: 'PaymentCtrl'
 		})

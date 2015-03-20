@@ -1,42 +1,41 @@
-<div id="eventBasket" class="col-sm-8" ng-show="event.tickets.length > 0 ">
-  <fieldset class="scheduler-border">
-      <div class="table-responsive">
-        <table class="table table-bordered text-center">
-          <thead >
-              <th class="col-xs-4 text-center">Article</th>
-              <th class="col-xs-2 text-center">Prix à l'unité</th>
-              <th class="col-xs-3 text-center">Quantité</th>
-              <th class="col-xs-2 text-center">Montant</th>
-              <th class="col-xs-2 text-center">Disponible</th>
-              <th class="col-xs-1 text-center"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="ticket in event.tickets">
-              <legend>
-                &nbsp; {{event.eventTitle}}
-              </legend>
-              <td>{{ticket.entitled}}</td>
-              <td id="basketSingleTicketPrice{{$index+1}}">{{ticket.price}} €</td>
-              <td>
-                <button id="btn_basketMinus{{$index+1}}" ng-click="decrement(event.eventID, ticket.ticketType, ticket.nbTicket,ticket, ticket.entitled)" class="btn btn-custom">
-                  <span class="glyphicon glyphicon-minus collapse" ></span>
-                </button>
-                <input id="basketCurrentTickets{{$index+1}}" ng-model="ticket.nbTicket" ng-readonly="true"></input>
-                <button id="btn_basketPlus{{$index+1}}" ng-click="increment(event.eventID, ticket.ticketType, ticket.nbTicket, ticket, ticket.entitled)" class="btn btn-custom">
-                  <span class="glyphicon glyphicon-plus collapse" ></span>
-                </button>
-              </td>
-              <td id="basketSetTicketsPrice{{$index+1}}">{{ticket.price*ticket.nbTicket}} €</td>
-              <td>{{ticket.disponibility}}</td>
-              <td>             
-                <button id="btn_basketDelete{{$index+1}}" ng-click="deleteElement(event.eventID, ticket.ticketType, ticket.entitled, ticket.entitled)" class="btn-xs label-danger">
-                  <span  class="glyphicon glyphicon-remove collapse"></span>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </fieldset>
+<div id="eventBasket" class="col-xs-12" ng-show="event.tickets.length > 0 ">
+	<div class="table-responsive">
+		<table class="commandTable table text-center">
+			<thead >
+				<tr>
+					<th class="col-xs-3 text-center">Article</th>
+					<th class="col-xs-2 text-center">Prix à l'unité</th>
+					<th class="col-xs-3 text-center">Quantité</th>
+					<th class="col-xs-2 text-center">Montant</th>
+					<th class="col-xs-1 text-center">Disponible</th>
+					<th class="col-xs-1 text-center"><div class="center glyphicon glyphicon-trash" aria-hidden="true"></div></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="ticket in event.tickets">
+					<legend>
+						&nbsp; {{event.eventTitle}}
+					</legend>
+					<td class="col-xs-3 text-center">{{ticket.entitled}}</td>
+					<td class="col-xs-2 text-center" id="basketSingleTicketPrice{{$index+1}}">{{ticket.price}} €</td>
+					<td class="col-xs-3 text-center">
+						<button id="btn_basketMinus{{$index+1}}" ng-click="decrement(event.eventID, ticket.ticketType, ticket.nbTicket,ticket, ticket.entitled)" class="btn btn-custom">
+							<span class="glyphicon glyphicon-minus collapse" ></span>
+						</button>
+						<input id="basketCurrentTickets{{$index+1}}" ng-model="ticket.nbTicket" ng-readonly="true"></input>
+						<button id="btn_basketPlus{{$index+1}}" ng-click="increment(event.eventID, ticket.ticketType, ticket.nbTicket, ticket, ticket.entitled)" class="btn btn-custom">
+							<span class="glyphicon glyphicon-plus collapse" ></span>
+						</button>
+					</td>
+					<td class="col-xs-2 text-center" id="basketSetTicketsPrice{{$index+1}}">{{ticket.price*ticket.nbTicket}} €</td>
+					<td class="col-xs-1 text-center">{{ticket.disponibility}}</td>
+					<td class="col-xs-1 text-center">             
+						<button id="btn_basketDelete{{$index+1}}" confirmed-click="deleteElement(event.eventID, ticket.ticketType, ticket.entitled, ticket.entitled)" class="btn-xs label-danger" ng-confirm-click="Etes-vous sûr de vouloir supprimer les tickets {{ticket.entitled}} de l'evenement {{event.eventTitle}} ?">
+							<span  class="glyphicon glyphicon-remove collapse"></span>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>

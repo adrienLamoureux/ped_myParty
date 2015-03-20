@@ -1,8 +1,16 @@
 <!-- Ticket Template -->
-<h1>Votre billet pour {{event.title}}</h1>
-<event-ticket ng-hide="event.canceled"></event-ticket>
-<div class="alert alert-warning" role="alert" ng-show="event.canceled">
-	Billet non disponible : <br/>
-	Ce billet vous a été remboursé suite à l'annulation de l'événement "{{event.title}}" !
+<div id="eventPage" class="container" >
+	<section id="event" class="col-xs-10 col-xs-offset-1">
+		<section class="col-xs-12">
+			<h1  class="text-center">Votre billet pour {{event.title}}</h1>
+			<div class="col-xs-11 center alert alert-warning" role="alert" ng-show="event.canceled">
+				Billet non disponible : <br/>
+				Ce billet vous a été remboursé suite à l'annulation de l'événement "{{event.title}}" !
+			</div>
+			<div class="col-xs-11 center alert alert-danger" role="alert" ng-show="!loading && !showTicket">
+				Votre ticket n'est plus disponnible car vous avez annulé votre commande !
+			</div>
+		</section>
+	</section>
 </div>
-
+<event-ticket ng-hide="event.canceled"></event-ticket>

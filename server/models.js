@@ -27,7 +27,10 @@ var eventTicket = new Schema({
 
 var cmdSchema = new Schema({
 	dateBuy: Date,
-	eventTickets: [eventTicket]
+	totalAmount: Number,
+	eventTickets: [eventTicket],
+	canceled: {type: Boolean, default: false},
+	partiallyCanceled: {type: Boolean, default: false}
 }, {collection: 'commands'});
 
 // ticket sold to user for an event
@@ -37,7 +40,8 @@ var ticketSchema = new Schema({
 	eventID: {type: mongoose.Schema.Types.ObjectId, ref:'eventModel'},
 	ticketTypeID: Number,
 	expirationDate: Date,
-	used: {type: Boolean, default: false}
+	used: {type: Boolean, default: false},
+	canceled: {type: Boolean, default: false}
 }, {collection: 'ticket'});
 
 var imgSchema = new Schema({

@@ -1,12 +1,12 @@
 // Profile
-app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', '$route', '$location', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User, $route, $location){
+app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', '$route', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User, $route){
 
 	ngProgress.color("#B40404");
 	ngProgress.start();
+	
 	var currentUserId = $rootScope.user.user_id;
 	$scope.viewImg = false;		
 	$scope.newPrenom = '';
-
 
 
 	User.get({id:currentUserId}).$promise.then(function(res){
@@ -16,10 +16,10 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 		console.log(err)
 	});
 
-
 	$scope.updateProfile = function (){
 		User.put({id:currentUserId}, $scope.mongoUser);
 		$scope.viewImg = false;
+		$window.location.reload();
 	};
 
 	UserApp.User.get({
@@ -41,40 +41,35 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	}
 
 	$scope.callAtTimeout = function() {
-    }
+	}
 
-    $timeout( function(){ $scope.callAtTimeout(); }, 300);
+	$timeout( function(){ $scope.callAtTimeout(); }, 300);
 
 	$scope.lockUsr = function (){
-		if(confirm("Etes vous sûr de verrouiller votre Compte ? vous ne pourrez plus vous connecter")){
-			UserApp.User.lock({
-				"user_id" : currentUserId,
-				"type" : "ACCOUNT_EXPIRED",
-				"reason" : "lock"
-			}, function(err, res){
-				if(err) console.log(err)
-				else console.log(res);
-			});
-		};
-	}
+		UserApp.User.lock({
+			"user_id" : currentUserId,
+			"type" : "ACCOUNT_EXPIRED",
+			"reason" : "lock"
+		}, function(err, res){
+			if(err) console.log(err)
+		});
+	};
+	
 
 	$scope.reloadPage = function(){
-		$location.path("/usr");
-		$timeout( function (){$route.reload()} , 1000);
+		$timeout( function (){$window.location.reload()} , 500);
 	}
 
 
-	$scope.validateChange = function(newName){
-		if(newName){
-		 UserApp.User.save({
-		    "user_id": currentUserId,
-		    "first_name": newName,
-		},function (err, res){
-			if(err) console.log(err)
-			else {
-		//		console.log(res);
-			}
-		})
+	$scope.validateChange = function(newName, newLastName){
+		if(newName && newLastName){
+			UserApp.User.save({
+		    	"user_id": currentUserId,
+		    	"first_name": newName,
+		    	"last_name": newLastName
+			},function (err, res){
+			if(err) console.log(err);
+			})
 		}
 		else $scope.errorMsg = true;
 	}

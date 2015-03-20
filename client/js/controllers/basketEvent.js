@@ -1,10 +1,12 @@
 // BasketEvent Directive Controller
-app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', 'ngProgress', '$timeout', '$window',  function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams, ngProgress, $timeout, $window){
+app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', 'ngProgress', '$timeout', '$location', 'Notification', function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams, ngProgress, $timeout, $location, Notification){
+
+	ngProgress.color("#B40404");
+	ngProgress.start();
 
 	$scope.basketOfUser = [];
 	$scope.AllTicketsValid = true;
-
-	ngProgress.color("#B40404");
+	$scope.inValidation=false;
 
 	function getBasketWithUserId(){
 		$scope.theUser = User.get({id:$rootScope.user.user_id}, function (res, e){
@@ -19,6 +21,8 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 		}
 		checkDisponibilityOfBasketTickets(res.basket);
 		$scope.totalOfBasket = calculateTotal();
+		
+		ngProgress.complete();
 	}, function (){
 		//console.log('Récuperation de l\'utilisateur échoué');
 	})
@@ -101,6 +105,18 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 
 	// Fonction permettant d'incrémenter le nombre d'un element du panier
 	$scope.increment = function(eventid, type, qtty, ticket, nomTicket){
+
+		var max = false;
+
+		Event.get({id:eventid}, function(data){
+		for(j=0;j<data.ticketsType.length;j++){
+			if(data.ticketsType[j].uniqueID == type){
+				if(data.ticketsType[j].ticketLeft <= qtty){
+				max = true;
+				}
+			}
+		}
+		if(max == false){
 		for(i=0;i<$scope.basketOfUser.length;i++){
 			if($scope.basketOfUser[i].eventID == eventid){
 				for(j=0;j<$scope.basketOfUser[i].tickets.length;j++){
@@ -119,6 +135,8 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 			}, function (){
 				alert("Il ne rester qu'un ticket de ce type, veuillez le supprimer.")
 			});
+		}
+		});
 	};
 
 	// Fonction permettant de supprimer un element du panier. Demander si l'utilisateur est sur de vouloir le supprimer
@@ -159,6 +177,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 
 
 $scope.submitBasket = function(){
+	$scope.inValidation=true;
 	if($scope.AllTicketsValid == true) {
 		ngProgress.start();
 
@@ -166,7 +185,9 @@ $scope.submitBasket = function(){
 		
 		var newCmd = {
 			'dateBuy': Date.now(),
-			'eventTickets':[]
+			'totalAmount': $scope.totalOfBasket,
+			'eventTickets':[],
+			'canceled': false
 		};
 
 		var userCmd = Command.post(newCmd, function (cmd){
@@ -206,17 +227,21 @@ $scope.submitBasket = function(){
 													'eventID': eventUp._id,
 													'ticketTypeID': ticket.ticketType,
 													'expirationDate': new Date(ticket.expirationDate).getTime(),
-													'used':false
+													'used':false,
+													'canceled': false
 												};
 												for(i=0;i<ticket.nbTicket;i++) {
 													var mongoTicket = Ticket.post(tckt, function (ticketData){
 														mongoTicket = ticketData;
+														
 														cptTicket--;
+														
 														completeEvent.tickets.push(mongoTicket._id);
 														Event.put({id:completeEvent._id}, completeEvent, function (data){
 															$scope.evnt = completeEvent;
 														}, function (err){
-															console.log(err);
+															$scope.inValidation=false;
+															//console.log(err);
 														});
 
 														angular.forEach(userCmd.eventTickets, function (evTicket, key){
@@ -224,8 +249,14 @@ $scope.submitBasket = function(){
 																evTicket.tickets.push(mongoTicket._id);
 																userCmd = Command.put({id:userCmd._id}, userCmd, function (dataCmd){
 																	userCmd = dataCmd;
+																	
+																	$timeout(function() {
+																		
+																	}, 500);
+
 																}, function (err){
-																	console.log(err);
+																	$scope.inValidation=false;
+																	//console.log(err);
 																});
 															}
 														});
@@ -235,41 +266,51 @@ $scope.submitBasket = function(){
 																$scope.basketOfUser = [];
 																mongoUser.basket = $scope.basketOfUser;
 																mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
-																	mongoUser = res;
 																	ngProgress.complete();
-																	$window.location.href = '#/usr/cmds';
-																	$window.location.reload();
+																	mongoUser = res;
+																	$location.path('/payment/' + userCmd._id);
 																}, function (err){
-																	console.log(err);
+																	$scope.inValidation=false;
+																	//console.log(err);
 																});																
-															}, 500);	
+															}, 1000);	
 														}
 
 													}, function (err){
-														console.log(err);
+														$scope.inValidation=false;
+														//console.log(err);
 													});
 												}
 											});
 										}
 										else {
+											$scope.inValidation=false;
 											alert("Le nombre de billets souhaité n'est plus dispo à la vente, veuillez retenter votre achat ultérieurement. Merci de votre compréhension.");
 										}	
 									}
 								});
 							});
 						}, function (err){
-							console.log (err);
+							$scope.inValidation=false;
+							//console.log (err);
 						});
 					});
 				});
 			});
 		}, function (err){
-			console.log(err);
+			$scope.inValidation=false;
+			//console.log(err);
 		});
 		}else{
+			$scope.inValidation=false;
 			alert("Impossible de commander, des tickets sont en quantité insuffisante. Veuillez changer votre commande.")
 		}
+
 	};
+
+	var notification3Sec = function(text, notifTitle) {
+         Notification.success({message: text, delay: 3000, title: '<i>'+notifTitle+'</i>'});
+    };
 
 	// Fonctions lancées lors de l'execution du controleur 
 	getBasketWithUserId();
