@@ -27,6 +27,7 @@ var eventTicket = new Schema({
 
 var cmdSchema = new Schema({
 	dateBuy: Date,
+	totalAmount: Number,
 	eventTickets: [eventTicket],
 	canceled: {type: Boolean, default: false},
 	partiallyCanceled: {type: Boolean, default: false}

@@ -7,6 +7,7 @@ var initCommands = function(db){
 	db.collection('commands', function(err, collection) {
 		collection.insert([{
 			dateBuy: '1424339270481',
+			totalAmount: null,
 			eventTickets: [{
 				eventID: null,
 				tickets: null

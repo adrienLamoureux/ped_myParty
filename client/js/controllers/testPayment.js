@@ -1,11 +1,14 @@
 // HomePage Controller
-app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$location', '$routeParams', 'Notification', function ($scope, ngProgress, $route, $http, $location, $routeParams, Notification){
+app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$location', '$routeParams', 'Notification', 'Command', function ($scope, ngProgress, $route, $http, $location, $routeParams, Notification, Command){
 
     ngProgress.color("#B40404");
 
     Stripe.setPublishableKey("pk_test_spg7Y8RNHDKmrYrSz6wLpE9M");
 
-    var totalAmount = $scope.amountTotal = $routeParams.total; 
+    $scope.command = Command.get({id:$routeParams.id}, function (cmdData){
+       $scope.command = cmdData;
+   });
+
     $scope.successPayment = false;
 
     // Display an error message
@@ -41,7 +44,7 @@ app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$loca
                 $scope.$apply(enable());
             } else {
 
-                response.price = totalAmount * 100;
+                response.price = $scope.command.totalAmount * 100;
                 UserApp.User.get({
                     "user_id" : 'self'
                 }, function (err, res){

@@ -70,6 +70,7 @@ var updateRefID = function(db){
 											commandsCollection.update({_id:commandsDocs[0]._id}, {
 												$set: {
 													dateBuy: '1424339270481',
+													totalAmount: 150,
 													eventTickets: [{
 														eventID: eventDocs[0]._id,
 														tickets: ticketDocs[0]._id

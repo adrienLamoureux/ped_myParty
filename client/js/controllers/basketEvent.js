@@ -185,6 +185,7 @@ $scope.submitBasket = function(){
 		
 		var newCmd = {
 			'dateBuy': Date.now(),
+			'totalAmount': $scope.totalOfBasket,
 			'eventTickets':[],
 			'canceled': false
 		};
@@ -267,7 +268,7 @@ $scope.submitBasket = function(){
 																mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
 																	ngProgress.complete();
 																	mongoUser = res;
-																	$location.path('/payment/' + userCmd._id + '/' + $scope.totalOfBasket);
+																	$location.path('/payment/' + userCmd._id);
 																}, function (err){
 																	$scope.inValidation=false;
 																	console.log(err);
