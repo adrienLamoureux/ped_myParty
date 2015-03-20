@@ -1,5 +1,5 @@
 // Profile
-app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', '$route', '$window', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User, $route, $window){
+app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', '$route', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User, $route){
 
 	ngProgress.color("#B40404");
 	ngProgress.start();
