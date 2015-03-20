@@ -1,9 +1,15 @@
 // HomePage Controller
-app.controller('PaymentCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q', '$route', '$http',function ($scope, ngProgress, User, Command, $q, $route, $http){
+app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$location', '$routeParams', 'Notification', 'Command', function ($scope, ngProgress, $route, $http, $location, $routeParams, Notification, Command){
 
     ngProgress.color("#B40404");
 
     Stripe.setPublishableKey("pk_test_spg7Y8RNHDKmrYrSz6wLpE9M");
+
+    $scope.command = Command.get({id:$routeParams.id}, function (cmdData){
+       $scope.command = cmdData;
+   });
+
+    $scope.successPayment = false;
 
     // Display an error message
     function displayError(message) {
@@ -15,7 +21,17 @@ app.controller('PaymentCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q', '
         }
     }
 
+    function isDisabled(){
+        $scope.isDisabled = true;
+    }
+
+    function enable(){
+        $scope.isDisabled = false;
+    }
+
+
     function saveCreditCard(callback) {
+        isDisabled()
         Stripe.card.createToken({
             name: $('#first_name').val(),
             number: $('#card_number').val(),
@@ -25,28 +41,65 @@ app.controller('PaymentCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q', '
         }, function(status, response) {
             if (response.error) {
                 displayError(response.error.message);
+                $scope.$apply(enable());
             } else {
-                response.price = 1500//$scope.totalAmount;
-                console.log(response)
-                callback(response);
+
+                response.price = $scope.command.totalAmount * 100;
+                UserApp.User.get({
+                    "user_id" : 'self'
+                }, function (err, res){
+                    if(err) console.log(err)
+                    else 
+                        response.user = res[0].email;
+                        callback(response)
+                });
             }
         });
     }
 
     $scope.payment = function() {
+        $('#error').hide();
         saveCreditCard(function(response){
-            console.log(response)
-    
         $http.post('/charge', response)
             .success(function(data, status, headers, config) {
-              console.log(data)
+                $('#success-message').text(data.status);
+                $('#success').show();
+                notification3Sec("Merci pour votre commande !", "Commande effectuée");
+                $location.path('/usr/cmd/'+ $routeParams.id)
+                $scope.$watch(function charge(){
+                     return data;
+                  }, 
+                  function settingCharge(charge){
+                      $scope.data = charge; 
+
+                  }
+                );
             })
             .error(function(data, status, headers, config) {
-              console.log(data)
+                console.log(data);
             });
+        
     })
     return false;
     }
 
+$scope.refund = function(data, amountOptional){
+       $('#error').hide();
+       console.log(data)
+       data.optionalA = amountOptional;
+        $http.post('/refund', data)
+            .success(function(data, status, headers, config) {
+                $('#success-message').text("Vous avez bien été remboursé, ce dernier sera effectif sur votre compte sous 10 jours");
+                $('#success').show();
+            })
+            .error(function(data, status, headers, config) {
+                console.log(data);
+            });
+    return false;
+}
+
+notification3Sec = function(text, notifTitle) {
+         Notification.success({message: text, delay: 3000, title: '<i>'+notifTitle+'</i>'});
+    };
 
 }]);

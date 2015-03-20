@@ -1,5 +1,5 @@
 // Profile
-app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', '$route', '$window', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User, $route, $window){
+app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', '$route', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User, $route){
 
 	ngProgress.color("#B40404");
 	ngProgress.start();
@@ -41,39 +41,35 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	}
 
 	$scope.callAtTimeout = function() {
-    }
+	}
 
-    $timeout( function(){ $scope.callAtTimeout(); }, 300);
+	$timeout( function(){ $scope.callAtTimeout(); }, 300);
 
 	$scope.lockUsr = function (){
-		if(confirm("Etes vous sûr de verrouiller votre Compte ? vous ne pourrez plus vous connecter")){
-			UserApp.User.lock({
-				"user_id" : currentUserId,
-				"type" : "ACCOUNT_EXPIRED",
-				"reason" : "lock"
-			}, function(err, res){
-				if(err) console.log(err)
-				else console.log(res);
-			});
-		};
-	}
+		UserApp.User.lock({
+			"user_id" : currentUserId,
+			"type" : "ACCOUNT_EXPIRED",
+			"reason" : "lock"
+		}, function(err, res){
+			if(err) console.log(err)
+		});
+	};
+	
 
 	$scope.reloadPage = function(){
 		$timeout( function (){$window.location.reload()} , 500);
 	}
 
 
-	$scope.validateChange = function(newName){
-		if(newName){
-		 UserApp.User.save({
-		    "user_id": currentUserId,
-		    "first_name": newName,
-		},function (err, res){
-			if(err) console.log(err)
-			else {
-		//		console.log(res);
-			}
-		})
+	$scope.validateChange = function(newName, newLastName){
+		if(newName && newLastName){
+			UserApp.User.save({
+		    	"user_id": currentUserId,
+		    	"first_name": newName,
+		    	"last_name": newLastName
+			},function (err, res){
+			if(err) console.log(err);
+			})
 		}
 		else $scope.errorMsg = true;
 	}

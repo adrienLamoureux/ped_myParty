@@ -185,7 +185,9 @@ $scope.submitBasket = function(){
 		
 		var newCmd = {
 			'dateBuy': Date.now(),
-			'eventTickets':[]
+			'totalAmount': $scope.totalOfBasket,
+			'eventTickets':[],
+			'canceled': false
 		};
 
 		var userCmd = Command.post(newCmd, function (cmd){
@@ -225,12 +227,15 @@ $scope.submitBasket = function(){
 													'eventID': eventUp._id,
 													'ticketTypeID': ticket.ticketType,
 													'expirationDate': new Date(ticket.expirationDate).getTime(),
-													'used':false
+													'used':false,
+													'canceled': false
 												};
 												for(i=0;i<ticket.nbTicket;i++) {
 													var mongoTicket = Ticket.post(tckt, function (ticketData){
 														mongoTicket = ticketData;
+														
 														cptTicket--;
+														
 														completeEvent.tickets.push(mongoTicket._id);
 														Event.put({id:completeEvent._id}, completeEvent, function (data){
 															$scope.evnt = completeEvent;
@@ -244,6 +249,11 @@ $scope.submitBasket = function(){
 																evTicket.tickets.push(mongoTicket._id);
 																userCmd = Command.put({id:userCmd._id}, userCmd, function (dataCmd){
 																	userCmd = dataCmd;
+																	
+																	$timeout(function() {
+																		
+																	}, 500);
+
 																}, function (err){
 																	$scope.inValidation=false;
 																	//console.log(err);
@@ -256,15 +266,14 @@ $scope.submitBasket = function(){
 																$scope.basketOfUser = [];
 																mongoUser.basket = $scope.basketOfUser;
 																mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
-																	notification3Sec("Merci pour votre commande !", "Commande effectuée");
 																	ngProgress.complete();
 																	mongoUser = res;
-																	$location.path('/usr/cmd/' + userCmd._id);
+																	$location.path('/payment/' + userCmd._id);
 																}, function (err){
 																	$scope.inValidation=false;
 																	//console.log(err);
 																});																
-															}, 500);	
+															}, 1000);	
 														}
 
 													}, function (err){
@@ -296,6 +305,7 @@ $scope.submitBasket = function(){
 			$scope.inValidation=false;
 			alert("Impossible de commander, des tickets sont en quantité insuffisante. Veuillez changer votre commande.")
 		}
+
 	};
 
 	notification3Sec = function(text, notifTitle) {

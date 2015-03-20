@@ -2,6 +2,9 @@
 app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'EventImages','User', '$window', 'Notification', 'ngProgress', function ($rootScope, $scope, $routeParams, Event, EventImages, User, $window, Notification, ngProgress){
 	ngProgress.color("#B40404");
 
+	$scope.showTicket = false;
+	$scope.loading = true;
+
 	//URL event argument
 	if(angular.isDefined($routeParams.id)){
 		ngProgress.start();
@@ -139,11 +142,11 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 						}
 						
 					}, function (){
-						//console.log("Erreur lors de l'update du USER et son nouveau panier");
+						console.log("Erreur lors de l'update du USER et son nouveau panier");
 					});
 
 			}, function (){
-				//console.log("Probleme lors de l\'ajout du ticket, erreur lors de la recuperation du panier utilisateur");
+				console.log("Probleme lors de l\'ajout du ticket, erreur lors de la recuperation du panier utilisateur");
 			});
 			}
 		}
@@ -154,7 +157,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 	};
 
 	notification2Sec = function(text, eventTitle) {
-         Notification.success({message: text, delay: 2000, title: '<i>'+eventTitle+'</i>'});
+        Notification.success({message: text, delay: 2000, title: '<i>'+eventTitle+'</i>'});
     };
 
 }]);

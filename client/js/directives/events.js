@@ -18,7 +18,6 @@ app.directive('eventFrm', function (){
 app.directive('eventMiniature', function (){
 	return {
 		restrict: 'E',
-		controller: 'EventMiniatureCtrl',
 		templateUrl: '../../partials/directives/eventMiniature.html'
 	};
 });

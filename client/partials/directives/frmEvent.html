@@ -1,15 +1,18 @@
 <!-- eventForm Partial -->
 <fieldset  id="eventForm" ng-controller="EventFrmCtrl" class="eventForm">
-	<p class="text-center" ng-show="loading">
+	<p class="text-center alert-success" ng-show="loading">
 		<strong>Chargement en cours...</strong>
 	</p>
-	<p class="text-center" ng-show="eventFormData.online && !loading">
+	<p class="text-center alert-danger" ng-show="eventFormData.online && !loading && !publishing">
 		<strong>L'événement choisi ne peut être édité car il est déjà en ligne ou expiré !</strong>
+	</p>
+	<p class="text-center alert-success" ng-show="publishing">
+		<strong>Publication en cours...</strong>
 	</p>
 	<form ng-hide="eventFormData.online || loading" name="eventForm" validate>
 		<!-- Info générales -->
 		<h2>Informations générales</h2>
-		<div>
+		<div class="col-md-6 col-lg-6">
 			<label>Titre</label>
 			<input id="txtEventTitle" name="txtEventTitle" type="text" class="form-control" placeholder="Mon super événement" ng-model="eventFormData.title" required/><br/>
 			
@@ -57,7 +60,7 @@
 		<hr />
 		<!-- Billeterie -->
 		<h2>Billetterie</h2>
-		<div>
+		<div class="col-lg-6">
 			<label>Image de fond du billet</label>
 			<input type="file" ng-model="eventFormImage.ticketImg" name="file" base-sixty-four-input required/>
 			<div ng-show="eventFormImage.ticketImg.base64">
@@ -98,7 +101,7 @@
 		<hr />
 
 		<!-- Validation -->
-		<button id="bt_restore" type="button" class="btn btn-custom" ng-click="cancel();">
+		<button id="bt_restore" type="button" class="btn btn-custom"ng-click="cancel()">
 			<span class="glyphicon glyphicon-refresh"></span>Restaurer cet événement
 		</button>
 		<button id="bt_submit" type="submit" class="btn btn-custom pull-right" ng-disabled="eventForm.$invalid" ng-click="editMode?updateEvent(true):createEvent(true);" >

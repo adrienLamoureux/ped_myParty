@@ -10,13 +10,13 @@
 					 Total : <span id="basketTotal">{{totalOfBasket}} €</span>
 				</h1>
 				<div class="col-xs-12 text-center">
-					<button id="btn_basketValidation" ng-click="submitBasket()" class="btn btn-custom">
+					<button id="btn_basketValidation" ng-click="submitBasket()" class="btn btn-custom btn-lg">
 						<span class="glyphicon glyphicon-ok"></span>Valider mon panier
 					</button>
 				</div>
 			</div>
 
-			<div class="alert alert-warning" role="alert" ng-show="totalOfBasket == null">
+			<div class="alert alert-danger" role="alert" ng-show="totalOfBasket == null">
 				Votre panier est vide !
 			</div>
 		</section>
