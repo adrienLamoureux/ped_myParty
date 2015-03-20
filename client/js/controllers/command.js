@@ -1,5 +1,5 @@
 // CommandController
-app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'EventImages', 'Ticket', 'CancelTicket','ngProgress', '$window', '$timeout',  function ($scope, $routeParams, Event, Command, EventImages, Ticket, CancelTicket, ngProgress, $window, $timeout){
+app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'EventImages', 'Ticket', 'CancelTicket','ngProgress', '$window', '$timeout', 'Notification', function ($scope, $routeParams, Event, Command, EventImages, Ticket, CancelTicket, ngProgress, $window, $timeout, Notification){
 	ngProgress.color("#B40404");
 	ngProgress.start();
 	
@@ -79,18 +79,24 @@ app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'Ev
 										cptEvent --;
 
 										$timeout( function(){ 									
-											if (cptEvent <= 1) {
+											if (cptEvent = 0) {
 												command.canceled = canceled;
 												command.partiallyCanceled = partiallyCanceled;
 												command = Command.put ({id:idCommand}, command, function (commandData2){
 													command = commandData2;
+													if (!canceled){
+														notification5Sec("Votre commande a été partiellement annulée à cause d'un énènement en cours, vous ne serez remboursés que sur les tickets annulés.", "Annulation de commande !");	
+													}
+													else{
+														notification5Sec("Votre commande a été annulée, vous allez bientot recevoir un remboursement.", "Annulation de commande !");	
+													};
 													ngProgress.complete();
 													$window.location.href = '#/usr/cmds';		
 												}, function (err){
 													console.log (err);
 												});
 											};
-										}, 1000);
+										}, 1200);
 									}, function (err){
 										console.log(err);
 									});	
@@ -102,11 +108,17 @@ app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'Ev
 					} else {
 						canceled = false;
 						cptEvent --;
-						if (cptEvent <= 1) {
+						if (cptEvent = 0) {
 							command.canceled = canceled;
 							command.partiallyCanceled = partiallyCanceled;
 							command = Command.put ({id:idCommand}, command, function (commandData2){
 								command = commandData2;
+								if (!partiallyCanceled){
+									notification5Sec("Votre commande ne peut être annulée à cause d'un énènement en cours, aucun remboursement ne sera effectué.", "Annulation de commande !");	
+								}
+								else{
+									notification5Sec("Votre commande a été partiellement annulée à cause d'un énènement en cours, vous ne serez remboursés que sur les tickets annulés.", "Annulation de commande !");
+								};
 								ngProgress.complete();
 								$window.location.href = '#/usr/cmds';
 							}, function (err){
@@ -122,4 +134,8 @@ app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'Ev
 			console.log(err);
 		});
 	};
+
+	var notification5Sec = function(text, notifTitle) {
+        Notification.success({message: text, delay: 5000, title: '<i>'+notifTitle+'</i>'});
+    };
 }]);
