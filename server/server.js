@@ -267,15 +267,11 @@ app.delete('/api/ticket/:id', function (req, res, next){
 // Ticket cancel
 app.get('/api/ticket/:id/cancel', function (req, res, next) {
   console.log('Cancel ticket '+req.params.id);
-  ticketModel.findOne({_id: req.params.id}, function (e, result) {
-    if (e) return next(e);
-    result.canceled = true;
-    ticketModel.findOneAndUpdate({_id: req.params.id}, result, function (err, result2){
-      if (err) return next(err);
-      console.log(result2);
-      res.send(result2);
-    }); 
-  });
+  ticketModel.findOneAndUpdate({_id:req.params.id}, {$set:{canceled:true}}, function (err, result){
+    if (err) return next(err);
+    console.log(result);
+    res.send(result);
+  }); 
 });
 
 // Command
