@@ -12,7 +12,7 @@
 	<form ng-hide="eventFormData.online || loading" name="eventForm" validate>
 		<!-- Info générales -->
 		<h2>Informations générales</h2>
-		<div>
+		<div class="col-md-6 col-lg-6">
 			<label>Titre</label>
 			<input id="txtEventTitle" name="txtEventTitle" type="text" class="form-control" placeholder="Mon super événement" ng-model="eventFormData.title" required/><br/>
 			
@@ -56,7 +56,7 @@
 		<hr />
 		<!-- Billeterie -->
 		<h2>Billetterie</h2>
-		<div>
+		<div class="col-lg-6">
 			<label>Image de fond du billet</label>
 			<input type="file" ng-model="eventFormImage.ticketImg" name="file" base-sixty-four-input required/>
 			<p>Prévisualisation : <img ng-src="data:{{eventFormImage.ticketImg.filetype}};base64,{{eventFormImage.ticketImg.base64}}" alt=""></p>

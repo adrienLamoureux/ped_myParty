@@ -5,8 +5,8 @@
 			<!--Menu-->
 			<nav id="mineEventNav">
 				<div class="row">
-					<button id="bt_organised" type="button" class="btn btn-custom col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-1" ng-class="(organised)?'active':'';" ng-click="organised=true; participed=false;">Les événements que j'organise</button>
-					<button id="bt_participed" type="button" class="btn btn-custom col-sm-5 col-sm-offset-0 col-xs-10 col-xs-offset-1" ng-class="(participed)?'active':'';" ng-click="organised=false; participed=true;">Les événements auxquels je participe</button>
+					<button id="bt_organised" type="button" class="btn btn-custom col-md-5 col-md-offset-1 col-xs-10 col-xs-offset-1" ng-class="(organised)?'active':'';" ng-click="organised=true; participed=false;">Les événements que j'organise</button>
+					<button id="bt_participed" type="button" class="btn btn-custom col-md-5 col-md-offset-0 col-xs-10 col-xs-offset-1" ng-class="(participed)?'active':'';" ng-click="organised=false; participed=true;">Les événements auxquels je participe</button>
 				</div>
 				<div class="search noMargBottom row" ng-show="(organised && events.length!=0) || (participed && participatedEvent.length!=0)">
 					<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 ">
@@ -19,15 +19,15 @@
 		<section class="col-xs-12">
 			<!--Organisés-->
 			<div ng-show="organised">
-				<div class="alert alert-warning " role="alert" ng-hide="events.length">
-					Vous n'avez organisé aucun évènement ! 
+				<div class="col-xs-11 center alert alert-warning " role="alert" ng-hide="events.length">
+					Vous n'avez organisé aucun évènement ! <br/>
 					<a id="bt_createMineEvent" class="btn btn-custom" href="#/event/create">
 						<span class="glyphicon glyphicon-bullhorn"></span>Organiser votre évènement
 					</a>
 				</div>
 				<h1 class="noMargTop" ng-show="events.length"> Revenu global : {{income}} €</h1>
 				<div>
-					<div id="mineEvents" ng-repeat="event in events | filter:search" class="col-lg-4 col-md-6 col-sm-6 col-xs-12 text-center">		
+					<div id="mineEvents" ng-repeat="event in events | filter:search" class="col-lg-4 col-md-6 col-sm-12 col-xs-12 text-center">		
 						<h2>{{event.title}}</h2>
 						<!-- picture -->
 						<a id="eventSmallImage{{$index+1}}" class="eventSmallImage col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1" id="show{{$index+1}}" href="#/event/{{event._id}}"><img ng-src="data:{{event.imageSmall.filetype}};base64,{{event.imageSmall.base64}}" class="img-thumbnail" alt="{{event.title}}"></a>
@@ -83,7 +83,7 @@
 			</div>
 		
 			<div ng-show="participed">
-				<div class="alert alert-warning " role="alert" ng-hide="participatedEvent.length">
+				<div class="col-xs-11 center alert alert-warning " role="alert" ng-hide="participatedEvent.length">
 					Vous n'avez participé à aucun évènement ! 
 					<a id="bt_createMineEvent" class="btn btn-custom" href="#/">
 						<span class="glyphicon glyphicon-list-alt"></span>Consulter les évènements disponibles

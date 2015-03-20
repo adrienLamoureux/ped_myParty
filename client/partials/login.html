@@ -14,7 +14,7 @@
 					<input type="password" class="form-control" name="password" placeholder="Mot de passe" ng-model="pass">
 				</div>
 				<div class="text-center">
-					<p ng-show="error" class="alert-danger">{{ error.message }}</p>
+					<p ng-show="error" class="alert alert-danger">{{ error.message }}</p>
 					<button ng-hide="showUnlockButton" type="submit" class="btn btn-custom btn-lg" ng-click="createUser(log, pass)"><span class="glyphicon glyphicon-log-in "></span>Connecter</button>
 					<button type="button" ng-show="showUnlockButton" class="btn btn-custom btn-lg" ng-confirm-click="Voulez-vous réactiver votre Compte ?" confirmed-click="unlockUser(log, pass, idLock)">Réactiver Mon Compte</button>
 				</div>
