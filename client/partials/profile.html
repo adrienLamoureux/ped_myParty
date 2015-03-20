@@ -22,12 +22,13 @@
 				</div>
 			</div>
 
-			<div class="panel panel-default" ng-show="user.last_name.length > 0">
+			<div class="panel panel-default">
 				<div class="panel-heading ">
 					<h3 class="panel-title"> Nom:  </h3>
 				</div>
 				<div id="userLastName" class="panel-body text-center">
 					{{last_name}}
+					<span id="userClickOnFirstName" class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editLastName"></span>
 				</div>
 			</div>
 
@@ -66,8 +67,8 @@
 							<h4 class="modal-title"> Nouveau Prénom</h4>
 						</div>
 						<div class="modal-body">
-							<form name="myForm">
-								<label>Prénom : </label><input id="userNewFirstName" ng-minlength="4" ng-maxlength="15" name="lastName"ng-model="newPrenom" >
+							<form name="myForm" class="text-center">
+								<input id="userNewFirstName" ng-minlength="4" ng-maxlength="15" name="lastName" ng-model="newName" placeholder="{{first_name}}">
 								<span class="error" ng-show="myForm.lastName.$error.minlength">
 									Min 4 caractères!</span><br>
 								<span class="error" ng-show="myForm.lastName.$error.maxlength">
@@ -78,7 +79,33 @@
 						</div>
 						<div class="modal-footer">
 							<button id="btn_userFirstNameClose" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="reloadPage()">Close</button>
-							<button id="btn_userFirstNameSave" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="validateChange(newPrenom, newPrenom.length);reloadPage()">Save changes</button>
+							<button id="btn_userFirstNameSave" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="validateChange(newName, last_name);reloadPage()">Save changes</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+
+			<div class="modal fade" id="editLastName" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button id="btn_userNewLastName" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title"> Nouveau Nom</h4>
+						</div>
+						<div class="modal-body">
+							<form name="myForm" class="text-center">
+								<input id="userNewFirstName" ng-minlength="4" ng-maxlength="15" name="lastName" ng-model="newLastName" placeholder="{{last_name}}">
+								<span class="error" ng-show="myForm.lastName.$error.minlength">
+									Min 4 caractères!</span><br>
+								<span class="error" ng-show="myForm.lastName.$error.maxlength">
+									Max 15 caractères!</span><br>
+								<span  ng-show="errorMsg">
+									Veuillez remplir le champ</span><br>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button id="btn_userFirstNameClose" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="reloadPage()">Close</button>
+							<button id="btn_userFirstNameSave" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="validateChange(first_name, newLastName);reloadPage()">Save changes</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
