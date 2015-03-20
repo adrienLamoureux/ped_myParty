@@ -86,7 +86,7 @@ describe('commands view' , function () {
 		var cmdC1 = browser.findElement(by.id("cmdC1"));
 		expect(cmdC1.isDisplayed()).toBe(true);
 		cmdC1.getText().then(function(text){
-			expect(text == "Valide").toBe(false);
+			expect(text == "Valide").toBe(true); //Because date has been passed
 		});
 	});
 });
