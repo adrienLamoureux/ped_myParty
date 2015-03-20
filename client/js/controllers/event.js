@@ -157,7 +157,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 	};
 
 	notification2Sec = function(text, eventTitle) {
-        Notification.success({message: text, delay: 2000, title: '<i>'+eventTitle+'</i>'});
-    };
+		Notification.success({message: text, delay: 2000, title: '<i>'+eventTitle+'</i>'});
+	};
 
 }]);

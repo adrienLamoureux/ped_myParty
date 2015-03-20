@@ -136,6 +136,6 @@ app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'Ev
 	};
 
 	var notification5Sec = function(text, notifTitle) {
-        Notification.success({message: text, delay: 5000, title: '<i>'+notifTitle+'</i>'});
-    };
+		Notification.success({message: text, delay: 5000, title: '<i>'+notifTitle+'</i>'});
+	};
 }]);

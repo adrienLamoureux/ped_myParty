@@ -64,9 +64,9 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	$scope.validateChange = function(newName, newLastName){
 		if(newName && newLastName){
 			UserApp.User.save({
-		    	"user_id": currentUserId,
-		    	"first_name": newName,
-		    	"last_name": newLastName
+				"user_id": currentUserId,
+				"first_name": newName,
+				"last_name": newLastName
 			},function (err, res){
 			if(err) console.log(err);
 			})

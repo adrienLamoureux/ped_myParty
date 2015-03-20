@@ -309,8 +309,8 @@ $scope.submitBasket = function(){
 	};
 
 	var notification3Sec = function(text, notifTitle) {
-         Notification.success({message: text, delay: 3000, title: '<i>'+notifTitle+'</i>'});
-    };
+		Notification.success({message: text, delay: 3000, title: '<i>'+notifTitle+'</i>'});
+	};
 
 	// Fonctions lancées lors de l'execution du controleur 
 	getBasketWithUserId();

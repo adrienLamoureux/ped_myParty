@@ -18,10 +18,10 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 		
 			for (var t=0; t < $scope.events[e].ticketsType.length; ++t) {
 				//console.log($scope.events[e].ticketsType[t]);
-	    		$scope.events[e].ticketsType[t].income = $scope.events[e].ticketsType[t].sold * $scope.events[e].ticketsType[t].price;
-	    		$scope.events[e].income += $scope.events[e].ticketsType[t].income;
-	    	}
-	    	$scope.income += $scope.events[e].income;
+				$scope.events[e].ticketsType[t].income = $scope.events[e].ticketsType[t].sold * $scope.events[e].ticketsType[t].price;
+				$scope.events[e].income += $scope.events[e].ticketsType[t].income;
+			}
+			$scope.income += $scope.events[e].income;
 		}
 		ngProgress.complete();
 	});
