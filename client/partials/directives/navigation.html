@@ -18,36 +18,3 @@
 		</div>
 	</div>
 </nav>
-<!-- Navigaion Bar Partial -->
-<!--<nav class="navbar navbar-inverse navbar-fixed-top">        					
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#/" ng-click="changeActiveMenu(0)">My Party<sup class="version version-beta"> beta</sup></a>
-		</div>
-		<div id="navbar" class="collapse navbar-collapse">
-			<ul id="menu" class="nav navbar-nav">
-				<li id="bt_home" ng-class="activeMenu==0? 'active' : 'notActive'"><a href="#/" ng-click="changeActiveMenu(0)">Accueil</a></li>
-				<li id="bt_createEvent" ng-show="user.authenticated" ng-class="activeMenu==18? 'active' : 'notActive'"><a href="#/event/create" ng-click="changeActiveMenu(18)">Organiser un Evenement</a></li>
-		    </ul>
-			<ul id="menu" class="nav navbar-nav pull-right">
-				<li title="Mon Compte" class="dropdown" ng-class="activeMenu==5? 'active' : 'notActive'" ng-show="user.authenticated" ><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img ng-src="data:{{mongoUser.photo.filetype}};base64,{{mongoUser.photo.base64}}">{{user.first_name}} <span id="bt_account" class="caret"></span></a>
-		        	<ul class="dropdown-menu inverse-dropdown" role="menu">
-		       		   	<li id="bt_mineEvents"><a href="#/usr/events" ng-click="changeActiveMenu(5);changeActiveSubMenu(1)" ng-class="activeSubMenu==1? 'active' : 'notActive'">Mes Evenements</a></li>
-						<li id="bt_mineOrders"><a href="#/usr/cmds" ng-click="changeActiveMenu(5);changeActiveSubMenu(2)" ng-class="activeSubMenu==2? 'active' : 'notActive'">Mes Commandes</a></li>
-						<li id="bt_profil"><a href="#/usr" ng-click="changeActiveMenu(5);changeActiveSubMenu(3)" ng-class="activeSubMenu==3? 'active' : 'notActive'"> Mon Profil </a></li>
-		          	</ul>
-		        </li>
-				<li id="bt_basket" ng-show="user.authenticated" ng-class="activeMenu==20? 'active' : 'notActive'"><a href="#/usr/basket" ng-click="changeActiveMenu(20)" title="Mon Panier"><span class="glyphicon glyphicon-shopping-cart collapse"></span></a></li>
-				<li id="bt_connect" ng-hide="user.authenticated" ng-class="activeMenu==25? 'active' : 'notActive'"><a href="#/login" ng-click="changeActiveMenu(0);" title="Se Connecter"><span class="glyphicon glyphicon-log-in collapse"></span></a></li>
-				<li id="bt_disconnect" ng-show="user.authenticated" ng-class="activeMenu==30? 'active' : 'notActive'"><a href="#" ng-click="changeActiveMenu(0);" ua-logout title="Se Déconnecter"><span class="glyphicon glyphicon-log-out collapse"></span></a></li>
-			</ul>
-		</div>		
-	</div>
-</nav>
--->
