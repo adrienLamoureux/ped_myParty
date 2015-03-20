@@ -68,7 +68,7 @@ app.config(function($routeProvider){
 		})
 		.when('/set-password', {
 			templateUrl: 'partials/set_password.html', 
-			controller: 'UserCtrl',
+			controller: 'LoginCtrl',
 			set_password: true
 		})
 		.when('/payment/:id/:total', {

@@ -1,5 +1,5 @@
 // Profile
-app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', '$route', '$window', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User, $route, $window){
+app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$timeout','ngProgress', 'User', '$route', function ($scope, $routeParams, $window, $rootScope, $timeout, ngProgress, User, $route){
 
 	ngProgress.color("#B40404");
 	ngProgress.start();
@@ -61,25 +61,19 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 	}
 
 
-	$scope.validateChange = function(newName){
-		if(newName){
-		 UserApp.User.save({
-		    "user_id": currentUserId,
-		    "first_name": newName,
-		},function (err, res){
+	$scope.validateChange = function(newName, newLastName){
+		if(newName && newLastName){
+			UserApp.User.save({
+		    	"user_id": currentUserId,
+		    	"first_name": newName,
+		    	"last_name": newLastName
+			},function (err, res){
 			if(err) console.log(err);
-		})
+			})
 		}
 		else $scope.errorMsg = true;
 	}
 
 	$scope.errorMsg = false;
-
-
-	$scope.pw1="";
-	$scope.pw2="";
-	$scope.checkPwdModif = function(){
-		return (($scope.pw1.length > 0) && ($scope.pw2.length > 0) && ($scope.pw1 == $scope.pw2));
-	}
 }]);
 

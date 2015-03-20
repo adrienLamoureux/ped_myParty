@@ -215,6 +215,8 @@ sup.version {
 	margin-bottom:20px;
 }
 #profil > .panel,
+#payment .panel,
+#payment > *,
 #eventPage #event #info > *, 
 #eventPage #event section h1,
 #eventPage #event, 
@@ -295,7 +297,7 @@ sup.version {
 #eventForm {
 	margin-top:15px;
 }
-#eventForm label {
+#eventForm label, #payment label {
 	font-weight: normal;
 }
 #eventForm hr { 

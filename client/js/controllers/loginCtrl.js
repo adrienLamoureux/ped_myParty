@@ -3,28 +3,28 @@ app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q','$wi
 
 	ngProgress.color("#B40404");
 
-$scope.unlockUser = function(log, pass, idLock){
-	UserApp.User.login({
-		"login": "vergil1534@gmail.com",
-		"password": "password"
-	},function(err, res){
-	if(err) console.log(err)
-	UserApp.User.get({
-		"user_id": res.user_id
+	$scope.unlockUser = function(log, pass, idLock){
+		UserApp.User.login({
+			"login": "vergil1534@gmail.com",
+			"password": "password"
 		},function(err, res){
-			if(err) console.log(err)
-			else{
-				UserApp.User.unlock({
-					"user_id" : idLock,
-					"type" : "ACCOUNT_EXPIRED"
-				}, function(err, res){
-					if(err) console.log(err)
-					else $window.location.reload();
-				});
-		}})
-	})
-	$scope.showUnlockButton = false;
-}
+		if(err) console.log(err)
+		UserApp.User.get({
+			"user_id": res.user_id
+			},function(err, res){
+				if(err) console.log(err)
+				else{
+					UserApp.User.unlock({
+						"user_id" : idLock,
+						"type" : "ACCOUNT_EXPIRED"
+					}, function(err, res){
+						if(err) console.log(err)
+						else $window.location.reload();
+					});
+			}})
+		})
+		$scope.showUnlockButton = false;
+	}
 
 	$scope.createUser = function (log, pass) {
 		var deferred = $q.defer();
@@ -73,4 +73,12 @@ $scope.unlockUser = function(log, pass, idLock){
 			}
 		}});
 	};
+
+	// password reset
+	$scope.pw1="";
+	$scope.pw2="";
+	$scope.checkPwdModif = function(){
+		return (($scope.pw1.length > 0) && ($scope.pw2.length > 0) && ($scope.pw1 == $scope.pw2));
+	}
+
 }]);
