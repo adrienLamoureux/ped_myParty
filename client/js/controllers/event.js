@@ -2,6 +2,9 @@
 app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'EventImages','User', '$window', 'Notification', 'ngProgress', function ($rootScope, $scope, $routeParams, Event, EventImages, User, $window, Notification, ngProgress){
 	ngProgress.color("#B40404");
 
+	$scope.showTicket = false;
+	$scope.loading = true;
+
 	//URL event argument
 	if(angular.isDefined($routeParams.id)){
 		ngProgress.start();
