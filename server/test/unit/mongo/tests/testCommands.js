@@ -26,6 +26,7 @@ var insertDb = function(done){
 			collection.insert([{
 			commands:[{
 				dateBuy: '1424339270481',
+				totalAmount: null,
 				eventTickets: [{
 					eventID: null,
 					tickets: null
@@ -76,6 +77,7 @@ describe('Test suite for commandsModel', function() {
 			var commandsBody = {
 			commands:[{
 				dateBuy: '1424339270481',
+				totalAmount: null,
 				eventTickets: [{
 					eventID: null,
 					tickets: null
@@ -107,10 +109,13 @@ describe('Test suite for commandsModel', function() {
 			var commandsBody = {
 			commands:[{
 				dateBuy: '1424339270482',
+				totalAmount: null,
 				eventTickets: [{
 					eventID: null,
 					tickets: null
-				}]	
+				}],
+				canceled: false,
+				partiallyCanceled: false
 			}]
 			};
 			commandsModel.find().exec().then(function (coll) {
