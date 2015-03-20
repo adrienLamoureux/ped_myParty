@@ -68,8 +68,7 @@ $scope.unlockUser = function(log, pass, idLock){
 					})
 
 					.catch(function(failed){
-						console.log(failed)
-									
+						console.log(failed)									
 					});
 			}
 		}});

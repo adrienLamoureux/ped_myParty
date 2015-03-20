@@ -139,11 +139,11 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 						}
 						
 					}, function (){
-						//console.log("Erreur lors de l'update du USER et son nouveau panier");
+						console.log("Erreur lors de l'update du USER et son nouveau panier");
 					});
 
 			}, function (){
-				//console.log("Probleme lors de l\'ajout du ticket, erreur lors de la recuperation du panier utilisateur");
+				console.log("Probleme lors de l\'ajout du ticket, erreur lors de la recuperation du panier utilisateur");
 			});
 			}
 		}

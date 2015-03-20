@@ -69,75 +69,70 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 
 	
 	// initialize / restore form
-    function initForm() {	
-    	if($scope.editMode){
+	function initForm() {	
+		if($scope.editMode){
 			$scope.eventFormData = angular.copy($scope.thisEvent);
 			$scope.eventFormData.dateStarting = new Date($scope.eventFormData.dateStarting);
 			$scope.eventFormData.dateEnding = new Date($scope.eventFormData.dateEnding);
 			angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
-	    		ticket.expirationDate = new Date(ticket.expirationDate);
-	    	});
+				ticket.expirationDate = new Date(ticket.expirationDate);
+			});
 			$scope.eventFormImage = angular.copy($scope.imgs);
 		}else{
 			$scope.eventFormData = angular.copy($scope.defaultEvent);
 			$scope.eventFormImage = angular.copy($scope.defaultImages);
 		}
 		$scope.now = Date.now();
-   	};
+	};
 
-   	$scope.cancel = function(){
-   		if($window.confirm("Etes vous sur de vouloir restaurer le formulaire ?"))
-   			initForm();
-   	}
+	$scope.cancel = function(){
+		if($window.confirm("Etes vous sur de vouloir restaurer le formulaire ?"))
+			initForm();
+	}
 
-   	// when submitting the add form, send the text to the node API
-    $scope.createEvent = function(published) {
-    	if(published)
-    		$scope.publishing = true;
-    	
-    	$scope.eventFormData.online = published;
-    	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
-    		ticket.uniqueID = i;
-    	});
-    	$scope.eventPost = Event.post($scope.eventFormData, function(data){
-    		$scope.eventPost = data;
-    		$scope.eventFormImage.eventID = $scope.eventPost._id;
-    		EventImages.post($scope.eventFormImage);
-    		var route = "";
-    		if(published){
-    			route = "#/event/" + $scope.eventPost._id;
-    		}else{
+	// when submitting the add form, send the text to the node API
+	$scope.createEvent = function(published) {
+		if(published)
+			$scope.publishing = true;
+		
+		$scope.eventFormData.online = published;
+		angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
+			ticket.uniqueID = i;
+		});
+		$scope.eventPost = Event.post($scope.eventFormData, function(data){
+			$scope.eventPost = data;
+			$scope.eventFormImage.eventID = $scope.eventPost._id;
+			EventImages.post($scope.eventFormImage);
+			var route = "";
+			if(published){
+				route = "#/event/" + $scope.eventPost._id;
+			}else{
 				route = "#/usr/events";
-    		}
-    		console.log("next page : " + route);
-    		$window.location.href = route;
-    		$window.location.reload();	
-    	});
-  	}
+			}
+			$window.location.href = route;
+			$window.location.reload();	
+		});
+	}
 
-  	// when submitting the edit form, send the text to the node API
-    $scope.updateEvent = function(published) {
-    	$scope.eventFormData.online = published;
-    	angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
-    		ticket.uniqueID = i;
-    	});
+	// when submitting the edit form, send the text to the node API
+	$scope.updateEvent = function(published) {
+		$scope.eventFormData.online = published;
+		angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
+			ticket.uniqueID = i;
+		});
 
-    	Event.put({id:$scope.eventFormData._id}, $scope.eventFormData, function (){
-    		console.log("EVENT PUT OK");
-    		EventImages.put({id:$scope.eventFormImage._id}, $scope.eventFormImage, function (){
-    			console.log("IMAGES PUT OK");
-    			
-    		});
-    		console.log($rootScope.user.user_id);
-    		var route = "";
-    		if(published){
-    			route = "#/event/" + $scope.eventFormData._id;
-    		}else{
+		Event.put({id:$scope.eventFormData._id}, $scope.eventFormData, function (){
+			EventImages.put({id:$scope.eventFormImage._id}, $scope.eventFormImage, function (){
+			});
+			
+			var route = "";
+			if(published){
+				route = "#/event/" + $scope.eventFormData._id;
+			}else{
 				route = "#/usr/events";
-    		}
-    		console.log("next page : " + route);
-    		$window.location.href = route;
-    		$window.location.reload();
-    	});
-  	}
+			}
+			$window.location.href = route;
+			$window.location.reload();
+		});
+	}
 }]);
