@@ -11,8 +11,6 @@ describe('user view' , function () {
 		expect(userEmail.isDisplayed()).toBe(true);
 		var userFirstName = browser.findElement(by.id("userFirstName"));
 		expect(userFirstName.isDisplayed()).toBe(true);
-		//var userLastName = browser.findElement(by.id("userLastName"));
-		//expect(userLastName.isDisplayed()).toBe(true);
 		var userDateCreate = browser.findElement(by.id("userDateCreate"));
 		expect(userDateCreate.isDisplayed()).toBe(true);
 		var userDateLastLogin = browser.findElement(by.id("userDateLastLogin"));

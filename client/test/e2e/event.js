@@ -136,6 +136,10 @@ var completeCreateEvent = function(){
 
 describe('Event view' , function () {
 
+	beforeEach(function(){
+		browser.get('http://localhost:5000/#/');
+	});
+
 	it('Access to an event information', function(){
 		var eventN = browser.findElement(by.id("eventMinID"));		
 		expect(eventN.isDisplayed()).toBe(true);
@@ -290,7 +294,7 @@ describe('Event view' , function () {
 		expect(addPaner.isDisplayed()).toBe(true);
 		addPaner.click();
 
-		browser.sleep(200);
+		browser.sleep(1000);
 
 		var notif = browser.findElement(by.className("message"));
 		expect(notif.isDisplayed()).toBe(true);

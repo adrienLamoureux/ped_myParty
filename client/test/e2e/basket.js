@@ -1,8 +1,10 @@
 var addOneTicket = function(){
 	browser.get('http://localhost:5000/#/');
+	browser.sleep(500);
 	var eventN = browser.findElement(by.id("eventMinID"));	
 	expect(eventN.isDisplayed()).toBe(true);
 	eventN.click();
+	browser.sleep(500);
 	var addPaner = browser.findElement(by.buttonText("Ajouter au panier"));
 	expect(addPaner.isDisplayed()).toBe(true);
 	addPaner.click();
