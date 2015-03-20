@@ -7,6 +7,9 @@
 				Billet non disponible : <br/>
 				Ce billet vous a été remboursé suite à l'annulation de l'événement "{{event.title}}" !
 			</div>
+			<div class="col-xs-12 alert alert-danger" role="alert" ng-show="!loading && !showTicket">
+				Votre ticket n'est plus disponnible car vous avez annulé votre commande !
+			</div>
 		</section>
 	</section>
 </div>

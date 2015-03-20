@@ -1,4 +1,4 @@
-<div id="printable" class="container">
+<div ng-show="showTicket" id="printable" class="container">
 	<article class="fixTicketWidth">
 		<h2>{{event.title}}<span class="pull-right">{{ticket.expirationDate | date:'dd/MM/yyyy'}}</span></h2>
 		<ul>
@@ -45,4 +45,7 @@
 		Attention: à l'entrée de l'événement, il peut vous être demandé de présenter des justificatifs (Carte d'identité, carte d'étudiant, etc.) pour valider votre billet.
 	</p>
 </div>
-<button id="bt_print" ng-click="printTicket('printable')" class="btn btn-custom col-xs-6 col-xs-offset-3"><span class="glyphicon glyphicon-print"></span>Imprimer votre billet</button>
+
+
+
+<button ng-show="showTicket" id="bt_print" ng-click="printTicket('printable')" class="btn btn-custom col-xs-6 col-xs-offset-3"><span class="glyphicon glyphicon-print"></span>Imprimer votre billet</button>

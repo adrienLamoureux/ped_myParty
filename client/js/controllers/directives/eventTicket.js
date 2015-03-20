@@ -2,6 +2,7 @@ app.controller('EventTicketCtrl', ['$scope', '$routeParams','Event', 'Ticket', '
 	ngProgress.color("#B40404");
 	ngProgress.start();
 	
+	
 	var urlDeploy = $location.$$protocol + "://" + $location.$$host + ":" + $location.$$port + "/";
 	$scope.qrcode = urlDeploy + "#/event/" + $routeParams.id + "/ticket/" + $routeParams.idt + "/validate";
 	console.log($scope.qrcode);
@@ -14,6 +15,8 @@ app.controller('EventTicketCtrl', ['$scope', '$routeParams','Event', 'Ticket', '
 						$scope.ticket = $scope.event.ticketsType[i];
 					}
 				};
+				$scope.showTicket = !ticket.canceled;
+				$scope.loading = false;
 				ngProgress.complete();
 			});
 		});
