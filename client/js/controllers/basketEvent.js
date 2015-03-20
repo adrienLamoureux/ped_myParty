@@ -241,7 +241,7 @@ $scope.submitBasket = function(){
 															$scope.evnt = completeEvent;
 														}, function (err){
 															$scope.inValidation=false;
-															console.log(err);
+															//console.log(err);
 														});
 
 														angular.forEach(userCmd.eventTickets, function (evTicket, key){
@@ -256,7 +256,7 @@ $scope.submitBasket = function(){
 
 																}, function (err){
 																	$scope.inValidation=false;
-																	console.log(err);
+																	//console.log(err);
 																});
 															}
 														});
@@ -271,14 +271,14 @@ $scope.submitBasket = function(){
 																	$location.path('/payment/' + userCmd._id);
 																}, function (err){
 																	$scope.inValidation=false;
-																	console.log(err);
+																	//console.log(err);
 																});																
 															}, 1000);	
 														}
 
 													}, function (err){
 														$scope.inValidation=false;
-														console.log(err);
+														//console.log(err);
 													});
 												}
 											});
@@ -292,14 +292,14 @@ $scope.submitBasket = function(){
 							});
 						}, function (err){
 							$scope.inValidation=false;
-							console.log (err);
+							//console.log (err);
 						});
 					});
 				});
 			});
 		}, function (err){
 			$scope.inValidation=false;
-			console.log(err);
+			//console.log(err);
 		});
 		}else{
 			$scope.inValidation=false;

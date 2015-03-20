@@ -6,7 +6,7 @@
 		<span ng-switch-default><h1>En attente de validation</h1></span>
 	</span>
 
-	<span ng-switch="success">
+	<span class="col-xs-11 center"ng-switch="success">
 		<span ng-switch-when="true"><div class="alert alert-success">{{message}}</div></span>
 		<span ng-switch-when="false"><div class="alert alert-danger">{{message}}</div></span>
 		<span ng-switch-default><div class="alert alert-info">En attente...</div></span>

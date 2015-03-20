@@ -111,22 +111,21 @@
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
 
-
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title"> Image miniature du profil :</h3>
 				</div>
 				<div id="userImageUpdate" class="panel-body text-center">
 					<input id="userGetImage" type="file" ng-model="mongoUser.photo" name="file" base-sixty-four-input required ng-click="viewImgP()"/>
-					<button id="bt_submit" class="btn btn-custom pull-right" type="button" ng-click="updateProfile()">valider</button>
+					<button id="bt_submit" class="btn btn-custom pull-right" type="button" ng-click="updateProfile()">Valider</button>
 					<div>
 						<p>Prévisualisation : <img id="previewProfileImg" ng-src="data:{{mongoUser.photo.filetype}};base64,{{mongoUser.photo.base64}}" alt=""></p>
 					</div>
 				</div>
 			</div>
 			
-			<div class="alert alert-success" role="alert" ng-if="user.locks.length === 0">
-				Votre compte est : Actif 
+			<div class="center alert alert-success" role="alert" ng-if="user.locks.length === 0">
+				Votre compte est : Actif <br/>
 				<button id="btn_disableAccount" type="submit" class="btn btn-custom" confirmed-click="lockUsr(user)" ng-confirm-click="Etes vous sûr de verrouiller votre Compte ? vous ne pourrez plus vous connecter">Désactiver Compte</button>
 			</div>
 		</section>

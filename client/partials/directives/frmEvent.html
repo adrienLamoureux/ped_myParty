@@ -12,7 +12,7 @@
 	<form ng-hide="eventFormData.online || loading" name="eventForm" validate>
 		<!-- Info générales -->
 		<h2>Informations générales</h2>
-		<div>
+		<div class="col-md-6 col-lg-6">
 			<label>Titre</label>
 			<input id="txtEventTitle" name="txtEventTitle" type="text" class="form-control" placeholder="Mon super événement" ng-model="eventFormData.title" required/><br/>
 			
@@ -46,20 +46,26 @@
 
 			<label>Image de la page de présentation</label>
 			<input id="eventImage" type="file" ng-model="eventFormImage.backgroundImg" name="file" base-sixty-four-input required/>
+			<div ng-show="eventFormImage.backgroundImg.base64">
 			<p>Prévisualisation : <img ng-src="data:{{eventFormImage.backgroundImg.filetype}};base64,{{eventFormImage.backgroundImg.base64}}" alt=""></p>
+			</div>
 
 			<label>Image miniature de l'évènement</label>
 			<input id="eventSmallImage" type="file" ng-model="eventFormData.imageSmall" name="file" base-sixty-four-input required/>
+			<div ng-show="eventFormData.imageSmall.base64">
 			<p>Prévisualisation : <img ng-src="data:{{eventFormData.imageSmall.filetype}};base64,{{eventFormData.imageSmall.base64}}" alt=""></p>
+			</div>
 			<hr />
 		</div>
 		<hr />
 		<!-- Billeterie -->
 		<h2>Billetterie</h2>
-		<div>
+		<div class="col-lg-6">
 			<label>Image de fond du billet</label>
 			<input id="ticketImage" type="file" ng-model="eventFormImage.ticketImg" name="file" base-sixty-four-input required/>
+			<div ng-show="eventFormImage.ticketImg.base64">
 			<p>Prévisualisation : <img ng-src="data:{{eventFormImage.ticketImg.filetype}};base64,{{eventFormImage.ticketImg.base64}}" alt=""></p>
+			</div>
 
 			<div ng-repeat="t in eventFormData.ticketsType">
 				<hr />
@@ -74,7 +80,7 @@
 				
 				<label>Description</label>
 				<textarea id="txtEventDescription{{$index+1}}" type="text" class="form-control" placeholder="Détails du type de billet" ng-model="t.description" required>
-				</textarea><br/>
+				</textarea>
 
 				<label>Date d'expiration</label>
 				<input id="txtTicketExpirationDate{{$index+1}}" name="txtTicketExpirationDate" type="date" class="form-control" placeholder="aaaa-mm-jj" min="{{eventFormData.dateStarting | date: 'yyyy-MM-dd'}}" max="{{datePlusADay(eventFormData.dateEnding) | date: 'yyyy-MM-dd'}}"  ng-model="t.expirationDate" required/><br/>
