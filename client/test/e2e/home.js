@@ -1,7 +1,7 @@
 describe('Home view' , function () {
 
-	it('look for route title', function(){ // Verify route redirection
-		browser.get('http://localhost:4711/#/');
+	it('look for route title', function(){
+		browser.get('http://localhost:5000/#/');
 		expect(browser.getTitle()).toEqual('MyParty');
 	});
 
@@ -28,8 +28,7 @@ describe('Home view' , function () {
 	});
 
 	it('look for events elements sample', function(){
-		var eventN = browser.findElement(by.xpath("id('page')/div/event-list/div/div[2]/event-miniature/div/a/img"));
+		var eventN = browser.findElement(by.id("eventMinID"));
 		expect(eventN.isDisplayed()).toBe(true);
-		//eventN.click();
 	});
 });

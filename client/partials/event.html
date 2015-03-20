@@ -18,7 +18,7 @@
 			<div id="tickets" ng-repeat="ticketType in thisEvent.ticketsType">
 				<div id="ticket{{$index+1}}" class="ticket container-fluid">			  		
 					<div class="col-md-3">
-						<img id="ticket_$index_image" class="img-responsive center-block" data-ng-src="data:{{imgs.ticketImg.filetype}};base64,{{imgs.ticketImg.base64}}">
+						<img id="ticket_{{$index+1}}_image" class="img-responsive center-block" data-ng-src="data:{{imgs.ticketImg.filetype}};base64,{{imgs.ticketImg.base64}}">
 					</div>
 					<div class="col-md-9">
 						<h2>{{ticketType.type}}<span class="pull-right">{{ticketType.ticketLeft}} restant</span></h2>
@@ -40,7 +40,7 @@
 						<div class="pull-right" ng-show="thisEvent.online && !thisEvent.canceled &&dateNotExpired(thisEvent.dateEnding) && (ticketType.ticketLeft > 0) && user.authenticated">
 							<input ng-model="places_number" type="number" value="0" min="1">
 
-							<button ng-click="addToBasket(places_number,ticketType.uniqueID,ticketType.price,ticketType.type,ticketType.ticketLeft, ticketType.expirationDate, thisEvent.title)" class="btn btn-custom">
+							<button id="btn_AddToBasket" ng-click="addToBasket(places_number,ticketType.uniqueID,ticketType.price,ticketType.type,ticketType.ticketLeft, ticketType.expirationDate, thisEvent.title)" class="btn btn-custom">
 								<span class="glyphicon glyphicon-shopping-cart"></span>Ajouter au panier
 							</button>	
 						</div>

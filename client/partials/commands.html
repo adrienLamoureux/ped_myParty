@@ -8,11 +8,13 @@
 					<thead>
 						<tr>
 							<th>Mes commandes</th>
+							<th>Status</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="cmd in commands">
-							<td><a class="block" href="#/usr/cmd/{{cmd._id}}"> Commande du {{cmd.dateBuy | date:'dd/MM/yyyy - H:mm'}}	</a></td>
+							<td><a id="cmd{{$index+1}}" class="block" href="#/usr/cmd/{{cmd._id}}"> Commande du {{cmd.dateBuy | date:'dd/MM/yyyy - H:mm'}}	</a></td>
+							<td><a id="cmdC{{$index+1}}" class="block" href="#/usr/cmd/{{cmd._id}}">{{cmd.canceled}}</a></td>
 						<tr>
 					</tbody>
 				</table>

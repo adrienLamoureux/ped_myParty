@@ -13,20 +13,23 @@
 								<th>Type de ticket</th>
 								<th>Prix</th>
 								<th>Date d'expiration</th>
-								<th>Utilisé</th>
+								<th>Status</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="ticket in evnt.tickets">
-								<td data-title="Type de ticket"><a class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.ticketTypeName}}</a></td>
-								<td data-title="Prix"><a class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.price}}€</a></td>
-								<td data-title="Date d'expiration"><a class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.expirationDate | date : 'dd/MM/yyyy'}}<a/></td>
-								<td data-title="Utilisé"><a class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.used}}</a></td>
+								<td data-title="Type de ticket"><a id="typeToTicket{{$parent.$index+1}}_{{$index+1}}" class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.ticketTypeName}}</a></td>
+								<td data-title="Prix"><a id="priceToTicket{{$parent.$index+1}}_{{$index+1}}" class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.price}}€</a></td>
+								<td data-title="Date d'expiration"><a id="expToTicket{{$parent.$index+1}}_{{$index+1}}" class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.expirationDate | date : 'dd/MM/yyyy'}}<a/></td>
+								<td data-title="Utilisé"><a id="usedToTicket{{$parent.$index+1}}_{{$index+1}}" class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.used}}</a></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
+			<button ng-show="(!command.canceled) && (!command.partiallyCanceled)" id="cancel" class="center btn btn-custom margTop" confirmed-click="cancelCommand(command._id)" ng-confirm-click="Etes-vous sûr de vouloir annuler votre commande ? (Seuls les tickets correspondant aux évènements non débutés seront annulés)">
+				<span class="glyphicon glyphicon-ban-circle"></span>Annuler ma commande
+			</button>
 		</section>
 	</section>
 </div>

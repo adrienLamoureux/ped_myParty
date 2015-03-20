@@ -36,6 +36,9 @@ app.controller('EventTicketValidationCtrl', ['$scope', '$rootScope', '$routePara
 		else if (result.code == 412){
 			$scope.message = "La date de validité du ticket à expiré !";
 			$scope.success = false;		
+		} else if (result.code == 410){
+			$scope.message = "Le ticket n'est pas valide suite à une annulation de commande !";
+			$scope.success = false;		
 		};
 	});
 }]);

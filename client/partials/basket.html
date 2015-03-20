@@ -1,24 +1,28 @@
 <!-- Basket Template -->
-<div ng-show="totalOfBasket != null">
-	<div class="col-lg-offset-1">
-		<h3> Cher {{user.first_name}}, votre Panier : </h3>
-	</div>
+<div id="eventPage" class="container" >
+	<section id="event" class="col-xs-10 col-xs-offset-1">
+		<section class="col-xs-12" ng-hide="inValidation">
+			<h1> Cher {{user.first_name}}, voici votre panier</h1>
+			<div id="basket" class="col-xs-12" ng-show="totalOfBasket != null">
+				<basket-one-event ng-repeat="event in basketOfUser" theEvent="event"></basket-one-event>
 
-	<div id="basket" class="container">
-		<basket-one-event ng-repeat="event in basketOfUser" theEvent="event"></basket-one-event>
-	</div>
+				<h1 class="col-xs-12">
+					 Total : <span id="basketTotal">{{totalOfBasket}} €</span>
+				</h1>
+				<div class="col-xs-12 text-center">
+					<button id="btn_basketValidation" ng-click="submitBasket()" class="btn btn-custom btn-lg">
+						<span class="glyphicon glyphicon-ok"></span>Valider mon panier
+					</button>
+				</div>
+			</div>
 
-	<div class="text-center">
-		<strong id="basketTotal"> Total : {{totalOfBasket}} €</strong>
-	</div>
-
-	<div class="text-center">
-		<button id="btn_basketValidation" ng-click="submitBasket()" class="btn btn-custom">
-			<span class="glyphicon glyphicon-ok"></span>Valider mon panier
-		</button>
-	</div>
-</div>
-
-<div class="alert alert-warning" role="alert" ng-show="totalOfBasket == null">
-	Votre panier est vide !
+			<div class="alert alert-danger" role="alert" ng-show="totalOfBasket == null">
+				Votre panier est vide !
+			</div>
+		</section>
+		
+		<section class="col-xs-12" ng-show="inValidation">
+			<h1> Votre achat est en cours, veuillez patienter...</h1>
+		</section>
+	</section>
 </div>
