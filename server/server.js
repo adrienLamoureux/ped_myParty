@@ -1,35 +1,39 @@
 'use strict'
 
+var mongoAdress = require('./../config.js').mongoAdress;
+var serverPort = require('./../config.js').serverPort;
+var apiID = require('./../config.js').apiID;
+var stripeKey = require('./../config.js').stripeKey;
+
 // Module dependencies.
 var application_root = __dirname,
-express = require('express'), //Web framework
-path = require('path'), //Utilities for dealing with file paths
-bodyParser  = require('body-parser'),
-mongoose = require('mongoose'),
-passport = require('passport'),
-UserAppStrategy = require('passport-userapp').Strategy,
-stripe = require("stripe")("sk_test_1scGPnwjVqqrBTc8h8gSylT9");
+	express = require('express'), //Web framework
+	path = require('path'), //Utilities for dealing with file paths
+	bodyParser  = require('body-parser'),
+	mongoose = require('mongoose'),
+	passport = require('passport'),
+	UserAppStrategy = require('passport-userapp').Strategy,
+	stripe = require("stripe")(stripeKey);
 
 
-var APP_ID = "54f5bfbac1eb6";
+var APP_ID = apiID;
 
 //Create server
 var app = express();
+
+app.set('port', (process.env.PORT || serverPort));
 
 // Configure server
 app.use(bodyParser.json({limit:'16mb'}));
 app.use(bodyParser.urlencoded({limit:'16mb', extended: true}));
 app.use(express.static(path.join(application_root ,'../client/')));
-//Show all errors in development
 
 //Start server
-var port = 4711;
-app.listen(port, function () {
-	'use strict'
-	console.log('Express server listening on port %d in %s mode', port, app.settings.env)
+app.listen(app.get('port'), function() {
+	console.log("Node app is running at localhost:" + app.get('port'));
 });
 
-mongoose.connect('mongodb://localhost:27017/mongodb', function(err){
+mongoose.connect(mongoAdress, function(err){
 	if(err){
 		console.error("Failed to connect to MongoDB");
 		console.log(err);
