@@ -118,9 +118,9 @@ var ticketModel = mongoose.model('ticket', ticketSchema);
 var imageModel = mongoose.model('img', imgSchema);
 
 module.exports = {
-  userModel: userModel,
-  eventModel: eventModel,
-  commandsModel: commandsModel,
-  ticketModel: ticketModel,
-  imageModel: imageModel
+	userModel: userModel,
+	eventModel: eventModel,
+	commandsModel: commandsModel,
+	ticketModel: ticketModel,
+	imageModel: imageModel
 };

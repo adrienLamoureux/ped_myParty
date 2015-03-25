@@ -19,13 +19,13 @@
 			<label>Date de début</label>
 			<input id="txtEventDateStarting" name="txtEventDateStarting" type="date" class="form-control" placeholder="aaaa-mm-jj" ng-model="eventFormData.dateStarting" min="{{now | date: 'yyyy-MM-dd'}}" required/><br/>
 			<div class="red" ng-show="eventForm.$submitted || eventForm.txtEventDateStarting.$touched">
-      			<div class="red" ng-show="eventForm.txtEventDateStarting.$error.min">La date de début doit être postérieure à la date du jour.</div>
-    		</div>
+				<div class="red" ng-show="eventForm.txtEventDateStarting.$error.min">La date de début doit être postérieure à la date du jour.</div>
+			</div>
 			<label>Date de fin</label>
 			<input id="txtEventDateEnding" name="txtEventDateEnding" type="date" class="form-control" placeholder="aaaa-mm-jj" min="{{eventFormData.dateStarting | date: 'yyyy-MM-dd'}}" ng-model="eventFormData.dateEnding" required/><br/>
 			<div class="red" ng-show="eventForm.$submitted || eventForm.txtEventDateEnding.$touched">
-      			<div class="red" ng-show="eventForm.txtEventDateEnding.$error.min">La date de fin doit être postérieure à la date de début.</div>
-    		</div>
+				<div class="red" ng-show="eventForm.txtEventDateEnding.$error.min">La date de fin doit être postérieure à la date de début.</div>
+			</div>
 
 			<label>Description</label>
 			<textarea id="txtEventDescription" class="form-control" placeholder="Description de l'événement" ng-model="eventFormData.description" required/></textarea><br/>
@@ -85,9 +85,9 @@
 				<label>Date d'expiration</label>
 				<input id="txtTicketExpirationDate{{$index+1}}" name="txtTicketExpirationDate" type="date" class="form-control" placeholder="aaaa-mm-jj" min="{{eventFormData.dateStarting | date: 'yyyy-MM-dd'}}" max="{{datePlusADay(eventFormData.dateEnding) | date: 'yyyy-MM-dd'}}"  ng-model="t.expirationDate" required/><br/>
 				<div class="red" ng-show="eventForm.$submitted || eventForm.txtTicketExpirationDate.$touched">
-	      			<div class="red" ng-show="eventForm.txtTicketExpirationDate.$error.min">La date d'expiration doit être postérieure à la date de début de l'événement ({{eventFormData.dateStarting | date: 'yyyy-MM-dd'}}).</div>
-	      			<div class="red" ng-show="eventForm.txtTicketExpirationDate.$error.max">La date d'expiration doit être antérieure à la date de fin de l'événement ({{eventFormData.dateEnding | date: 'yyyy-MM-dd'}}).</div>
-	    		</div>
+					<div class="red" ng-show="eventForm.txtTicketExpirationDate.$error.min">La date d'expiration doit être postérieure à la date de début de l'événement ({{eventFormData.dateStarting | date: 'yyyy-MM-dd'}}).</div>
+					<div class="red" ng-show="eventForm.txtTicketExpirationDate.$error.max">La date d'expiration doit être antérieure à la date de fin de l'événement ({{eventFormData.dateEnding | date: 'yyyy-MM-dd'}}).</div>
+				</div>
 
 				<label>Quantité</label>
 				<input id="txtEventTicketLeft{{$index+1}}" type="number" class="form-control" title="Enter a quantity" min="1" ng-model="t.ticketLeft" required/><br/>

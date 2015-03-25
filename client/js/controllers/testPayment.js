@@ -5,13 +5,13 @@ app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$loca
 
 	Stripe.setPublishableKey("pk_test_spg7Y8RNHDKmrYrSz6wLpE9M");
 
-    $scope.successPayment = false;
+	$scope.successPayment = false;
 
-    Command.get({id: $routeParams.id}).$promise.then(function(res){
-          $scope.amountTotal = res.totalAmount;
-    }, function(err){
-        console.log(err)
-    })
+	Command.get({id: $routeParams.id}).$promise.then(function(res){
+		$scope.amountTotal = res.totalAmount;
+	}, function(err){
+		console.log(err)
+	})
 
 	// Display an error message
 	function displayError(message) {
@@ -32,60 +32,57 @@ app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$loca
 	}
 
 
-    function saveCreditCard(callback) {
-        isDisabled()
-        Stripe.card.createToken({
-            name: $('#first_name').val(),
-            number: $('#card_number').val(),
-            cvc: $('#cvc').val(),
-            exp_month: $('#expiration_month').val(),
-            exp_year: $('#expiration_year').val()
-        }, function(status, response) {
-            if (response.error) {
-                displayError(response.error.message);
-                $scope.$apply(enable());
-            } else {
-                response.price = $scope.amountTotal * 100;
-                UserApp.User.get({
-                    "user_id" : 'self'
-                }, function (err, res){
-                    if(err) console.log(err)
-                    else 
-                        response.user = res[0].email;
-                        callback(response)
-                });
-            }
-        });
-    }
+	function saveCreditCard(callback) {
+		isDisabled()
+		Stripe.card.createToken({
+			name: $('#first_name').val(),
+			number: $('#card_number').val(),
+			cvc: $('#cvc').val(),
+			exp_month: $('#expiration_month').val(),
+			exp_year: $('#expiration_year').val()
+		}, function(status, response) {
+			if (response.error) {
+				displayError(response.error.message);
+				$scope.$apply(enable());
+			} else {
+				response.price = $scope.amountTotal * 100;
+				UserApp.User.get({
+					"user_id" : 'self'
+				}, function (err, res){
+					if(err) console.log(err)
+						else 
+							response.user = res[0].email;
+						callback(response)
+					});
+			}
+		});
+	}
 
-    function updateChargeId(charge_id){
-        Command.put({id : $routeParams.id}, {"charge_id": charge_id, "buy": true}).$promise.then(function(res){
-            $location.path('/usr/cmd/'+ $routeParams.id)
-        }, function(err){
-            console.log(err)
-        })
-    }
+	function updateChargeId(charge_id){
+		Command.put({id : $routeParams.id}, {"charge_id": charge_id, "buy": true}).$promise.then(function(res){
+			$location.path('/usr/cmd/'+ $routeParams.id)
+		}, function(err){
+			console.log(err)
+		})
+	}
 
-    $scope.payment = function() {
-        $('#error').hide();
-        saveCreditCard(function(response){
-        $http.post('/charge', response)
-            .success(function(data, status, headers, config) {
-                $('#success-message').text(data.status);
-                $('#success').show();
-                notification3Sec("Merci pour votre commande !", "Commande effectuée");
-
-                //set timeout to see succeeded message after paying
-                updateChargeId(data.id)
-
-            })
-            .error(function(data, status, headers, config) {
-                console.log(data);
-            });
-        
-    })
-    return false;
-    }
+	$scope.payment = function() {
+		$('#error').hide();
+		saveCreditCard(function(response){
+			$http.post('/charge', response)
+			.success(function(data, status, headers, config) {
+				$('#success-message').text(data.status);
+				$('#success').show();
+				notification3Sec("Merci pour votre commande !", "Commande effectuée");
+				//set timeout to see succeeded message after paying
+				updateChargeId(data.id)
+			})
+			.error(function(data, status, headers, config) {
+				console.log(data);
+			});
+		})
+		return false;
+	}
 
 
 	$scope.refund = function(data, amountOptional){
