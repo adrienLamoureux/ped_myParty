@@ -33,10 +33,10 @@
 					</table>
 				</div>
 			</div>
-			<div ng-hide="command.buy || command.canceled">
-				<a class="btn btn-default" href="#/payment/{{command._id}}">Payer ma commande</a>
+			<div ng-hide="command.buy || command.canceled" class="text-center">
+				<a class="btn btn-custom btn-lg" href="#/payment/{{command._id}}"><span class="glyphicon glyphicon-euro"></span>Payer ma commande</a>
 			</div>
-			<button ng-show="(!command.canceled) && (!command.partiallyCanceled)" id="cancel" class="center btn btn-custom margTop" confirmed-click="cancelCommand(command._id)" ng-confirm-click="Etes-vous sûr de vouloir annuler votre commande ? (Seuls les tickets correspondant aux évènements non débutés seront annulés)">
+			<button ng-show="command.buy && (!command.canceled) && (!command.partiallyCanceled)" id="cancel" class="center btn btn-custom margTop" confirmed-click="cancelCommand(command._id)" ng-confirm-click="Etes-vous sûr de vouloir annuler votre commande ? (Seuls les tickets correspondant aux évènements non débutés seront annulés)">
 				<span class="glyphicon glyphicon-ban-circle"></span>Annuler ma commande
 			</button>
 		</section>
