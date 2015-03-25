@@ -1,14 +1,17 @@
 // CommandController
-app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'EventImages', 'Ticket', 'CancelTicket','ngProgress', '$window', '$timeout', '$q' ,'Notification', function ($scope, $routeParams, Event, Command, EventImages, Ticket, CancelTicket, ngProgress, $window, $timeout, $q, Notification){
+app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'EventImages', 'Ticket', 'CancelTicket','ngProgress', '$window', '$timeout', '$http', '$route', '$q', 'Notification', function ($scope, $routeParams, Event, Command, EventImages, Ticket, CancelTicket, ngProgress, $window, $timeout, $http, $route, $q, Notification){
 	ngProgress.color("#B40404");
 	ngProgress.start();
-
+	
+	$scope.refundButton = {}
+	
 	$scope.command = Command.get({id:$routeParams.id}, function (cmdData){
 		$scope.command = cmdData;
 		$scope.events = [];
 		angular.forEach(cmdData.eventTickets, function (eventTicket, key){
 			var evnt = Event.get({id:eventTicket.eventID}, function (evntData){
 				evnt = evntData;
+				$scope.overDated = Date.parse(evnt.dateStarting) < Date.now();
 				evnt.tickets = [];
 				
 				angular.forEach (eventTicket.tickets, function (tid, key){
@@ -120,18 +123,19 @@ app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'Ev
 					command = Command.put ({id:idCommand}, command, function (commandData2){
 						command = commandData2;
 						if (command.partiallyCanceled && command.canceled){
+							refundCommand();
 							notification5Sec("Votre commande a été annulée, vous allez bientot recevoir un remboursement.", "Annulation de commande !");							
 						}
 						else if (!command.partiallyCanceled && !command.canceled){
 							notification5Sec("Votre commande ne peut être annulée à cause d'un énènement en cours, aucun remboursement ne sera effectué.", "Annulation de commande !");	
 						}
 						else if (!command.canceled && command.partiallyCanceled){
+							refundCommand();
 							notification5Sec("Votre commande a été partiellement annulée à cause d'un énènement en cours, vous ne serez remboursés que sur les tickets annulés.", "Annulation de commande !");	
 						}
 						else {
 							console.log ("erreur pas possible ")
 						};
-						
 						ngProgress.complete();
 						$window.location.href = '#/usr/cmds';
 					}, function (err){
@@ -147,4 +151,46 @@ app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'Ev
 	var notification5Sec = function(text, notifTitle) {
 		Notification.success({message: text, delay: 5000, title: '<i>'+notifTitle+'</i>'});
 	};
+
+
+	$scope.refundOptional = function (optionalAmount, ticketID){
+		CancelTicket.get({id: ticketID}).$promise.then(function(res){
+			refundCommand(optionalAmount * 100);
+			Event.get({id : res.eventID}).$promise.then(function(evt){
+				angular.forEach (evt.ticketsType, function (tType, key){
+					if(tType.uniqueID == res.ticketTypeID){
+						tType.sold-= 1;
+						tType.ticketLeft += 1;
+					}
+				});
+				Event.put({id: res.eventID}, evt)
+			}, function(err){
+				console.log(err)
+			})
+		}, function(err){
+			console.log(err)
+		})
+	}
+
+
+	 function refundCommand(optionalAmount){
+	 	ngProgress.start();
+		var data = $scope.command.charge_id;
+       	var refund = {}
+       	refund.charge_id = data
+       	refund.optionalA = optionalAmount;
+      	$http.post('/refund', refund)
+            .success(function(data, status, headers, config) {
+               	$scope.message = data.message
+               	ngProgress.complete();
+               	$route.reload();
+            })
+            .error(function(data, status, headers, config) {
+            	$scope.message = data.message
+                console.log(data);
+                ngProgress.complete();
+            });
+    	return false;
+	}
+
 }]);

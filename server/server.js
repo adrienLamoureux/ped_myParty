@@ -66,21 +66,23 @@ app.post('/charge', function(request, res, next){
 
 
 app.post('/refund', function(request, res, next){
-	var charge_id = request.body.id;
-	var optionalAmount = request.body.optionalA;
-	console.log(charge_id)
-	console.log(optionalAmount);
-	stripe.charges.createRefund(
-		charge_id,
-		{"amount": optionalAmount},function(err, refund) {
-			if (err) {
-				console.log(err);
-			}else{
-				console.log(refund);
-				res.send("Remboursement effectué"); 
-			}
-		});
-});
+
+  console.log("request" + request.body)
+  var charge_id = request.body.charge_id;
+  var optionalAmount = request.body.optionalA;
+
+   stripe.charges.createRefund(
+    charge_id,
+    {"amount": optionalAmount},function(err, refund) {
+        if (err) {
+          console.log(err);
+          res.send(err)
+        }else{
+         console.log(refund);
+         res.send("Remboursement effectué"); 
+        }
+      });
+ });
 
 /********* PASSPORT **********/
 passport.use(new UserAppStrategy({
