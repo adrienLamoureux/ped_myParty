@@ -13,7 +13,7 @@
 				<form class="form" role="form" ng-submit="payment(formPayment)" ng-model="formPayment">
 					<div class="col-xs-12">
 						<label for="card_number">Numero de carte</label>
-						<input type="text" size="20" class="form-control" id="card_number" placeholder="Enter your card number">
+						<input type="text" size="20" class="form-control" id="card_number" placeholder="0000000000000000">
 					</div>
 					<div class="col-xs-6">
 						<label for="expiration_month">Date d'expiration</label>
@@ -24,19 +24,16 @@
 					</div>
 					<div class="col-xs-6">
 						<label for="cvc">Cryptogramme</label>
-						<input type="text" size="4" class="form-control" id="cvc" placeholder="XXX">
+						<input type="text" size="4" class="form-control" id="cvc" placeholder="000">
 					</div>
 					<div class="col-xs-12">
 						<hr>
 					</div>
 					<div id="error" class="col-xs-12" style="display: none;">
-						<div id="error-message" class="alert alert-danger" style="border-radius: 0;"></div>
+						<div id="error-message" class="alert alert-danger"></div>
 					</div>
 					<div id="success" class="col-xs-12" style="display: none;">
-						<div id="success-message" class="alert alert-success" style="border-radius: 0;"></div>
-						<!--<button type="submit" class="btn btn-danger" ng-click="refund(data, optionnal)">
-							Remboursement commande
-						</button>-->
+						<div id="success-message" class="alert alert-success"></div>
 					</div>
 					<div class="text-center">
 						<button type="submit" class="btn btn-custom" ng-disabled="isDisabled" ng-model="isDisabled" ng-init="isDisabled = false">
