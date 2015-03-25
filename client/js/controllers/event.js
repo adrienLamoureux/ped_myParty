@@ -3,7 +3,9 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 	ngProgress.color("#B40404");
 
 	$scope.showTicket = false;
+	$scope.canceledEvent = false;
 	$scope.loading = true;
+	$scope.publishing = false;
 
 	//URL event argument
 	if(angular.isDefined($routeParams.id)){
@@ -13,6 +15,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 			ngProgress.complete();	
 		});
 		$scope.imgs = EventImages.get({id:$routeParams.id}, function(data){
+			$scope.loading = false;
 			$scope.imgs = data;
 		});			
 	}

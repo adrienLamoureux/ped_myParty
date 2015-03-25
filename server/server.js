@@ -264,6 +264,15 @@ app.post('/api/ticket', function (req, res, next){
 	});
 });
 
+app.put('/api/ticket/:id', function (req, res, next){
+	delete req.body._id; //duplicate id bug
+	console.log('put ticket');
+	ticketModel.findOneAndUpdate({_id: req.params.id}, req.body, function (err, result){
+		if (err) return next(err);
+		res.send(result);
+	});
+});
+
 app.delete('/api/ticket/:id', function (req, res, next){
 	ticketModel.remove({_id: req.params.id}, function (err, result){
 		if (err) return next(err);

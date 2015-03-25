@@ -57,13 +57,13 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 	};
 
 	$scope.eventPost = null;
-	$scope.publishing = false;
 	$scope.editMode = (angular.isDefined($scope.thisEvent));
 	ngProgress.start();
 
 	$timeout( function(){ 
 		initForm();
 		$scope.loading=false; 
+		$scope.publishing = false;
 		ngProgress.complete();
 	}, 500);	
 
@@ -116,6 +116,9 @@ app.controller('EventFrmCtrl', ['$scope', '$rootScope', 'Event', 'EventImages', 
 
 	// when submitting the edit form, send the text to the node API
 	$scope.updateEvent = function(published) {
+		if(published)
+			$scope.publishing = true;
+		
 		$scope.eventFormData.online = published;
 		angular.forEach($scope.eventFormData.ticketsType, function(ticket,i) {
 			ticket.uniqueID = i;
