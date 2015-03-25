@@ -50,8 +50,12 @@ app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'Ev
 		angular.forEach(ticketsData, function (ticketId, key){
 			var deferred = $q.defer();
 			promises.push(deferred);
-			CancelTicket.get({id:ticketId}, function (ticket){
-				$scope.cptType[eventKey][ticket.ticketTypeID]++;
+			Ticket.get({id:ticketId}, function (ticket){
+				if (!ticket.canceled){
+					CancelTicket.get({id:ticketId}, function (ticket){
+						$scope.cptType[eventKey][ticket.ticketTypeID]++;
+					});	
+				};
 				deferred.resolve($scope.cptType);
 			});
 		});
@@ -123,14 +127,14 @@ app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'Ev
 					command = Command.put ({id:idCommand}, command, function (commandData2){
 						command = commandData2;
 						if (command.partiallyCanceled && command.canceled){
-							refundCommand();
+							refundCommand(false);
 							notification5Sec("Votre commande a été annulée, vous allez bientot recevoir un remboursement.", "Annulation de commande !");							
 						}
 						else if (!command.partiallyCanceled && !command.canceled){
 							notification5Sec("Votre commande ne peut être annulée à cause d'un énènement en cours, aucun remboursement ne sera effectué.", "Annulation de commande !");	
 						}
 						else if (!command.canceled && command.partiallyCanceled){
-							refundCommand();
+							refundCommand(false);
 							notification5Sec("Votre commande a été partiellement annulée à cause d'un énènement en cours, vous ne serez remboursés que sur les tickets annulés.", "Annulation de commande !");	
 						}
 						else {
@@ -155,7 +159,7 @@ app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'Ev
 
 	$scope.refundOptional = function (optionalAmount, ticketID){
 		CancelTicket.get({id: ticketID}).$promise.then(function(res){
-			refundCommand(optionalAmount * 100);
+			refundCommand(true, optionalAmount * 100);
 			Event.get({id : res.eventID}).$promise.then(function(evt){
 				angular.forEach (evt.ticketsType, function (tType, key){
 					if(tType.uniqueID == res.ticketTypeID){
@@ -173,24 +177,27 @@ app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'Ev
 	}
 
 
-	 function refundCommand(optionalAmount){
-	 	ngProgress.start();
+	function refundCommand(notif, optionalAmount){
+		ngProgress.start();
 		var data = $scope.command.charge_id;
-       	var refund = {}
-       	refund.charge_id = data
-       	refund.optionalA = optionalAmount;
-      	$http.post('/refund', refund)
-            .success(function(data, status, headers, config) {
-               	$scope.message = data.message
-               	ngProgress.complete();
-               	$route.reload();
-            })
-            .error(function(data, status, headers, config) {
-            	$scope.message = data.message
-                console.log(data);
-                ngProgress.complete();
-            });
-    	return false;
+		var refund = {}
+		refund.charge_id = data
+		refund.optionalA = optionalAmount;
+		$http.post('/refund', refund)
+		.success(function(data, status, headers, config) {
+			$scope.message = data.message
+			ngProgress.complete();
+			if (notif){
+				notification5Sec("Annulation d'un ticket, vous allez recevoir un remboursement sous quelques jours.","Remboursement Ticket")
+			}
+			$route.reload();
+		})
+		.error(function(data, status, headers, config) {
+			$scope.message = data.message
+			console.log(data);
+			ngProgress.complete();
+		});
+		return false;
 	}
 
 }]);

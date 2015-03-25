@@ -16,6 +16,7 @@ app.controller('EventTicketCtrl', ['$scope', '$routeParams','Event', 'Ticket', '
 					}
 				};
 				$scope.showTicket = !ticket.canceled;
+				$scope.canceledEvent = ticket.used;
 				$scope.loading = false;
 				ngProgress.complete();
 			});

@@ -1,8 +1,11 @@
 <!-- Event Template -->
 <div id="eventPage" class="container">
-	<img id="eventImage" class="img-responsive center-block" data-ng-src="data:{{imgs.backgroundImg.filetype}};base64,{{imgs.backgroundImg.base64}}" alt="event_image">
+	<img id="eventImage" class="img-responsive center-block" data-ng-src="data:{{imgs.backgroundImg.filetype}};base64,{{imgs.backgroundImg.base64}}" alt="event_image" ng-hide="loading">
 	<section id="event" class="col-sm-10 col-sm-offset-1">
-		<section id="info" class="col-md-12">
+		<p class="text-center alert alert-success" ng-show="loading">
+			<strong>Chargement en cours...</strong>
+		</p>
+		<section id="info" class="col-md-12" ng-hide="loading">
 			<h1>{{thisEvent.title}}</h1>
 			<ul>
 				<li>Description :</li><p class="center">{{thisEvent.description}}</p>
@@ -13,7 +16,7 @@
 				{{thisEvent.country}}</p>
 			</ul>
 		</section>
-		<section class="col-md-12">
+		<section class="col-md-12" ng-hide="loading">
 			<h1>Billeterie</h1>
 			<div id="tickets" ng-repeat="ticketType in thisEvent.ticketsType">
 				<div id="ticket{{$index+1}}" class="ticket container-fluid">			  		
