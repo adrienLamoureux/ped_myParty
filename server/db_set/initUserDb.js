@@ -1,5 +1,6 @@
 var mongo = require('mongodb').MongoClient;
 var userRefApiID = require('./../../config.js').userRefApiID;
+var mongoAdress = require('./../../config.js').mongoAdress;
 
 console.log("Connecting to the database ...");
 
@@ -58,7 +59,7 @@ var initUser = function(db){
 });
 };
 
-mongo.connect('mongodb://localhost:27017/mongodb', function(err, db) {
+mongo.connect(mongoAdress, function(err, db) {
 	if (err) { console.log("\t--> Connection failure !\n"); return false; }
 	console.log("\t--> Successfully connected to the database!\n");
 
