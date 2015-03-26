@@ -32,7 +32,9 @@ var insertDb = function(done){
 					tickets: null
 				}],
 				canceled: false,
-				partiallyCanceled: false	
+				partiallyCanceled: false,
+				charge_id: "",
+				buy: false	
 			}]
 		}], function (err, result) {done();});
 		});
@@ -83,7 +85,9 @@ describe('Test suite for commandsModel', function() {
 					tickets: null
 				}],
 				canceled: false,
-				partiallyCanceled: false	
+				partiallyCanceled: false,
+				charge_id: "",
+				buy: false	
 			}]
 			};
 
@@ -115,7 +119,9 @@ describe('Test suite for commandsModel', function() {
 					tickets: null
 				}],
 				canceled: false,
-				partiallyCanceled: false
+				partiallyCanceled: false,
+				charge_id: "",
+				buy: false
 			}]
 			};
 			commandsModel.find().exec().then(function (coll) {
