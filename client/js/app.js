@@ -56,6 +56,7 @@ app.config(function($routeProvider){
 		})
 		.when('/signup', {
 			templateUrl : './partials/signup.html',
+			controller: 'LoginCtrl',
 			public: true
 		})
 		.when('/verify/email', {
