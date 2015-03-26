@@ -59,15 +59,15 @@ app.config(function($routeProvider){
 			public: true
 		})
 		.when('/verify/email', {
-			templateUrl: './partials/verify_email.html', 
+			templateUrl: './partials/verifyEmail.html', 
 			verify_email: true
 		})
-		.when('/reset-password', {
-			templateUrl: './partials/reset_password.html',
+		.when('/resetPassword', {
+			templateUrl: './partials/resetPassword.html',
 			public: true
 		})
-		.when('/set-password', {
-			templateUrl: 'partials/set_password.html', 
+		.when('/setPassword', {
+			templateUrl: 'partials/setPassword.html', 
 			controller: 'LoginCtrl',
 			set_password: true
 		})
