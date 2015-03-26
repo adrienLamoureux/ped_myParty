@@ -6,21 +6,19 @@
 			<form ua-signup ng-show="!verificationEmailSent">
 				<div class="form-group">
 					<label>Pseudo</label>
-					<input name="first_name" class="form-control" placeholder="Pseudo"><br>
-				</div>
-				<div class="form-group">
+					<input name="first_name" class="form-control" placeholder="Pseudo"><br/>
 					<label>Email</label>
-					<input name="login" class="form-control" ua-is-email placeholder="Email"><br>
-				</div>
-				<div class="form-group">
+					<input name="login" class="form-control" ua-is-email placeholder="Email"><br/>
 					<label>Mot de passe</label>
-					<input name="password" class="form-control" placeholder="Password" type="password"><br>
-				</div>
-				<div class="text-center">
-					<p ng-show="error" class="alert alert-danger">{{ error.message }}</p>
-					<button type="submit" class="btn btn-custom" ng-click="createUser()">
-						<span class="glyphicon glyphicon-user"></span>Créer mon compte
-					</button>
+					<input id="password" name="password" class="form-control" ng-model="pw1" placeholder="Password" type="password"><br/>
+					<label>Confirmation du mot de passe</label>
+					<input id="password2" name="password2" class="form-control" ng-model="pw2" placeholder="Password" type="password"><br/>
+					<div class="text-center">
+						<p ng-show="error" class="alert alert-danger">{{ error.message }}</p>
+						<button type="submit" class="btn btn-custom" ng-disabled="!checkPwdModif()" ng-click="createUser()">
+							<span class="glyphicon glyphicon-user"></span>Créer mon compte
+						</button>
+					</div>
 				</div>
 			</form>
 			<div class="margTop">	
