@@ -18,7 +18,6 @@ app.directive('navBarConnected', function (){
 app.directive('navBarDisconnected', function (){
 	return {
 		restrict: 'E',
-		//controller: 'NavigationDisconnectedCtrl',
 		templateUrl: '../../partials/directives/navigationDisconnected.html'
 	};
 });

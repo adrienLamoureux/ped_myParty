@@ -55,20 +55,18 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 		});
 	};
 	
-
 	$scope.reloadPage = function(){
 		$timeout( function (){$window.location.reload()} , 500);
 	}
 
-
 	$scope.validateChange = function(newName, newLastName){
 		if(newName && newLastName){
 			UserApp.User.save({
-		    	"user_id": currentUserId,
-		    	"first_name": newName,
-		    	"last_name": newLastName
+				"user_id": currentUserId,
+				"first_name": newName,
+				"last_name": newLastName
 			},function (err, res){
-			if(err) console.log(err);
+				if(err) console.log(err);
 			})
 		}
 		else $scope.errorMsg = true;
