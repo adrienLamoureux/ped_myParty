@@ -76,7 +76,9 @@ var updateRefID = function(db){
 														tickets: ticketDocs[0]._id
 													}],
 													canceled: false,
-													partiallyCanceled: false
+													partiallyCanceled: false,
+													charge_id: "",
+													buy: false
 												}
 											}, function(err, result){});
 
