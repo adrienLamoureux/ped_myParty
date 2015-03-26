@@ -4,6 +4,7 @@ var mongoTestNum = require('./../../../../config.js').mongoTestNum;
 var mongoTestName = require('./../../../../config.js').mongoTestName;
 
 var mongoURL = 'mongodb://'+mongoTestAdress+':'+mongoTestNum.toString()+'/'+mongoTestName;
+console.log(mongoURL);
 mongoose.connect(mongoURL, function(err){
 	if(err){
 		console.error("Failed to connect to MongoDB");
