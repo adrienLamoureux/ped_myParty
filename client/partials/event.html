@@ -37,10 +37,13 @@
 						<div class="pull-right" ng-hide="thisEvent.online">
 							-Ventes non ouvertes-
 						</div>
+						<div class="pull-right" ng-show="thisEvent.online && dateNotExpired(ticket.expirationDate)">
+							-Ventes expirées-
+						</div>
 						<div class="pull-right" ng-show="thisEvent.canceled">
 							-Evénement annulé-
 						</div>
-						<div class="pull-right" ng-show="thisEvent.online && !thisEvent.canceled &&dateNotExpired(thisEvent.dateEnding) && (ticketType.ticketLeft > 0) && user.authenticated">
+						<div class="pull-right" ng-show="thisEvent.online && !thisEvent.canceled &&dateNotExpired(thisEvent.dateEnding) && (ticketType.ticketLeft > 0) && user.authenticated && !dateNotExpired(ticket.expirationDate)">
 							<input ng-model="places_number" type="number" value="0" min="1">
 
 							<button id="btn_AddToBasket" ng-click="addToBasket(places_number,ticketType.uniqueID,ticketType.price,ticketType.type,ticketType.ticketLeft, ticketType.expirationDate, thisEvent.title)" class="btn btn-custom">
