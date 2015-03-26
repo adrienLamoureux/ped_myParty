@@ -8,9 +8,6 @@ var mongoTestNum = require('./../../../../../config.js').mongoTestNum;
 var mongoTestName = require('./../../../../../config.js').mongoTestName;
 
 var clearDb = function(done){
-	console.log(mongoTestAdress);
-	console.log(mongoTestNum);
-	console.log(mongoTestName);
 	var mongoclient = new MongoClient(new Server(mongoTestAdress, mongoTestNum), {native_parser: true});
 	mongoclient.open(function(err, mongoclient) {
 		var db = mongoclient.db(mongoTestName);
