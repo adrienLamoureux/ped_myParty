@@ -13,11 +13,9 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 		//compute Global Income
 		$scope.income = 0;
 		for (var e=0; e < $scope.events.length; ++e) {
-			//console.log($scope.events[e]);
 			$scope.events[e].income = 0;
 
 			for (var t=0; t < $scope.events[e].ticketsType.length; ++t) {
-				//console.log($scope.events[e].ticketsType[t]);
 				$scope.events[e].ticketsType[t].income = $scope.events[e].ticketsType[t].sold * $scope.events[e].ticketsType[t].price;
 				$scope.events[e].income += $scope.events[e].ticketsType[t].income;
 			}
@@ -110,7 +108,7 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 								refundCommandTicket(usr, event, priceTypeAssoc[ticketMongo.ticketTypeID]).then(function (){
 									deferred.resolve(ticketMongo);
 								}, function (err){
-									console.log (err);
+									console.log(err);
 									deferred.reject(err);
 								});	
 							}, 1000);
@@ -172,7 +170,7 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 		.success(function(data, status, headers, config) {
 		})
 		.error(function(data, status, headers, config) {
-			console.log(data);
+			console.log("refund error: " + data);
 		});
 		return false;
 	}

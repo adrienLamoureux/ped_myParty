@@ -11,8 +11,6 @@ app.controller('CommandsCtrl', ['$scope', '$rootScope', 'User', 'Command', 'ngPr
 			var cmd = Command.get({id:cmdID}, function (cmdData){
 				cmd = cmdData;
 
-				//console.log (" P " + key + " " + cmd.partiallyCanceled);
-				//console.log (" C " + key + " " + cmd.canceled);
 				if (cmd.partiallyCanceled == true){
 					cmd.canceled = (cmd.canceled == true)?"Annulée" : "Partiellement Annulée";
 				} else {

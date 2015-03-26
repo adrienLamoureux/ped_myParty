@@ -86,7 +86,6 @@ app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$loca
 
 	$scope.refund = function(data, amountOptional){
 		$('#error').hide();
-		console.log(data)
 		data.optionalA = amountOptional;
 		$http.post('/refund', data)
 		.success(function(data, status, headers, config) {
@@ -94,7 +93,7 @@ app.controller('PaymentCtrl', ['$scope', 'ngProgress', '$route', '$http', '$loca
 			$('#success').show();
 		})
 		.error(function(data, status, headers, config) {
-			console.log(data);
+			console.log("refund error : " + data);
 		});
 		return false;
 	}

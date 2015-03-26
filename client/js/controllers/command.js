@@ -138,12 +138,12 @@ app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'Ev
 							notification5Sec("Votre commande a été partiellement annulée à cause d'un énènement en cours, vous ne serez remboursés que sur les tickets annulés.", "Annulation de commande !");	
 						}
 						else {
-							console.log ("erreur pas possible ")
+							console.log ("error: unpossible case")
 						};
 						ngProgress.complete();
 						$window.location.href = '#/usr/cmds';
 					}, function (err){
-						console.log (err);
+						console.log(err);
 					});
 				}, 1500);
 			});
@@ -194,7 +194,6 @@ app.controller('CommandCtrl', ['$scope', '$routeParams', 'Event', 'Command', 'Ev
 		})
 		.error(function(data, status, headers, config) {
 			$scope.message = data.message
-			console.log(data);
 			ngProgress.complete();
 		});
 		return false;
