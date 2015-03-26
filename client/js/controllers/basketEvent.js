@@ -1,5 +1,5 @@
 // BasketEvent Directive Controller
-app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', 'ngProgress', '$timeout', '$location', 'Notification', function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams, ngProgress, $timeout, $location, Notification){
+app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Command', 'Ticket', '$routeParams', 'ngProgress', '$timeout', '$location', '$q', 'Notification', function ($rootScope, $scope, User, Event, Command, Ticket, $routeParams, ngProgress, $timeout, $location, $q, Notification){
 
 	ngProgress.color("#B40404");
 	ngProgress.start();
@@ -58,7 +58,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 		}
 	}
 
-	 function checkValidityOfATicket(basket, i, j, eventID, typeTicketNumber, titleTicket){
+	function checkValidityOfATicket(basket, i, j, eventID, typeTicketNumber, titleTicket){
 		var thisEvent = Event.get({id:eventID}, function(data){
 		thisEvent = data;	
 		for(k=0;k<thisEvent.ticketsType.length;k++){
@@ -175,142 +175,187 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 		});
 	}
 
+	/* Gestion de la validation du panier */
+	$scope.userCmd = null;
+	$scope.completeEvent = {};
 
-$scope.submitBasket = function(){
-	$scope.inValidation=true;
-	if($scope.AllTicketsValid == true) {
-		ngProgress.start();
+	var createCmd= function (evnt, mongoTicket){
+		var promises = [];
 
-		var cptTicket = 0 ;
-		
-		var newCmd = {
-			'dateBuy': Date.now(),
-			'totalAmount': $scope.totalOfBasket,
-			'eventTickets':[],
+		angular.forEach($scope.userCmd.eventTickets, function (evTicket, key){
+			var deferred = $q.defer();
+			promises.push (deferred);
+			if (evTicket.eventID == evnt.eventID){
+				evTicket.tickets.push(mongoTicket._id);
+			}
+			deferred.resolve($scope.userCmd)
+		});
+
+		return $q.all(promises);
+	};
+
+	var createTicket = function (evnt, ticket, keyforEvent){
+		var promises = [];
+
+		var tckt = {
+			'userID': $rootScope.user.user_id,
+			'ownerID': $scope.completeEvent[keyforEvent].ownerID,
+			'eventID': $scope.completeEvent[keyforEvent]._id,
+			'ticketTypeID': ticket.ticketType,
+			'expirationDate': new Date(ticket.expirationDate).getTime(),
+			'used':false,
 			'canceled': false
 		};
 
-		var userCmd = Command.post(newCmd, function (cmd){
-			userCmd = cmd;
+		for(i=0; i<ticket.nbTicket; i++) {
+			var deferred = $q.defer();
+			promises.push(deferred);
 
-			var mongoUser = User.get({id:$scope.theUser.apiID}, function(userData) {
-				mongoUser = userData;
+			var mongoTicket = Ticket.post(tckt, function (ticketData){
+				mongoTicket = ticketData;
+				
+				$scope.completeEvent[keyforEvent].tickets.push(mongoTicket._id);
+				Event.put({id:$scope.completeEvent[keyforEvent]._id}, $scope.completeEvent[keyforEvent]);
 
-				mongoUser.commandsID.push(userCmd._id);
-
-				mongoUser = User.put({id:mongoUser.apiID}, mongoUser, function (userData2){
-					mongoUser = userData2;
-					angular.forEach($scope.basketOfUser, function (evnt, key1){
-						var completeEvent = Event.get({id:evnt.eventID}, function (evn){
-							completeEvent = evn;
-							userCmd.eventTickets.push({
-								'eventID': evnt.eventID,
-								'tickets':[]
-							});
-							
-							angular.forEach(evnt.tickets, function(ticket, key2){
-
-								cptTicket += ticket.nbTicket;
-								
-								angular.forEach(completeEvent.ticketsType, function (tType, key3){
-											
-									if (tType.uniqueID == ticket.ticketType){
-										if (tType.ticketLeft >= ticket.nbTicket){											
-											tType.ticketLeft -= ticket.nbTicket;
-											tType.sold += ticket.nbTicket;
-			
-											var eventUp = Event.put({id:completeEvent._id}, completeEvent, function (evUp){
-												eventUp = evUp;											
-												var tckt = {
-													'userID': $rootScope.user.user_id,
-													'ownerID': eventUp.ownerID,
-													'eventID': eventUp._id,
-													'ticketTypeID': ticket.ticketType,
-													'expirationDate': new Date(ticket.expirationDate).getTime(),
-													'used':false,
-													'canceled': false
-												};
-												for(i=0;i<ticket.nbTicket;i++) {
-													var mongoTicket = Ticket.post(tckt, function (ticketData){
-														mongoTicket = ticketData;
-														
-														cptTicket--;
-														
-														completeEvent.tickets.push(mongoTicket._id);
-														Event.put({id:completeEvent._id}, completeEvent, function (data){
-															$scope.evnt = completeEvent;
-														}, function (err){
-															$scope.inValidation=false;
-															//console.log(err);
-														});
-
-														angular.forEach(userCmd.eventTickets, function (evTicket, key){
-															if (evTicket.eventID == evnt.eventID){
-																evTicket.tickets.push(mongoTicket._id);
-																userCmd = Command.put({id:userCmd._id}, userCmd, function (dataCmd){
-																	userCmd = dataCmd;
-																	
-																	$timeout(function() {
-																		
-																	}, 500);
-
-																}, function (err){
-																	$scope.inValidation=false;
-																	//console.log(err);
-																});
-															}
-														});
-
-														if (cptTicket == 0){
-															$timeout( function(){ 
-																$scope.basketOfUser = [];
-																mongoUser.basket = $scope.basketOfUser;
-																mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
-																	ngProgress.complete();
-																	mongoUser = res;
-																	$location.path('/payment/' + userCmd._id);
-																}, function (err){
-																	$scope.inValidation=false;
-																	//console.log(err);
-																});																
-															}, 1000);	
-														}
-
-													}, function (err){
-														$scope.inValidation=false;
-														//console.log(err);
-													});
-												}
-											});
-										}
-										else {
-											$scope.inValidation=false;
-											alert("Le nombre de billets souhaité n'est plus dispo à la vente, veuillez retenter votre achat ultérieurement. Merci de votre compréhension.");
-										}	
-									}
-								});
-							});
+				// création commande
+				createCmd(evnt, mongoTicket).then(function (){
+					$timeout (function (){
+						$scope.userCmd = Command.put({id:$scope.userCmd._id}, $scope.userCmd, function (dataCmd){
+							$scope.userCmd = dataCmd;
 						}, function (err){
 							$scope.inValidation=false;
-							//console.log (err);
+						});
+					}, 1500);
+				})
+				deferred.resolve($scope.userCmd);
+			}, function (err){
+				$scope.inValidation=false;
+				deferred.reject("erreur pendant la creation d'une commande !!");
+			});
+		}
+
+		return $q.all(promises);
+	};
+
+	var createTicketForType = function (evnt, ticket, keyforEvent) {
+		var promises = [];
+
+		angular.forEach($scope.completeEvent[keyforEvent].ticketsType, function (tType, key3){
+			var deferred = $q.defer();
+			promises.push (deferred);
+						
+			if (tType.uniqueID == ticket.ticketType){
+				if (tType.ticketLeft >= ticket.nbTicket){											
+					tType.ticketLeft -= ticket.nbTicket;
+					tType.sold += ticket.nbTicket;
+
+					$scope.completeEvent[keyforEvent] = Event.put({id:$scope.completeEvent[keyforEvent]._id}, $scope.completeEvent[keyforEvent], function (evUp){
+						$scope.completeEvent[keyforEvent] = evUp;											
+						
+						createTicket(evnt, ticket, keyforEvent).then(function(data){
+							$timeout (function (){
+								deferred.resolve("Billet crée et collections updated");
+							}, 1000);
+						});
+					});
+				}
+				else {
+					$scope.inValidation=false;
+					deferred.reject("nombre de billets non dispo à la vente");
+					alert("Le nombre de billets souhaité n'est plus dispo à la vente, veuillez retenter votre achat ultérieurement. Merci de votre compréhension.");
+				};
+			}
+			else {
+				deferred.reject("OK mais pas bon type ticket");
+			};
+		});
+		return $q.all(promises);
+	}
+
+	var createTicketsForEvents = function (evnt, keyforEvent){
+		var promises = [];
+				
+		angular.forEach(evnt.tickets, function(ticket, key2){
+			var deferred = $q.defer();
+			promises.push (deferred);
+			
+			createTicketForType(evnt, ticket, keyforEvent).then (function (){
+				$timeout(function (){
+					deferred.resolve();
+				}, 1000);
+			});
+		});
+		return $q.all(promises);
+	}
+
+	$scope.submitBasket = function(){
+		$scope.inValidation=true;
+		if($scope.AllTicketsValid == true) {
+			ngProgress.start();
+
+			var cptTicket = 0 ;
+			
+			var newCmd = {
+				'dateBuy': Date.now(),
+				'totalAmount': $scope.totalOfBasket,
+				'eventTickets':[],
+				'canceled': false
+			};
+
+			$scope.userCmd = Command.post(newCmd, function (cmd){
+				$scope.userCmd = cmd;
+
+				var mongoUser = User.get({id:$scope.theUser.apiID}, function(userData) {
+					mongoUser = userData;
+
+					mongoUser.commandsID.push($scope.userCmd._id);
+
+					mongoUser = User.put({id:mongoUser.apiID}, mongoUser, function (userData2){
+						mongoUser = userData2;
+						angular.forEach($scope.basketOfUser, function (evnt, keyforEvent){
+							$scope.completeEvent[keyforEvent] = Event.get({id:evnt.eventID}, function (evn){
+								$scope.completeEvent[keyforEvent] = evn;
+								$scope.userCmd.eventTickets.push({
+									'eventID': evnt.eventID,
+									'tickets':[]
+								});
+								
+								
+								createTicketsForEvents(evnt, keyforEvent).then (function () {
+									$timeout( function(){ 
+										$scope.basketOfUser = [];
+										mongoUser.basket = $scope.basketOfUser;
+										mongoUser = User.put({id:$rootScope.user.user_id}, mongoUser, function (res){
+											ngProgress.complete();
+											mongoUser = res;
+											$location.path('/payment/' + $scope.userCmd._id);
+										}, function (err){
+
+											$scope.inValidation=false;
+											//console.log(err);
+										});																
+									}, 1000);	
+								});
+							}, function (err){
+								$scope.inValidation=false;
+								//console.log (err);
+							});
 						});
 					});
 				});
+			}, function (err){
+				$scope.inValidation=false;
+				//console.log(err);
 			});
-		}, function (err){
-			$scope.inValidation=false;
-			//console.log(err);
-		});
 		}else{
 			$scope.inValidation=false;
-			alert("Impossible de commander, des tickets sont en quantité insuffisante. Veuillez changer votre commande.")
+			alert("Impossible de commander, certains billets sont en quantité insuffisante. Veuillez changer votre commande.")
 		}
-
 	};
 
 	var notification3Sec = function(text, notifTitle) {
-         Notification.success({message: text, delay: 3000, title: '<i>'+notifTitle+'</i>'});
-    };
+		Notification.success({message: text, delay: 3000, title: '<i>'+notifTitle+'</i>'});
+	};
 
 	// Fonctions lancées lors de l'execution du controleur 
 	getBasketWithUserId();

@@ -2,32 +2,41 @@
 <div id="eventPage" class="container" >
 	<section id="event" class="col-xs-10 col-xs-offset-1">
 		<section id="info" class="col-xs-12">
-			<h1> Contenu de ma commande du {{command.dateBuy | date:'dd/MM/yyyy - H:mm'}} </h1>
+			<h1> Contenu de ma commande du {{command.dateBuy | date:'dd/MM/yyyy - H:mm'}}</h1>
 			<div class="command" ng-repeat="evnt in events">
-				<h2>Tickets pour le {{evnt.title}}</h2>
+				<h2>Billets pour le {{evnt.title}}</h2>
 				<img  ng-src="data:{{evnt.ticketImage.ticketImg.filetype}};base64,{{evnt.ticketImage.ticketImg.base64}}" class="img-thumbnail" alt="{{evnt.title}}">
-				<div id="cmdsTable" class=" table-responsive" >
+				<div id="cmdsTable" class=" table-responsive" ng-show="command.buy">
 					<table class="commandTable table table-center">
 						<thead>
 							<tr>
-								<th>Type de ticket</th>
+								<th>Type de billet</th>
 								<th>Prix</th>
 								<th>Date d'expiration</th>
 								<th>Status</th>
+								<th>Remboursement</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="ticket in evnt.tickets">
+							<tr ng-repeat="ticket in evnt.tickets track by $index">
 								<td data-title="Type de ticket"><a id="typeToTicket{{$parent.$index+1}}_{{$index+1}}" class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.ticketTypeName}}</a></td>
 								<td data-title="Prix"><a id="priceToTicket{{$parent.$index+1}}_{{$index+1}}" class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.price}}€</a></td>
 								<td data-title="Date d'expiration"><a id="expToTicket{{$parent.$index+1}}_{{$index+1}}" class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.expirationDate | date : 'dd/MM/yyyy'}}<a/></td>
 								<td data-title="Utilisé"><a id="usedToTicket{{$parent.$index+1}}_{{$index+1}}" class="block" href="#/event/{{evnt._id}}/ticket/{{ticket._id}}">{{ticket.used}}</a></td>
+								<td data-title="Remboursement">								
+								<button id="refundTicket{{$parent.$index+1}}_{{$index+1}}" ng-hide="ticket.canceled || overDated" type="submit" class="btn btn-custom" ng-click="refundOptional(ticket.price, ticket._id)">Remboursement Billet </button><span id="refundImpossible{{$parent.$index+1}}_{{$index+1}}" ng-show="!ticket.canceled && overDated">Impossible</span>
+								<span id="refunded{{$parent.$index+1}}_{{$index+1}}" ng-show="ticket.canceled">Ticket remboursé</span>
+								</div>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
-			<button ng-show="(!command.canceled) && (!command.partiallyCanceled)" id="cancel" class="center btn btn-custom margTop" confirmed-click="cancelCommand(command._id)" ng-confirm-click="Etes-vous sûr de vouloir annuler votre commande ? (Seuls les tickets correspondant aux évènements non débutés seront annulés)">
+			<div ng-hide="command.buy || command.canceled" class="text-center">
+				<a id="pay" class="btn btn-custom btn-lg" href="#/payment/{{command._id}}"><span class="glyphicon glyphicon-euro"></span>Payer ma commande</a>
+			</div>
+			<button ng-show="command.buy && (!command.canceled) && (!command.partiallyCanceled)" id="cancel" class="center btn btn-custom margTop" confirmed-click="cancelCommand(command._id)" ng-confirm-click="Etes-vous sûr de vouloir annuler votre commande ? (Seuls les tickets correspondant aux évènements non débutés seront annulés)">
 				<span class="glyphicon glyphicon-ban-circle"></span>Annuler ma commande
 			</button>
 		</section>

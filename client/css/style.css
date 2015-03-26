@@ -143,22 +143,7 @@ sup.version {
 	color: orange;
 }
 
-@media screen and (min-width: 800px) {
-	.mdRight {
-		float:right;
-	}
-	.mdHide{
-		display:none;
-	}
-}
-@media screen and (max-width: 800px) {
-	.mdRight {
-		float:none;
-	}
-	.mdHide{
-		display:inline;
-	}
-}
+
 /*********************************/
 /*** dropdown menu ***************/
 /***               ***************/
@@ -538,19 +523,19 @@ table.commandTable a.block  {
 /*********************************/
 /*** navbarsmall *****************/
 /*********************************/
-@media (max-width: 1200px) {
-    ul.pull-right {
-        float: none !important;
-    }
-    .hidesmall {
-    	visibility:visible;
-    	display:inline;
-    }
+@media (min-width: 768px) {
+	.mdRight {
+		float:right;
+	}
+	.mdHide{
+		display:none;
+	}
 }
-
-@media (min-width: 1200px) {
-    .hidesmall {
-    	visibility:hidden;
-    	display:none;
-    }
+@media (max-width: 768px) {
+	.mdRight {
+		float:none;
+	}
+	.mdHide{
+		display:inline;
+	}
 }

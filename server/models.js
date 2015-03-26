@@ -30,7 +30,9 @@ var cmdSchema = new Schema({
 	totalAmount: Number,
 	eventTickets: [eventTicket],
 	canceled: {type: Boolean, default: false},
-	partiallyCanceled: {type: Boolean, default: false}
+	partiallyCanceled: {type: Boolean, default: false},
+	charge_id: String,
+	buy: {type: Boolean, default: false}
 }, {collection: 'commands'});
 
 // ticket sold to user for an event
@@ -116,9 +118,9 @@ var ticketModel = mongoose.model('ticket', ticketSchema);
 var imageModel = mongoose.model('img', imgSchema);
 
 module.exports = {
-  userModel: userModel,
-  eventModel: eventModel,
-  commandsModel: commandsModel,
-  ticketModel: ticketModel,
-  imageModel: imageModel
+	userModel: userModel,
+	eventModel: eventModel,
+	commandsModel: commandsModel,
+	ticketModel: ticketModel,
+	imageModel: imageModel
 };
