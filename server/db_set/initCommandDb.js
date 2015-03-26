@@ -13,7 +13,9 @@ var initCommands = function(db){
 				tickets: null
 			}],
 			canceled: false,
-			partiallyCanceled: false
+			partiallyCanceled: false,
+			charge_id: "",
+			buy: false
 		}], function (err, result) {
 			if (err) { console.log("\t--> Cannot insert documents in 'commands'\n"); return false; }
 			console.log("\t--> New documents have been added to 'commands'!\n"+
