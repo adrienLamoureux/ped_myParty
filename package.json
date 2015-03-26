@@ -15,8 +15,8 @@
     "body-parser": "*",
     "express": "*",
     "express-userapp": "^0.1.0",
-    "mongodb": "*",
-    "mongoose": "*",
+    "mongodb": "1.4.31",
+    "mongoose": "3.8.1",
     "passport": "^0.2.1",
     "passport-userapp": "^1.1.2",
     "stripe": "^3.3.2"
