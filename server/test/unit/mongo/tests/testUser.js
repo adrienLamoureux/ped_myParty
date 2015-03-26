@@ -3,6 +3,7 @@ var Server = require('mongodb').Server;
 var userModel = require('./../../../../models.js').userModel;
 var assert = require("assert");
 var ObjectID = require('mongodb').ObjectID;
+var userRefApiID = require('./../../config.js').userRefApiID;
 var mongoTestAdress = require('./../../../../../config.js').mongoTestAdress;
 var mongoTestNum = require('./../../../../../config.js').mongoTestNum;
 var mongoTestName = require('./../../../../../config.js').mongoTestName;
@@ -28,7 +29,7 @@ var insertDb = function(done){
 		db.collection('user', function(err, collection) {
 			collection.insert([
 			{
-				apiID: 'swiPjk21RqmEPu21KVi84w',
+				apiID: userRefApiID,
 				inscriptionDate: '1424339270481',
 				photo: {
 					filetype : "image/jpeg",
