@@ -11,7 +11,7 @@
     "express": "*",
     "express-userapp": "^0.1.0",
     "mongodb": "*",
-    "mongoose": "*",
+    "mongoose": "3.8.x",
     "passport": "^0.2.1",
     "passport-userapp": "^1.1.2",
     "stripe": "^3.3.2"
