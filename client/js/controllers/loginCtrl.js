@@ -19,7 +19,6 @@ app.controller('LoginCtrl', ['$scope', 'ngProgress', 'User', 'Command','$q','$wi
 						"type" : "ACCOUNT_EXPIRED"
 					}, function(err, res){
 						if(err) console.log(err)
-						else $window.location.reload();
 					});
 			}})
 		})
