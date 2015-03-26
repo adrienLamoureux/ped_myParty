@@ -5,8 +5,8 @@ exports.config = {
 	allScriptsTimeout: 110000,
 
 	specs: [
-		'server/test/unit/mongo/testMongo.js'//,
-		//'client/test/e2e/**/manager.js'
+		//'server/test/unit/mongo/testMongo.js'//,
+		'client/test/e2e/**/manager.js'
 	],
 
 	capabilities: {
@@ -22,7 +22,7 @@ exports.config = {
 		isVerbose: true,
 		showColors: true,
 		includeStackTrace: true,
-		defaultTimeoutInterval: 30000
+		defaultTimeoutInterval: 60000
 	},
 	resultJsonOutputFile: './outputTest.txt'
 };
