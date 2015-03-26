@@ -90,7 +90,9 @@ mongoclient.open(function(err, mongoclient) {
 						tickets: null
 					}],
 					canceled: false,
-					partiallyCanceled: false
+					partiallyCanceled: false,
+					charge_id: "",
+					buy: false
 				}]
 			}
 			], function (err, result) {})
@@ -184,7 +186,9 @@ mongoclient.open(function(err, mongoclient) {
 															tickets: ticketDocs[0]._id
 														}],
 														canceled: false,
-														partiallyCanceled: false
+														partiallyCanceled: false,
+														charge_id: "",
+														buy: false
 													}]
 												}
 											}, function(err, result){});
