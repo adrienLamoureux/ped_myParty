@@ -4,7 +4,7 @@
   "description": "myParty for AngularJS",
   "main": "server/server.js",
   "devDependencies": {
-    "requirejs": "^2.1.14",
+    "requirejs": "2.1.16",
     "protractor":"1.8.0",
     "assert":"1.3.0",
     "mocha":"2.1.0",
