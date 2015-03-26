@@ -16,3 +16,10 @@ app.factory('Command', ['$resource', function($resource){
 		delete:{method: 'DELETE', isArray:false}
 	});
 }]);
+
+app.factory('Contact', ['$resource', function($resource){
+	return $resource('./../api/contact',  {
+		get : {method: 'GET', isArray:false}
+	});
+}]);
+

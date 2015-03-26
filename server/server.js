@@ -4,6 +4,7 @@ var mongoAdress = require('./../config.js').mongoAdress;
 var serverPort = require('./../config.js').serverPort;
 var apiID = require('./../config.js').apiID;
 var stripeKey = require('./../config.js').stripeKey;
+var mailToContact = { mail : require('./../config.js').mailToContact };
 
 // Module dependencies.
 var application_root = __dirname,
@@ -99,6 +100,11 @@ function (userprofile, done) {
 	});
 }
 ));
+
+app.get('/api/contact', function (req, res, next) {
+	console.log('get contect ' + mailToContact);
+	return res.send(mailToContact);
+});
 
 // Event
 app.get('/api/event', function (req, res, next) {
