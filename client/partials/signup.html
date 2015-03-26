@@ -17,8 +17,10 @@
 					<input name="password" class="form-control" placeholder="Password" type="password"><br>
 				</div>
 				<div class="text-center">
-					<p ng-show="error" class="alert-danger">{{ error.message }}</p>
-					<button type="submit" class="btn btn-custom  btn-lg" ng-click="createUser()"><span class="glyphicon glyphicon-user"></span>Créer mon compte</button>
+					<p ng-show="error" class="alert alert-danger">{{ error.message }}</p>
+					<button type="submit" class="btn btn-custom" ng-click="createUser()">
+						<span class="glyphicon glyphicon-user"></span>Créer mon compte
+					</button>
 				</div>
 			</form>
 			<div class="margTop">	

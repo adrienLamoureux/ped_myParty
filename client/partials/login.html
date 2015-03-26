@@ -14,13 +14,13 @@
 				</div>
 				<div class="text-center">
 					<p ng-show="error" class="alert alert-danger">{{ error.message }}</p>
-					<button ng-hide="showUnlockButton" type="submit" class="btn btn-custom btn-lg" ng-click="createUser(log, pass)"><span class="glyphicon glyphicon-log-in "></span>Connecter</button>
-					<button type="button" ng-show="showUnlockButton" class="btn btn-custom btn-lg" ng-confirm-click="Voulez-vous réactiver votre Compte ?" confirmed-click="unlockUser(log, pass, idLock)">Réactiver Mon Compte</button>
+					<button ng-hide="showUnlockButton" type="submit" class="btn btn-custom" ng-click="createUser(log, pass)"><span class="glyphicon glyphicon-log-in "></span>Connecter</button>
+					<button type="button" ng-show="showUnlockButton" class="btn btn-custom" ng-confirm-click="Voulez-vous réactiver votre Compte ?" confirmed-click="unlockUser(log, pass, idLock)">Réactiver Mon Compte</button>
 				</div>
 			</form>
 			<div class="margTop">
 				<p>Pas encore inscrit ? <a class="link_connect" href="#/signup">Inscription</a></p>
-				<p>Mot de passe oublié ? <a class="link_connect" href="#/reset-password">Réinitialiser mot de passe</a></p>
+				<p>Mot de passe oublié ? <a class="link_connect" href="#/resetPassword">Réinitialiser mot de passe</a></p>
 				<p>Perdu ? <a class="link_connect" href="#/">Retournez à l'accueil</a>.</p>
 			</div>
 		</section>
