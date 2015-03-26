@@ -136,11 +136,11 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 						if(numberplace == 1) {
 							// Affichage de la notification d'ajout au panier
 							if(addOrNot == true){
-							notification2Sec("Ajout d'un ticket au panier !", eventTitle);
+							notification2Sec("Ajout d'un billet au panier !", eventTitle);
 							}
 						}else{
 							if(addOrNot == true){
-							notification2Sec('Ajout de '+numberplace+' tickets au panier !', eventTitle);
+							notification2Sec('Ajout de '+numberplace+' billet au panier !', eventTitle);
 							}
 						}
 						
@@ -149,7 +149,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 					});
 
 			}, function (){
-				console.log("Probleme lors de l\'ajout du ticket, erreur lors de la recuperation du panier utilisateur");
+				console.log("Probleme lors de l\'ajout du billet, erreur lors de la recuperation du panier utilisateur");
 			});
 			}
 		}

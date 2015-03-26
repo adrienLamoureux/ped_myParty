@@ -349,7 +349,7 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 			});
 		}else{
 			$scope.inValidation=false;
-			alert("Impossible de commander, des tickets sont en quantité insuffisante. Veuillez changer votre commande.")
+			alert("Impossible de commander, certains billets sont en quantité insuffisante. Veuillez changer votre commande.")
 		}
 	};
 

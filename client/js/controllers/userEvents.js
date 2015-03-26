@@ -154,7 +154,7 @@ app.controller('UserEventsCtrl', ['$rootScope', '$scope', '$routeParams', 'Event
 				event.canceled=true;
 				Event.put({id:event._id}, event).$promise.then (function (event){
 					ngProgress.complete();
-					notification5Sec("Votre évènement a été annulé, tous les clients seront remboursés.","Annulation évènement")
+					notification5Sec("Votre événement a été annulé, tous les clients seront remboursés.","Annulation événement")
 					$route.reload();
 				});
 			}, 1000);
