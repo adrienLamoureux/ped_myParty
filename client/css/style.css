@@ -220,6 +220,7 @@ sup.version {
 /***      ************************/
 #page{
 	margin-top:60px; /* required to let some place for the top-fixed main menu bar. */
+	margin-bottom:60px;
 }
 
 
