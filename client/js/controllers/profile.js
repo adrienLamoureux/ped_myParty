@@ -55,11 +55,9 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 		});
 	};
 	
-
 	$scope.reloadPage = function(){
 		$timeout( function (){$window.location.reload()} , 500);
 	}
-
 
 	$scope.validateChange = function(newName, newLastName){
 		if(newName && newLastName){
