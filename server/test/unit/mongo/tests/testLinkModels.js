@@ -7,6 +7,7 @@ var imageModel = require('./../../../../models.js').imageModel;
 var ticketModel = require('./../../../../models.js').ticketModel;
 var assert = require("assert");
 var ObjectID = require('mongodb').ObjectID;
+var userRefApiID = require('./../../../../../config.js').userRefApiID;
 var mongoTestAdress = require('./../../../../../config.js').mongoTestAdress;
 var mongoTestNum = require('./../../../../../config.js').mongoTestNum;
 var mongoTestName = require('./../../../../../config.js').mongoTestName;
@@ -58,7 +59,7 @@ mongoclient.open(function(err, mongoclient) {
 			});
 			collection.insert([
 			{
-				apiID: 'swiPjk21RqmEPu21KVi84w',
+				apiID: userRefApiID,
 				inscriptionDate: '1424339270481',
 				photo: {
 					filetype : "image/jpeg",
