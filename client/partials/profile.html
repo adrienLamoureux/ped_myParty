@@ -78,8 +78,12 @@
 							</form>
 						</div>
 						<div class="modal-footer">
-							<button id="btn_userFirstNameClose" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="reloadPage()">Close</button>
-							<button id="btn_userFirstNameSave" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="validateChange(newName, last_name);reloadPage()">Save changes</button>
+							<button id="btn_userFirstNameClose" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="reloadPage()">
+								Close
+							</button>
+							<button id="btn_userFirstNameSave" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="validateChange(newName, last_name);reloadPage()">
+								Save changes
+							</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -104,8 +108,12 @@
 							</form>
 						</div>
 						<div class="modal-footer">
-							<button id="btn_userFirstNameClose" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="reloadPage()">Close</button>
-							<button id="btn_userFirstNameSave" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="validateChange(first_name, newLastName);reloadPage()">Save changes</button>
+							<button id="btn_userFirstNameClose" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="reloadPage()">
+								Close
+							</button>
+							<button id="btn_userFirstNameSave" type="button" class="btn btn-custom" data-dismiss="modal" ng-click="validateChange(first_name, newLastName);reloadPage()">
+								Save changes
+							</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
@@ -117,7 +125,9 @@
 				</div>
 				<div id="userImageUpdate" class="panel-body text-center">
 					<input id="userGetImage" type="file" ng-model="mongoUser.photo" name="file" base-sixty-four-input required ng-click="viewImgP()"/>
-					<button id="bt_submit" class="btn btn-custom pull-right" type="button" ng-click="updateProfile()">Valider</button>
+					<button id="bt_submit" class="btn btn-custom pull-right" type="button" ng-click="updateProfile()">
+						Valider
+					</button>
 					<div>
 						<p>Prévisualisation : <img id="previewProfileImg" ng-src="data:{{mongoUser.photo.filetype}};base64,{{mongoUser.photo.base64}}" alt=""></p>
 					</div>
@@ -126,7 +136,9 @@
 			
 			<div class="center alert alert-success" role="alert" ng-if="user.locks.length === 0">
 				Votre compte est : Actif <br/>
-				<button id="btn_disableAccount" type="submit" class="btn btn-custom" confirmed-click="lockUsr(user)" ng-confirm-click="Etes vous sûr de verrouiller votre Compte ? vous ne pourrez plus vous connecter">Désactiver Compte</button>
+				<button id="btn_disableAccount" type="submit" class="btn btn-custom" confirmed-click="lockUsr(user)" ng-confirm-click="Etes vous sûr de verrouiller votre Compte ? vous ne pourrez plus vous connecter">
+					Désactiver Compte
+				</button>
 			</div>
 		</section>
 	</section>

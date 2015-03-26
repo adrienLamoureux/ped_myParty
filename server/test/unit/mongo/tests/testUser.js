@@ -3,11 +3,15 @@ var Server = require('mongodb').Server;
 var userModel = require('./../../../../models.js').userModel;
 var assert = require("assert");
 var ObjectID = require('mongodb').ObjectID;
+var userRefApiID = require('./../../../../../config.js').userRefApiID;
+var mongoTestAdress = require('./../../../../../config.js').mongoTestAdress;
+var mongoTestNum = require('./../../../../../config.js').mongoTestNum;
+var mongoTestName = require('./../../../../../config.js').mongoTestName;
 
 var clearDb = function(done){
-	var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
+	var mongoclient = new MongoClient(new Server(mongoTestAdress, mongoTestNum), {native_parser: true});
 	mongoclient.open(function(err, mongoclient) {
-		var db = mongoclient.db("test_mongodb");
+		var db = mongoclient.db(mongoTestName);
 		db.collection('user', function(err, collection) {
 			if (collection) {
 				collection.remove({}, function(err,removed) {
@@ -19,13 +23,13 @@ var clearDb = function(done){
 };
 
 var insertDb = function(done){
-	var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
+	var mongoclient = new MongoClient(new Server(mongoTestAdress, mongoTestNum), {native_parser: true});
 	mongoclient.open(function(err, mongoclient) {
-		var db = mongoclient.db("test_mongodb");
+		var db = mongoclient.db(mongoTestName);
 		db.collection('user', function(err, collection) {
 			collection.insert([
 			{
-				apiID: 'swiPjk21RqmEPu21KVi84w',
+				apiID: userRefApiID,
 				inscriptionDate: '1424339270481',
 				photo: {
 					filetype : "image/jpeg",

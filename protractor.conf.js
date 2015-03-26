@@ -1,3 +1,6 @@
+var serverPort = require('./config.js').serverPort;
+var url = 'http://localhost:'+serverPort+'/';
+
 exports.config = {
 	allScriptsTimeout: 110000,
 
@@ -11,7 +14,7 @@ exports.config = {
 		'count': 1
 	},
 
-	baseUrl: 'http://localhost:4711/',
+	baseUrl: url,
 
 	frameworks: ['mocha', 'jasmine'],
 
@@ -19,7 +22,7 @@ exports.config = {
 		isVerbose: true,
 		showColors: true,
 		includeStackTrace: true,
-		defaultTimeoutInterval: 30000
+		defaultTimeoutInterval: 60000
 	},
 	resultJsonOutputFile: './outputTest.txt'
 };

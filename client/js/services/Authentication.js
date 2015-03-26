@@ -3,7 +3,7 @@ app.factory('AuthenticationService',function(){
 		isLogged: false
 	};
 	
-	return auth;		
+	return auth;
 });
 
 app.factory('UserService', function($http) {

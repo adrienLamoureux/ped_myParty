@@ -20,7 +20,7 @@ app.factory('EventImages', ['$resource', function($resource){
 app.factory('EventByOrganizerId', ['$resource', function($resource){
 	return $resource('./../api/user/:id/event', {id: '@_id'}, {
 		query: {method: 'GET', isArray:true},
-	});		
+	});
 }]);
 
 app.factory('EventTicketValidate', ['$resource', function($resource){

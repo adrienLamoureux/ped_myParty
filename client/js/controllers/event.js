@@ -3,7 +3,9 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 	ngProgress.color("#B40404");
 
 	$scope.showTicket = false;
+	$scope.canceledEvent = false;
 	$scope.loading = true;
+	$scope.publishing = false;
 
 	//URL event argument
 	if(angular.isDefined($routeParams.id)){
@@ -13,6 +15,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 			ngProgress.complete();	
 		});
 		$scope.imgs = EventImages.get({id:$routeParams.id}, function(data){
+			$scope.loading = false;
 			$scope.imgs = data;
 		});			
 	}
@@ -95,7 +98,6 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 								
 							}else{
 								// Si il n'existe pas ticket de ce type d'evenement dans le panier, alors on ajoute toute la structure
-								//console.log("il n'existe pas ticket de ce type d'evenement dans le panier");
 								var newBasketEventTicket = {
 									eventID: $routeParams.id,
 									eventTitle: eventTitle,
@@ -133,11 +135,11 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 						if(numberplace == 1) {
 							// Affichage de la notification d'ajout au panier
 							if(addOrNot == true){
-							notification2Sec("Ajout d'un ticket au panier !", eventTitle);
+							notification2Sec("Ajout d'un billet au panier !", eventTitle);
 							}
 						}else{
 							if(addOrNot == true){
-							notification2Sec('Ajout de '+numberplace+' tickets au panier !', eventTitle);
+							notification2Sec('Ajout de '+numberplace+' billet au panier !', eventTitle);
 							}
 						}
 						
@@ -146,7 +148,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 					});
 
 			}, function (){
-				console.log("Probleme lors de l\'ajout du ticket, erreur lors de la recuperation du panier utilisateur");
+				console.log("Probleme lors de l'ajout du billet, erreur lors de la recuperation du panier utilisateur");
 			});
 			}
 		}
@@ -157,7 +159,7 @@ app.controller('EventCtrl', ['$rootScope','$scope', '$routeParams', 'Event', 'Ev
 	};
 
 	notification2Sec = function(text, eventTitle) {
-        Notification.success({message: text, delay: 2000, title: '<i>'+eventTitle+'</i>'});
-    };
+		Notification.success({message: text, delay: 2000, title: '<i>'+eventTitle+'</i>'});
+	};
 
 }]);

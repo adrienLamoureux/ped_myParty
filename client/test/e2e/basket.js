@@ -11,6 +11,57 @@ var addOneTicket = function(){
 	browser.sleep(500);
 };
 
+var validateBasket = function(){
+	addOneTicket();
+	var myBasket = browser.findElement(by.id("bt_basket"));
+	expect(myBasket.isDisplayed()).toBe(true);
+	myBasket.click();
+	var basketTotal = browser.findElement(by.id("basketTotal"));
+	var basketAmount = basketTotal.getText();
+	var btn_basketValidation = browser.findElement(by.id("btn_basketValidation"));
+	expect(myBasket.isDisplayed()).toBe(true);
+	btn_basketValidation.click();
+	browser.sleep(1000);
+	
+	var card_number = browser.findElement(by.id("card_number"));
+	expect(card_number.isDisplayed()).toBe(true);
+	card_number.clear();
+	card_number.sendKeys("4242424242424242");
+	expect(card_number.getAttribute('value')).toBe("4242424242424242");
+	var expiration_month = browser.findElement(by.id("expiration_month"));
+	expect(expiration_month.isDisplayed()).toBe(true);
+	expiration_month.clear();
+	expiration_month.sendKeys("08");
+	expect(expiration_month.getAttribute('value')).toBe("08");
+	var expiration_year = browser.findElement(by.id("expiration_year"));
+	expect(expiration_year.isDisplayed()).toBe(true);
+	expiration_year.clear();
+	expiration_year.sendKeys("18");
+	expect(expiration_year.getAttribute('value')).toBe("18");
+	var cvc = browser.findElement(by.id("cvc"));
+	expect(cvc.isDisplayed()).toBe(true);
+	cvc.clear();
+	cvc.sendKeys("111");
+	expect(cvc.getAttribute('value')).toBe("111");
+	
+	var commandAmount = browser.findElement(by.id("commandAmount"));
+	expect(commandAmount.isDisplayed()).toBe(true);
+	commandAmount.getText().then(function(text){
+		basketAmount.then(function(basket){
+			basket = basket.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
+			text = text.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
+			expect(text.toString()).toEqual(basket);
+		});
+	});
+	
+	var paiement = browser.findElement(by.id("pay"));
+	expect(paiement.isDisplayed()).toBe(true);
+	paiement.click();
+	browser.sleep(3000);
+	var notif = browser.findElement(by.className("message"));
+	expect(notif.isDisplayed()).toBe(true);
+};
+
 describe('basket view' , function () {
 
 	beforeEach(function(){
@@ -89,94 +140,11 @@ describe('basket view' , function () {
 		});
 	});
 
-	it('should validate a basket', function(){
-		addOneTicket();
-		var myBasket = browser.findElement(by.id("bt_basket"));
-		expect(myBasket.isDisplayed()).toBe(true);
-		myBasket.click();
-		var btn_basketValidation = browser.findElement(by.id("btn_basketValidation"));
-		expect(myBasket.isDisplayed()).toBe(true);
-		btn_basketValidation.click();
-	});
-
-	it('should release a paiement', function(){
-		addOneTicket();
-		var myBasket = browser.findElement(by.id("bt_basket"));
-		expect(myBasket.isDisplayed()).toBe(true);
-		myBasket.click();
-		var basketTotal = browser.findElement(by.id("basketTotal"));
-		var basketAmount = basketTotal.getText();
-		var btn_basketValidation = browser.findElement(by.id("btn_basketValidation"));
-		expect(myBasket.isDisplayed()).toBe(true);
-		btn_basketValidation.click();
-		browser.sleep(1000);
-		
-		var card_number = browser.findElement(by.id("card_number"));
-		expect(card_number.isDisplayed()).toBe(true);
-		card_number.clear();
-		card_number.sendKeys("4242424242424242");
-		expect(card_number.getAttribute('value')).toBe("4242424242424242");
-		var expiration_month = browser.findElement(by.id("expiration_month"));
-		expect(expiration_month.isDisplayed()).toBe(true);
-		expiration_month.clear();
-		expiration_month.sendKeys("08");
-		expect(expiration_month.getAttribute('value')).toBe("08");
-		var expiration_year = browser.findElement(by.id("expiration_year"));
-		expect(expiration_year.isDisplayed()).toBe(true);
-		expiration_year.clear();
-		expiration_year.sendKeys("18");
-		expect(expiration_year.getAttribute('value')).toBe("18");
-		var cvc = browser.findElement(by.id("cvc"));
-		expect(cvc.isDisplayed()).toBe(true);
-		cvc.clear();
-		cvc.sendKeys("111");
-		expect(cvc.getAttribute('value')).toBe("111");
-		
-		var commandAmount = browser.findElement(by.id("commandAmount"));
-		expect(commandAmount.isDisplayed()).toBe(true);
-		commandAmount.getText().then(function(text){
-			basketAmount.then(function(basket){
-				basket = basket.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
-				text = text.match(/\d+.?\d*/)[0].replace(/ +?/g, '');
-				expect(text.toString()).toEqual(basket);
-			});
-		});
-		
-		var paiement = browser.findElement(by.buttonText("Valider le paiement"));
-		expect(paiement.isDisplayed()).toBe(true);
-		paiement.click();
-	});
-
-	it('should see a notification when validate a basket', function(){
-		addOneTicket();
-		var myBasket = browser.findElement(by.id("bt_basket"));
-		expect(myBasket.isDisplayed()).toBe(true);
-		myBasket.click();
-		var btn_basketValidation = browser.findElement(by.id("btn_basketValidation"));
-		expect(myBasket.isDisplayed()).toBe(true);
-		btn_basketValidation.click();
+	it('should validate a panner, release the paiement and look for the notification', function(){
+		validateBasket();
 		browser.sleep(200);
-		var card_number = browser.findElement(by.id("card_number"));
-		expect(card_number.isDisplayed()).toBe(true);
-		card_number.clear();
-		card_number.sendKeys("4242424242424242");
-		var expiration_month = browser.findElement(by.id("expiration_month"));
-		expect(expiration_month.isDisplayed()).toBe(true);
-		expiration_month.clear();
-		expiration_month.sendKeys("08");
-		var expiration_year = browser.findElement(by.id("expiration_year"));
-		expect(expiration_year.isDisplayed()).toBe(true);
-		expiration_year.clear();
-		expiration_year.sendKeys("18");
-		var cvc = browser.findElement(by.id("cvc"));
-		expect(cvc.isDisplayed()).toBe(true);
-		cvc.clear();
-		cvc.sendKeys("111");
-		var paiement = browser.findElement(by.buttonText("Valider le paiement"));
-		expect(paiement.isDisplayed()).toBe(true);
-		paiement.click();
-		browser.sleep(3000);
-		var notif = browser.findElement(by.className("message"));
-		expect(notif.isDisplayed()).toBe(true);
+		browser.get('http://localhost:5000/#/');
+		browser.sleep(200);
+		validateBasket();
 	});
 });

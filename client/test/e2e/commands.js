@@ -18,17 +18,19 @@ describe('commands view' , function () {
 	});
 
 	it('should view the ticket details to print', function(){
+		browser.get('http://localhost:5000/#/');
 		var bt_account = browser.findElement(by.id("bt_account"));
 		expect(bt_account.isDisplayed()).toBe(true);
 		bt_account.click();
 		var myCommands = browser.findElement(by.id("bt_mineOrders"));
 		expect(myCommands.isDisplayed()).toBe(true);
 		myCommands.click();
-		var cmd1 = browser.findElement(by.id("cmd1"));
-		expect(cmd1.isDisplayed()).toBe(true);
-		cmd1.click();
+		browser.sleep(200);
 		var cmdsTable = browser.findElement(by.id("cmdsTable"));
 		expect(cmdsTable.isDisplayed()).toBe(true);
+		var cmd1 = browser.findElement(by.id("cmd2"));
+		expect(cmd1.isDisplayed()).toBe(true);
+		cmd1.click();
 		var typeToTicket1_1 = browser.findElement(by.id("typeToTicket1_1"));
 		expect(typeToTicket1_1.isDisplayed()).toBe(true);
 		var priceToTicket1_1 = browser.findElement(by.id("priceToTicket1_1"));
@@ -68,14 +70,14 @@ describe('commands view' , function () {
 		expect(bt_print.isDisplayed()).toBe(true);
 	});
 
-	it('should cancel a command', function(){
+	it('should cancel a command and view a notification', function(){
 		var bt_account = browser.findElement(by.id("bt_account"));
 		expect(bt_account.isDisplayed()).toBe(true);
 		bt_account.click();
 		var myCommands = browser.findElement(by.id("bt_mineOrders"));
 		expect(myCommands.isDisplayed()).toBe(true);
 		myCommands.click();
-		var cmd1 = browser.findElement(by.id("cmd1"));
+		var cmd1 = browser.findElement(by.id("cmd2"));
 		expect(cmd1.isDisplayed()).toBe(true);
 		cmd1.click();
 		var cancel = browser.findElement(by.id("cancel"));
@@ -83,11 +85,13 @@ describe('commands view' , function () {
 		cancel.click();
 		var alertDialog = browser.switchTo().alert();
 		alertDialog.accept();
-		browser.sleep(1000);
-		/*var cmdC1 = browser.findElement(by.id("cmdC1"));
-		expect(cmdC1.isDisplayed()).toBe(true);
-		cmdC1.getText().then(function(text){
-			expect(text == "Valide").toBe(true); //Because date has been passed
-		});*/
+		browser.sleep(3000);
+		var notif = browser.findElement(by.className("message"));
+		expect(notif.isDisplayed()).toBe(true);
+		//var cmdC1 = browser.findElement(by.id("cmdC1"));
+		//expect(cmdC1.isDisplayed()).toBe(true);
+		//cmdC1.getText().then(function(text){
+		//	expect(text == "Valide").toBe(true); //Because date has been passed
+		//});
 	});
 });

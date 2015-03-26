@@ -7,10 +7,14 @@ var imageModel = require('./../../../../models.js').imageModel;
 var ticketModel = require('./../../../../models.js').ticketModel;
 var assert = require("assert");
 var ObjectID = require('mongodb').ObjectID;
+var userRefApiID = require('./../../../../../config.js').userRefApiID;
+var mongoTestAdress = require('./../../../../../config.js').mongoTestAdress;
+var mongoTestNum = require('./../../../../../config.js').mongoTestNum;
+var mongoTestName = require('./../../../../../config.js').mongoTestName;
 
-var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
+var mongoclient = new MongoClient(new Server(mongoTestAdress, mongoTestNum), {native_parser: true});
 mongoclient.open(function(err, mongoclient) {
-	var db = mongoclient.db("test_mongodb");
+	var db = mongoclient.db(mongoTestName);
 	db.collection('event', function(err, collection) {
 		if (collection) {
 			collection.remove({}, function(err,removed) {
@@ -55,7 +59,7 @@ mongoclient.open(function(err, mongoclient) {
 			});
 			collection.insert([
 			{
-				apiID: 'swiPjk21RqmEPu21KVi84w',
+				apiID: userRefApiID,
 				inscriptionDate: '1424339270481',
 				photo: {
 					filetype : "image/jpeg",
@@ -87,7 +91,9 @@ mongoclient.open(function(err, mongoclient) {
 						tickets: null
 					}],
 					canceled: false,
-					partiallyCanceled: false
+					partiallyCanceled: false,
+					charge_id: "",
+					buy: false
 				}]
 			}
 			], function (err, result) {})
@@ -181,7 +187,9 @@ mongoclient.open(function(err, mongoclient) {
 															tickets: ticketDocs[0]._id
 														}],
 														canceled: false,
-														partiallyCanceled: false
+														partiallyCanceled: false,
+														charge_id: "",
+														buy: false
 													}]
 												}
 											}, function(err, result){});

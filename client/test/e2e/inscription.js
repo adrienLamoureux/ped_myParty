@@ -3,7 +3,7 @@ describe('Inscription' , function () {
 	beforeEach(function(){
 		browser.get('http://localhost:5000/#/home');
 	});
-/*
+
 	it('inscription of a new user', function(){ // Verify route redirection
 		browser.get('http://localhost:5000/#/signup');
 		var first_name = browser.findElement(by.name('first_name'));
@@ -12,17 +12,21 @@ describe('Inscription' , function () {
 		expect(login.isDisplayed()).toBe(true);
 		var password = browser.findElement(by.name('password'));
 		expect(password.isDisplayed()).toBe(true);
+		var password2 = browser.findElement(by.name('password2'));
+		expect(password.isDisplayed()).toBe(true);
 		var createBtn = browser.findElement(by.buttonText('Créer'));
 		expect(createBtn.isDisplayed()).toBe(true);
 		first_name.sendKeys("toto");
 		login.sendKeys("testLogin");
 		password.sendKeys("password");
+		password2.sendKeys("password");
 		expect(first_name.getAttribute('value')).toBe('toto');
 		expect(login.getAttribute('value')).toBe('testLogin');
 		expect(password.getAttribute('value')).toBe('password');
+		expect(password2.getAttribute('value')).toBe('password');	
 		createBtn.click();
 	});
-*/
+
 	it('should connect and disconnect as a user', function(){
 		browser.get('http://localhost:5000/#/login');
 		var login = browser.findElement(by.name('login'));

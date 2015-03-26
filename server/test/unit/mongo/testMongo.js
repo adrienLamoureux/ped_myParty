@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
+var mongoTestAdress = require('./../../../../config.js').mongoTestAdress;
+var mongoTestNum = require('./../../../../config.js').mongoTestNum;
+var mongoTestName = require('./../../../../config.js').mongoTestName;
 
-mongoose.connect('mongodb://localhost:27017/test_mongodb', function(err){
+var mongoURL = 'mongodb://'+mongoTestAdress+':'+mongoTestNum.toString()+'/'+mongoTestName;
+mongoose.connect(mongoURL, function(err){
 	if(err){
 		console.error("Failed to connect to MongoDB");
 		console.log(err);

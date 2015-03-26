@@ -1,6 +1,8 @@
 describe('user view' , function () {
 
 	it('should access to the profil information', function(){
+		browser.get('http://localhost:5000/#/');
+		browser.sleep(200);
 		var bt_account = browser.findElement(by.id("bt_account"));
 		expect(bt_account.isDisplayed()).toBe(true);
 		bt_account.click();
@@ -26,6 +28,8 @@ describe('user view' , function () {
 	});
 
 	it('should modify the user profil', function(){
+		browser.get('http://localhost:5000/#/');
+		browser.sleep(200);
 		var bt_account = browser.findElement(by.id("bt_account"));
 		expect(bt_account.isDisplayed()).toBe(true);
 		bt_account.click();
