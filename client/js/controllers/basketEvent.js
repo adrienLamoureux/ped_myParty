@@ -330,22 +330,21 @@ app.controller('BasketEventCtrl', ['$rootScope', '$scope', 'User','Event', 'Comm
 											mongoUser = res;
 											$location.path('/payment/' + $scope.userCmd._id);
 										}, function (err){
-
 											$scope.inValidation=false;
-											//console.log(err);
+											console.log(err);
 										});																
 									}, 1000);	
 								});
 							}, function (err){
 								$scope.inValidation=false;
-								//console.log (err);
+								console.log (err);
 							});
 						});
 					});
 				});
 			}, function (err){
 				$scope.inValidation=false;
-				//console.log(err);
+				console.log(err);
 			});
 		}else{
 			$scope.inValidation=false;

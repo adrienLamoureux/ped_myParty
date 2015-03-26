@@ -66,7 +66,7 @@ app.controller('UserCtrl', ['$scope', '$routeParams','$window', '$rootScope', '$
 				"first_name": newName,
 				"last_name": newLastName
 			},function (err, res){
-			if(err) console.log(err);
+				if(err) console.log(err);
 			})
 		}
 		else $scope.errorMsg = true;

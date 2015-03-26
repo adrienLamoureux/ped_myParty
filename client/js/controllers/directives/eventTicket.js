@@ -5,7 +5,6 @@ app.controller('EventTicketCtrl', ['$scope', '$routeParams','Event', 'Ticket', '
 	
 	var urlDeploy = $location.$$protocol + "://" + $location.$$host + ":" + $location.$$port + "/";
 	$scope.qrcode = urlDeploy + "#/event/" + $routeParams.id + "/ticket/" + $routeParams.idt + "/validate";
-	console.log($scope.qrcode);
 	if(angular.isDefined($routeParams.id) && angular.isDefined($routeParams.idt)){
 		Event.get({id:$routeParams.id}, function(data){
 			$scope.event = data;
