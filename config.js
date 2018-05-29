@@ -1,4 +1,4 @@
-var mongoAdress = "mongodb://adrien:ped_adrien@ds039341.mongolab.com:39341/ped_myparty/mongodb";
+var mongoAdress = "mongodb://adrien:ped_adrien@ds039341.mlab.com:39341/ped_myparty";
 var serverPort = "5000";
 var apiID = "54f5bfbac1eb6";
 var userRefApiID = "swiPjk21RqmEPu21KVi84w";
